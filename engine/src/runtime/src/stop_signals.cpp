@@ -10,9 +10,9 @@
 namespace instantee::runtime {
 namespace {
 std::atomic_bool active{false};
-constexpr diagnostics::Error unavailable{
-    diagnostics::ExitCode::export_failure, "signal_bridge_unavailable",
-    "signals", "Cannot start the process signal bridge"};
+const diagnostics::Error unavailable{diagnostics::ExitCode::export_failure,
+                                     "signal_bridge_unavailable", "signals",
+                                     "Cannot start the process signal bridge"};
 } // namespace
 
 struct StopSignals::Impl {

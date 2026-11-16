@@ -87,7 +87,7 @@ using instantee::spike::transfer::SharedSurfaceRenderer;
     return 6;
   }
   const auto denied = lease->take_bgra8();
-  if (denied || denied.error().exit_code != ExitCode::invalid_input ||
+  if (denied || denied.error().exit_code != ExitCode::cancelled ||
       denied.error().code != "cancelled") {
     return 7;
   }

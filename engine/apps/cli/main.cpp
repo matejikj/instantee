@@ -1,4 +1,5 @@
 #include "cli.hpp"
+#include <instantee/diagnostics/exception_boundary.hpp>
 #include <instantee/export_apple/workspace.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/runtime/stop_signals.hpp>
@@ -17,13 +18,12 @@ using instantee::diagnostics::ExitCode;
 
 #if defined(INSTANTEE_SPIKE_BENCHMARK)
 constexpr auto tool = "spike-benchmark";
-constexpr Error unavailable{ExitCode::invalid_input, "benchmark_unavailable",
-                            "benchmark",
-                            "Export measurement is not implemented"};
+const Error unavailable{ExitCode::invalid_input, "benchmark_unavailable",
+                        "benchmark", "Export measurement is not implemented"};
 #else
 constexpr auto tool = "spike-render";
-constexpr Error unavailable{ExitCode::gpu_failure, "renderer_unavailable",
-                            "render", "Metal rendering is not implemented"};
+const Error unavailable{ExitCode::gpu_failure, "renderer_unavailable", "render",
+                        "Metal rendering is not implemented"};
 #endif
 
 // Only static project text reaches this allocation-free diagnostic boundary.
@@ -142,14 +142,7 @@ int main(int argc, char **argv) {
       return fail(signals.error());
     }
     return run(argc, argv, stop.get_token());
-  } catch (const std::bad_alloc &) {
-    return fail({ExitCode::export_failure, "out_of_memory", "cli",
-                 "Allocation failed"});
-  } catch (const std::exception &) {
-    return fail({ExitCode::export_failure, "unexpected_exception", "cli",
-                 "Unexpected library exception"});
   } catch (...) {
-    return fail({ExitCode::export_failure, "unexpected_exception", "cli",
-                 "Unexpected exception"});
+    return fail(instantee::diagnostics::map_current_exception("cli"));
   }
 }

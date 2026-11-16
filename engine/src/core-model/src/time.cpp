@@ -6,13 +6,17 @@
 namespace instantee::core {
 namespace {
 
-constexpr diagnostics::Error invalid_rate{
+const diagnostics::Error kInvalidRate{
     diagnostics::ExitCode::invalid_input, "invalid_frame_rate", "time",
     "Frame rate numerator and denominator must be non-zero"};
 
-constexpr diagnostics::Error pts_overflow{
+const diagnostics::Error kPtsOverflow{
     diagnostics::ExitCode::invalid_input, "pts_overflow", "time",
     "Presentation timestamp multiplication overflowed"};
+
+const diagnostics::Error kFrameIndexOverflow{
+    diagnostics::ExitCode::invalid_input, "frame_index_overflow", "time",
+    "Frame index addition overflowed"};
 
 [[nodiscard]] constexpr bool checked_mul(std::uint64_t lhs, std::uint64_t rhs,
                                          std::uint64_t &out) noexcept {
@@ -33,6 +37,22 @@ constexpr diagnostics::Error pts_overflow{
 
 } // namespace
 
+std::expected<FrameIndex, diagnostics::Error>
+FrameIndex::checked_add(FrameIndex base, std::uint64_t delta) noexcept {
+  if (delta > std::numeric_limits<std::uint64_t>::max() - base.value()) {
+    return std::unexpected(kFrameIndexOverflow);
+  }
+  return FrameIndex{base.value() + delta};
+}
+
+std::expected<FrameRate, diagnostics::Error>
+FrameRate::make(std::uint32_t numerator, std::uint32_t denominator) noexcept {
+  if (numerator == 0U || denominator == 0U) {
+    return std::unexpected(kInvalidRate);
+  }
+  return FrameRate{numerator, denominator};
+}
+
 std::expected<RationalTime, diagnostics::Error>
 RationalTime::make(std::uint64_t numerator,
                    std::uint64_t denominator) noexcept {
@@ -45,18 +65,18 @@ RationalTime::make(std::uint64_t numerator,
 }
 
 RationalTime RationalTime::reduced() const noexcept {
-  const auto divisor = std::gcd(numerator, denominator);
-  return RationalTime{numerator / divisor, denominator / divisor};
+  const auto divisor = std::gcd(numerator_, denominator_);
+  return RationalTime{numerator_ / divisor, denominator_ / divisor};
 }
 
 bool operator==(RationalTime lhs, RationalTime rhs) noexcept {
-  return widen(lhs.numerator) * rhs.denominator ==
-         widen(rhs.numerator) * lhs.denominator;
+  return widen(lhs.numerator_) * rhs.denominator_ ==
+         widen(rhs.numerator_) * lhs.denominator_;
 }
 
 std::strong_ordering operator<=>(RationalTime lhs, RationalTime rhs) noexcept {
-  const auto left = widen(lhs.numerator) * rhs.denominator;
-  const auto right = widen(rhs.numerator) * lhs.denominator;
+  const auto left = widen(lhs.numerator_) * rhs.denominator_;
+  const auto right = widen(rhs.numerator_) * lhs.denominator_;
   if (left < right) {
     return std::strong_ordering::less;
   }
@@ -69,7 +89,7 @@ std::strong_ordering operator<=>(RationalTime lhs, RationalTime rhs) noexcept {
 std::expected<FrameClock, diagnostics::Error>
 FrameClock::create(FrameRate rate) noexcept {
   if (!rate.valid()) {
-    return std::unexpected(invalid_rate);
+    return std::unexpected(kInvalidRate);
   }
   return FrameClock{rate};
 }
@@ -81,11 +101,11 @@ FrameClock FrameClock::media_30_1() noexcept {
 std::expected<RationalTime, diagnostics::Error>
 FrameClock::pts(FrameIndex index) const noexcept {
   std::uint64_t scaled = 0;
-  if (!checked_mul(index, static_cast<std::uint64_t>(rate_.denominator),
-                   scaled)) {
-    return std::unexpected(pts_overflow);
+  if (!checked_mul(index.value(),
+                   static_cast<std::uint64_t>(rate_.denominator()), scaled)) {
+    return std::unexpected(kPtsOverflow);
   }
-  return RationalTime::make(scaled, rate_.numerator);
+  return RationalTime::make(scaled, rate_.numerator());
 }
 
 std::expected<RationalTime, diagnostics::Error>

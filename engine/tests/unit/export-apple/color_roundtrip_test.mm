@@ -1,3 +1,4 @@
+#include <instantee/core_model/time.hpp>
 #include <instantee/export_apple/color_path.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>
@@ -17,6 +18,7 @@
 
 namespace {
 
+using instantee::core::FrameIndex;
 using instantee::spike::apple::Bgra8Color;
 using instantee::spike::apple::bgra_within_tolerance;
 using instantee::spike::apple::decode_video_frames_bgra;
@@ -105,8 +107,8 @@ using instantee::spike::metal::TestPatternRenderer;
   std::vector<std::uint8_t> rgba(bytes);
   std::vector<std::uint8_t> bgra(bytes);
 
-  for (std::uint64_t frame = 0; frame < colors.size(); ++frame) {
-    const auto color = colors[static_cast<std::size_t>(frame)];
+  for (FrameIndex frame{0}; frame < FrameIndex{colors.size()}; ++frame) {
+    const auto color = colors[static_cast<std::size_t>(frame.value())];
     for (std::size_t i = 0; i < bytes; i += 4U) {
       rgba[i] = color.r;
       rgba[i + 1U] = color.g;
@@ -213,8 +215,8 @@ using instantee::spike::metal::TestPatternRenderer;
     return 36;
   }
   auto buffer = pool->acquire();
-  if (!buffer || !buffer->fill_bgra8(bgra) || !writer->append(*buffer, 0) ||
-      !writer->finish()) {
+  if (!buffer || !buffer->fill_bgra8(bgra) ||
+      !writer->append(*buffer, FrameIndex{0}) || !writer->finish()) {
     return 37;
   }
 

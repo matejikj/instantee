@@ -180,7 +180,8 @@ int native_wait(std::string_view mode, export_core::OutputTransaction &tx,
     return 37;
   }
   std::vector<std::uint8_t> pixels(1080U * 1920U * 4U, 128);
-  if (!buffer->fill_bgra8(pixels) || !writer->append(*buffer, 0, stop)) {
+  if (!buffer->fill_bgra8(pixels) ||
+      !writer->append(*buffer, core::FrameIndex{0}, stop)) {
     return 38;
   }
   if (mode == "published") {
@@ -188,8 +189,9 @@ int native_wait(std::string_view mode, export_core::OutputTransaction &tx,
       return 39;
     }
     auto timeline = apple::extract_presentation_timeline(tx.staging_file());
-    if (!timeline || !apple::validate_presentation_timeline(
-                         *timeline, core::FrameClock::media_30_1(), 1)) {
+    if (!timeline ||
+        !apple::validate_presentation_timeline(
+            *timeline, core::FrameClock::media_30_1(), core::FrameIndex{1})) {
       return 40;
     }
     auto result = tx.commit(stop);

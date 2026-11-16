@@ -95,7 +95,7 @@ inspect_media(const std::filesystem::path &path);
 // the video track. PTS values are exact rationals (seconds).
 struct PresentationTimeline {
   std::vector<core::RationalTime> presentation_timestamps;
-  core::RationalTime asset_duration{0, 1};
+  core::RationalTime asset_duration = core::RationalTime::zero();
 };
 
 // Decodes the video track to per-frame BGRA samples and records presentation

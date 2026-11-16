@@ -213,7 +213,9 @@ int run(const std::filesystem::path &directory, std::uint32_t frames,
         auto buffer = pool->acquire(stop.get_token());
         require(buffer.has_value() && buffer->fill_bgra8(bgra).has_value());
         require(
-            writer->append(*buffer, accepted, stop.get_token()).has_value());
+            writer
+                ->append(*buffer, core::FrameIndex{accepted}, stop.get_token())
+                .has_value());
         if (telemetry) {
           frame->timing.sink_accepted_ns = now_ns(epoch);
           static_cast<void>(timings->record(frame->timing));
@@ -233,9 +235,10 @@ int run(const std::filesystem::path &directory, std::uint32_t frames,
   require(timeline.has_value() && info && info->h264 && info->width == 1080 &&
           info->height == 1920 && info->video_track_count == 1 &&
           info->audio_track_count == 0);
-  require(spike::apple::validate_presentation_timeline(
-              *timeline, core::FrameClock::media_30_1(), frames)
-              .has_value());
+  require(
+      spike::apple::validate_presentation_timeline(
+          *timeline, core::FrameClock::media_30_1(), core::FrameIndex{frames})
+          .has_value());
   counters.verified = frames;
   auto publication = tx->commit(stop.get_token());
   counters.published = publication && publication->published;

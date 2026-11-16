@@ -18,6 +18,7 @@
 namespace {
 
 using instantee::core::FrameClock;
+using instantee::core::FrameIndex;
 using instantee::spike::apple::extract_presentation_timeline;
 using instantee::spike::apple::flatten_straight_rgba8_to_opaque_bgra8;
 using instantee::spike::apple::inspect_media;
@@ -75,9 +76,9 @@ int main() {
       return 5;
     }
 
-    for (std::uint64_t frame = 0; frame < kFrameCount; ++frame) {
+    for (FrameIndex frame{0}; frame < FrameIndex{kFrameCount}; ++frame) {
       // Spike patterns only define frames 0 and 1; alternate for motion.
-      const auto pattern_index = static_cast<std::uint32_t>(frame & 1U);
+      const auto pattern_index = static_cast<std::uint32_t>(frame.value() & 1U);
       auto rgba = renderer->render(pattern_index);
       if (!rgba || !rgba->valid_dimensions()) {
         return 6;
@@ -115,8 +116,9 @@ int main() {
     }
 
     const auto timeline = extract_presentation_timeline(output);
-    if (!timeline || !validate_presentation_timeline(
-                         *timeline, FrameClock::media_30_1(), kFrameCount)) {
+    if (!timeline ||
+        !validate_presentation_timeline(*timeline, FrameClock::media_30_1(),
+                                        FrameIndex{kFrameCount})) {
       return 14;
     }
 

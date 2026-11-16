@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T23:29:27.331022+00:00",
+  "updated_at_utc": "2026-11-16T23:49:00.758736+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2850,24 +2850,103 @@
       ]
     },
     "P1-003": {
-      "status": "todo",
+      "status": "done",
+      "delivery_slice": "P1-S2",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Unit/property + error ownership tests",
       "acceptance": {
-        "criterion": "Invalid values cannot be constructed silently; overflow is handled explicitly.",
-        "met": null
+        "criterion": "Invalid values cannot be constructed silently; overflow and error context have explicit ownership and a tested lifetime rule.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Invalid FrameRate/RationalTime cannot be constructed silently",
+            "met": true,
+            "evidence": [
+              "engine/src/core-model/include/instantee/core_model/time.hpp",
+              "engine/tests/unit/core-model/time_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Overflow and error context ownership/lifetime",
+            "met": true,
+            "evidence": [
+              "engine/src/diagnostics/include/instantee/diagnostics/error.hpp",
+              "engine/tests/unit/diagnostics/error_test.cpp",
+              "implementation-evidence/P1-003/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-003/README.md",
+        "implementation-evidence/P1-003/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "tools/dev/check.py change matrix",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-003/checks.json"
+        },
+        {
+          "name": "core-model time/units tests",
+          "status": "pass"
+        },
+        {
+          "name": "diagnostics ownership tests",
+          "status": "pass"
+        }
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement."
+      ]
     },
     "P1-004": {
-      "status": "todo",
+      "status": "done",
+      "delivery_slice": "P1-S2",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "ID fixture tests",
       "acceptance": {
         "criterion": "Repeated compilation preserves stable IDs and collisions produce diagnostics.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Stable opaque IDs preserve author spelling",
+            "met": true,
+            "evidence": "engine/src/core-model/include/instantee/core_model/ids.hpp"
+          },
+          {
+            "criterion": "Namespace collisions return diagnostics",
+            "met": true,
+            "evidence": [
+              "engine/src/core-model/src/ids.cpp",
+              "engine/tests/unit/core-model/ids_test.cpp",
+              "implementation-evidence/P1-004/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-004/README.md",
+        "implementation-evidence/P1-004/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "tools/dev/check.py change matrix (shared)",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-004/checks.json"
+        },
+        {
+          "name": "ID fixture tests",
+          "status": "pass"
+        }
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement."
+      ]
     },
     "P1-005": {
       "status": "todo",
@@ -3010,14 +3089,50 @@
       "blockers": []
     },
     "P1-019": {
-      "status": "todo",
+      "status": "done",
+      "delivery_slice": "P1-S2",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Error contract tests",
       "acceptance": {
-        "criterion": "Error messages are stable, typed and covered by snapshot tests.",
-        "met": null
+        "criterion": "Error reports are stable, typed and covered by snapshot tests before validate/compile wiring.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Typed taxonomy including cancelled/closed/blocked/durability-unknown",
+            "met": true,
+            "evidence": "engine/src/diagnostics/include/instantee/diagnostics/error.hpp"
+          },
+          {
+            "criterion": "Stable snapshot tests and exception boundary mapping",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/diagnostics/error_test.cpp",
+              "engine/src/diagnostics/include/instantee/diagnostics/exception_boundary.hpp",
+              "implementation-evidence/P1-019/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-019/README.md",
+        "implementation-evidence/P1-019/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "tools/dev/check.py change matrix (shared)",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-019/checks.json"
+        },
+        {
+          "name": "error contract/snapshot tests",
+          "status": "pass"
+        }
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. Shared sanitizer matrix with the slice companion entries."
+      ]
     },
     "P1-021": {
       "status": "todo",

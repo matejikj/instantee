@@ -1,5 +1,8 @@
+#include <instantee/core_model/ids.hpp>
 #include <instantee/core_model/time.hpp>
+#include <instantee/core_model/units.hpp>
 #include <instantee/diagnostics/error.hpp>
+#include <instantee/diagnostics/exception_boundary.hpp>
 #include <instantee/export_apple/color_path.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>

@@ -24,8 +24,8 @@ namespace {
 constexpr const char *kPhase = "video_writer";
 
 [[nodiscard]] CMTime to_cm_time(core::RationalTime pts) noexcept {
-  return CMTimeMake(static_cast<int64_t>(pts.numerator),
-                    static_cast<int32_t>(pts.denominator));
+  return CMTimeMake(static_cast<int64_t>(pts.numerator()),
+                    static_cast<int32_t>(pts.denominator()));
 }
 
 [[nodiscard]] std::expected<core::RationalTime, Error>
@@ -286,17 +286,17 @@ std::expected<void, Error> VideoWriter::append(PixelBuffer &buffer,
   if (!pts) {
     return std::unexpected(pts.error());
   }
-  const auto frame_duration = impl_->clock.pts(1);
+  const auto frame_duration = impl_->clock.pts(core::FrameIndex{1});
   if (!frame_duration) {
     return std::unexpected(frame_duration.error());
   }
-  if (pts->numerator >
+  if (pts->numerator() >
           static_cast<std::uint64_t>(std::numeric_limits<int64_t>::max()) ||
-      pts->denominator >
+      pts->denominator() >
           static_cast<std::uint64_t>(std::numeric_limits<int32_t>::max()) ||
-      frame_duration->numerator >
+      frame_duration->numerator() >
           static_cast<std::uint64_t>(std::numeric_limits<int64_t>::max()) ||
-      frame_duration->denominator >
+      frame_duration->denominator() >
           static_cast<std::uint64_t>(std::numeric_limits<int32_t>::max())) {
     return std::unexpected(
         Error{ExitCode::invalid_input, "pts_out_of_range", kPhase,
@@ -676,12 +676,12 @@ std::expected<void, Error>
 validate_presentation_timeline(const PresentationTimeline &timeline,
                                const core::FrameClock &clock,
                                core::FrameIndex expected_frame_count) {
-  if (expected_frame_count == 0U) {
+  if (expected_frame_count == core::FrameIndex{0}) {
     return std::unexpected(Error{ExitCode::invalid_input, "empty_timeline",
                                  kPhase,
                                  "Expected frame count must be non-zero"});
   }
-  if (timeline.presentation_timestamps.size() != expected_frame_count) {
+  if (timeline.presentation_timestamps.size() != expected_frame_count.value()) {
     return std::unexpected(Error{ExitCode::export_failure,
                                  "frame_count_mismatch", kPhase,
                                  "Extracted frame count does not match the "
@@ -699,12 +699,12 @@ validate_presentation_timeline(const PresentationTimeline &timeline,
                                  "frame clock"});
   }
 
-  for (core::FrameIndex index = 0; index < expected_frame_count; ++index) {
+  for (core::FrameIndex index{0}; index < expected_frame_count; ++index) {
     const auto expected_pts = clock.pts(index);
     if (!expected_pts) {
       return std::unexpected(expected_pts.error());
     }
-    const auto &actual = timeline.presentation_timestamps[index];
+    const auto &actual = timeline.presentation_timestamps[index.value()];
     if (actual != *expected_pts) {
       return std::unexpected(Error{ExitCode::export_failure, "pts_mismatch",
                                    kPhase,
@@ -713,13 +713,15 @@ validate_presentation_timeline(const PresentationTimeline &timeline,
     }
   }
 
-  if (timeline.presentation_timestamps.front() != core::RationalTime{0, 1}) {
+  if (timeline.presentation_timestamps.front() !=
+      *core::RationalTime::make(0, 1)) {
     return std::unexpected(Error{ExitCode::export_failure, "first_pts_mismatch",
                                  kPhase,
                                  "First presentation timestamp must be "
                                  "zero"});
   }
-  const auto last_expected = clock.pts(expected_frame_count - 1U);
+  const auto last_expected =
+      clock.pts(core::FrameIndex{expected_frame_count.value() - 1U});
   if (!last_expected) {
     return std::unexpected(last_expected.error());
   }

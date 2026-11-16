@@ -117,9 +117,13 @@ composes both for the isolated Metal/IOSurface experiment without making either
 backend depend on the other. Composition of Metal readback into encoder pixel
 buffers and transactional publish belongs in executables or dedicated test
 targets. The executables compose the parser and adapters; application policy
-stays at that composition boundary. Diagnostic `Error`/`ExitCode` types live in `instantee::diagnostics`. Spike
+stays at that composition boundary. Diagnostic `Error`/`ExitCode`/`ErrorKind` types live in `instantee::diagnostics`.
+`Error` owns its code/phase/message and optional JSON-path/shot/node/frame
+context so diagnostics remain valid after the creating frame returns. Spike
 composition modules (`instantee::spike::*`) may import them; production modules
-must not depend on spike namespaces or spike libraries.
+must not depend on spike namespaces or spike libraries. Strong `FrameIndex`,
+validated `FrameRate`/`RationalTime`, units and typed document IDs live in
+`core-model`.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

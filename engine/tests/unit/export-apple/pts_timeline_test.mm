@@ -25,8 +25,8 @@ using instantee::spike::apple::VideoWriter;
 using instantee::spike::apple::VideoWriterConfig;
 
 constexpr std::uint32_t kPoolCapacity = 8;
-constexpr FrameIndex kFrames60s = 1800;  // 60 s at 30/1
-constexpr FrameIndex kFrames300s = 9000; // 300 s at 30/1
+constexpr FrameIndex kFrames60s{1800};  // 60 s at 30/1
+constexpr FrameIndex kFrames300s{9000}; // 300 s at 30/1
 
 [[nodiscard]] std::filesystem::path make_temp_mp4(const char *name) {
   const auto directory =
@@ -62,7 +62,7 @@ constexpr FrameIndex kFrames300s = 9000; // 300 s at 30/1
               PixelBufferFormat::media_1080x1920().height) *
           4U,
       0x20);
-  for (FrameIndex frame = 0; frame < frame_count; ++frame) {
+  for (FrameIndex frame{0}; frame < frame_count; ++frame) {
     auto buffer = pool->acquire();
     if (!buffer || !buffer->fill_bgra8(solid)) {
       return 3;
@@ -100,9 +100,10 @@ constexpr FrameIndex kFrames300s = 9000; // 300 s at 30/1
     return 21;
   }
 
-  if (timeline->presentation_timestamps.size() != frame_count ||
-      timeline->presentation_timestamps.front() != RationalTime{0, 1} ||
-      timeline->asset_duration != RationalTime{frame_count, 30}) {
+  if (timeline->presentation_timestamps.size() != frame_count.value() ||
+      timeline->presentation_timestamps.front() != *RationalTime::make(0, 1) ||
+      timeline->asset_duration !=
+          *RationalTime::make(frame_count.value(), 30)) {
     return 22;
   }
 
@@ -114,49 +115,53 @@ constexpr FrameIndex kFrames300s = 9000; // 300 s at 30/1
 [[nodiscard]] int check_validator_rejects_faults() {
   const auto clock = FrameClock::media_30_1();
   PresentationTimeline good{};
-  good.presentation_timestamps = {RationalTime{0, 30}, RationalTime{1, 30},
-                                  RationalTime{2, 30}};
-  good.asset_duration = RationalTime{3, 30};
-  if (!validate_presentation_timeline(good, clock, 3)) {
+  good.presentation_timestamps = {*RationalTime::make(0, 30),
+                                  *RationalTime::make(1, 30),
+                                  *RationalTime::make(2, 30)};
+  good.asset_duration = *RationalTime::make(3, 30);
+  if (!validate_presentation_timeline(good, clock, FrameIndex{3})) {
     return 30;
   }
 
   PresentationTimeline wrong_count = good;
   wrong_count.presentation_timestamps.pop_back();
-  if (validate_presentation_timeline(wrong_count, clock, 3) ||
-      validate_presentation_timeline(wrong_count, clock, 3).error().code !=
-          "frame_count_mismatch") {
+  if (validate_presentation_timeline(wrong_count, clock, FrameIndex{3}) ||
+      validate_presentation_timeline(wrong_count, clock, FrameIndex{3})
+              .error()
+              .code != "frame_count_mismatch") {
     return 31;
   }
 
   PresentationTimeline gap = good;
-  gap.presentation_timestamps[1] = RationalTime{2, 30};
-  gap.presentation_timestamps[2] = RationalTime{3, 30};
+  gap.presentation_timestamps[1] = *RationalTime::make(2, 30);
+  gap.presentation_timestamps[2] = *RationalTime::make(3, 30);
   // Keep declared duration correct so the PTS mismatch is the first failure.
-  if (validate_presentation_timeline(gap, clock, 3) ||
-      validate_presentation_timeline(gap, clock, 3).error().code !=
+  if (validate_presentation_timeline(gap, clock, FrameIndex{3}) ||
+      validate_presentation_timeline(gap, clock, FrameIndex{3}).error().code !=
           "pts_mismatch") {
     return 32;
   }
 
   PresentationTimeline duplicate = good;
-  duplicate.presentation_timestamps[2] = RationalTime{1, 30};
-  if (validate_presentation_timeline(duplicate, clock, 3) ||
-      validate_presentation_timeline(duplicate, clock, 3).error().code !=
-          "pts_mismatch") {
+  duplicate.presentation_timestamps[2] = *RationalTime::make(1, 30);
+  if (validate_presentation_timeline(duplicate, clock, FrameIndex{3}) ||
+      validate_presentation_timeline(duplicate, clock, FrameIndex{3})
+              .error()
+              .code != "pts_mismatch") {
     return 33;
   }
 
   PresentationTimeline wrong_duration = good;
-  wrong_duration.asset_duration = RationalTime{2, 30};
-  if (validate_presentation_timeline(wrong_duration, clock, 3) ||
-      validate_presentation_timeline(wrong_duration, clock, 3).error().code !=
-          "duration_mismatch") {
+  wrong_duration.asset_duration = *RationalTime::make(2, 30);
+  if (validate_presentation_timeline(wrong_duration, clock, FrameIndex{3}) ||
+      validate_presentation_timeline(wrong_duration, clock, FrameIndex{3})
+              .error()
+              .code != "duration_mismatch") {
     return 34;
   }
 
-  if (validate_presentation_timeline(good, clock, 0) ||
-      validate_presentation_timeline(good, clock, 0).error().code !=
+  if (validate_presentation_timeline(good, clock, FrameIndex{0}) ||
+      validate_presentation_timeline(good, clock, FrameIndex{0}).error().code !=
           "empty_timeline") {
     return 35;
   }

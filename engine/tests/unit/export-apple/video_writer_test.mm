@@ -1,3 +1,4 @@
+#include <instantee/core_model/time.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>
 
@@ -17,6 +18,7 @@
 
 namespace {
 
+using instantee::core::FrameIndex;
 using instantee::spike::apple::inspect_media;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
@@ -107,10 +109,10 @@ using instantee::spike::apple::detail::PixelBufferAccess;
     return 22;
   }
 
-  for (std::uint64_t frame = 0; frame < 3; ++frame) {
+  for (FrameIndex frame{0}; frame < FrameIndex{3}; ++frame) {
     auto buffer = pool->acquire();
-    if (!buffer ||
-        fill_solid(*buffer, static_cast<std::uint8_t>(40U + frame)) != 0) {
+    if (!buffer || fill_solid(*buffer, static_cast<std::uint8_t>(
+                                           40U + frame.value())) != 0) {
       return 23;
     }
     if (!writer->append(*buffer, frame)) {

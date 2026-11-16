@@ -37,18 +37,56 @@ package is currently a buildable shell without an implemented SDK API.
 
 ## Verification
 
-Run the diagnostic workflows separately:
+Run the risk-selected checks for the current change with one command:
 
 ```sh
-cmake --workflow --preset asan-ubsan
-cmake --workflow --preset tsan
-python3 -m unittest discover -s tools/toolchain -p 'test_*.py' -v
-python3 -m unittest discover -s tools/machine-profile -p 'test_*.py' -v
-git diff --check
+tools/dev/check.py --dry-run          # show the selected checks
+tools/dev/check.py                    # run them
+tools/dev/check.py --report PATH/checks.json
+tools/dev/check.py --gate             # full matrix for a phase gate
 ```
+
+The script diffs the working tree against `--base` (default `HEAD`) and
+selects checks by risk:
+
+| Change | Added checks |
+|---|---|
+| Any change | whitespace, `clang-format` on changed native sources, release build, CTest without the long `pts` label |
+| Native sources or build files | `asan-ubsan` workflow |
+| Runtime, threads, queues, callbacks, stop/cancel | `tsan` workflow |
+| Export, timing or core model | CTest including the `pts` label |
+| Authoring or contracts | Node toolchain check, typecheck and build |
+| A Python tool directory | That directory's unit tests |
+
+Use `--asan`, `--tsan` or `--pts` to force a check that path inference cannot
+see. The report contains repository-relative commands, statuses, durations and
+CTest counts only; it never stores raw output or absolute paths. A run with an
+unavailable tool is `incomplete`, not `passed`, and must be reported as such.
+
+Measure performance only when the task asks for it: reference series for
+benchmark scenes and gates, focused benchmarks only where a task names one.
+Other changes are verified by correctness tests and make no performance claim.
 
 Machine-profile tests that require the ignored local reference evidence are
 explicitly skipped when it is unavailable. Collector regression tests still run.
+
+### Evidence levels
+
+| Level | Contents | Required for |
+|---|---|---|
+| A | Commands, tests and result plus `checks.json` | Every change |
+| B | Level A plus sanitizer results and a short ownership, lifetime or concurrency note | Native resources, threads, queues, callbacks or stop/cancel |
+| C | Reviewed package with anonymized metadata and a decision record; raw reports stay outside the repository | Phase gates, measurements, security and durability |
+
+Tracker entries point to the evidence directory and its `checks.json` rather
+than listing every file. Name individual artifacts only where an acceptance
+criterion depends on them.
+
+### Delivery slices
+
+Where the backlog groups tasks into a delivery slice, deliver the slice as one
+reviewable commit. Every task in it keeps its own acceptance, evidence and
+status in the tracker. Without a slice, deliver one task per commit.
 
 The presets use separate build directories. Sanitized runs are correctness
 diagnostics and must not be presented as release performance measurements.

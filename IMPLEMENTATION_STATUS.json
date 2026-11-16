@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T20:25:50.195939+00:00",
+  "updated_at_utc": "2026-11-16T22:19:57.556076+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -13,6 +13,98 @@
     "done"
   ],
   "policy": "Generated backlog is assignment data. null acceptance means not assessed. A phase gate requires all phase tasks, evidence and review; done inventory does not pass a phase.",
+  "current_backlog": {
+    "path": "motion_framework_sas/implementation_tasks.json",
+    "sha256": "4bdeb85ada20cd304c0f5c65a868af738e40866efa9a991dbb8e0849377e1b41",
+    "role": "Revised assignment after the P0 gate. For tasks that are not started, its acceptance, verification, delivery_slice, measurement and evidence_tier_min fields are authoritative; refresh the tracker criterion when a task starts."
+  },
+  "evidence_policy": {
+    "tiers": {
+      "A": "Tracker entry with commands, tests and result plus checks.json written by tools/dev/check.py.",
+      "B": "Tier A plus risk-selected sanitizer results and a short ownership, lifetime or concurrency note.",
+      "C": "Full reviewed package: anonymized metadata, raw reports kept outside the repository, decision record."
+    },
+    "tier_selection": "Use at least the backlog evidence_tier_min. Raise to B when the change touches native resources, threads, queues, callbacks or stop/cancel paths. Phase gates and tasks with measurement are C.",
+    "tracker_entry": "New entries reference the evidence directory and its checks.json instead of listing every file; list individual files only for criteria that need a specific artifact.",
+    "historical_entries": "Entries completed before this policy keep their detailed evidence lists."
+  },
+  "verification_policy": {
+    "command": "tools/dev/check.py --report implementation-evidence/<ID>/checks.json",
+    "every_change": "Whitespace, clang-format on changed native sources, release build and CTest excluding the long PTS conformance label.",
+    "native_or_build_change": "Add the ASan/UBSan workflow.",
+    "concurrency_change": "Add the TSan workflow.",
+    "timing_or_export_change": "Include the PTS conformance label.",
+    "phase_gate": "Run tools/dev/check.py --gate for the full matrix.",
+    "unavailable_checks": "A report with unavailable checks is incomplete, not passed, and must be reported as such."
+  },
+  "measurement_policy": "Run reference series or benchmarks only for tasks whose backlog measurement field is reference-series or benchmark. Other tasks use correctness tests and make no performance claim.",
+  "delivery_slices": {
+    "policy": "A slice is delivered in one commit that closes all of its task IDs; each ID keeps its own acceptance, evidence and status. Phases without slices deliver one task ID per commit.",
+    "P1": [
+      {
+        "id": "P1-S1",
+        "scope": "Workspace and module boundaries",
+        "tasks": [
+          "P1-001",
+          "P1-002"
+        ]
+      },
+      {
+        "id": "P1-S2",
+        "scope": "Value types, error taxonomy and stable IDs",
+        "tasks": [
+          "P1-003",
+          "P1-019",
+          "P1-004"
+        ]
+      },
+      {
+        "id": "P1-S3",
+        "scope": "Authoring and Scene IR schemas with generated TypeScript types",
+        "tasks": [
+          "P1-005",
+          "P1-006",
+          "P1-010"
+        ]
+      },
+      {
+        "id": "P1-S4",
+        "scope": "Parser, security limits and semantic validation",
+        "tasks": [
+          "P1-007",
+          "P1-009",
+          "P1-008"
+        ]
+      },
+      {
+        "id": "P1-S5",
+        "scope": "SDK, time normalization, canonicalization and provenance",
+        "tasks": [
+          "P1-011",
+          "P1-012",
+          "P1-013",
+          "P1-014"
+        ]
+      },
+      {
+        "id": "P1-S6",
+        "scope": "Compiler pipeline and validate/compile CLI",
+        "tasks": [
+          "P1-016",
+          "P1-017"
+        ]
+      },
+      {
+        "id": "P1-S7",
+        "scope": "Migrations, fixtures and phase gate",
+        "tasks": [
+          "P1-015",
+          "P1-018",
+          "P1-020"
+        ]
+      }
+    ]
+  },
   "tracker_discovery": "implementation-evidence/P0-001/tracker-discovery.json",
   "tasks": {
     "P0-001": {
@@ -4708,6 +4800,15 @@
         "implementation-evidence/repository-language/source-sha256.json"
       ],
       "roadmap_completion_changed": false
+    },
+    "development_workflow": {
+      "status": "done",
+      "scope": "Risk-selected verification command with checks.json reports; evidence levels, risk-based sanitizers, task-driven measurement and delivery slices in the backlog and tracker",
+      "evidence": [
+        "implementation-evidence/dev-workflow/"
+      ],
+      "roadmap_completion_changed": false,
+      "checks": "implementation-evidence/dev-workflow/checks.json"
     }
   },
   "acceptance_text_policy": "Acceptance descriptions are English translations of the immutable assignment identified by assignment_source. Translation does not change acceptance thresholds or task state."

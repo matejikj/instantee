@@ -28,6 +28,7 @@ class ToolchainTests(unittest.TestCase):
         workspace_tools = self.source / "tools/workspace"
         workspace_tools.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/workspace/supervise.py", workspace_tools)
+        shutil.copytree(ROOT / "tools/benchmark", self.source / "tools/benchmark")
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)
         self.build = Path(self.temporary.name) / "build"
 

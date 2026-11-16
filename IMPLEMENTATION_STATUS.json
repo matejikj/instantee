@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T15:52:33.950173+00:00",
+  "updated_at_utc": "2026-11-16T18:56:28.029404+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1920,14 +1920,248 @@
       ]
     },
     "P0-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Synthetic timestamp/counter tests produce known quantiles/formulas; missing metrics are null, lost samples invalidate certification, and telemetry overhead is measured.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Exact request-before-admission to sink-accepted samples and nearest-rank quantiles match independent known oracles",
+            "met": true,
+            "evidence": [
+              "engine/src/runtime/src/frame_samples.cpp",
+              "engine/tests/unit/runtime/frame_samples_test.cpp",
+              "tools/benchmark/test_measure.py"
+            ]
+          },
+          {
+            "criterion": "External monotonic spawn-to-wait4 wall and all-thread CPU formulas use verified output counts and retain per-process accounting",
+            "met": true,
+            "evidence": [
+              "tools/benchmark/measure.py",
+              "tools/benchmark/test_measure.py",
+              "engine/tests/unit/telemetry-apple/process_sampler_test.cpp"
+            ]
+          },
+          {
+            "criterion": "RSS byte units are corroborated; footprint is separate and unavailable metrics stay null",
+            "met": true,
+            "evidence": [
+              "engine/native/telemetry-apple/src/process_sampler.cpp",
+              "implementation-evidence/P0-016/memory-unit-verification.json",
+              "tools/benchmark/test_measure.py"
+            ]
+          },
+          {
+            "criterion": "Bounded frame/resource samples, pipeline/pool peaks and loss/error checks prevent incomplete measurements from passing",
+            "met": true,
+            "evidence": [
+              "engine/apps/metrics/main.mm",
+              "engine/native/telemetry-apple/src/process_sampler.cpp",
+              "tools/benchmark/test_measure.py"
+            ]
+          },
+          {
+            "criterion": "Real release telemetry on/off overhead is measured with all paired raw evidence retained and schema validated",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-016/overhead/overhead.json",
+              "implementation-evidence/P0-016/overhead/measurement-profile.json",
+              "tools/benchmark/compare.py",
+              "implementation-evidence/P0-016/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-016/README.md",
+        "implementation-evidence/P0-016/checks.json",
+        "implementation-evidence/P0-016/conditions.json",
+        "implementation-evidence/P0-016/dependency-verification.json",
+        "implementation-evidence/P0-016/development-overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/development-overhead/overhead.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/media-checksums.json",
+        "implementation-evidence/P0-016/memory-unit-verification.json",
+        "implementation-evidence/P0-016/overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/overhead/overhead.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/ownership-review.json",
+        "implementation-evidence/P0-016/reference-verification.json",
+        "implementation-evidence/P0-016/source-sha256.json",
+        "implementation-evidence/P0-016/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "Native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Final report ownership ASan+UBSan checks",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Isolated clean build and negative toolchain/private-header tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Machine-profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Independent metric, schema, native and privacy oracles",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Python syntax compilation",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Dependency acceptance and current implementation",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Darwin memory unit corroboration",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Release telemetry on/off comparison and full report schema",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Source correctness and resource ownership review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Pre-stage content/privacy and secret scanner review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        },
+        {
+          "name": "Staged delivery and commit metadata review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-016/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Historical inventory workspace device mapping differs; hardware/OS/SDK matched, and the actual APFS output filesystem was recorded. No reference storage equivalence is claimed.",
+        "Whole-comparison thermal and power-mode observations only; per-trial ending thermal state and quiet-host conditions unverified.",
+        "Footprint peak is the maximum sampled TASK_VM_INFO observation; resource series ends before child report serialization, while wait4 CPU and RSS high-water cover process exit.",
+        "Short test-pattern workload only; no cold/warm baseline, workload SLO, power-loss durability or performance certification.",
+        "Media and executables remain outside the repository; scalar evidence and media hashes are versioned.",
+        "System Apple frameworks/GPU internals are not fully covered by sanitizers.",
+        "clang-tidy unavailable; Clang static analyzer used. Remote CI was not executed."
+      ]
     },
     "P0-017": {
       "status": "todo",

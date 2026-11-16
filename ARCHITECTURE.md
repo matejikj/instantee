@@ -1,9 +1,9 @@
 # Repository architecture
 
 Instantee is a TypeScript authoring and C++23 runtime project. The current
-implementation contains a native feasibility workspace and a private TypeScript
-authoring package shell. Video export, the authoring API and performance
-measurement are not implemented yet.
+implementation contains a native feasibility workspace with test-pattern H.264
+export, bounded shutdown, and export measurement, plus a private TypeScript
+authoring package shell. The scene engine and authoring API are not implemented.
 
 ## Current layout
 
@@ -17,6 +17,7 @@ engine/                    Native runtime component (C++23 / Objective-C++)
   src/render-metal/        Metal device/queue/test-pattern/readback backend
   shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter (pixel-buffer pool + H.264 video writer)
+  native/telemetry-apple/  Allowlisted Mach/process resource sampler
   tests/                   Native unit, contract and subprocess tests
 third_party/metal-cpp/     Pinned metal-cpp headers with archive checksum metadata
 authoring/                 Authoring component (TypeScript)
@@ -150,3 +151,10 @@ finish waits for terminal acknowledgement; a process supervisor bounds APIs that
 cannot be interrupted safely. Publication observes stop at the serial owner's
 entry gate and preserves truthful published status thereafter. See the
 [shutdown guide](tools/workspace/README.md#interruption-and-bounded-shutdown).
+
+Frame timestamp storage and exact quantiles belong to runtime; Mach task info
+and process CPU sampling stay in the telemetry-apple adapter, whose public
+headers expose C++ values only. The spike measurement executable composes both
+with the existing backends. The Python harness owns spawn-to-wait4 accounting
+and independent formula/raw-sample validation. No sampler touches GPU callbacks
+or native encoder ownership. See the [measurement guide](tools/benchmark/README.md).

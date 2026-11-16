@@ -137,3 +137,8 @@ retirement, writer cancellation/finish, and stop after publication. Separate
 SIGKILL cases check target visibility and staging permissions/markers. A fake
 hung native call verifies watchdog escalation. Run these through CTest on a host
 with Metal and hardware-encoder access; sanitizer runs are diagnostics.
+
+The separate `spike-export-metrics` executable and [measurement harness](../benchmark/README.md)
+now exercise test-pattern export with raw frame/resource samples, external
+spawn-to-wait4 timing, and telemetry on/off trials. They do not implement the
+scene benchmark CLI or certify a baseline.

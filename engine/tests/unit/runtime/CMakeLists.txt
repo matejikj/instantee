@@ -11,3 +11,8 @@ target_link_libraries(spike_runtime_cancellation_test PRIVATE instantee::runtime
 add_test(NAME spike_runtime_cancellation COMMAND spike_runtime_cancellation_test)
 set_tests_properties(spike_runtime_cancellation PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_frame_samples_test frame_samples_test.cpp)
+target_link_libraries(spike_frame_samples_test PRIVATE instantee::runtime instantee_build_options)
+add_test(NAME spike_frame_samples COMMAND spike_frame_samples_test)
+set_tests_properties(spike_frame_samples PROPERTIES TIMEOUT 10 LABELS cpu)

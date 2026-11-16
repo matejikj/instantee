@@ -16,4 +16,7 @@
 #include <instantee/runtime/reorder_buffer.hpp>
 #include <instantee/runtime/stop_signals.hpp>
 
+#include <instantee/runtime/frame_samples.hpp>
+#include <instantee/telemetry_apple/process_sampler.hpp>
+
 int main() {}

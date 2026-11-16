@@ -1,0 +1,4 @@
+add_executable(spike_process_sampler_test process_sampler_test.cpp)
+target_link_libraries(spike_process_sampler_test PRIVATE instantee::telemetry_apple instantee_build_options)
+add_test(NAME spike_process_sampler COMMAND spike_process_sampler_test)
+set_tests_properties(spike_process_sampler PROPERTIES TIMEOUT 30 LABELS cpu)

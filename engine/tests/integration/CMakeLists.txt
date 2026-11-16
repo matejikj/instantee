@@ -15,3 +15,8 @@ add_test(NAME spike_cancellation_subprocess COMMAND "${Python3_EXECUTABLE}"
   "${PROJECT_SOURCE_DIR}/tools/workspace/supervise.py")
 set_tests_properties(spike_cancellation_subprocess PROPERTIES TIMEOUT 180
   LABELS "cpu;smoke")
+
+add_test(NAME spike_measurement COMMAND "${Python3_EXECUTABLE}"
+  "${PROJECT_SOURCE_DIR}/tools/benchmark/test_measure.py"
+  "$<TARGET_FILE:spike-export-metrics>")
+set_tests_properties(spike_measurement PROPERTIES TIMEOUT 120 LABELS "cpu;smoke")

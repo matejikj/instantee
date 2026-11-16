@@ -9,6 +9,7 @@ if(INSTANTEE_SANITIZER STREQUAL "none" AND CMAKE_BUILD_TYPE MATCHES "^(Release|R
     DEPENDS spike-render spike-benchmark spike_cli_test spike_core_model_time_test
       spike_runtime_backpressure_test spike_export_core_transaction_test
       spike_runtime_cancellation_test spike_cancellation_child
+      spike-export-metrics spike_frame_samples_test spike_process_sampler_test
       spike_apple_owner_test spike_apple_pixel_buffer_pool_test
       spike_apple_video_writer_test spike_apple_render_to_mp4_test
       spike_apple_color_roundtrip_test

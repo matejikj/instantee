@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T14:43:06.883098+00:00",
+  "updated_at_utc": "2026-11-16T15:04:37.358790+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1500,14 +1500,131 @@
       ]
     },
     "P0-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A slow sink causes no growth beyond K/E, dropped offline frames or busy-spinning; capacity 1 and stop on full/empty queues pass.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Slow sink stays within K and does not drop frames or busy-spin",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/runtime/backpressure_test.cpp",
+              "implementation-evidence/P0-013/checks.json"
+            ]
+          },
+          {
+            "criterion": "Capacity-1 queue and stop on full/empty wake without deadlock",
+            "met": true,
+            "evidence": [
+              "engine/src/runtime/include/instantee/runtime/bounded_queue.hpp",
+              "engine/tests/unit/runtime/backpressure_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Encoder pool limit E remains separate from global credits K",
+            "met": true,
+            "evidence": [
+              "engine/src/runtime/include/instantee/runtime/frame_credits.hpp",
+              "ARCHITECTURE.md",
+              "engine/native/export-apple/include/instantee/export_apple/pixel_buffer.hpp"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-013/README.md",
+        "implementation-evidence/P0-013/checks.json",
+        "implementation-evidence/P0-013/dependency-verification.json",
+        "implementation-evidence/P0-013/reference-verification.json",
+        "implementation-evidence/P0-013/source-sha256.json",
+        "implementation-evidence/P0-013/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "slow-sink and queue backpressure",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-013/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Primitives only; full export worker orchestration is not wired yet",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No performance certification on M1 Air",
+        "Remote CI was not executed"
+      ]
     },
     "P0-014": {
       "status": "todo",

@@ -3,7 +3,8 @@
 This is the C++23/Objective-C++ side of Instantee. It owns validation and runtime
 execution as those features are implemented, independently of the TypeScript
 authoring process. The current implementation contains the native spike CLI,
-diagnostics, a rational frame clock, a headless Metal device probe, an offscreen
+diagnostics, a rational frame clock, frame-credit admission with bounded
+stop-aware queues and reorder slots, a headless Metal device probe, an offscreen
 test-pattern renderer with completion-owned readback leases, a bounded Core Video
 pixel-buffer pool, an AVFoundation video-only writer adapter with exact-frame
 sample durations, SDR Rec.709 color tags, straight-alpha flatten over black,
@@ -14,11 +15,13 @@ composition path exercised by native tests, and Apple resource smoke checks.
 apps/cli/          Application entry points and private argument parser
 src/diagnostics/   Platform-neutral diagnostic value types
 src/core-model/    Platform-neutral frame clock and rational time types
+src/runtime/       Frame credits, bounded queues and reorder slots
 src/render-metal/  Metal device, queue, test-pattern and readback leases
 shaders/spike/     Spike MSL sources embedded into render-metal
 native/            Objective-C++ adapters with private implementation details
 tests/             Native unit, public-header contract and subprocess tests
 ```
+
 
 Each module owns its `CMakeLists.txt`. Public library headers live under
 `include/instantee/<module>/`; implementation files and private headers live under

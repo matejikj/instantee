@@ -51,7 +51,8 @@ selects checks by risk:
 
 | Change | Added checks |
 |---|---|
-| Any change | whitespace, `clang-format` on changed native sources, release build, CTest without the long `pts` label |
+| Any change | whitespace, tracker/backlog sync, `clang-format` on changed native sources, release build, CTest without the long `pts` label |
+| Native translation units, once `.clang-tidy` exists | `clang-tidy` with warnings as errors |
 | Native sources or build files | `asan-ubsan` workflow |
 | Runtime, threads, queues, callbacks, stop/cancel | `tsan` workflow |
 | Export, timing or core model | CTest including the `pts` label |
@@ -62,6 +63,11 @@ Use `--asan`, `--tsan` or `--pts` to force a check that path inference cannot
 see. The report contains repository-relative commands, statuses, durations and
 CTest counts only; it never stores raw output or absolute paths. A run with an
 unavailable tool is `incomplete`, not `passed`, and must be reported as such.
+
+`tools/dev/sync_tracker.py` checks that the tracker lists every backlog task
+and delivery slice and records the reviewed backlog digest. It is skipped
+without the local planning pack. After reviewing a regenerated backlog, update
+the tracker entries and record the digest with `--write-digest`.
 
 Measure performance only when the task asks for it: reference series for
 benchmark scenes and gates, focused benchmarks only where a task names one.

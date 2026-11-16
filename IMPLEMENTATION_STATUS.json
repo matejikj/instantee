@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T22:19:57.556076+00:00",
+  "updated_at_utc": "2026-11-16T22:33:11.812404+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -15,7 +15,7 @@
   "policy": "Generated backlog is assignment data. null acceptance means not assessed. A phase gate requires all phase tasks, evidence and review; done inventory does not pass a phase.",
   "current_backlog": {
     "path": "motion_framework_sas/implementation_tasks.json",
-    "sha256": "4bdeb85ada20cd304c0f5c65a868af738e40866efa9a991dbb8e0849377e1b41",
+    "sha256": "e01737d4e0ed55fe400488bfc95d075884668fbdececfc3746701ed90fa3ee5c",
     "role": "Revised assignment after the P0 gate. For tasks that are not started, its acceptance, verification, delivery_slice, measurement and evidence_tier_min fields are authoritative; refresh the tracker criterion when a task starts."
   },
   "evidence_policy": {
@@ -88,10 +88,11 @@
       },
       {
         "id": "P1-S6",
-        "scope": "Compiler pipeline and validate/compile CLI",
+        "scope": "Compiler pipeline, validate/compile CLI and their cost baseline",
         "tasks": [
           "P1-016",
-          "P1-017"
+          "P1-017",
+          "P1-021"
         ]
       },
       {
@@ -2902,6 +2903,16 @@
       "checks": [],
       "blockers": []
     },
+    "P1-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "The report gives per-stage median/p95, IR size and RSS for all three size classes; ADR-0002 records the decision (keep JSON V1 or plan an internal binary cache); ADR-0014 contains a draft parse+compile budget within NFR-PERF-03.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
     "P1-020": {
       "status": "todo",
       "acceptance": {
@@ -3546,6 +3557,16 @@
       "status": "todo",
       "acceptance": {
         "criterion": "SDK authoring with intents produces valid Scene IR from which an MP4 can be created.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "The report separates CDS from parse/compile; cold-start preparation (parse+CDS+compile) has a recorded share of the NFR-PERF-03 budget; exceeding the draft budget is a recorded risk, not a silent PASS.",
         "met": null
       },
       "evidence": [],

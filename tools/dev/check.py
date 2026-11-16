@@ -19,6 +19,8 @@ REPORT_SCHEMA_VERSION = 1
 
 NATIVE_SUFFIXES = {".c", ".cc", ".cpp", ".h", ".hpp", ".m", ".mm", ".metal"}
 FORMAT_SUFFIXES = {".c", ".cc", ".cpp", ".h", ".hpp", ".m", ".mm"}
+TIDY_SUFFIXES = {".c", ".cc", ".cpp", ".m", ".mm"}
+EXIT_SKIPPED = 3
 BUILD_FILES = {"CMakeLists.txt", "CMakePresets.json", "vcpkg.json", "vcpkg-configuration.json"}
 CONCURRENCY_PATTERN = re.compile(
     r"std::(?:j?thread|atomic|condition_variable|stop_token|stop_source|counting_semaphore)"
@@ -58,6 +60,7 @@ class Step:
     name: str
     argv: tuple[str, ...]
     requires: str | None = None
+    skip_exit_code: int | None = None
 
     def command(self) -> str:
         return " ".join(self.argv)
@@ -93,11 +96,29 @@ def infer_risks(paths: list[str], read_text=None) -> Risks:
     return Risks(native, concurrency, timing, authoring, tuple(sorted(suites)))
 
 
-def plan_steps(paths: list[str], risks: Risks, *, gate: bool, configured: bool) -> list[Step]:
-    """Return the ordered checks for the changed paths and risks."""
+def tidy_sources(paths: list[str]) -> list[str]:
+    return sorted(p for p in paths if p.startswith("engine/") and Path(p).suffix in TIDY_SUFFIXES)
+
+
+def plan_steps(
+    paths: list[str],
+    risks: Risks,
+    *,
+    gate: bool,
+    configured: bool,
+    tidy_paths: list[str] | None = None,
+) -> list[Step]:
+    """Return the ordered checks for the changed paths and risks.
+
+    tidy_paths are the translation units for clang-tidy; None when the
+    repository has no .clang-tidy configuration.
+    """
     if gate:
         risks = Risks(True, True, True, True, PYTHON_SUITES)
-    steps = [Step("whitespace", ("git", "diff", "--check", "HEAD"))]
+    steps = [
+        Step("whitespace", ("git", "diff", "--check", "HEAD")),
+        Step("tracker-sync", ("python3", "tools/dev/sync_tracker.py"), skip_exit_code=EXIT_SKIPPED),
+    ]
     format_paths = sorted(p for p in paths if Path(p).suffix in FORMAT_SUFFIXES)
     if format_paths:
         steps.append(Step(
@@ -108,6 +129,12 @@ def plan_steps(paths: list[str], risks: Risks, *, gate: bool, configured: bool) 
     if not configured:
         steps.append(Step("configure-release", ("cmake", "--preset", "release")))
     steps.append(Step("build-release", ("cmake", "--build", "--preset", "release")))
+    if tidy_paths:
+        steps.append(Step(
+            "clang-tidy",
+            ("clang-tidy", "-p", "build/release", "--quiet", "--warnings-as-errors=*", *tidy_paths),
+            requires="clang-tidy",
+        ))
     ctest = ("ctest", "--preset", "release")
     steps.append(Step("ctest-release", ctest if risks.timing else (*ctest, "-LE", "pts")))
     if risks.native:
@@ -181,8 +208,14 @@ def run_step(step: Step) -> dict:
         sys.stdout.write(line)
         collected.append(line)
     exit_code = process.wait()
+    if exit_code == 0:
+        status = "passed"
+    elif exit_code == step.skip_exit_code:
+        status = "skipped"
+    else:
+        status = "failed"
     record |= {
-        "status": "passed" if exit_code == 0 else "failed",
+        "status": status,
         "exit_code": exit_code,
         "duration_s": round(time.monotonic() - started, 1),
     }
@@ -242,7 +275,12 @@ def main(argv: list[str]) -> int:
         timing=inferred.timing or args.pts,
     )
     configured = (REPO_ROOT / "build/release/CMakeCache.txt").is_file()
-    steps = plan_steps(paths, risks, gate=args.gate, configured=configured)
+    tidy_paths = None
+    if (REPO_ROOT / ".clang-tidy").is_file():
+        tidy_paths = tidy_sources(git_lines("ls-files", "engine") if args.gate else paths)
+    steps = plan_steps(
+        paths, risks, gate=args.gate, configured=configured, tidy_paths=tidy_paths
+    )
     mode = "gate" if args.gate else "change"
     print(f"changed paths: {len(paths)}; risks: {', '.join(risks.labels()) or 'none'}")
     if args.dry_run:

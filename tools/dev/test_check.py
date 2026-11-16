@@ -42,12 +42,29 @@ class InferRisksTest(unittest.TestCase):
 class PlanStepsTest(unittest.TestCase):
     def test_minimal_change_runs_release_without_long_conformance(self):
         steps = check.plan_steps(["README.md"], check.Risks(), gate=False, configured=True)
-        self.assertEqual(names(steps), ["whitespace", "build-release", "ctest-release"])
+        self.assertEqual(
+            names(steps), ["whitespace", "tracker-sync", "build-release", "ctest-release"]
+        )
         self.assertEqual(steps[-1].argv[-2:], ("-LE", "pts"))
+        self.assertEqual(steps[1].skip_exit_code, check.EXIT_SKIPPED)
 
     def test_unconfigured_tree_is_configured_first(self):
         steps = check.plan_steps([], check.Risks(), gate=False, configured=False)
-        self.assertEqual(names(steps)[1:3], ["configure-release", "build-release"])
+        self.assertEqual(names(steps)[2:4], ["configure-release", "build-release"])
+
+    def test_clang_tidy_runs_only_with_configuration_and_translation_units(self):
+        paths = ["engine/src/a.cpp", "engine/src/a.hpp", "engine/native/b.mm", "tools/x.cpp"]
+        self.assertEqual(check.tidy_sources(paths), ["engine/native/b.mm", "engine/src/a.cpp"])
+        without = check.plan_steps(paths, check.Risks(native=True), gate=False, configured=True)
+        self.assertNotIn("clang-tidy", names(without))
+        with_config = check.plan_steps(
+            paths, check.Risks(native=True), gate=False, configured=True,
+            tidy_paths=check.tidy_sources(paths),
+        )
+        tidy = next(step for step in with_config if step.name == "clang-tidy")
+        self.assertEqual(tidy.argv[-2:], ("engine/native/b.mm", "engine/src/a.cpp"))
+        self.assertEqual(tidy.requires, "clang-tidy")
+        self.assertLess(names(with_config).index("build-release"), names(with_config).index("clang-tidy"))
 
     def test_native_change_formats_only_changed_sources(self):
         paths = ["engine/src/a.cpp", "engine/src/a.hpp", "engine/shaders/x.metal", "notes.md"]
@@ -85,6 +102,15 @@ class ReportTest(unittest.TestCase):
         self.assertEqual(
             check.overall_result([{"status": "failed"}, {"status": "not_run"}]), "failed"
         )
+        self.assertEqual(
+            check.overall_result([{"status": "passed"}, {"status": "skipped"}]), "passed"
+        )
+
+    def test_skip_exit_code_is_recorded_as_skipped(self):
+        step = check.Step("skip", ("python3", "-c", "raise SystemExit(3)"), skip_exit_code=3)
+        self.assertEqual(check.run_step(step)["status"], "skipped")
+        failing = check.Step("fail", ("python3", "-c", "raise SystemExit(3)"))
+        self.assertEqual(check.run_step(failing)["status"], "failed")
 
 
 if __name__ == "__main__":

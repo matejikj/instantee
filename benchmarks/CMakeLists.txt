@@ -1,0 +1,12 @@
+# One ordered command sequence: CTest failure prevents starting the child.
+# This entry point performs no timing; a future harness owns spawn-to-wait metrics.
+if(INSTANTEE_SANITIZER STREQUAL "none" AND CMAKE_BUILD_TYPE MATCHES "^(Release|RelWithDebInfo)$")
+  add_custom_target(run-spike-benchmark
+    COMMAND "${CMAKE_CTEST_COMMAND}" --test-dir "${PROJECT_BINARY_DIR}"
+      --output-on-failure --no-tests=error -L "cpu|smoke"
+    COMMAND "$<TARGET_FILE:spike-benchmark>"
+    WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+    DEPENDS spike-render spike-benchmark spike_cli_test spike_apple_owner_test
+      spike_public_headers_test ${INSTANTEE_TOOLCHAIN_PROBE_TARGETS}
+    USES_TERMINAL VERBATIM)
+endif()

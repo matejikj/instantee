@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cli.hpp"
+#include <instantee/diagnostics/error.hpp>
 
 #include <expected>
 

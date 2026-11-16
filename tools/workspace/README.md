@@ -42,11 +42,20 @@ i po úspěšném preflightu. V sanitizovaných a neoptimalizovaných konfigurac
 target není dostupný. Nejde o měřicí harness; čas testů a buildu nesmí vstoupit
 do budoucího intervalu spawn→wait exportního procesu.
 
-`src/core` obsahuje pouze C++23 parser a malé hodnotové typy. Apple adaptér
-je samostatná statická knihovna v `native/export-apple`, sestavovaná jako
-Objective-C++ s ARC. Veřejný vstup adaptéru používá pouze C++ typy; nemá
-persistentní stav vyžadující PImpl. Core na adaptér nezávisí. Integrační test
-kontroluje také skutečné transitivní include závislosti core překladu.
+`engine/apps/cli` vlastní parser a oba spike executable. Sdílené chybové typy jsou
+v malém header-only modulu `engine/src/diagnostics` s veřejným prefixem
+`instantee/diagnostics/`. Apple adaptér je samostatná statická knihovna
+v `engine/native/export-apple`, sestavovaná jako Objective-C++ s ARC. Jeho veřejné
+hlavičky jsou pouze v `include/instantee/export_apple/`; privátní CF wrapper
+a implementace jsou v `src/`. Adaptér závisí na diagnostice, nikoli na CLI.
+Nemá persistentní stav vyžadující PImpl.
+
+Každý modul, aplikace a skupina testů vlastní svůj `CMakeLists.txt`.
+`cmake/` obsahuje pouze společná build pravidla a toolchain probes;
+`benchmarks/CMakeLists.txt` vlastní preflight a benchmarkový vstup.
+CPU kontraktový test překládá veřejné hlavičky bez Apple frameworků.
+Buildové integrační testy kontrolují skutečné transitivní include závislosti
+a odmítnutí pokusu konzumenta zahrnout privátní CF nebo CLI hlavičku.
 
 Privátní `CfOwner<Ref>` přebírá výhradně již vlastněnou +1 Create/Copy referenci
 a uvolní ji přes `CFRelease`. `get()` půjčuje referenci; přebírání +0 Get

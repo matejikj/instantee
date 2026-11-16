@@ -20,7 +20,7 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
-        for name in ("apps", "src", "native", "tests"):
+        for name in ("engine", "authoring", "benchmarks"):
             shutil.copytree(ROOT / name, self.source / name)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
@@ -56,10 +56,13 @@ class ToolchainTests(unittest.TestCase):
                 self.assertIn("-arch arm64", command["command"])
                 if command["file"].endswith(".mm"):
                     self.assertIn("-fobjc-arc", command["command"])
-        core = next(item for item in commands if item["file"].endswith("src/core/cli.cpp"))
-        self.assertNotIn("native/export-apple", core["command"])
+        parser = next(item for item in commands if item["file"].endswith("apps/cli/cli.cpp"))
+        self.assertNotIn("native/export-apple", parser["command"])
+        adapter = next(item for item in commands if item["file"].endswith("export-apple/src/workspace.mm"))
+        self.assertNotIn("apps/cli", adapter["command"])
+        contract = next(item for item in commands if item["file"].endswith("contracts/public_headers.cpp"))
         # Inspect actual transitive includes, not just spelling in public headers.
-        arguments = shlex.split(core["command"])
+        arguments = shlex.split(contract["command"])
         output = arguments.index("-o")
         del arguments[output:output + 2]
         arguments.remove("-c")
@@ -67,18 +70,31 @@ class ToolchainTests(unittest.TestCase):
         self.assert_success(dependencies)
         for platform in ("Foundation.framework", "CoreFoundation.framework", "Metal.framework",
                          "CoreVideo.framework", "AVFoundation.framework", "IOSurface.framework",
-                         "/native/export-apple/", "/objc/"):
+                         "/native/export-apple/src/", "/apps/cli/", "/objc/"):
             self.assertNotIn(platform, dependencies.stdout)
 
+    def test_private_headers_are_not_part_of_public_api(self):
+        self.assert_success(self.configure())
+        command = ["cmake", "--build", str(self.build), "--target", "spike_public_headers_test"]
+        self.assert_success(self.run_command(command))
+        source = self.source / "engine/tests/contracts/public_headers.cpp"
+        original = source.read_text()
+        for header in ("cf_owner.hpp", "cli.hpp"):
+            with self.subTest(header=header):
+                source.write_text(f'#include "{header}"\n' + original)
+                rejected = self.run_command(command)
+                self.assertNotEqual(rejected.returncode, 0)
+                self.assertIn(f"'{header}' file not found", rejected.stdout + rejected.stderr)
+
     def test_benchmark_requires_successful_cpu_and_smoke_preflight(self):
-        test = self.source / "tests/unit/cli_test.cpp"
+        test = self.source / "engine/tests/unit/cli/cli_test.cpp"
         original = test.read_text()
         test.write_text("int main() { return 1; }\n")
         self.assert_success(self.configure())
         arguments = ["cmake", "--build", str(self.build), "--target", "run-spike-benchmark"]
         rejected = self.run_command(arguments)
         self.assertNotEqual(rejected.returncode, 0)
-        self.assertIn("spike_core", rejected.stdout)
+        self.assertIn("spike_cli_unit", rejected.stdout)
         self.assertIn("tests failed", rejected.stdout)
         self.assertNotIn('"code":"benchmark_unavailable"', rejected.stdout + rejected.stderr)
         test.write_text(original)

@@ -2,8 +2,20 @@
   "name": "instantee",
   "version": "0.0.0",
   "private": true,
-  "engines": {"node": "22.15.0", "npm": "11.14.0"},
+  "engines": {
+    "node": "22.15.0",
+    "npm": "11.14.0"
+  },
   "packageManager": "npm@11.14.0",
-  "scripts": {"check:toolchain": "node tools/toolchain/check-node.cjs"},
-  "devDependencies": {"typescript": "5.9.3"}
+  "scripts": {
+    "check:toolchain": "node tools/toolchain/check-node.cjs",
+    "build:authoring": "npm run build --workspaces",
+    "check:authoring": "npm run typecheck --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "workspaces": [
+    "authoring/packages/*"
+  ]
 }

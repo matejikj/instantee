@@ -1,5 +1,5 @@
 #include "cli.hpp"
-#include "workspace.hpp"
+#include <instantee/export_apple/workspace.hpp>
 
 #include <array>
 #include <cstdio>

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T11:51:52.420107+00:00",
+  "updated_at_utc": "2026-11-16T12:14:36.511633+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -232,7 +232,7 @@
             "criterion": "CPU and smoke preflight gates the release benchmark process",
             "met": true,
             "evidence": [
-              "cmake/Workspace.cmake",
+              "benchmarks/CMakeLists.txt",
               "tools/toolchain/test_toolchain.py",
               "implementation-evidence/P0-003/checks.json"
             ]
@@ -242,8 +242,8 @@
             "met": true,
             "evidence": [
               "CMakePresets.json",
-              "native/export-apple/cf_owner.hpp",
-              "tests/unit/apple_owner_test.mm",
+              "engine/native/export-apple/src/cf_owner.hpp",
+              "engine/tests/unit/export-apple/apple_owner_test.mm",
               "implementation-evidence/P0-003/checks.json"
             ]
           }
@@ -2564,6 +2564,18 @@
       "evidence": [],
       "checks": [],
       "blockers": []
+    }
+  },
+  "maintenance": {
+    "repository_layout": {
+      "status": "done",
+      "scope": "Separate engine and authoring workspaces; module-owned builds and private native headers; shared data boundary documented",
+      "evidence": [
+        "implementation-evidence/repository-layout/checks.json",
+        "implementation-evidence/repository-layout/source-sha256.json"
+      ],
+      "roadmap_completion_changed": false,
+      "checks": "All three native workflows, clean build/negative boundaries, authoring build/typecheck, formatting, static analysis and staged content/security review passed"
     }
   }
 }

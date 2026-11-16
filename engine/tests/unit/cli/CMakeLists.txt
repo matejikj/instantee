@@ -1,0 +1,5 @@
+add_executable(spike_cli_test cli_test.cpp)
+target_include_directories(spike_cli_test PRIVATE "${INSTANTEE_ENGINE_SOURCE_DIR}/apps/cli")
+target_link_libraries(spike_cli_test PRIVATE instantee_spike_cli instantee_build_options)
+add_test(NAME spike_cli_unit COMMAND spike_cli_test)
+set_tests_properties(spike_cli_unit PROPERTIES TIMEOUT 10 LABELS cpu)

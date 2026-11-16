@@ -2,13 +2,12 @@
 
 #include "device_native.hpp"
 #include "metal_owner.hpp"
+#include "readback_impl.hpp"
 #include "test_pattern_source.hpp"
 
 #include <Metal/Metal.hpp>
 
 #include <algorithm>
-#include <cstring>
-#include <limits>
 #include <new>
 #include <utility>
 
@@ -34,7 +33,6 @@ struct TestPatternRenderer::Impl {
   MTL::CommandQueue *queue = nullptr;
   detail::MetalOwner<MTL::RenderPipelineState> pipeline;
   detail::MetalOwner<MTL::Texture> target;
-  detail::MetalOwner<MTL::Buffer> staging;
   std::size_t bytes_per_row = 0;
 };
 
@@ -144,21 +142,6 @@ TestPatternRenderer::create(Device &device) {
   const std::size_t bytes_per_row = align_up(
       static_cast<std::size_t>(kTestPatternWidth) * kTestPatternChannels,
       alignment);
-  const std::size_t staging_bytes = bytes_per_row * kTestPatternHeight;
-  if (staging_bytes >
-      static_cast<std::size_t>(native.device->recommendedMaxWorkingSetSize())) {
-    return std::unexpected(
-        Error{ExitCode::gpu_failure, "staging_budget_exceeded", "metal",
-              "Staging buffer exceeds recommended working set"});
-  }
-
-  detail::MetalOwner<MTL::Buffer> staging{
-      native.device->newBuffer(staging_bytes, MTL::ResourceStorageModeShared)};
-  if (!staging) {
-    return std::unexpected(Error{ExitCode::gpu_failure, "staging_alloc_failed",
-                                 "metal",
-                                 "Cannot allocate CPU-visible staging buffer"});
-  }
 
   auto impl = std::unique_ptr<Impl>(new (std::nothrow) Impl{});
   if (!impl) {
@@ -169,26 +152,24 @@ TestPatternRenderer::create(Device &device) {
   impl->queue = native.queue;
   impl->pipeline = std::move(pipeline);
   impl->target = std::move(target);
-  impl->staging = std::move(staging);
   impl->bytes_per_row = bytes_per_row;
   return TestPatternRenderer{std::move(impl)};
 }
 
-std::expected<Rgba8Frame, Error>
-TestPatternRenderer::render(std::uint32_t frame_index) {
+std::expected<ReadbackLease, Error>
+TestPatternRenderer::submit(std::uint32_t frame_index) {
   if (frame_index > 1U) {
     return std::unexpected(Error{ExitCode::invalid_input, "unsupported_frame",
                                  "metal",
                                  "Spike test pattern supports frames 0 and 1"});
   }
   if (!impl_ || impl_->device == nullptr || impl_->queue == nullptr ||
-      !impl_->pipeline || !impl_->target || !impl_->staging) {
+      !impl_->pipeline || !impl_->target) {
     return std::unexpected(Error{ExitCode::gpu_failure, "renderer_not_ready",
                                  "metal",
                                  "Test-pattern renderer is not ready"});
   }
 
-  Rgba8Frame frame;
   detail::MetalOwner<NS::AutoreleasePool> pool{
       NS::AutoreleasePool::alloc()->init()};
   if (!pool) {
@@ -197,13 +178,35 @@ TestPatternRenderer::render(std::uint32_t frame_index) {
                                  "Cannot create Metal autorelease pool"});
   }
 
-  // commandBuffer() is autoreleased; keep it only via the local pool.
-  MTL::CommandBuffer *command = impl_->queue->commandBuffer();
-  if (command == nullptr) {
+  const std::size_t staging_bytes =
+      impl_->bytes_per_row * static_cast<std::size_t>(kTestPatternHeight);
+  if (staging_bytes >
+      static_cast<std::size_t>(impl_->device->recommendedMaxWorkingSetSize())) {
+    return std::unexpected(
+        Error{ExitCode::gpu_failure, "staging_budget_exceeded", "metal",
+              "Staging buffer exceeds recommended working set"});
+  }
+
+  // Each lease owns its staging buffer so delayed completion/cancel cannot
+  // recycle a shared buffer while GPU work is still in flight.
+  detail::MetalOwner<MTL::Buffer> staging{
+      impl_->device->newBuffer(staging_bytes, MTL::ResourceStorageModeShared)};
+  if (!staging) {
+    return std::unexpected(Error{ExitCode::gpu_failure, "staging_alloc_failed",
+                                 "metal",
+                                 "Cannot allocate CPU-visible staging buffer"});
+  }
+
+  // commandBuffer() is autoreleased; retain it into the lease before the pool
+  // drains so completion can outlive this stack frame.
+  MTL::CommandBuffer *raw_command = impl_->queue->commandBuffer();
+  if (raw_command == nullptr) {
     return std::unexpected(Error{ExitCode::gpu_failure, "command_buffer_failed",
                                  "metal",
                                  "Cannot create a Metal command buffer"});
   }
+  detail::MetalOwner<MTL::CommandBuffer> command =
+      detail::retain_owner(raw_command);
 
   detail::MetalOwner<MTL::RenderPassDescriptor> pass{
       MTL::RenderPassDescriptor::alloc()->init()};
@@ -239,51 +242,37 @@ TestPatternRenderer::render(std::uint32_t frame_index) {
   }
   blit->copyFromTexture(impl_->target.get(), 0, 0, MTL::Origin(0, 0, 0),
                         MTL::Size(kTestPatternWidth, kTestPatternHeight, 1),
-                        impl_->staging.get(), 0, impl_->bytes_per_row,
+                        staging.get(), 0, impl_->bytes_per_row,
                         impl_->bytes_per_row * kTestPatternHeight);
   blit->endEncoding();
 
   command->commit();
-  command->waitUntilCompleted();
-  if (command->status() == MTL::CommandBufferStatusError) {
-    return std::unexpected(
-        Error{ExitCode::gpu_failure, "gpu_command_failed", "metal",
-              "Metal command buffer completed with an error"});
-  }
 
-  const auto tight_row =
-      static_cast<std::size_t>(kTestPatternWidth) * kTestPatternChannels;
-  const auto pixel_bytes =
-      tight_row * static_cast<std::size_t>(kTestPatternHeight);
-  if (pixel_bytes >
-      static_cast<std::size_t>(
-          std::numeric_limits<std::vector<std::uint8_t>::size_type>::max())) {
-    return std::unexpected(Error{ExitCode::gpu_failure, "frame_too_large",
-                                 "metal", "Frame byte size overflows"});
-  }
-
-  frame.extent = Extent2u{kTestPatternWidth, kTestPatternHeight};
-  try {
-    frame.rgba.resize(pixel_bytes);
-  } catch (const std::bad_alloc &) {
+  auto lease_impl = std::unique_ptr<ReadbackLease::Impl>(
+      new (std::nothrow) ReadbackLease::Impl{});
+  if (!lease_impl) {
+    // Keep GPU resources alive through retirement even on allocation failure.
+    command->waitUntilCompleted();
     return std::unexpected(Error{ExitCode::gpu_failure, "out_of_memory",
-                                 "metal",
-                                 "Cannot allocate frame pixel storage"});
+                                 "metal", "Cannot allocate readback lease"});
   }
+  lease_impl->command = std::move(command);
+  lease_impl->staging = std::move(staging);
+  lease_impl->target = detail::retain_owner(impl_->target.get());
+  lease_impl->bytes_per_row = impl_->bytes_per_row;
+  lease_impl->width = kTestPatternWidth;
+  lease_impl->height = kTestPatternHeight;
+  lease_impl->state = ReadbackLease::State::in_flight;
+  return ReadbackLease{std::move(lease_impl)};
+}
 
-  const auto *source =
-      static_cast<const std::uint8_t *>(impl_->staging->contents());
-  if (source == nullptr) {
-    return std::unexpected(Error{ExitCode::gpu_failure, "staging_map_failed",
-                                 "metal",
-                                 "Staging buffer contents are unavailable"});
+std::expected<Rgba8Frame, Error>
+TestPatternRenderer::render(std::uint32_t frame_index) {
+  auto lease = submit(frame_index);
+  if (!lease) {
+    return std::unexpected(lease.error());
   }
-  for (std::uint32_t y = 0; y < kTestPatternHeight; ++y) {
-    std::memcpy(frame.rgba.data() + static_cast<std::size_t>(y) * tight_row,
-                source + static_cast<std::size_t>(y) * impl_->bytes_per_row,
-                tight_row);
-  }
-  return frame;
+  return lease->take_pixels();
 }
 
 } // namespace instantee::spike::metal

@@ -12,7 +12,7 @@ engine/                    Native runtime component (C++23 / Objective-C++)
   apps/cli/                Entry points and private argument parser
   src/diagnostics/         Platform-neutral diagnostic value types
   src/core-model/          Platform-neutral frame clock and rational time types
-  src/render-metal/        Metal device/queue/test-pattern backend (C++ API)
+  src/render-metal/        Metal device/queue/test-pattern/readback backend
   shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter with public include/ and private src/
   tests/                   Native unit, contract and subprocess tests

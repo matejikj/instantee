@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T13:03:57.469538+00:00",
+  "updated_at_utc": "2026-11-16T13:11:55.712653+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -742,14 +742,131 @@
       ]
     },
     "P0-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Delayed GPU completion or cancellation does not cause premature recycling or use-after-free; pixels match.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Delayed GPU completion keeps lease-owned resources until take/destroy",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/render-metal/readback_lifetime_test.cpp",
+              "implementation-evidence/P0-007/checks.json"
+            ]
+          },
+          {
+            "criterion": "Cancel refuses pixels without premature recycle or use-after-free",
+            "met": true,
+            "evidence": [
+              "engine/src/render-metal/src/readback.cpp",
+              "engine/tests/unit/render-metal/readback_lifetime_test.cpp",
+              "implementation-evidence/P0-007/checks.json"
+            ]
+          },
+          {
+            "criterion": "Pixel parity remains correct after leased readback",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/render-metal/pattern_test.cpp",
+              "engine/tests/unit/render-metal/readback_lifetime_test.cpp"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-007/README.md",
+        "implementation-evidence/P0-007/checks.json",
+        "implementation-evidence/P0-007/dependency-verification.json",
+        "implementation-evidence/P0-007/reference-verification.json",
+        "implementation-evidence/P0-007/source-sha256.json",
+        "implementation-evidence/P0-007/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "pixel parity and readback lifetime stress",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-007/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "Renderer destruction while leases remain outstanding is still caller-ordered; leases retain texture/staging/command buffer independently",
+        "Completion uses waitUntilCompleted rather than a bounded callback registry",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No performance certification",
+        "Remote CI was not executed"
+      ]
     },
     "P0-008": {
       "status": "todo",

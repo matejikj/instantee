@@ -49,4 +49,13 @@ private:
   T *value_ = nullptr;
 };
 
+// Retains a non-owning Metal/Foundation pointer into a +1 MetalOwner.
+template <typename T>
+[[nodiscard]] MetalOwner<T> retain_owner(T *value) noexcept {
+  if (value != nullptr) {
+    value->retain();
+  }
+  return MetalOwner<T>{value};
+}
+
 } // namespace instantee::spike::metal::detail

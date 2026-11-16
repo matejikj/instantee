@@ -39,6 +39,7 @@ find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 add_library(instantee_render_metal STATIC
   src/metal_impl.cpp
   src/device.cpp
+  src/readback.cpp
   src/test_pattern.cpp)
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal

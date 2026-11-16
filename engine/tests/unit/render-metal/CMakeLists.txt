@@ -19,3 +19,11 @@ target_link_libraries(spike_metal_pattern_test PRIVATE instantee::render_metal
   instantee_build_options "${INSTANTEE_COMPRESSION_FRAMEWORK}")
 add_test(NAME spike_metal_pattern COMMAND spike_metal_pattern_test)
 set_tests_properties(spike_metal_pattern PROPERTIES TIMEOUT 60 LABELS "cpu;smoke")
+
+add_executable(spike_metal_readback_lifetime_test readback_lifetime_test.cpp)
+target_link_libraries(spike_metal_readback_lifetime_test PRIVATE
+  instantee::render_metal instantee_build_options)
+add_test(NAME spike_metal_readback_lifetime
+  COMMAND spike_metal_readback_lifetime_test)
+set_tests_properties(spike_metal_readback_lifetime PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")

@@ -3,6 +3,7 @@
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/frame.hpp>
+#include <instantee/render_metal/readback.hpp>
 
 #include <cstdint>
 #include <expected>
@@ -10,7 +11,8 @@
 
 namespace instantee::spike::metal {
 
-// Owns the offscreen target, compiled MSL pipeline and staging buffer.
+// Owns the offscreen target and compiled MSL pipeline. Each submission creates
+// a move-only readback lease that owns staging until GPU completion.
 // Borrows the Metal device/queue from Device for the renderer lifetime.
 class TestPatternRenderer {
 public:
@@ -26,8 +28,12 @@ public:
   [[nodiscard]] static std::expected<TestPatternRenderer, Error>
   create(Device &device);
 
-  // Renders one time-varying frame and synchronously reads it back to CPU.
-  // Supported frame indices for the spike oracle are 0 and 1.
+  // Encodes one frame and returns a lease that keeps GPU resources alive until
+  // completion, cancel retirement, or destruction. Supported frames: 0 and 1.
+  [[nodiscard]] std::expected<ReadbackLease, Error>
+  submit(std::uint32_t frame_index);
+
+  // Convenience path: submit and take tightly packed RGBA8 pixels.
   [[nodiscard]] std::expected<Rgba8Frame, Error>
   render(std::uint32_t frame_index);
 

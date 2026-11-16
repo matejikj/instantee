@@ -8,7 +8,7 @@ if(INSTANTEE_SANITIZER STREQUAL "none" AND CMAKE_BUILD_TYPE MATCHES "^(Release|R
     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
     DEPENDS spike-render spike-benchmark spike_cli_test spike_core_model_time_test
       spike_apple_owner_test spike_metal_device_test spike_metal_owner_test
-      spike_metal_pattern_test spike_public_headers_test
-      ${INSTANTEE_TOOLCHAIN_PROBE_TARGETS}
+      spike_metal_pattern_test spike_metal_readback_lifetime_test
+      spike_public_headers_test ${INSTANTEE_TOOLCHAIN_PROBE_TARGETS}
     USES_TERMINAL VERBATIM)
 endif()

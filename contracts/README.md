@@ -1,18 +1,33 @@
 # Engine–authoring data boundary
 
-This directory is reserved for the versioned data contracts shared by the native
-engine and TypeScript authoring packages: accepted schemas, compatibility rules
-and cross-language positive/negative fixtures as they are implemented.
+This directory holds the versioned data contracts shared by the native engine
+and TypeScript authoring packages: accepted schemas, compatibility rules and
+cross-language positive/negative fixtures.
 
-There is no finalized production schema here yet. Draft schemas in the ignored
-local design pack are planning inputs, not an implemented public protocol.
+## Rules
 
-Shared contracts must describe data, without C++ object layouts, native handles,
-live TypeScript functions or renderer dependencies. Authoring produces documents;
-the engine validates and consumes them through the agreed file/CLI boundary.
-Schema changes require explicit versions and compatibility tests.
+- Shared contracts describe data only. No C++ object layouts, native handles,
+  live TypeScript functions or renderer dependencies.
+- Authoring produces documents; the engine validates and consumes them through
+  the file/CLI boundary.
+- JSON Schema under `schemas/` is the source of truth. TypeScript types are
+  generated from it. C++ defaults are tested against schema defaults.
+- Designated integers beyond JS safe range (seed/hash) use the encoding policy
+  locked in P1; there is no silent precision loss.
+- Schema changes require explicit versions, fixtures and compatibility tests.
+- Completing the domain/IR phase requires this directory to contain the accepted
+  authoring and Scene IR schemas plus the contract fixtures needed for clean
+  clone CI. Drafts that live only in the ignored local design pack are not
+  sufficient for production gates.
 
-Keep language-specific serialization implementations in `engine/` and
-`authoring/`. Place shared schemas under `schemas/` and cross-language fixtures
-under `fixtures/` when they become real implementation inputs. Do not duplicate
-independently maintained schemas inside both language components.
+## Layout
+
+```text
+contracts/
+  schemas/     Accepted JSON Schema documents
+  fixtures/    Cross-language positive/negative examples
+  README.md    This boundary guide
+```
+
+Keep language-specific serializers in `engine/` and `authoring/`. Do not
+duplicate independently maintained schemas inside both language components.

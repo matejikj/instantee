@@ -10,9 +10,16 @@ export works on the reference MacBook Air with bounded K/E/queue capacities,
 cooperative cancellation and measurable B-00 reports. Locked defaults for the
 spike composition are K=2, queue capacity 1, encoder pool E=8, CPU staging as
 the default transfer path, and `process_crash_visible` publication on APFS.
-p99, memory SLO and CPU regression baselines remain unlocked; B-00 numbers are
-not product certification. Shared-surface transfer stays opt-in. Details live in
-the local design-pack ADR for the P0 Go/No-Go gate.
+p99, memory SLO and CPU regression baselines remain unlocked until the P3 draft
+thresholds ADR; B-00 numbers are not product certification. Shared-surface
+transfer stays opt-in.
+
+P1 must promote or retire spike modules rather than rewrite them, publish
+accepted schemas/fixtures under versioned `contracts/`, keep a production Error
+contract before parsers/CLI, and provide a minimal CI path plus a development
+toolchain preset distinct from the certification lock. Later phases extend
+`VideoSink`, a shader-feature registry and a job state machine in P3; P8 audits
+those mechanisms instead of introducing them for the first time.
 
 ## Current layout
 

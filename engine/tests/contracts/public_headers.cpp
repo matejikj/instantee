@@ -18,5 +18,7 @@
 
 #include <instantee/runtime/frame_samples.hpp>
 #include <instantee/telemetry_apple/process_sampler.hpp>
+#include <instantee/transfer_apple/feature_matrix.hpp>
+#include <instantee/transfer_apple/shared_surface.hpp>
 
 int main() {}

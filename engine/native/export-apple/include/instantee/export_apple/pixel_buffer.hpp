@@ -32,6 +32,14 @@ struct PixelBufferFormat {
   }
 };
 
+// Pool buffer backing used by the export adapter. The Metal/IOSurface variant
+// opts into Core Video attributes required by CVMetalTextureCache; the default
+// remains encoder-only CPU fill.
+enum class PixelBufferCompatibility : std::uint8_t {
+  encoder_cpu_fill,
+  metal_iosurface
+};
+
 // Move-only application ownership of one pool-backed pixel buffer.
 // After seal(), mutation APIs fail; the encoder may still hold its own retain.
 class PixelBuffer {
@@ -94,9 +102,12 @@ public:
   PixelBufferPool &operator=(const PixelBufferPool &) = delete;
 
   [[nodiscard]] static std::expected<PixelBufferPool, Error>
-  create(PixelBufferFormat format, std::uint32_t capacity);
+  create(PixelBufferFormat format, std::uint32_t capacity,
+         PixelBufferCompatibility compatibility =
+             PixelBufferCompatibility::encoder_cpu_fill);
 
   [[nodiscard]] PixelBufferFormat format() const noexcept;
+  [[nodiscard]] PixelBufferCompatibility compatibility() const noexcept;
   [[nodiscard]] std::uint32_t capacity() const noexcept;
   [[nodiscard]] bool closed() const noexcept;
 

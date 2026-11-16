@@ -18,6 +18,7 @@ engine/                    Native runtime component (C++23 / Objective-C++)
   shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter (pixel-buffer pool + H.264 video writer)
   native/telemetry-apple/  Allowlisted Mach/process resource sampler
+  native/transfer-apple/   Isolated Metal/IOSurface transfer experiment
   tests/                   Native unit, contract and subprocess tests
 third_party/metal-cpp/     Pinned metal-cpp headers with archive checksum metadata
 authoring/                 Authoring component (TypeScript)
@@ -60,7 +61,8 @@ engine boundary without introducing UI dependencies into either component.
 spike CLI ──> CLI parser ──> diagnostics
     ├──────> Apple adapter ──> diagnostics
     │                 └──────> core-model
-    └──────> render-metal ──> diagnostics
+    ├──────> render-metal ──> diagnostics
+    └──────> transfer-apple ──> render-metal + export-apple
 
 core-model  ──> diagnostics
 runtime     ──> diagnostics
@@ -76,12 +78,13 @@ adapter pool and is a separate limit. Export-core owns staging directories,
 results; it may use POSIX/macOS file APIs but not AVFoundation. The Apple
 adapter may use core-model time types for presentation timestamps, but keeps
 AVFoundation inside Objective-C++. The Apple adapter and Metal backend do not
-include CLI headers and do not depend on each other. Composition of Metal
-readback into encoder pixel buffers and transactional publish belongs in
-executables or dedicated test targets. The executables compose the parser and
-adapters; application policy stays at that composition boundary. The current
-diagnostic types remain in the `instantee::spike` namespace and are provisional,
-not a stable production API.
+include CLI headers and do not depend on each other. The transfer-apple bridge
+composes both for the isolated Metal/IOSurface experiment without making either
+backend depend on the other. Composition of Metal readback into encoder pixel
+buffers and transactional publish belongs in executables or dedicated test
+targets. The executables compose the parser and adapters; application policy
+stays at that composition boundary. The current diagnostic types remain in the
+`instantee::spike` namespace and are provisional, not a stable production API.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

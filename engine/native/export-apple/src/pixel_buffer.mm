@@ -28,7 +28,8 @@ make_sint32(std::int32_t value) noexcept {
 }
 
 [[nodiscard]] detail::CfOwner<CFDictionaryRef>
-make_pixel_attributes(const PixelBufferFormat &format) noexcept {
+make_pixel_attributes(const PixelBufferFormat &format,
+                      PixelBufferCompatibility compatibility) noexcept {
   const auto width = make_sint32(static_cast<std::int32_t>(format.width));
   const auto height = make_sint32(static_cast<std::int32_t>(format.height));
   const auto pixel_format =
@@ -37,11 +38,31 @@ make_pixel_attributes(const PixelBufferFormat &format) noexcept {
     return {};
   }
 
+  if (compatibility == PixelBufferCompatibility::encoder_cpu_fill) {
+    const void *keys[] = {kCVPixelBufferPixelFormatTypeKey,
+                          kCVPixelBufferWidthKey, kCVPixelBufferHeightKey};
+    const void *values[] = {pixel_format.get(), width.get(), height.get()};
+    return detail::adopt_cf(CFDictionaryCreate(
+        kCFAllocatorDefault, keys, values, 3, &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks));
+  }
+
+  // Empty IOSurface property dictionary requests an IOSurface-backed buffer.
+  // MetalCompatibility lets CVMetalTextureCache wrap that surface.
+  const auto iosurface_props = detail::adopt_cf(CFDictionaryCreate(
+      kCFAllocatorDefault, nullptr, nullptr, 0, &kCFTypeDictionaryKeyCallBacks,
+      &kCFTypeDictionaryValueCallBacks));
+  if (!iosurface_props) {
+    return {};
+  }
   const void *keys[] = {kCVPixelBufferPixelFormatTypeKey,
-                        kCVPixelBufferWidthKey, kCVPixelBufferHeightKey};
-  const void *values[] = {pixel_format.get(), width.get(), height.get()};
+                        kCVPixelBufferWidthKey, kCVPixelBufferHeightKey,
+                        kCVPixelBufferMetalCompatibilityKey,
+                        kCVPixelBufferIOSurfacePropertiesKey};
+  const void *values[] = {pixel_format.get(), width.get(), height.get(),
+                          kCFBooleanTrue, iosurface_props.get()};
   return detail::adopt_cf(CFDictionaryCreate(kCFAllocatorDefault, keys, values,
-                                             3, &kCFTypeDictionaryKeyCallBacks,
+                                             5, &kCFTypeDictionaryKeyCallBacks,
                                              &kCFTypeDictionaryValueCallBacks));
 }
 
@@ -68,6 +89,8 @@ struct PixelBufferPool::Impl {
   detail::CfOwner<CVPixelBufferPoolRef> pool;
   detail::CfOwner<CFDictionaryRef> threshold_aux;
   PixelBufferFormat format{};
+  PixelBufferCompatibility compatibility =
+      PixelBufferCompatibility::encoder_cpu_fill;
   std::uint32_t capacity = 0;
   std::uint64_t release_epoch = 0;
   bool closed = false;
@@ -277,14 +300,15 @@ PixelBufferPool::operator=(PixelBufferPool &&) noexcept = default;
 PixelBufferPool::~PixelBufferPool() { close(); }
 
 std::expected<PixelBufferPool, Error>
-PixelBufferPool::create(PixelBufferFormat format, std::uint32_t capacity) {
+PixelBufferPool::create(PixelBufferFormat format, std::uint32_t capacity,
+                        PixelBufferCompatibility compatibility) {
   if (!format.valid() || capacity == 0U) {
     return std::unexpected(
         Error{ExitCode::invalid_input, "invalid_pool_config", kPhase,
               "Pixel buffer pool format/capacity is invalid"});
   }
 
-  auto attrs = make_pixel_attributes(format);
+  auto attrs = make_pixel_attributes(format, compatibility);
   auto threshold_aux = make_threshold_aux(capacity);
   if (!attrs || !threshold_aux) {
     return std::unexpected(Error{ExitCode::export_failure, "pool_attr_failed",
@@ -309,12 +333,18 @@ PixelBufferPool::create(PixelBufferFormat format, std::uint32_t capacity) {
   impl->pool = std::move(pool);
   impl->threshold_aux = std::move(threshold_aux);
   impl->format = format;
+  impl->compatibility = compatibility;
   impl->capacity = capacity;
   return PixelBufferPool{std::move(impl)};
 }
 
 PixelBufferFormat PixelBufferPool::format() const noexcept {
   return impl_ ? impl_->format : PixelBufferFormat{};
+}
+
+PixelBufferCompatibility PixelBufferPool::compatibility() const noexcept {
+  return impl_ ? impl_->compatibility
+               : PixelBufferCompatibility::encoder_cpu_fill;
 }
 
 std::uint32_t PixelBufferPool::capacity() const noexcept {

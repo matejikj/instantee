@@ -14,7 +14,11 @@ if(INSTANTEE_SANITIZER STREQUAL "none" AND CMAKE_BUILD_TYPE MATCHES "^(Release|R
       spike_apple_video_writer_test spike_apple_render_to_mp4_test
       spike_apple_color_roundtrip_test
       spike_metal_device_test spike_metal_owner_test spike_metal_pattern_test
-      spike_metal_readback_lifetime_test spike_public_headers_test
+      spike_metal_readback_lifetime_test
+      spike_transfer_feature_matrix_test
+      spike_transfer_shared_surface_lifetime_test
+      spike_transfer_path_compare_test
+      spike_public_headers_test
       ${INSTANTEE_TOOLCHAIN_PROBE_TARGETS}
     USES_TERMINAL VERBATIM)
 endif()

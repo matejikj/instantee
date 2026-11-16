@@ -1,0 +1,18 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "toolchain",
+      "displayName": "Native arm64 toolchain verification",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/toolchain",
+      "toolchainFile": "${sourceDir}/cmake/MacOSToolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true
+      }
+    }
+  ],
+  "buildPresets": [{"name": "toolchain", "configurePreset": "toolchain"}],
+  "testPresets": [{"name": "toolchain", "configurePreset": "toolchain", "output": {"outputOnFailure": true}}]
+}

@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 4.3)
+project(Instantee VERSION 0.0.0 LANGUAGES CXX OBJCXX)
+
+foreach(language IN ITEMS CXX OBJCXX)
+  set(CMAKE_${language}_STANDARD 23)
+  set(CMAKE_${language}_STANDARD_REQUIRED ON)
+  set(CMAKE_${language}_EXTENSIONS OFF)
+endforeach()
+include(cmake/VerifyToolchain.cmake)
+enable_testing()
+
+foreach(language IN ITEMS CXX OBJCXX)
+  if(language STREQUAL "CXX")
+    set(extension cpp)
+  else()
+    set(extension mm)
+  endif()
+  foreach(feature IN ITEMS expected jthread stop_token stop_wait)
+    set(name "probe_${language}_${feature}")
+    set(source "${PROJECT_SOURCE_DIR}/cmake/probes/${feature}.cpp")
+    try_compile(compiled
+      SOURCE_FROM_FILE "${name}.${extension}" "${source}"
+      NO_CACHE
+      CMAKE_FLAGS "-DINCLUDE_DIRECTORIES:STRING=${PROJECT_SOURCE_DIR}/cmake/probes"
+      COMPILE_DEFINITIONS -Wall -Wextra -Werror -pedantic-errors
+      COPY_FILE "${PROJECT_BINARY_DIR}/${name}-configure"
+      OUTPUT_VARIABLE diagnostics)
+    if(NOT compiled)
+      message(FATAL_ERROR "Required ${language} feature ${feature} failed to compile:\n${diagnostics}")
+    endif()
+    execute_process(COMMAND "${PROJECT_BINARY_DIR}/${name}-configure"
+      RESULT_VARIABLE result TIMEOUT 10)
+    if(NOT result STREQUAL "0")
+      message(FATAL_ERROR "Required ${language} feature ${feature} failed to run: ${result}")
+    endif()
+    message(STATUS "Required ${language} feature ${feature}: compile/run passed")
+    if(language STREQUAL "OBJCXX")
+      set(source "${PROJECT_BINARY_DIR}/${name}.mm")
+      file(WRITE "${source}" "#include \"${PROJECT_SOURCE_DIR}/cmake/probes/${feature}.cpp\"\n")
+    endif()
+    add_executable("${name}" "${source}")
+    target_compile_options("${name}" PRIVATE -Wall -Wextra -Werror -pedantic-errors)
+    add_test(NAME "${name}" COMMAND "${name}")
+    set_tests_properties("${name}" PROPERTIES TIMEOUT 10)
+  endforeach()
+endforeach()

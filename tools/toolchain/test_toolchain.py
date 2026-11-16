@@ -1,0 +1,107 @@
+"""Exercise native configuration failure modes without changing the working tree."""
+
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+class ToolchainTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory(prefix="instantee-toolchain-")
+        self.addCleanup(self.temporary.cleanup)
+        self.source = Path(self.temporary.name) / "source"
+        self.source.mkdir()
+        for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
+            shutil.copy2(ROOT / name, self.source / name)
+        shutil.copytree(ROOT / "cmake", self.source / "cmake")
+        helper = self.source / "tools/toolchain"
+        helper.mkdir(parents=True)
+        shutil.copy2(ROOT / "tools/toolchain/check-node.cjs", helper)
+        (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)
+        self.build = Path(self.temporary.name) / "build"
+
+    def run_command(self, arguments):
+        return subprocess.run(arguments, cwd=self.source, text=True, capture_output=True, timeout=120)
+
+    def configure(self, *flags):
+        return self.run_command(["cmake", "--preset", "toolchain", "-B", str(self.build), *flags])
+
+    def assert_success(self, result):
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def assert_rejected(self, result, diagnostic):
+        self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn(diagnostic, result.stdout + result.stderr)
+        self.assertIn("Configuring incomplete", result.stdout + result.stderr)
+
+    def test_clean_build_and_run_both_languages_without_extensions(self):
+        self.assert_success(self.configure())
+        self.assert_success(self.run_command(["cmake", "--build", str(self.build)]))
+        self.assert_success(self.run_command(["ctest", "--test-dir", str(self.build), "--output-on-failure"]))
+        commands = json.loads((self.build / "compile_commands.json").read_text())
+        self.assertEqual(len(commands), 8)
+        for command in commands:
+            with self.subTest(file=Path(command["file"]).name):
+                self.assertIn("-std=c++23", command["command"])
+                self.assertNotIn("-std=gnu++", command["command"])
+                self.assertIn("-arch arm64", command["command"])
+                if command["file"].endswith(".mm"):
+                    self.assertIn("-fobjc-arc", command["command"])
+
+    def test_missing_library_headers_are_configure_errors_in_each_language(self):
+        for language in ("CXX", "OBJCXX"):
+            for header in ("expected", "thread", "stop_token", "condition_variable"):
+                with self.subTest(language=language, header=header):
+                    self.build = Path(self.temporary.name) / f"{language}-{header}"
+                    shadow = Path(self.temporary.name) / f"shadow-{language}-{header}"
+                    shadow.mkdir()
+                    (shadow / header).write_text('#error "deliberately unavailable library feature"\n')
+                    flags = "-stdlib=libc++ " + ("-fobjc-arc " if language == "OBJCXX" else "")
+                    result = self.configure(f"-DCMAKE_{language}_FLAGS={flags}-I{shadow}")
+                    self.assert_rejected(result, f"Required {language} feature")
+                    self.assertIn("deliberately unavailable library feature", result.stderr)
+
+    def test_reconfiguration_does_not_reuse_successful_probe_results(self):
+        shadow = Path(self.temporary.name) / "shadow"
+        shadow.mkdir()
+        flags = f"-DCMAKE_CXX_FLAGS=-stdlib=libc++ -I{shadow}"
+        self.assert_success(self.configure(flags))
+        (shadow / "expected").write_text('#error "feature removed after initial configure"\n')
+        self.assert_rejected(self.configure(flags), "Required CXX feature expected failed to compile")
+
+    def test_nonzero_probe_result_is_a_configure_error(self):
+        (self.source / "cmake/probes/expected.cpp").write_text("int main() { return 4; }\n")
+        self.assert_rejected(self.configure(), "Required CXX feature expected failed to run: 4")
+
+    def test_hung_probe_is_a_bounded_configure_error(self):
+        (self.source / "cmake/probes/expected.cpp").write_text(
+            "#include <chrono>\n#include <thread>\n"
+            "int main() { for (;;) std::this_thread::sleep_for(std::chrono::seconds{1}); }\n"
+        )
+        result = self.configure()
+        self.assert_rejected(result, "Required CXX feature expected failed to run")
+        self.assertIn("timeout", result.stderr.lower())
+
+    def test_deployment_target_drift_is_rejected(self):
+        self.assert_rejected(self.configure("-DCMAKE_OSX_DEPLOYMENT_TARGET=26.0"), "deployment target differs")
+
+    def test_ninja_version_drift_is_rejected(self):
+        lock = self.source / "cmake/ToolchainLock.cmake"
+        lock.write_text(lock.read_text().replace('"1.13.2"', '"0.0.0"'))
+        self.assert_rejected(self.configure(), "Ninja differs from the toolchain lock")
+
+    def test_node_version_drift_is_rejected(self):
+        path = self.source / "package.json"
+        lock = json.loads(path.read_text())
+        lock["engines"]["node"] = "0.0.0"
+        path.write_text(json.dumps(lock))
+        self.assert_rejected(self.configure(), "Node/TypeScript lock")
+
+
+if __name__ == "__main__":
+    unittest.main()

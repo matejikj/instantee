@@ -1,0 +1,8 @@
+# Versions are updated together with clean-build evidence on the reference Mac.
+set(INSTANTEE_CMAKE_VERSION "4.3.0")
+set(INSTANTEE_NINJA_VERSION "1.13.2")
+set(INSTANTEE_CLANG_VERSION "21.0.0.21000401")
+set(INSTANTEE_XCODE_VERSION "Xcode 27.2\nBuild version 27B52")
+set(INSTANTEE_SDK_VERSION "27.2")
+set(INSTANTEE_SDK_BUILD "26B118")
+set(INSTANTEE_DEPLOYMENT_TARGET "27.2")

@@ -7,6 +7,7 @@ import argparse
 import dataclasses
 import datetime
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -184,23 +185,47 @@ def read_repo_text(path: str) -> str | None:
         return None
 
 
+TOOL_OVERRIDES = {"clang-tidy": "CLANG_TIDY"}
+
+
+def resolve_tool(tool: str, environ=os.environ) -> str | None:
+    """Return the executable for tool, honoring an explicit environment override."""
+    override = environ.get(TOOL_OVERRIDES.get(tool, ""))
+    if override:
+        return override if os.access(override, os.X_OK) else None
+    return shutil.which(tool)
+
+
 def tool_available(tool: str) -> bool:
     if tool == "clang-format":
         found = subprocess.run(
             ("xcrun", "--find", "clang-format"), capture_output=True, check=False
         ) if shutil.which("xcrun") else None
         return found is not None and found.returncode == 0
-    return shutil.which(tool) is not None
+    return resolve_tool(tool) is not None
+
+
+def tool_version(executable: str) -> str | None:
+    result = subprocess.run((executable, "--version"), capture_output=True, text=True, check=False)
+    match = re.search(r"LLVM version (\S+)", result.stdout)
+    return match.group(1) if match else None
 
 
 def run_step(step: Step) -> dict:
     record = {"name": step.name, "command": step.command()}
     if step.requires is not None and not tool_available(step.requires):
         return record | {"status": "unavailable", "reason": f"{step.requires} not found"}
+    argv = step.argv
+    if argv[0] in TOOL_OVERRIDES:
+        executable = resolve_tool(argv[0])
+        argv = (executable, *argv[1:])
+        version = tool_version(executable)
+        if version is not None:
+            record["tool_version"] = version
     print(f"==> {step.name}: {step.command()}", flush=True)
     started = time.monotonic()
     process = subprocess.Popen(
-        step.argv, cwd=REPO_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+        argv, cwd=REPO_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
     collected: list[str] = []
     assert process.stdout is not None

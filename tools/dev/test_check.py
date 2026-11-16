@@ -1,4 +1,9 @@
+import json
+import os
+import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
 
 import check
 
@@ -105,6 +110,23 @@ class ReportTest(unittest.TestCase):
         self.assertEqual(
             check.overall_result([{"status": "passed"}, {"status": "skipped"}]), "passed"
         )
+
+    def test_clang_tidy_override_runs_without_recording_its_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fake = Path(tmp) / "fake-tidy"
+            fake.write_text("#!/bin/sh\necho 'Homebrew LLVM version 9.9.9'\n", encoding="utf-8")
+            fake.chmod(0o755)
+            self.assertEqual(check.resolve_tool("clang-tidy", {"CLANG_TIDY": str(fake)}), str(fake))
+            fake.chmod(0o644)
+            self.assertIsNone(check.resolve_tool("clang-tidy", {"CLANG_TIDY": str(fake)}))
+            fake.chmod(0o755)
+            step = check.Step("clang-tidy", ("clang-tidy", "engine/a.cpp"), requires="clang-tidy")
+            with mock.patch.dict(os.environ, {"CLANG_TIDY": str(fake)}):
+                record = check.run_step(step)
+        self.assertEqual(record["status"], "passed")
+        self.assertEqual(record["command"], "clang-tidy engine/a.cpp")
+        self.assertEqual(record["tool_version"], "9.9.9")
+        self.assertNotIn(tmp, json.dumps(record))
 
     def test_skip_exit_code_is_recorded_as_skipped(self):
         step = check.Step("skip", ("python3", "-c", "raise SystemExit(3)"), skip_exit_code=3)

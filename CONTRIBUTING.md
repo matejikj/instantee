@@ -60,7 +60,9 @@ selects checks by risk:
 | A Python tool directory | That directory's unit tests |
 
 Use `--asan`, `--tsan` or `--pts` to force a check that path inference cannot
-see. The report contains repository-relative commands, statuses, durations and
+see. Xcode does not ship `clang-tidy`; when it is installed outside `PATH`,
+set `CLANG_TIDY` to its executable instead of putting a second compiler
+toolchain on `PATH`. The report contains repository-relative commands, statuses, durations and
 CTest counts only; it never stores raw output or absolute paths. A run with an
 unavailable tool is `incomplete`, not `passed`, and must be reported as such.
 

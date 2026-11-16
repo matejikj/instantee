@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import tempfile
@@ -19,6 +20,8 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
+        for name in ("apps", "src", "native", "tests"):
+            shutil.copytree(ROOT / name, self.source / name)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/toolchain/check-node.cjs", helper)
@@ -44,7 +47,8 @@ class ToolchainTests(unittest.TestCase):
         self.assert_success(self.run_command(["cmake", "--build", str(self.build)]))
         self.assert_success(self.run_command(["ctest", "--test-dir", str(self.build), "--output-on-failure"]))
         commands = json.loads((self.build / "compile_commands.json").read_text())
-        self.assertEqual(len(commands), 8)
+        probes = [item for item in commands if "probe_" in item["command"]]
+        self.assertEqual(len(probes), 8)
         for command in commands:
             with self.subTest(file=Path(command["file"]).name):
                 self.assertIn("-std=c++23", command["command"])
@@ -52,6 +56,41 @@ class ToolchainTests(unittest.TestCase):
                 self.assertIn("-arch arm64", command["command"])
                 if command["file"].endswith(".mm"):
                     self.assertIn("-fobjc-arc", command["command"])
+        core = next(item for item in commands if item["file"].endswith("src/core/cli.cpp"))
+        self.assertNotIn("native/export-apple", core["command"])
+        # Inspect actual transitive includes, not just spelling in public headers.
+        arguments = shlex.split(core["command"])
+        output = arguments.index("-o")
+        del arguments[output:output + 2]
+        arguments.remove("-c")
+        dependencies = self.run_command([*arguments, "-M"])
+        self.assert_success(dependencies)
+        for platform in ("Foundation.framework", "CoreFoundation.framework", "Metal.framework",
+                         "CoreVideo.framework", "AVFoundation.framework", "IOSurface.framework",
+                         "/native/export-apple/", "/objc/"):
+            self.assertNotIn(platform, dependencies.stdout)
+
+    def test_benchmark_requires_successful_cpu_and_smoke_preflight(self):
+        test = self.source / "tests/unit/cli_test.cpp"
+        original = test.read_text()
+        test.write_text("int main() { return 1; }\n")
+        self.assert_success(self.configure())
+        arguments = ["cmake", "--build", str(self.build), "--target", "run-spike-benchmark"]
+        rejected = self.run_command(arguments)
+        self.assertNotEqual(rejected.returncode, 0)
+        self.assertIn("spike_core", rejected.stdout)
+        self.assertIn("tests failed", rejected.stdout)
+        self.assertNotIn('"code":"benchmark_unavailable"', rejected.stdout + rejected.stderr)
+        test.write_text(original)
+        result = self.run_command(arguments)
+        # Preflight passes, but the unimplemented benchmark must still fail honestly.
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("100% tests passed", result.stdout)
+        self.assertIn('"code":"benchmark_unavailable"', result.stdout + result.stderr)
+
+    def test_unknown_sanitizer_is_rejected(self):
+        self.assert_rejected(self.configure("-DINSTANTEE_SANITIZER=invalid"),
+                             "Unsupported INSTANTEE_SANITIZER")
 
     def test_missing_library_headers_are_configure_errors_in_each_language(self):
         for language in ("CXX", "OBJCXX"):

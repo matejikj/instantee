@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T11:10:37.542700+00:00",
+  "updated_at_utc": "2026-11-16T11:51:52.420107+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -210,14 +210,142 @@
       ]
     },
     "P0-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "CLI se sestaví; platformní headery nepronikají do core; smoke/CPU tests běží před release benchmarkem.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Native CLI builds in the locked C++23 toolchain",
+            "met": true,
+            "evidence": "implementation-evidence/P0-003/checks.json"
+          },
+          {
+            "criterion": "Platform headers and frameworks remain outside core",
+            "met": true,
+            "evidence": [
+              "tools/toolchain/test_toolchain.py",
+              "implementation-evidence/P0-003/checks.json"
+            ]
+          },
+          {
+            "criterion": "CPU and smoke preflight gates the release benchmark process",
+            "met": true,
+            "evidence": [
+              "cmake/Workspace.cmake",
+              "tools/toolchain/test_toolchain.py",
+              "implementation-evidence/P0-003/checks.json"
+            ]
+          },
+          {
+            "criterion": "ARC adapter, typed RAII ownership, isolated release and sanitizer presets",
+            "met": true,
+            "evidence": [
+              "CMakePresets.json",
+              "native/export-apple/cf_owner.hpp",
+              "tests/unit/apple_owner_test.mm",
+              "implementation-evidence/P0-003/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-003/README.md",
+        "implementation-evidence/P0-003/checks.json",
+        "implementation-evidence/P0-003/dependency-verification.json",
+        "implementation-evidence/P0-003/source-sha256.json",
+        "implementation-evidence/P0-003/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "preset instrumentation and isolation",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "CLI behavior and output failure",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-003/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "No renderer, encoder, asynchronous native resource or output publication coverage",
+        "Sanitizers do not instrument all internals of system frameworks",
+        "Benchmark entry currently returns an unavailable error after successful preflight; no certified performance results",
+        "clang-tidy is not installed; Clang static analyzer used",
+        "Remote CI was not executed; equivalent native checks ran locally"
+      ]
     },
     "P0-004": {
       "status": "todo",

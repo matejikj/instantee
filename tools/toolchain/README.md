@@ -31,7 +31,8 @@ Každý program má desetisekundový runtime limit v configure i CTest.
 Negativní testy izolovaně zastíní knihovní headery, ověří odmítnutí změn
 verzí, nenulového výsledku a zaseknutého programu i opakování probes po
 změně headeru. Výsledky se necachují; není povolen cross-compile/emulátor
-jako náhrada nativního ověření. Build vytváří zatím pouze osm probe programů.
+jako náhrada nativního ověření. Build vytváří osm probe programů a
+[minimální workspace s CLI](../workspace/README.md).
 
 Minimum macOS 27.2 je nyní zámek pro feasibility build na ověřeném stroji,
 nikoli slib podpory exportu na starších systémech. Finální podpora video API

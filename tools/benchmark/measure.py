@@ -230,8 +230,11 @@ def validate_profile(profile):
         raise ValueError("profile differs from the native test-pattern geometry")
 
 
-def measure(binary, bundle, expected, telemetry, profile, capacity=65536, timeout=120, grace=5):
+def measure(binary, bundle, expected, telemetry, profile, capacity=65536, timeout=120, grace=5,
+            cache_mode="cold"):
     validate_profile(profile)
+    if cache_mode not in ("cold", "warm"):
+        raise ValueError("cache_mode must be cold or warm")
     if not 1 <= expected <= 9000:
         raise ValueError("frame count must be in [1, 9000]")
     if profile["build_profile"]["binary_sha256"] != digest(binary):
@@ -241,8 +244,23 @@ def measure(binary, bundle, expected, telemetry, profile, capacity=65536, timeou
     output = bundle / "output"
     output.mkdir()
     (bundle / "reports").mkdir()
-    outer = wait_for_export([str(Path(binary).resolve()), str(output.resolve()), str(expected),
-                             "on" if telemetry else "off", str(capacity)], timeout, grace)
+    command = [str(Path(binary).resolve()), str(output.resolve()), str(expected),
+               "on" if telemetry else "off", str(capacity)]
+    # Warm trials still start a new measured process. A prior same-workload
+    # process warms only what can persist outside the app; the spike has no
+    # durable application asset/scene cache to pre-fill across processes.
+    if cache_mode == "warm":
+        warmup = bundle / "warmup"
+        warmup.mkdir()
+        warmup_output = warmup / "output"
+        warmup_output.mkdir()
+        warmup_outer = wait_for_export(
+            [str(Path(binary).resolve()), str(warmup_output.resolve()), str(expected),
+             "on" if telemetry else "off", str(capacity)], timeout, grace)
+        if (warmup_outer["exit_code"] != 0 or warmup_outer["timed_out"] or
+                warmup_outer.get("cancelled") or not (warmup_output / "output.mp4").exists()):
+            raise ValueError("warm-mode uncounted warmup process failed")
+    outer = wait_for_export(command, timeout, grace)
     child_path = output / "child.json"
     child = read_json(child_path) if child_path.exists() else None
     frames = read_json(output / "frames.json") if (output / "frames.json").exists() else []
@@ -260,7 +278,7 @@ def measure(binary, bundle, expected, telemetry, profile, capacity=65536, timeou
                                  "cpu_baseline_seconds_per_frame": None, "durability_mode": "atomic_visibility",
                                  "conformance_mode": "full_decode", "validation_mode":
                                  child["validation_mode"] if child else "disabled", "telemetry_period_ms": 100},
-              "cache_mode": "cold",
+              "cache_mode": cache_mode,
               "frames": {k: child[k] if child else 0 for k in ("scheduled", "admitted", "accepted", "verified")},
               "metrics": metrics, "output": {"published": (output / "output.mp4").exists(),
                      "achieved_durability": "atomic_visibility" if child and child["published"] and not child.get("partial", False) else "unknown",
@@ -288,12 +306,14 @@ def main():
     parser.add_argument("--profile", type=Path, required=True)
     parser.add_argument("--frames", type=int, default=30)
     parser.add_argument("--telemetry", choices=("on", "off"), default="on")
+    parser.add_argument("--cache-mode", choices=("cold", "warm"), default="cold")
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--grace", type=float, default=5)
     parser.add_argument("--schema", type=Path)
     args = parser.parse_args()
     profile = read_json(args.profile, 65536)
-    report, _ = measure(args.binary, args.bundle, args.frames, args.telemetry == "on", profile, timeout=args.timeout, grace=args.grace)
+    report, _ = measure(args.binary, args.bundle, args.frames, args.telemetry == "on", profile,
+                        timeout=args.timeout, grace=args.grace, cache_mode=args.cache_mode)
     if args.schema:
         from jsonschema import Draft202012Validator
         if not Draft202012Validator(read_json(args.schema)).is_valid(report):

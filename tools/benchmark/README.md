@@ -131,3 +131,24 @@ python3 tools/benchmark/compare.py build/release/spike-export-metrics \
 
 All six bundles remain available. The comparison refuses sanitized or incomplete
 trials and records every signed wall/CPU/RSS difference plus wall ratios.
+
+## B-00 60 s cold/warm baseline
+
+Lock a B-00 profile (`workload.id=B-00-test-pattern-60s-v1`, 1800 frames,
+`quality_tier=feasibility-baseline`) before the first series. Then run:
+
+```sh
+python3 tools/benchmark/baseline.py build/release/spike-export-metrics \
+  /tmp/instantee-b00-baseline --profile /tmp/b00-profile.json \
+  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+```
+
+The series executes at least three cold and three warm measured processes with
+telemetry on. Warm mode first runs an uncounted same-workload process, then a
+new measured process. The spike has no durable application asset/scene cache, so
+warm does not invent one; OS/driver caches remain uncontrolled and are never
+labeled as application cold/warm. Each retained report carries explicit
+pass/fail for sample completeness and verified frame count. `baseline.json`
+summarizes wall/p99/CPU/RSS without certifying throughput limits. Use a long
+`--timeout` (default 600 s). Do not commit MP4 binaries; keep checksummed raw
+reports under ignored local evidence.

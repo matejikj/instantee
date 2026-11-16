@@ -8,7 +8,9 @@ import sys
 import tempfile
 import unittest
 
-from measure import cpu_metrics, derive_metrics, nearest_rank, wait_for_export, validate_profile, PROFILE_KEYS
+from measure import (PROFILE_KEYS, cpu_metrics, derive_metrics, nearest_rank,
+                     validate_profile, wait_for_export)
+from baseline import B00_FRAMES, B00_WORKLOAD_ID, trial_pass
 
 BINARY = sys.argv.pop(1) if len(sys.argv) > 1 and not sys.argv[1].startswith('-') else None
 ROOT = Path(__file__).resolve().parents[2]
@@ -42,12 +44,36 @@ class MetricOracleTests(unittest.TestCase):
 
     def test_cli_errors_do_not_echo_supplied_input(self):
         marker = "private-input-do-not-echo"
-        for program in ("measure.py", "compare.py"):
+        for program in ("measure.py", "compare.py", "baseline.py"):
             result = subprocess.run([sys.executable, str(Path(__file__).parent / program),
                                      "--unknown-option", marker], capture_output=True, text=True, timeout=5)
             self.assertEqual(result.returncode, 2)
             self.assertNotIn(marker, result.stderr)
             self.assertEqual(json.loads(result.stderr)["code"], "invalid_measurement_arguments")
+
+    def test_baseline_pass_requires_complete_verified_samples(self):
+        report = {
+            "result": "success", "certified": False, "evidence_kind": "measured",
+            "child_exit_code": 0,
+            "frames": {"scheduled": B00_FRAMES, "admitted": B00_FRAMES, "accepted": B00_FRAMES,
+                       "verified": B00_FRAMES, "failed": 0, "cancelled": 0},
+            "output": {"published": True},
+            "metrics": {
+                "effective_fps": 20.0,
+                "frame_latency_ns": {"sample_count": B00_FRAMES, "p99": 1},
+                "cpu": {"scope": "renderer_process_all_threads",
+                        "seconds_per_verified_frame": 0.01},
+                "memory": {"rss_peak_bytes": 1024},
+            },
+        }
+        self.assertTrue(trial_pass(report, B00_FRAMES))
+        incomplete = copy.deepcopy(report)
+        incomplete["frames"]["verified"] = B00_FRAMES - 1
+        self.assertFalse(trial_pass(incomplete, B00_FRAMES))
+        missing_latency = copy.deepcopy(report)
+        missing_latency["metrics"]["frame_latency_ns"] = None
+        self.assertFalse(trial_pass(missing_latency, B00_FRAMES))
+        self.assertEqual(B00_WORKLOAD_ID, "B-00-test-pattern-60s-v1")
 
     def test_exact_nearest_rank_and_zero_samples(self):
         self.assertIsNone(nearest_rank([]))

@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""Run the locked B-00 60 s cold/warm baseline series without self-certifying."""
+
+import json
+from pathlib import Path
+import statistics
+import subprocess
+import sys
+import tempfile
+
+from measure import MeasurementArguments, atomic_json, digest, measure, read_json
+
+B00_WORKLOAD_ID = "B-00-test-pattern-60s-v1"
+B00_FRAMES = 1800
+ROOT = Path(__file__).resolve().parents[2]
+SYSTEM_STATE = ROOT / "tools/machine-profile/system_state.mm"
+
+
+def thermal_snapshot():
+    """Allowlisted process thermal/power facts only; no host or user identity."""
+    with tempfile.TemporaryDirectory(prefix="instantee-baseline-state-") as temporary:
+        helper = Path(temporary) / "system-state"
+        compile_result = subprocess.run(
+            ["/usr/bin/xcrun", "clang++", "-std=c++23", "-fobjc-arc",
+             "-Wall", "-Wextra", "-Werror", "-framework", "Foundation",
+             str(SYSTEM_STATE), "-o", str(helper)],
+            capture_output=True, text=True, timeout=60, check=True)
+        del compile_result
+        result = subprocess.run([str(helper)], capture_output=True, text=True,
+                                timeout=10, check=True)
+        state = json.loads(result.stdout)
+    required = ("thermal_state", "low_power_mode", "physical_memory_bytes",
+                "logical_cpu_count", "active_cpu_count")
+    if any(state.get(key) is None for key in required):
+        raise ValueError("thermal precondition helper returned incomplete fields")
+    return {key: state[key] for key in required}
+
+
+def validate_report_structure(report, schema_path=None):
+    """Prefer jsonschema when available; otherwise check required report shape."""
+    if schema_path is not None:
+        try:
+            from jsonschema import Draft202012Validator
+        except ImportError:
+            Draft202012Validator = None
+        if Draft202012Validator is not None:
+            if not Draft202012Validator(read_json(schema_path)).is_valid(report):
+                raise ValueError("performance report schema validation failed")
+            return
+    required = ("schema_version", "protocol_version", "run_id", "evidence_kind",
+                "result", "certified", "machine_profile", "build_profile", "workload",
+                "runtime_config", "cache_mode", "frames", "metrics", "output",
+                "child_exit_code", "artifacts")
+    if any(key not in report for key in required):
+        raise ValueError("performance report missing required fields")
+    if report["schema_version"] != "1.0.0" or report["protocol_version"] != "1.0.0":
+        raise ValueError("unexpected performance report version")
+    if report["certified"] is not False or report["evidence_kind"] != "measured":
+        raise ValueError("baseline reports must be measured and uncertified")
+    if report["cache_mode"] not in ("cold", "warm"):
+        raise ValueError("invalid cache_mode")
+    frames = report["frames"]
+    for key in ("scheduled", "admitted", "accepted", "verified", "failed", "cancelled"):
+        if type(frames.get(key)) is not int:
+            raise ValueError("frame counters must be integers")
+
+
+def trial_pass(report, expected):
+    frames = report.get("frames") or {}
+    metrics = report.get("metrics") or {}
+    latency = metrics.get("frame_latency_ns") if isinstance(metrics, dict) else None
+    return bool(
+        report.get("result") == "success"
+        and report.get("certified") is False
+        and report.get("evidence_kind") == "measured"
+        and report.get("child_exit_code") == 0
+        and frames.get("verified") == expected
+        and frames.get("scheduled") == expected
+        and frames.get("admitted") == expected
+        and frames.get("accepted") == expected
+        and frames.get("failed", 0) == 0
+        and frames.get("cancelled", 0) == 0
+        and report.get("output", {}).get("published") is True
+        and isinstance(latency, dict)
+        and latency.get("sample_count") == expected
+        and metrics.get("effective_fps") is not None
+        and metrics.get("cpu", {}).get("scope") == "renderer_process_all_threads"
+        and metrics.get("memory", {}).get("rss_peak_bytes")
+    )
+
+
+def summarize_run(name, cache_mode, report, outer, expected):
+    metrics = report.get("metrics") or {}
+    latency = metrics.get("frame_latency_ns") if isinstance(metrics, dict) else None
+    passed = trial_pass(report, expected)
+    return {
+        "run_id": name,
+        "cache_mode": cache_mode,
+        "pass": passed,
+        "result": report.get("result"),
+        "verified_frames": (report.get("frames") or {}).get("verified"),
+        "expected_frames": expected,
+        "export_wall_ms": metrics.get("export_wall_ms") if passed else None,
+        "effective_fps": metrics.get("effective_fps") if passed else None,
+        "frame_latency_p50_ns": latency.get("p50") if passed and latency else None,
+        "frame_latency_p99_ns": latency.get("p99") if passed and latency else None,
+        "cpu_seconds_per_verified_frame":
+            metrics.get("cpu", {}).get("seconds_per_verified_frame") if passed else None,
+        "rss_peak_bytes": metrics.get("memory", {}).get("rss_peak_bytes") if passed else None,
+        "physical_footprint_peak_bytes":
+            metrics.get("memory", {}).get("physical_footprint_peak_bytes") if passed else None,
+        "outer_wall_ns": outer.get("wall_ns"),
+        "report_uri": f"{name}/reports/report.json",
+        "outer_uri": f"{name}/reports/outer.json",
+    }
+
+
+def run_baseline(binary, directory, profile_path, frames=B00_FRAMES, cold_repeats=3,
+                 warm_repeats=3, schema=None, timeout=600, grace=30):
+    if frames != B00_FRAMES:
+        raise ValueError("B-00 60 s baseline requires exactly 1800 frames")
+    if not 3 <= cold_repeats <= 10 or not 3 <= warm_repeats <= 10:
+        raise ValueError("baseline requires 3 to 10 cold and warm repetitions")
+    profile = read_json(profile_path, 65536)
+    workload = profile["workload"]
+    if workload["id"] != B00_WORKLOAD_ID or workload["duration_frames"] != frames:
+        raise ValueError("profile is not the locked B-00 60 s workload")
+    if workload.get("quality_tier") != "feasibility-baseline":
+        raise ValueError("B-00 quality tier must be feasibility-baseline")
+
+    directory = Path(directory)
+    directory.mkdir()
+    before = thermal_snapshot()
+    runs = []
+
+    for index in range(cold_repeats):
+        name = f"cold-{index:02d}"
+        report, outer = measure(binary, directory / name, frames, True, profile,
+                                timeout=timeout, grace=grace, cache_mode="cold")
+        validate_report_structure(report, schema)
+        runs.append(summarize_run(name, "cold", report, outer, frames))
+
+    for index in range(warm_repeats):
+        name = f"warm-{index:02d}"
+        report, outer = measure(binary, directory / name, frames, True, profile,
+                                timeout=timeout, grace=grace, cache_mode="warm")
+        validate_report_structure(report, schema)
+        runs.append(summarize_run(name, "warm", report, outer, frames))
+
+    after = thermal_snapshot()
+    cold = [run for run in runs if run["cache_mode"] == "cold"]
+    warm = [run for run in runs if run["cache_mode"] == "warm"]
+    series_pass = all(run["pass"] for run in runs)
+
+    def median_field(group, field):
+        values = [run[field] for run in group if run["pass"] and run[field] is not None]
+        return statistics.median(values) if values else None
+
+    result = {
+        "evidence_kind": "b00_60s_cold_warm_baseline",
+        "certified": False,
+        "workload_id": B00_WORKLOAD_ID,
+        "frames_per_trial": frames,
+        "profile_sha256": digest(profile_path),
+        "boundary": "parent_monotonic_before_spawn_to_after_wait4",
+        "cpu_scope": "renderer_process_all_threads",
+        "time_unit": "ns",
+        "memory_unit": "bytes",
+        "cache_policy": {
+            "application_asset_scene_cache": "none_in_spike",
+            "cold": "new process; empty application cache by construction",
+            "warm": ("uncounted same-workload process, then a new measured process; "
+                     "application cache remains empty; OS/driver caches uncontrolled"),
+            "os_filesystem_driver_caches": "uncontrolled; not claimed cold or warm",
+        },
+        "thermal_preconditions": {
+            "before": before,
+            "after": after,
+            "background_load": "uncontrolled development session",
+            "power_source": "not_collected",
+            "per_trial_ending_thermal": "unobserved",
+        },
+        "series_pass": series_pass,
+        "cold_pass_count": sum(1 for run in cold if run["pass"]),
+        "warm_pass_count": sum(1 for run in warm if run["pass"]),
+        "runs": runs,
+        "summary": {
+            "cold_median_export_wall_ms": median_field(cold, "export_wall_ms"),
+            "warm_median_export_wall_ms": median_field(warm, "export_wall_ms"),
+            "cold_median_p99_ns": median_field(cold, "frame_latency_p99_ns"),
+            "warm_median_p99_ns": median_field(warm, "frame_latency_p99_ns"),
+            "cold_median_rss_peak_bytes": median_field(cold, "rss_peak_bytes"),
+            "warm_median_rss_peak_bytes": median_field(warm, "rss_peak_bytes"),
+        },
+        "notes": [
+            "All trials retained; no best-run selection",
+            "Pass/fail is measurement completeness for the locked B-00 profile",
+            "p99/CPU/RSS thresholds remain unlocked; no throughput certification",
+            "Application cold cache is not confused with OS filesystem/driver caches",
+        ],
+    }
+    atomic_json(directory / "baseline.json", result)
+    return result
+
+
+def main():
+    parser = MeasurementArguments(description=__doc__)
+    parser.add_argument("binary", type=Path)
+    parser.add_argument("directory", type=Path)
+    parser.add_argument("--profile", type=Path, required=True)
+    parser.add_argument("--frames", type=int, default=B00_FRAMES)
+    parser.add_argument("--cold-repeats", type=int, default=3)
+    parser.add_argument("--warm-repeats", type=int, default=3)
+    parser.add_argument("--timeout", type=float, default=600)
+    parser.add_argument("--grace", type=float, default=30)
+    parser.add_argument("--schema", type=Path)
+    args = parser.parse_args()
+    result = run_baseline(args.binary, args.directory, args.profile, args.frames,
+                          args.cold_repeats, args.warm_repeats, args.schema,
+                          args.timeout, args.grace)
+    return 0 if result["series_pass"] else 6
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError):
+        print('{"code":"baseline_failed","phase":"harness","published":null,"durability":"unknown"}',
+              file=sys.stderr)
+        raise SystemExit(6)

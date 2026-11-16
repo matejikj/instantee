@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T12:54:33.904681+00:00",
+  "updated_at_utc": "2026-11-16T13:03:57.469538+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -617,14 +617,129 @@
       ]
     },
     "P0-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "1,800 frames have exact PTS and a total duration of 60 s.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "1,800 frames at 30/1 have exact rational PTS",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/core-model/time_test.cpp",
+              "implementation-evidence/P0-006/checks.json"
+            ]
+          },
+          {
+            "criterion": "Media duration of 1,800 frames equals 60 s",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/core-model/time_test.cpp",
+              "implementation-evidence/P0-006/checks.json"
+            ]
+          },
+          {
+            "criterion": "Rational frame clock without floating-point accumulation",
+            "met": true,
+            "evidence": [
+              "engine/src/core-model/include/instantee/core_model/time.hpp",
+              "engine/src/core-model/src/time.cpp"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-006/README.md",
+        "implementation-evidence/P0-006/checks.json",
+        "implementation-evidence/P0-006/dependency-verification.json",
+        "implementation-evidence/P0-006/reference-verification.json",
+        "implementation-evidence/P0-006/source-sha256.json",
+        "implementation-evidence/P0-006/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "frame clock unit time test",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-006/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "FrameIndex/FrameRate remain type aliases/structs without stronger newtype wrappers",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No performance certification",
+        "Remote CI was not executed"
+      ]
     },
     "P0-007": {
       "status": "todo",

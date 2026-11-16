@@ -2,8 +2,8 @@
 
 Instantee is a TypeScript authoring and C++23 runtime project. The current
 implementation contains a native feasibility workspace and a private TypeScript
-authoring package shell. Rendering, video export, the authoring API and
-performance measurement are not implemented yet.
+authoring package shell. Video export, the authoring API and performance
+measurement are not implemented yet.
 
 ## Current layout
 
@@ -11,6 +11,7 @@ performance measurement are not implemented yet.
 engine/                    Native runtime component (C++23 / Objective-C++)
   apps/cli/                Entry points and private argument parser
   src/diagnostics/         Platform-neutral diagnostic value types
+  src/core-model/          Platform-neutral frame clock and rational time types
   src/render-metal/        Metal device/queue/test-pattern backend (C++ API)
   shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter with public include/ and private src/
@@ -55,13 +56,16 @@ engine boundary without introducing UI dependencies into either component.
 spike CLI ──> CLI parser ──> diagnostics
     ├──────> Apple adapter ──> diagnostics
     └──────> render-metal ──> diagnostics
+
+core-model ──> diagnostics
 ```
 
-The diagnostics module has no application or native dependency. The Apple
-adapter and Metal backend do not include CLI headers. The executables compose
-the parser and adapters; application policy stays at that composition boundary.
-The current diagnostic types remain in the `instantee::spike` namespace and are
-provisional, not a stable production API.
+The diagnostics module has no application or native dependency. The core-model
+module stays platform-neutral and must not include Metal, AVFoundation or CLI
+headers. The Apple adapter and Metal backend do not include CLI headers. The
+executables compose the parser and adapters; application policy stays at that
+composition boundary. The current diagnostic types remain in the
+`instantee::spike` namespace and are provisional, not a stable production API.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

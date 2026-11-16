@@ -1,3 +1,4 @@
+#include <instantee/core_model/time.hpp>
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/export_apple/workspace.hpp>
 #include <instantee/render_metal/device.hpp>

@@ -91,6 +91,8 @@ class EvidenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         directory = Path(__file__).resolve().parents[2] / "implementation-evidence/P0-001/reference"
+        if not directory.exists():
+            raise unittest.SkipTest("Local machine-profile reference evidence is unavailable")
         cls.profile = json.loads((directory / "machine-profile.json").read_text())
         cls.probes = json.loads((directory / "raw/probes.json").read_text())
 

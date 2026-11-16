@@ -1,12 +1,13 @@
-# Reprodukovatelný profil zařízení
+# Reproducible machine profile
 
-Sběrač používá Python 3 (pouze standardní knihovnu), macOS systémové příkazy a
-malý Objective-C++ pomocný program s Foundation, sestavený přes vybraný Xcode
-pomocí `clang++ -std=c++23`. Neinstaluje nástroje a nemění napájení ani systémové
-cache. Kompilace pomocného programu probíhá před vzorkováním; binárka se odstraní
-s privátním dočasným adresářem. Nejde o runtime frameworku ani test podpory libc++.
+The collector uses Python 3 with the standard library, macOS system commands
+and a small Objective-C++ Foundation helper built through the selected Xcode
+using `clang++ -std=c++23`. It installs no tools and changes neither power
+settings nor system caches. The helper is compiled before sampling; its binary
+is removed with the private temporary directory. It is not the framework
+runtime or a libc++ feature test.
 
-Z kořene projektu:
+From the repository root:
 
 ```sh
 python3 tools/machine-profile/collect.py \
@@ -17,47 +18,53 @@ python3 tools/machine-profile/verify.py /tmp/instantee-device-profile \
 python3 -m unittest discover -s tools/machine-profile -p 'test_*.py' -v
 ```
 
-Pro každý sběr a ověření zvolit nový výstup. Existující soubory se nepřepisují.
-`--storage-path` musí být existující adresář na budoucím výstupním svazku;
-APFS se dotazuje přes skutečný mount point, nikoli libovolný podadresář.
-Sběr má návratový kód 0 při shodě identity referenčního hardwaru, 2 při jiném
-či neověřeném zařízení a 1 při selhání sběru. Kód 0 sám nepotvrzuje úplnost
-profilu: povinně spustit i verifier. Ten vrací 0 pouze při úplném profilu,
-shodě digestů a úspěšném porovnání s aktuálním strojem. Při nedostatečných
-oprávněních vrátí neúspěch; nic neodhaduje z názvu modelu či marketingové RAM.
+Choose a new output for each collection and verification. Existing files are
+never overwritten. `--storage-path` must be an existing directory on the future
+output volume; APFS is queried using its actual mount point, not an arbitrary
+subdirectory. Collection returns 0 for a matching reference hardware identity,
+2 for a different/unverified machine, and 1 for collection failure. Exit code 0
+does not establish profile completeness: running the verifier is mandatory.
+It returns 0 only for a complete profile, matching digests and successful
+comparison with the current machine. Insufficient permissions cause failure;
+identity is never guessed from a model name or marketed RAM capacity.
 
-`raw/probes.json` ukládá argv, UTC začátek, délku dotazu v ns, návratový kód,
-stderr a výstup každého příkazu. U `system_profiler` a `diskutil` jde o explicitní
-výběr polí: sériová čísla, UUID, display EDID a uživatelská jména se neukládají.
-Názvy disků `diskN` jsou identita tohoto bootu, nikoli trvalý identifikátor kusu.
-Identitu hardwarové konfigurace doplňuje model média, kapacita v B, bus,
-interní/externí umístění a APFS physical-store vazba. Profil nerozlišuje dva
-fyzické kusy se zcela shodnou konfigurací.
+`raw/probes.json` stores argv, UTC start time, query duration in ns, return code,
+stderr and command output. For `system_profiler` and `diskutil`, fields are
+explicitly allowlisted: serial numbers, UUIDs, display EDID and user names are
+not stored. Disk names such as `diskN` identify the current boot, not a permanent
+device. The hardware configuration also records media model, capacity in bytes,
+bus, internal/external location and APFS physical-store mapping. The profile
+does not distinguish physically separate devices with identical configurations.
 
-Každá metrika nese `value`, `unit`, `source` a `reason`. `null` znamená
-nedostupnost s důvodem; skutečná naměřená nula zůstává nulou. RAM má přímý
-sysctl zdroj v B, kontrolovaný Foundation `physicalMemory`; nepřevádí se
-řetězec „16 GB“ ze systémového přehledu. Swap se převádí z binárních K/M/G na B;
-přesnost je omezena zaokrouhlením původního sysctl výpisu. Load average je
-počet runnable jobs v oknech 1/5/15 minut. CPU procenta a systémová paměť
-zůstávají v agregovaném `top` výstupu s jednotkami; druhý vzorek odpovídá
-intervalu 1 s. `top` ani sběrač nejsou měření CPU procesu budoucího rendereru.
+Each metric has `value`, `unit`, `source` and `reason`. `null` means unavailable
+with a reason; an actual measured zero remains zero. RAM uses direct sysctl
+bytes checked against Foundation `physicalMemory`, rather than converting a
+marketed capacity string. Swap converts binary K/M/G units to bytes; precision
+is limited by rounding in the original sysctl output. Load average is runnable
+jobs over 1/5/15-minute windows. CPU percentages and system memory remain in
+aggregated `top` output with units; the second sample covers a one-second
+interval. Neither `top` nor the collector measures a future renderer process's
+CPU usage.
 
-Termální enum a low power mode pocházejí z `NSProcessInfo` podle lokálního
-`Foundation.framework/Headers/NSProcessInfo.h`. Neznámý budoucí enum je `null`.
-`pmset -g therm` je jen doplňkový diagnostický údaj: absence historického
-varování nedokazuje `nominal`. Čas vzorků používá UTC a monotónní offsety v ns;
-skutečné intervaly jsou uložené, dotazy jednotlivých metrik nejsou atomické.
-Krátká řada popisuje stav při vývoji, nikoli thermal/endurance test.
+Thermal state and low-power mode come from `NSProcessInfo` as defined in the
+local `Foundation.framework/Headers/NSProcessInfo.h`. Unknown future enum values
+become `null`. `pmset -g therm` is supplementary diagnostic data only: absence
+of a historical warning does not prove `nominal`. Samples use UTC and monotonic
+offsets in ns. Actual intervals are recorded; separate metric queries are not
+atomic. A short series describes development conditions, not a thermal/endurance
+test.
 
-Xcode se hledá v `/Applications/Xcode*.app`, v aktivním developer adresáři,
-v případném `DEVELOPER_DIR` a v `/Library/Developer/CommandLineTools`.
-SDK jsou inventarizována z jejich skutečných `SDKSettings.json`, aliasy se
-deduplikují přes resolved path. Verze aktivního SDK i jeho build jsou navíc
-z `xcrun`. Standalone CLT nemají vlastní Xcode verzi: tato hodnota je `null`
-s důvodem, přítomný je jejich package receipt a SDK. Libovolné archivované
-instalace mimo uvedené cesty nejsou prohledávány. Verze se zde nezamykají.
+Xcode discovery checks `/Applications/Xcode*.app`, the active developer
+directory, an optional `DEVELOPER_DIR` and `/Library/Developer/CommandLineTools`.
+SDK inventory uses actual `SDKSettings.json` files; aliases are deduplicated by
+resolved path. Active SDK version and build are also obtained through `xcrun`.
+Standalone CLT has no Xcode version: that field is `null` with a reason, while
+its package receipt and SDK remain present. Archived installations outside
+these locations are not searched. Versions are not pinned by this collector.
 
-Testy používají uloženou měřenou evidenci jako regresní vstup a navíc ověřují
-chybějící metriky, odmítnuté dotazy, timeouty, převody jednotek, odlišné GPU
-varianty a ochranu existující evidence. Nespouštějí systémové měření.
+Tests cover missing metrics, denied queries, timeouts, unit conversions, distinct
+GPU variants and preservation of existing evidence without performing live
+system measurements. Tests against saved measured evidence use only the ignored
+local reference profile. Those tests are explicitly skipped when that profile
+is absent, so a clean clone does not need private local evidence. Keep collected
+profiles in ignored local storage; do not commit them.

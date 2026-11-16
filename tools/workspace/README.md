@@ -1,6 +1,6 @@
-# Nativní feasibility workspace
+# Native feasibility workspace
 
-Z kořene repozitáře s [ověřeným toolchainem](../toolchain/README.md):
+From the repository root with the [verified toolchain](../toolchain/README.md):
 
 ```sh
 cmake --workflow --preset release
@@ -12,57 +12,58 @@ build/release/spike-render --smoke
 build/release/spike-benchmark --smoke
 ```
 
-Každý workflow provede configure, build a CTest. Release používá
-`RelWithDebInfo`, diagnostické buildy `Debug` a vlastní adresáře. Instrumentace
-se aplikuje na všechny projektové překladové jednotky i executable linky.
-ASan/UBSan a TSan se nekombinují. Sanitizers nekontrolují všechny interní
-operace systémových Apple knihoven a nedokazují životnost GPU/encoder resources.
-Python 3 je potřeba pro procesní smoke testy; runtime CLI jej nepoužívá.
+Each workflow configures, builds and runs CTest. Release uses `RelWithDebInfo`;
+diagnostic builds use `Debug` and separate directories. Instrumentation applies
+to every project translation unit and executable link. ASan/UBSan and TSan are
+not combined. Sanitizers do not check every internal operation of system Apple
+libraries or prove GPU/encoder resource lifetimes. Python 3 is required for
+subprocess smoke tests; the CLI runtime does not use it.
 
-`spike-render` a `spike-benchmark` přijímají právě jednu volbu `--help` nebo
-`--smoke`. Smoke ověřuje synchronní Core Foundation roundtrip v autorelease
-poolu, nevytváří soubory a vrací JSON s `published=false`, `certified=false`.
-Neznámé, duplicitní a kombinované argumenty vracejí kód 2 a JSON na stderr;
-uživatelský vstup se do diagnostiky neopisuje. Bez argumentů renderer vrací
-kód 5 (`renderer_unavailable`), benchmark kód 2 (`benchmark_unavailable`).
-Vykreslování, export a měření budou doplněny navazujícími dodávkami.
-Chyba zápisu nebo flush stdout vrací kód 11 a minimální diagnostiku na stderr.
+`spike-render` and `spike-benchmark` accept exactly one option: `--help` or
+`--smoke`. Smoke checks a synchronous Core Foundation round trip inside an
+autorelease pool, creates no files and returns JSON with `published=false` and
+`certified=false`. Unknown, duplicate or combined arguments return exit code 2
+and JSON on stderr. Diagnostics do not echo user input. Without arguments,
+the renderer returns code 5 (`renderer_unavailable`) and the benchmark returns
+code 2 (`benchmark_unavailable`). Rendering, export and measurement await later
+implementation. A stdout write or flush failure returns code 11 and minimal
+diagnostics on stderr.
 
-Oficiální vstup pro budoucí release benchmark:
+The supported entry point for the future release benchmark is:
 
 ```sh
 cmake --build --preset release --target run-spike-benchmark
 ```
 
-Target nejprve sestaví všechny potřebné testovací programy a CLI, poté spustí
-CPU a smoke testy. Každé selhání zabrání spuštění benchmarkového procesu.
-Teprve úspěšné testy dovolí spustit `spike-benchmark`; ten nyní pravdivě skončí
-chybou nedostupné implementace. Target proto zatím vrací nenulový výsledek
-i po úspěšném preflightu. V sanitizovaných a neoptimalizovaných konfiguracích
-target není dostupný. Nejde o měřicí harness; čas testů a buildu nesmí vstoupit
-do budoucího intervalu spawn→wait exportního procesu.
+The target first builds all required test programs and executables, then runs
+CPU and smoke tests. Any test failure prevents the benchmark process from
+starting. Only successful tests allow `spike-benchmark` to launch; it currently
+returns an explicit unavailable error. The target therefore still returns a
+nonzero result after a successful preflight. It is unavailable in sanitized or
+unoptimized configurations. This is not a measurement harness; build and test
+time must not enter the future export process's spawn-to-wait interval.
 
-`engine/apps/cli` vlastní parser a oba spike executable. Sdílené chybové typy jsou
-v malém header-only modulu `engine/src/diagnostics` s veřejným prefixem
-`instantee/diagnostics/`. Apple adaptér je samostatná statická knihovna
-v `engine/native/export-apple`, sestavovaná jako Objective-C++ s ARC. Jeho veřejné
-hlavičky jsou pouze v `include/instantee/export_apple/`; privátní CF wrapper
-a implementace jsou v `src/`. Adaptér závisí na diagnostice, nikoli na CLI.
-Nemá persistentní stav vyžadující PImpl.
+`engine/apps/cli` owns the parser and both spike executables. Shared error types
+belong to the small header-only `engine/src/diagnostics` module with the public
+prefix `instantee/diagnostics/`. The Apple adapter is a separate static library
+in `engine/native/export-apple`, compiled as Objective-C++ with ARC. Its public
+headers live only in `include/instantee/export_apple/`; the private CF wrapper
+and implementation live in `src/`. The adapter depends on diagnostics rather
+than the CLI. It has no persistent state requiring PImpl.
 
-Každý modul, aplikace a skupina testů vlastní svůj `CMakeLists.txt`.
-`cmake/` obsahuje pouze společná build pravidla a toolchain probes;
-`benchmarks/CMakeLists.txt` vlastní preflight a benchmarkový vstup.
-CPU kontraktový test překládá veřejné hlavičky bez Apple frameworků.
-Buildové integrační testy kontrolují skutečné transitivní include závislosti
-a odmítnutí pokusu konzumenta zahrnout privátní CF nebo CLI hlavičku.
+Every module, application and test group owns its `CMakeLists.txt`. `cmake/`
+contains shared build rules and toolchain probes only;
+`benchmarks/CMakeLists.txt` owns the preflight and benchmark entry point. A CPU
+contract test compiles public headers without Apple frameworks. Build integration
+tests inspect transitive includes and verify that consumers cannot include
+private CF or CLI headers through the public include paths.
 
-Privátní `CfOwner<Ref>` přebírá výhradně již vlastněnou +1 Create/Copy referenci
-a uvolní ji přes `CFRelease`. `get()` půjčuje referenci; přebírání +0 Get
-reference vyžaduje předchozí `CFRetain`. Vlastník je move-only, přesuny a cleanup
-jsou `noexcept`. ARC řídí Objective-C objekty, nikoli vlastněné CF reference.
-Native test ověřuje kopii vstupních bytů, přesun vlastnictví a explicitně
-retained referenci přežívající uvolnění původního vlastníka.
+Private `CfOwner<Ref>` adopts only an already owned +1 Create/Copy reference and
+releases it with `CFRelease`. `get()` borrows the reference; adopting a +0 Get
+reference requires a prior `CFRetain`. Owners are move-only; moves and cleanup
+are `noexcept`. ARC manages Objective-C objects, not owned CF references. Native
+tests verify an independent copy of input bytes, ownership transfer and an
+explicitly retained reference surviving retirement of the original owner.
 
-Použité kontrakty: [CMake workflow presety](https://cmake.org/cmake/help/v4.3/manual/cmake-presets.7.html)
-a [Core Foundation ownership](https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/Concepts/Ownership.html).
+Relevant contracts: [CMake workflow presets](https://cmake.org/cmake/help/v4.3/manual/cmake-presets.7.html)
+and [Core Foundation ownership](https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/Concepts/Ownership.html).

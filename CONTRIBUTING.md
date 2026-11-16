@@ -46,6 +46,9 @@ python3 -m unittest discover -s tools/machine-profile -p 'test_*.py' -v
 git diff --check
 ```
 
+Machine-profile tests that require the ignored local reference evidence are
+explicitly skipped when it is unavailable. Collector regression tests still run.
+
 The presets use separate build directories. Sanitized runs are correctness
 diagnostics and must not be presented as release performance measurements.
 System Apple frameworks are not fully instrumented by the project's sanitizers.
@@ -77,6 +80,11 @@ ordering whenever adding asynchronous work. Keep queues and pools bounded.
 Keep changes focused, document public behavior and include tests for relevant
 error paths. Do not create unused directories or speculative framework layers.
 Update instructions when commands, paths or observable behavior change.
+
+Use English for all versioned descriptions, Markdown documentation, code
+comments, docstrings, diagnostics and commit messages. Review prose for language
+as part of the staged-content review. Non-English text is appropriate only as
+intentional test or input data, not as documentation or commentary.
 
 ## Local data and commits
 

@@ -1,6 +1,6 @@
-# Ověřený nativní toolchain
+# Verified native toolchain
 
-Z kořene projektu na arm64 Macu s vybraným Xcode:
+From the repository root on an arm64 Mac with the selected Xcode:
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
@@ -11,39 +11,42 @@ ctest --preset toolchain
 python3 -m unittest discover -s tools/toolchain -p 'test_*.py' -v
 ```
 
-`cmake/ToolchainLock.cmake` zamyká CMake 4.3.0, Ninja 1.13.2,
-Apple Clang 21.0.0.21000401, Xcode 27.2 / 27B52 a macOS SDK 27.2 / 26B118.
-Probes kontrolují i Apple compiler build 21000401 a libc++ 220106.
-`package.json`, `.nvmrc`, `.npmrc` a `package-lock.json` zamykají Node 22.15.0,
-npm 11.14.0 a TypeScript 5.9.3 s integritou distribuovaného balíčku.
-Node/TypeScript slouží sestavení authoringu, nejsou závislostí runtime.
+`cmake/ToolchainLock.cmake` pins CMake 4.3.0, Ninja 1.13.2,
+Apple Clang 21.0.0.21000401, Xcode 27.2 / 27B52 and macOS SDK 27.2 / 26B118.
+The probes also verify Apple compiler build 21000401 and libc++ 220106.
+`package.json`, `.nvmrc`, `.npmrc` and `package-lock.json` pin Node 22.15.0,
+npm 11.14.0 and TypeScript 5.9.3, including package integrity.
+Node/TypeScript support authoring builds and are not runtime dependencies.
 
-Konfigurace odmítá jinou verzi, platformu, architekturu, deployment target
-nebo knihovnu. Používá SDK z aktivního Xcode přes `xcrun`; explicitní sysroot
-se kontroluje podle vlastních SDK metadat. C++23 je povinný v C++ i Objective-C++,
-bez jazykových extensions; Objective-C++ vyžaduje ARC. Probe nelze vypnout.
-Při každé konfiguraci se znovu sestaví a spustí čtyři programy v obou jazycích:
-expected value/error a monadic transform, jthread stop/join, stop callback
-s idempotentním stop requestem a condition-variable wait probuzený stopem.
-Čekání kontroluje také předem zastavený token a splněný predicate.
+Configuration rejects different versions, platforms, architectures, deployment
+targets or libraries. It resolves the active Xcode SDK through `xcrun`; an
+explicit sysroot is verified using that SDK's own metadata. Both C++ and
+Objective-C++ require C++23 without language extensions. Objective-C++ requires
+ARC. The probes cannot be disabled. Every configuration recompiles and runs
+four programs in both languages: expected value/error and monadic transform,
+jthread stop/join, a stop callback with an idempotent stop request, and a
+condition-variable wait awakened by stop. Wait checks also cover a previously
+stopped token and a satisfied predicate.
 
-Každý program má desetisekundový runtime limit v configure i CTest.
-Negativní testy izolovaně zastíní knihovní headery, ověří odmítnutí změn
-verzí, nenulového výsledku a zaseknutého programu i opakování probes po
-změně headeru. Výsledky se necachují; není povolen cross-compile/emulátor
-jako náhrada nativního ověření. Build vytváří osm probe programů a
-[minimální workspace s CLI](../workspace/README.md).
+Every program has a ten-second runtime limit during configuration and CTest.
+Negative tests shadow library headers in isolation and check rejection of
+version drift, nonzero exits and hung programs, plus repeated probing after a
+header change. Successful results are not cached. Cross-compilation/emulation
+cannot replace native verification. The build produces eight probe programs
+and the [minimal CLI workspace](../workspace/README.md).
 
-Minimum macOS 27.2 je nyní zámek pro feasibility build na ověřeném stroji,
-nikoli slib podpory exportu na starších systémech. Finální podpora video API
-vyžaduje nativní exportní experiment. Změny zámku vyžadují opakovat čistý build,
-negativní testy a evidenci na referenčním hardwaru; nejde o výkonnostní certifikaci.
+The minimum macOS version of 27.2 is currently a feasibility-build lock for the
+verified machine, not a promise of export support on older systems. Final video
+API support requires a native export experiment. Lock changes require another
+clean build, negative tests and evidence on the reference hardware. This is not
+performance certification.
 
-`vcpkg.json` připíná baseline veřejného tagu `2025.10.17`, ověřeného na commit
-`74e6536215718009aae747d86d84b78376bf9e09`. Žádné C/C++ balíčky se zatím
-nepoužívají a configure vcpkg nestahuje ani nebootstrapuje. Při první integraci
-balíčku použít manifest mode a stejný checkout vcpkg, nikoli pohyblivý HEAD.
+`vcpkg.json` pins the baseline of the public `2025.10.17` tag, verified at commit
+`74e6536215718009aae747d86d84b78376bf9e09`. No C/C++ packages are used yet;
+configuration neither downloads nor bootstraps vcpkg. The first package
+integration must use manifest mode and the same vcpkg checkout rather than a
+moving HEAD.
 
-Kontrakt vychází z [CMake compile/run podpory](https://cmake.org/cmake/help/v4.3/command/try_compile.html),
-[povinného Objective-C++ standardu](https://cmake.org/cmake/help/v4.3/prop_tgt/OBJCXX_STANDARD.html)
-a [vcpkg versioningu](https://learn.microsoft.com/en-us/vcpkg/users/versioning).
+The contract follows [CMake compile/run support](https://cmake.org/cmake/help/v4.3/command/try_compile.html),
+the [required Objective-C++ standard](https://cmake.org/cmake/help/v4.3/prop_tgt/OBJCXX_STANDARD.html)
+and [vcpkg versioning](https://learn.microsoft.com/en-us/vcpkg/users/versioning).

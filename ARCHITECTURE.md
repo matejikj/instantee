@@ -65,8 +65,10 @@ The diagnostics module has no application or native dependency. The core-model
 module stays platform-neutral and must not include Metal, AVFoundation or CLI
 headers. The Apple adapter may use core-model time types for presentation
 timestamps, but keeps AVFoundation inside Objective-C++. The Apple adapter and
-Metal backend do not include CLI headers. The executables compose the parser and
-adapters; application policy stays at that composition boundary. The current
+Metal backend do not include CLI headers and do not depend on each other.
+Composition of Metal readback into encoder pixel buffers belongs in executables
+or dedicated test targets. The executables compose the parser and adapters;
+application policy stays at that composition boundary. The current
 diagnostic types remain in the `instantee::spike` namespace and are provisional,
 not a stable production API.
 

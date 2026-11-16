@@ -418,11 +418,25 @@ inspect_media(const std::filesystem::path &path) {
     info.playable = asset.playable;
     info.video_track_count = static_cast<std::uint32_t>(video.count);
     info.audio_track_count = static_cast<std::uint32_t>(audio.count);
+
+    const CMTime duration = asset.duration;
+    if (CMTIME_IS_NUMERIC(duration) && duration.timescale > 0) {
+      info.duration_numerator = duration.value;
+      info.duration_denominator = duration.timescale;
+    }
+
     if (info.video_track_count > 0) {
       AVAssetTrack *track = video.firstObject;
       const CGSize size = track.naturalSize;
       info.width = static_cast<std::uint32_t>(size.width);
       info.height = static_cast<std::uint32_t>(size.height);
+      info.nominal_frame_rate = static_cast<double>(track.nominalFrameRate);
+      if (track.formatDescriptions.count > 0) {
+        const auto desc = (__bridge CMFormatDescriptionRef)
+                              track.formatDescriptions.firstObject;
+        info.h264 =
+            CMFormatDescriptionGetMediaSubType(desc) == kCMVideoCodecType_H264;
+      }
     }
     return info;
   } @catch (...) {

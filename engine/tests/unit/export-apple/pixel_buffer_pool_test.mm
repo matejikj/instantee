@@ -2,6 +2,8 @@
 
 #include <instantee/export_apple/pixel_buffer.hpp>
 
+#include <CoreVideo/CoreVideo.h>
+
 #include <array>
 #include <atomic>
 #include <chrono>
@@ -19,6 +21,7 @@ using instantee::spike::Error;
 using instantee::spike::apple::PixelBuffer;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
+using instantee::spike::apple::detail::PixelBufferAccess;
 using instantee::spike::apple::detail::adopt_cf;
 using instantee::spike::apple::detail::retain_cf;
 
@@ -203,6 +206,56 @@ struct AcquireResult {
       buffer->fill_bgra8(wrong).error().code != "size_mismatch") {
     return 21;
   }
+  if (buffer->fill_rgba8(wrong) ||
+      buffer->fill_rgba8(wrong).error().code != "size_mismatch") {
+    return 22;
+  }
+  return 0;
+}
+
+[[nodiscard]] int check_rgba_to_bgra_swizzle(PixelBufferPool &pool) {
+  auto buffer = pool.acquire();
+  if (!buffer) {
+    return 40;
+  }
+
+  const auto width = buffer->format().width;
+  const auto height = buffer->format().height;
+  std::vector<std::uint8_t> rgba(static_cast<std::size_t>(width) *
+                                     static_cast<std::size_t>(height) * 4U,
+                                 0);
+  // Distinct R/G/B/A so a missing R/B swap is obvious.
+  rgba[0] = 10;
+  rgba[1] = 20;
+  rgba[2] = 30;
+  rgba[3] = 40;
+  if (!buffer->fill_rgba8(rgba)) {
+    return 41;
+  }
+
+  auto *native =
+      static_cast<CVPixelBufferRef>(PixelBufferAccess::raw_buffer(*buffer));
+  if (native == nullptr ||
+      CVPixelBufferLockBaseAddress(native, kCVPixelBufferLock_ReadOnly) !=
+          kCVReturnSuccess) {
+    return 42;
+  }
+  const auto *base =
+      static_cast<const std::uint8_t *>(CVPixelBufferGetBaseAddress(native));
+  const int unlocked =
+      CVPixelBufferUnlockBaseAddress(native, kCVPixelBufferLock_ReadOnly);
+  if (base == nullptr || unlocked != kCVReturnSuccess) {
+    return 43;
+  }
+  if (base[0] != 30 || base[1] != 20 || base[2] != 10 || base[3] != 40) {
+    return 44;
+  }
+
+  buffer->seal();
+  if (buffer->fill_rgba8(rgba) ||
+      buffer->fill_rgba8(rgba).error().code != "sealed") {
+    return 45;
+  }
   return 0;
 }
 
@@ -226,6 +279,9 @@ int main() {
       return code;
     }
     if (const int code = check_partial_failure_paths(*pool); code != 0) {
+      return code;
+    }
+    if (const int code = check_rgba_to_bgra_swizzle(*pool); code != 0) {
       return code;
     }
     if (const int code = check_delayed_retain_blocks_pool(); code != 0) {

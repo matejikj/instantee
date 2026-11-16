@@ -3,6 +3,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <cmath>
 #include <filesystem>
 #include <optional>
 #include <string_view>
@@ -125,9 +126,10 @@ using instantee::spike::apple::detail::PixelBufferAccess;
   }
 
   const auto info = inspect_media(output);
-  if (!info || !info->playable || info->video_track_count != 1 ||
+  if (!info || !info->playable || !info->h264 || info->video_track_count != 1 ||
       info->audio_track_count != 0 || info->width != 1080 ||
-      info->height != 1920) {
+      info->height != 1920 ||
+      std::abs(info->nominal_frame_rate - 30.0) > 0.05) {
     return 27;
   }
 

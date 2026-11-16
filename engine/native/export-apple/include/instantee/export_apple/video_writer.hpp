@@ -68,6 +68,12 @@ struct MediaInspection {
   std::uint32_t height = 0;
   std::uint32_t video_track_count = 0;
   std::uint32_t audio_track_count = 0;
+  // Nominal rate reported by AVFoundation (expected 30 for media_30_1).
+  double nominal_frame_rate = 0.0;
+  // Exact asset duration as a reduced rational in seconds.
+  std::int64_t duration_numerator = 0;
+  std::int32_t duration_denominator = 1;
+  bool h264 = false;
   bool playable = false;
 };
 

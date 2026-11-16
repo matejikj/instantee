@@ -53,6 +53,12 @@ public:
   [[nodiscard]] std::expected<void, Error>
   fill_bgra8(std::span<const std::uint8_t> tightly_packed);
 
+  // Copies tightly packed straight RGBA8 into the encoder-owned 32BGRA buffer
+  // (R/B swap per pixel). Matches the CPU staging handoff used by Metal
+  // readback. Fails when sealed or size mismatches.
+  [[nodiscard]] std::expected<void, Error>
+  fill_rgba8(std::span<const std::uint8_t> tightly_packed_rgba);
+
   // Creates an additional owning retain of the same buffer.
   [[nodiscard]] std::expected<PixelBuffer, Error> retain_copy() const;
 

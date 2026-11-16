@@ -189,6 +189,67 @@ PixelBuffer::fill_bgra8(std::span<const std::uint8_t> tightly_packed) {
   return {};
 }
 
+std::expected<void, Error>
+PixelBuffer::fill_rgba8(std::span<const std::uint8_t> tightly_packed_rgba) {
+  if (!impl_ || !impl_->buffer) {
+    return std::unexpected(Error{ExitCode::export_failure, "buffer_not_ready",
+                                 kPhase, "Pixel buffer is not ready"});
+  }
+  if (impl_->sealed) {
+    return std::unexpected(Error{ExitCode::invalid_input, "sealed", kPhase,
+                                 "Sealed pixel buffers cannot be mutated"});
+  }
+
+  const auto expected_bytes = static_cast<std::size_t>(impl_->format.width) *
+                              static_cast<std::size_t>(impl_->format.height) *
+                              4U;
+  if (tightly_packed_rgba.size() != expected_bytes) {
+    return std::unexpected(Error{ExitCode::invalid_input, "size_mismatch",
+                                 kPhase,
+                                 "RGBA payload size does not match format"});
+  }
+
+  if (CVPixelBufferLockBaseAddress(impl_->buffer.get(), 0) !=
+      kCVReturnSuccess) {
+    return std::unexpected(Error{ExitCode::export_failure, "lock_failed",
+                                 kPhase,
+                                 "Cannot lock pixel buffer base address"});
+  }
+
+  auto *destination = static_cast<std::uint8_t *>(
+      CVPixelBufferGetBaseAddress(impl_->buffer.get()));
+  const auto bytes_per_row = static_cast<std::size_t>(
+      CVPixelBufferGetBytesPerRow(impl_->buffer.get()));
+  const auto tight_row = static_cast<std::size_t>(impl_->format.width) * 4U;
+  if (destination == nullptr || bytes_per_row < tight_row) {
+    CVPixelBufferUnlockBaseAddress(impl_->buffer.get(), 0);
+    return std::unexpected(Error{ExitCode::export_failure,
+                                 "base_address_failed", kPhase,
+                                 "Pixel buffer base address is unavailable"});
+  }
+
+  for (std::uint32_t y = 0; y < impl_->format.height; ++y) {
+    const std::uint8_t *src =
+        tightly_packed_rgba.data() + static_cast<std::size_t>(y) * tight_row;
+    std::uint8_t *dst =
+        destination + static_cast<std::size_t>(y) * bytes_per_row;
+    for (std::uint32_t x = 0; x < impl_->format.width; ++x) {
+      const std::size_t offset = static_cast<std::size_t>(x) * 4U;
+      dst[offset + 0] = src[offset + 2]; // B
+      dst[offset + 1] = src[offset + 1]; // G
+      dst[offset + 2] = src[offset + 0]; // R
+      dst[offset + 3] = src[offset + 3]; // A
+    }
+  }
+
+  if (CVPixelBufferUnlockBaseAddress(impl_->buffer.get(), 0) !=
+      kCVReturnSuccess) {
+    return std::unexpected(Error{ExitCode::export_failure, "unlock_failed",
+                                 kPhase, "Cannot unlock pixel buffer"});
+  }
+  return {};
+}
+
 std::expected<PixelBuffer, Error> PixelBuffer::retain_copy() const {
   if (!impl_ || !impl_->buffer) {
     return std::unexpected(Error{ExitCode::export_failure, "buffer_not_ready",

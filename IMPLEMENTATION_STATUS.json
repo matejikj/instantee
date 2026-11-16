@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T13:40:32.621533+00:00",
+  "updated_at_utc": "2026-11-16T14:06:08.956619+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1122,14 +1122,134 @@
       ]
     },
     "P0-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A standard player plays the file; ffprobe/AVFoundation confirm its parameters.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Playable video-only H.264 MP4 at 1080x1920 / 30 fps",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/export-apple/render_to_mp4_test.mm",
+              "implementation-evidence/P0-010/checks.json"
+            ]
+          },
+          {
+            "criterion": "AVFoundation confirms codec, geometry, rate and duration",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/video_writer.mm",
+              "implementation-evidence/P0-010/checks.json"
+            ]
+          },
+          {
+            "criterion": "Rendered Metal frames reach the writer via RGBA staging copy",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/pixel_buffer.mm",
+              "engine/tests/unit/export-apple/render_to_mp4_test.mm"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-010/README.md",
+        "implementation-evidence/P0-010/checks.json",
+        "implementation-evidence/P0-010/dependency-verification.json",
+        "implementation-evidence/P0-010/reference-verification.json",
+        "implementation-evidence/P0-010/source-sha256.json",
+        "implementation-evidence/P0-010/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "end-to-end Metal render to H.264 MP4",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "RGBA to BGRA staging unit coverage",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-010/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "ffprobe unavailable on this host; AVFoundation MediaInspection confirmed parameters.",
+        "CLI export path remains unavailable; composition is covered by the native e2e test.",
+        "No performance certification in this delivery."
+      ]
     },
     "P0-011": {
       "status": "todo",

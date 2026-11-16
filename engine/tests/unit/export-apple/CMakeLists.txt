@@ -24,3 +24,13 @@ target_link_libraries(spike_apple_video_writer_test PRIVATE
 add_test(NAME spike_apple_video_writer COMMAND spike_apple_video_writer_test)
 set_tests_properties(spike_apple_video_writer PROPERTIES TIMEOUT 120
   LABELS "cpu;smoke")
+
+# Composition of Metal readback and the Apple writer stays in the test target;
+# the backends do not depend on each other.
+add_executable(spike_apple_render_to_mp4_test render_to_mp4_test.mm)
+target_compile_options(spike_apple_render_to_mp4_test PRIVATE -fobjc-arc)
+target_link_libraries(spike_apple_render_to_mp4_test PRIVATE
+  instantee::export_apple instantee::render_metal instantee_build_options)
+add_test(NAME spike_apple_render_to_mp4 COMMAND spike_apple_render_to_mp4_test)
+set_tests_properties(spike_apple_render_to_mp4 PROPERTIES TIMEOUT 180
+  LABELS "cpu;smoke")

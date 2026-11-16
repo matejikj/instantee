@@ -51,8 +51,12 @@ public:
                                                   core::FrameIndex frame_index,
                                                   std::stop_token stop = {});
 
-  // Marks the input finished and completes writing. Verifies writer status.
-  [[nodiscard]] std::expected<void, Error> finish();
+  // Marks input finished, cancels on stop, and waits for terminal completion
+  // acknowledgement before returning. The owner serializes append/finish;
+  // cancel() may wake readiness from another thread, but must never race
+  // append. A stuck native API needs a process supervisor; timeout never
+  // permits freeing live callback state.
+  [[nodiscard]] std::expected<void, Error> finish(std::stop_token stop = {});
 
   // Cancels writing and wakes readiness waiters. Safe to call repeatedly.
   void cancel() noexcept;

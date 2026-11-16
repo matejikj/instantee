@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T15:20:11.092976+00:00",
+  "updated_at_utc": "2026-11-16T15:52:33.950173+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1753,14 +1753,171 @@
       ]
     },
     "P0-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Stop on a full/empty queue and a late callback cause no deadlock or undefined behavior; SIGKILL may leave only the job's own temporary artifacts.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Shared SIGINT/SIGTERM stop wakes capacity-one full/empty queues, admission and pixel-pool waits",
+            "met": true,
+            "evidence": [
+              "engine/src/runtime/src/stop_signals.cpp",
+              "engine/tests/integration/cancellation_child.mm",
+              "engine/tests/integration/cancellation_subprocess.py"
+            ]
+          },
+          {
+            "criterion": "Abort retires pending ownership outside mutex; failed insertion preserves caller ownership",
+            "met": true,
+            "evidence": [
+              "engine/src/runtime/include/instantee/runtime/bounded_queue.hpp",
+              "engine/tests/unit/runtime/cancellation_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Delayed completion retains resources through stop and join; native writer finish acknowledges cancellation",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/video_writer.mm",
+              "engine/tests/integration/cancellation_child.mm",
+              "implementation-evidence/P0-015/ownership-review.json"
+            ]
+          },
+          {
+            "criterion": "Process-kill preserves target visibility and leaves only private staging; late stop reports published output",
+            "met": true,
+            "evidence": [
+              "engine/src/export-core/src/output_transaction.cpp",
+              "engine/tests/integration/cancellation_subprocess.py"
+            ]
+          },
+          {
+            "criterion": "Hung native work is bounded by process supervisor without unsafe thread destruction",
+            "met": true,
+            "evidence": [
+              "tools/workspace/supervise.py",
+              "engine/tests/integration/cancellation_subprocess.py",
+              "tools/workspace/README.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-015/README.md",
+        "implementation-evidence/P0-015/checks.json",
+        "implementation-evidence/P0-015/dependency-verification.json",
+        "implementation-evidence/P0-015/ownership-review.json",
+        "implementation-evidence/P0-015/reference-verification.json",
+        "implementation-evidence/P0-015/source-sha256.json",
+        "implementation-evidence/P0-015/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "Native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Final targeted TSan rebuild and checks",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Final signal-bridge regression check",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Isolated build integration and negative toolchain tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Subprocess interruption matrix",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Python syntax compilation",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Machine-profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Predecessor/reference verification",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Source diff and ownership review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Content and privacy review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        },
+        {
+          "name": "Staged delivery and metadata review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-015/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Full scene/job orchestration is a later delivery; the native spike test composes the shutdown path.",
+        "No performance or power-loss durability certification.",
+        "System Apple frameworks and GPU internals are not fully instrumented by project sanitizers.",
+        "clang-tidy unavailable; Clang static analyzer used.",
+        "Remote CI was not executed."
+      ]
     },
     "P0-016": {
       "status": "todo",

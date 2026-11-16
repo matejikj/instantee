@@ -1,4 +1,4 @@
-add_library(instantee_runtime STATIC src/frame_credits.cpp)
+add_library(instantee_runtime STATIC src/frame_credits.cpp src/stop_signals.cpp)
 add_library(instantee::runtime ALIAS instantee_runtime)
 target_include_directories(instantee_runtime
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

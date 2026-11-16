@@ -82,3 +82,58 @@ releases it with `CFRelease`. Metal device and queue use `NS::TransferPtr` for
 Relevant contracts: [CMake workflow presets](https://cmake.org/cmake/help/v4.3/manual/cmake-presets.7.html),
 [Core Foundation ownership](https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/Concepts/Ownership.html)
 and [metal-cpp memory management](https://github.com/apple/metal-cpp/blob/main/README.md).
+
+## Interruption and bounded shutdown
+
+Both executables install `runtime::StopSignals` on the main thread before opening
+native frameworks. SIGINT/SIGTERM are blocked before workers inherit the mask;
+a joining `sigwait` thread requests the common stop source without entering
+Apple APIs. One bridge may exist at a time. It must be destroyed on its creating
+thread after all job workers have joined. Stop callbacks must be bounded and
+must not join the signal thread or call a potentially blocking native API.
+The current CLI still exposes only workspace smoke checks; export composition
+is exercised by the native interruption test child.
+
+Queue `close()` permits normal draining. `abort()` rejects pending work and
+releases queued ownership outside the mutex; the coordinator requests stop
+outside resource locks, closes admission, aborts queues and joins consumers
+before destroying dependencies. Failed `push(std::move(lease))` preserves the
+caller's lease. A stopped consumer receives no new queued work. Already submitted
+GPU work stays owned until its completion; cancelling readback only refuses
+pixel delivery. The export owner cancels the writer. `finish(stop)` waits for
+its native completion acknowledgement even after stop. Never detach a blocked
+thread or free resources because a local timer expired.
+
+Use the process supervisor to bound a stuck native call, including GPU retirement,
+writer cancellation/finalization, or media inspection:
+
+```sh
+python3 tools/workspace/supervise.py --timeout 120 --grace 10 -- \
+  build/release/spike-render --smoke
+```
+
+Timeouts are positive finite seconds and are explicit run-profile settings, not
+performance thresholds. The supervisor starts a separate child process group,
+forwards SIGINT/SIGTERM, allows the configured grace interval, then sends SIGKILL
+to the group and reaps the child. A watchdog expiry returns code 12 even if the
+child subsequently exits cleanly; a forced kill reports `published=null` and
+`durability=unknown`. The supervisor cannot infer whether a killed process
+already renamed its output. Child stdout/stderr are inherited; collect raw
+logs outside the repository and sanitize evidence before sharing it.
+
+`OutputTransaction::commit(stop)` checks cancellation before file sync and at
+the serial owner's entry into Publishing, immediately before rename. After that
+gate, it completes publication and metadata sync and returns the actual result.
+Late stop never removes a published output. Before publication, cancellation
+preserves the previous target (or its absence); normal stack cleanup removes
+only the private staging directory. SIGKILL may leave that job's private staging
+artifacts. Do not delete arbitrary temporary directories or assume that a killed
+writer can resume. Process-kill checks establish atomic visibility only; they
+provide no power-loss durability certification.
+
+The subprocess cancellation matrix covers both signals, absent/existing targets,
+full/empty queues, exhausted credits and pixel pools, delayed completion, GPU
+retirement, writer cancellation/finish, and stop after publication. Separate
+SIGKILL cases check target visibility and staging permissions/markers. A fake
+hung native call verifies watchdog escalation. Run these through CTest on a host
+with Metal and hardware-encoder access; sanitizer runs are diagnostics.

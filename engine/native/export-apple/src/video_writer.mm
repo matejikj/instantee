@@ -182,10 +182,20 @@ PixelBufferFormat VideoWriter::format() const noexcept {
 }
 
 bool VideoWriter::cancelled() const noexcept {
-  return impl_ && impl_->cancelled;
+  if (!impl_) {
+    return false;
+  }
+  std::lock_guard lock(impl_->mutex);
+  return impl_->cancelled;
 }
 
-bool VideoWriter::finished() const noexcept { return impl_ && impl_->finished; }
+bool VideoWriter::finished() const noexcept {
+  if (!impl_) {
+    return false;
+  }
+  std::lock_guard lock(impl_->mutex);
+  return impl_->finished;
+}
 
 std::expected<void, Error> VideoWriter::wait_until_ready(std::stop_token stop) {
   if (!impl_) {
@@ -352,12 +362,15 @@ std::expected<void, Error> VideoWriter::append(PixelBuffer &buffer,
   return {};
 }
 
-std::expected<void, Error> VideoWriter::finish() {
+std::expected<void, Error> VideoWriter::finish(std::stop_token stop) {
   if (!impl_) {
     return std::unexpected(Error{ExitCode::export_failure, "writer_not_ready",
                                  kPhase, "Video writer is not ready"});
   }
 
+  if (stop.stop_requested()) {
+    cancel();
+  }
   {
     std::lock_guard lock(impl_->mutex);
     if (impl_->cancelled) {
@@ -382,33 +395,44 @@ std::expected<void, Error> VideoWriter::finish() {
   @try {
     [impl_->input markAsFinished];
     [impl_->writer finishWritingWithCompletionHandler:^{
-      @try {
-        auto self = weak_self.lock();
-        std::expected<void, Error> result{};
-        if (!self || self->writer.status != AVAssetWriterStatusCompleted) {
-          result = std::unexpected(
-              Error{ExitCode::export_failure, "finish_failed", kPhase,
-                    "AVAssetWriter finish did not complete successfully"});
-        }
-        if (self) {
-          std::lock_guard lock(self->mutex);
-          if (result) {
-            self->finished = true;
-          } else {
-            self->failed = true;
+      try {
+        @try {
+          auto self = weak_self.lock();
+          std::expected<void, Error> result{};
+          if (!self || self->writer.status != AVAssetWriterStatusCompleted) {
+            result = std::unexpected(
+                Error{ExitCode::export_failure, "finish_failed", kPhase,
+                      "AVAssetWriter finish did not complete successfully"});
           }
-          self->notify_ready_unlocked();
+          if (self) {
+            std::lock_guard lock(self->mutex);
+            if (result) {
+              self->finished = true;
+            } else {
+              self->failed = true;
+            }
+            self->notify_ready_unlocked();
+          }
+          try {
+            done->set_value(result);
+          } catch (...) {
+          }
+        } @catch (...) {
+          if (auto self = weak_self.lock()) {
+            std::lock_guard lock(self->mutex);
+            self->failed = true;
+            self->notify_ready_unlocked();
+          }
+          try {
+            done->set_value(std::unexpected(
+                Error{ExitCode::export_failure, "finish_exception", kPhase,
+                      "Exception in finishWriting completion handler"}));
+          } catch (...) {
+          }
         }
-        try {
-          done->set_value(result);
-        } catch (...) {
-        }
-      } @catch (...) {
-        if (auto self = weak_self.lock()) {
-          std::lock_guard lock(self->mutex);
-          self->failed = true;
-          self->notify_ready_unlocked();
-        }
+      } catch (...) {
+        // Contain C++ failures as well as Objective-C exceptions at the native
+        // callback boundary. The completion state outlives the caller scope.
         try {
           done->set_value(std::unexpected(
               Error{ExitCode::export_failure, "finish_exception", kPhase,
@@ -425,7 +449,21 @@ std::expected<void, Error> VideoWriter::finish() {
                                  "Exception while finishing AVAssetWriter"});
   }
 
-  return future.get();
+  // Native cancellation stays on the export owner. The signal thread only
+  // requests stop and never enters AVFoundation. Retain all writer resources
+  // until the finish callback acknowledges completion, including after cancel.
+  while (future.wait_for(std::chrono::milliseconds(5)) !=
+         std::future_status::ready) {
+    if (stop.stop_requested()) {
+      cancel();
+    }
+  }
+  auto result = future.get();
+  if (cancelled()) {
+    return std::unexpected(Error{ExitCode::invalid_input, "cancelled", kPhase,
+                                 "Video writer finish was cancelled"});
+  }
+  return result;
 }
 
 void VideoWriter::cancel() noexcept {

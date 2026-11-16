@@ -6,7 +6,7 @@ target_link_libraries(instantee_spike_cli PUBLIC instantee::diagnostics
 foreach(tool IN ITEMS spike-render spike-benchmark)
   add_executable(${tool} main.cpp)
   target_link_libraries(${tool} PRIVATE instantee_spike_cli instantee::export_apple
-    instantee::render_metal instantee_build_options)
+    instantee::render_metal instantee::runtime instantee_build_options)
   set_target_properties(${tool} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 endforeach()
 target_compile_definitions(spike-benchmark PRIVATE INSTANTEE_SPIKE_BENCHMARK=1)

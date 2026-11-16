@@ -13,6 +13,7 @@
 #include <new>
 #include <optional>
 #include <stop_token>
+#include <type_traits>
 #include <utility>
 
 namespace instantee::runtime {
@@ -20,9 +21,13 @@ namespace instantee::runtime {
 // Single-producer / multi-waiter FIFO with fixed capacity. Full push and empty
 // pop block until space/item, close, cancel, or optional deadline. Closed
 // queues reject new pushes and drain remaining items before returning closed on
-// pop.
+// pop. Values require noexcept move/destruction; a moved-from value must have
+// inert cleanup, since removing its empty shell occurs under the queue mutex.
 template <typename T> class BoundedQueue {
 public:
+  static_assert(std::is_nothrow_move_constructible_v<T> &&
+                std::is_nothrow_destructible_v<T>);
+
   BoundedQueue(const BoundedQueue &) = delete;
   BoundedQueue &operator=(const BoundedQueue &) = delete;
   BoundedQueue(BoundedQueue &&) noexcept = default;
@@ -40,8 +45,14 @@ public:
   // Wakes blocked push/pop. Remaining items stay available until drained.
   void close() noexcept;
 
+  // Rejects new work and retires pending items outside the queue mutex.
+  // Idempotent; blocked push/pop wake with cancelled. In-flight work remains
+  // owned by its consumer and must be retired before joining that consumer.
+  void abort() noexcept;
+
+  // The rvalue reference is consumed only on successful insertion.
   [[nodiscard]] std::expected<void, spike::Error>
-  push(T value, std::stop_token stop = {},
+  push(T &&value, std::stop_token stop = {},
        std::optional<std::chrono::steady_clock::time_point> deadline =
            std::nullopt);
 
@@ -62,7 +73,8 @@ private:
     std::mutex mutex;
     std::condition_variable_any not_full;
     std::condition_variable_any not_empty;
-    std::deque<T> items;
+    std::unique_ptr<std::deque<T>> items = std::make_unique<std::deque<T>>();
+    bool aborted = false;
     bool closed = false;
     PipelineMetrics metrics{};
   };
@@ -82,8 +94,10 @@ BoundedQueue<T>::create(std::size_t capacity) {
                                         "Bounded queue capacity must be "
                                         "non-zero"});
   }
-  auto state = std::unique_ptr<State>(new (std::nothrow) State{capacity});
-  if (!state) {
+  std::unique_ptr<State> state;
+  try {
+    state = std::make_unique<State>(capacity);
+  } catch (const std::bad_alloc &) {
     return std::unexpected(spike::Error{spike::ExitCode::export_failure,
                                         "out_of_memory", kPhase,
                                         "Cannot allocate bounded queue"});
@@ -100,7 +114,7 @@ template <typename T> std::size_t BoundedQueue<T>::size() const noexcept {
     return 0U;
   }
   std::lock_guard lock(state_->mutex);
-  return state_->items.size();
+  return state_->items ? state_->items->size() : 0U;
 }
 
 template <typename T> bool BoundedQueue<T>::closed() const noexcept {
@@ -130,9 +144,24 @@ template <typename T> void BoundedQueue<T>::close() noexcept {
   state_->not_empty.notify_all();
 }
 
+template <typename T> void BoundedQueue<T>::abort() noexcept {
+  if (!state_) {
+    return;
+  }
+  std::unique_ptr<std::deque<T>> retired;
+  {
+    std::lock_guard lock(state_->mutex);
+    state_->aborted = true;
+    state_->closed = true;
+    retired = std::move(state_->items);
+  }
+  state_->not_full.notify_all();
+  state_->not_empty.notify_all();
+}
+
 template <typename T>
 std::expected<void, spike::Error>
-BoundedQueue<T>::push(T value, std::stop_token stop,
+BoundedQueue<T>::push(T &&value, std::stop_token stop,
                       std::optional<clock::time_point> deadline) {
   if (!state_) {
     return std::unexpected(spike::Error{spike::ExitCode::export_failure,
@@ -141,7 +170,7 @@ BoundedQueue<T>::push(T value, std::stop_token stop,
   }
   std::unique_lock lock(state_->mutex);
   for (;;) {
-    if (stop.stop_requested()) {
+    if (state_->aborted || stop.stop_requested()) {
       return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
                                           "cancelled", kPhase,
                                           "Bounded queue push was cancelled"});
@@ -151,10 +180,10 @@ BoundedQueue<T>::push(T value, std::stop_token stop,
                                           "closed", kPhase,
                                           "Bounded queue is closed"});
     }
-    if (state_->items.size() < state_->capacity) {
-      state_->items.push_back(std::move(value));
-      if (state_->items.size() > state_->metrics.high_water) {
-        state_->metrics.high_water = state_->items.size();
+    if (state_->items->size() < state_->capacity) {
+      state_->items->push_back(std::move(value));
+      if (state_->items->size() > state_->metrics.high_water) {
+        state_->metrics.high_water = state_->items->size();
       }
       state_->not_empty.notify_one();
       return {};
@@ -163,8 +192,8 @@ BoundedQueue<T>::push(T value, std::stop_token stop,
     ++state_->metrics.blocked_push_count;
     const auto started = clock::now();
     const auto wake = [&] {
-      return state_->closed || stop.stop_requested() ||
-             state_->items.size() < state_->capacity;
+      return state_->closed || state_->aborted || stop.stop_requested() ||
+             state_->items->size() < state_->capacity;
     };
     if (deadline.has_value()) {
       if (clock::now() >= *deadline) {
@@ -198,9 +227,14 @@ BoundedQueue<T>::pop(std::stop_token stop,
   }
   std::unique_lock lock(state_->mutex);
   for (;;) {
-    if (!state_->items.empty()) {
-      T value = std::move(state_->items.front());
-      state_->items.pop_front();
+    if (state_->aborted || stop.stop_requested()) {
+      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
+                                          "cancelled", kPhase,
+                                          "Bounded queue pop was cancelled"});
+    }
+    if (!state_->items->empty()) {
+      T value = std::move(state_->items->front());
+      state_->items->pop_front();
       state_->not_full.notify_one();
       return value;
     }
@@ -209,16 +243,11 @@ BoundedQueue<T>::pop(std::stop_token stop,
                                           "closed", kPhase,
                                           "Bounded queue is closed"});
     }
-    if (stop.stop_requested()) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "cancelled", kPhase,
-                                          "Bounded queue pop was cancelled"});
-    }
-
     ++state_->metrics.blocked_pop_count;
     const auto started = clock::now();
     const auto wake = [&] {
-      return state_->closed || stop.stop_requested() || !state_->items.empty();
+      return state_->closed || state_->aborted || stop.stop_requested() ||
+             !state_->items->empty();
     };
     if (deadline.has_value()) {
       if (clock::now() >= *deadline) {

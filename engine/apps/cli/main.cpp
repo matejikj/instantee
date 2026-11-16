@@ -1,6 +1,7 @@
 #include "cli.hpp"
 #include <instantee/export_apple/workspace.hpp>
 #include <instantee/render_metal/device.hpp>
+#include <instantee/runtime/stop_signals.hpp>
 
 #include <array>
 #include <cstdio>
@@ -88,7 +89,7 @@ write_smoke_report(const metal::DeviceReport &metal) noexcept {
   return 0;
 }
 
-int run(int argc, char **argv) {
+int run(int argc, char **argv, std::stop_token stop) {
   // The parser accepts at most one option. Bound storage even for hostile argv.
   std::array<std::string_view, 2> arguments{};
   const auto count = argc > 2 ? 2U : (argc > 1 ? 1U : 0U);
@@ -107,12 +108,20 @@ int run(int argc, char **argv) {
                     "without export or performance measurement.\n",
                     tool));
   case Command::smoke: {
+    if (stop.stop_requested()) {
+      return fail({ExitCode::invalid_input, "cancelled", "cli",
+                   "Native smoke check was cancelled"});
+    }
     if (auto result = apple::check_workspace(); !result) {
       return fail(result.error());
     }
     auto device = metal::Device::open();
     if (!device) {
       return fail(device.error());
+    }
+    if (stop.stop_requested()) {
+      return fail({ExitCode::invalid_input, "cancelled", "cli",
+                   "Native smoke check was cancelled"});
     }
     return finish_stdout(write_smoke_report(device->report()));
   }
@@ -125,7 +134,12 @@ int run(int argc, char **argv) {
 
 int main(int argc, char **argv) {
   try {
-    return run(argc, argv);
+    std::stop_source stop;
+    auto signals = instantee::runtime::StopSignals::start(stop);
+    if (!signals) {
+      return fail(signals.error());
+    }
+    return run(argc, argv, stop.get_token());
   } catch (const std::bad_alloc &) {
     return fail({ExitCode::export_failure, "out_of_memory", "cli",
                  "Allocation failed"});

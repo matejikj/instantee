@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <memory>
 #include <optional>
+#include <stop_token>
 #include <string>
 
 namespace instantee::export_core {
@@ -75,7 +76,11 @@ public:
   // Requires the staging file to already contain the finished payload. Syncs
   // the file, publishes with exclusive or replacing rename, then syncs parent
   // metadata. Pre-publish failures leave the old target unchanged.
-  [[nodiscard]] std::expected<PublishResult, spike::Error> commit();
+  // The serial owner observes stop before entering Publishing, immediately
+  // before rename. Stop after this gate cannot roll back publication; commit
+  // completes metadata sync and reports the actual publication outcome.
+  [[nodiscard]] std::expected<PublishResult, spike::Error>
+  commit(std::stop_token stop = {});
 
 private:
   struct State;

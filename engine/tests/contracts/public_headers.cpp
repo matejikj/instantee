@@ -14,5 +14,6 @@
 #include <instantee/runtime/frame_credits.hpp>
 #include <instantee/runtime/pipeline_metrics.hpp>
 #include <instantee/runtime/reorder_buffer.hpp>
+#include <instantee/runtime/stop_signals.hpp>
 
 int main() {}

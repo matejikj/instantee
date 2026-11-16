@@ -140,3 +140,13 @@ tracker may refer to local evidence; a clone does not contain that evidence.
 Build products, dependencies and caches are also ignored.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for build, verification and change rules.
+
+The runtime signal bridge owns a joining sigwait thread and a main-thread signal
+mask scope; public headers expose no platform types. It is installed before
+native libraries and worker creation. The application passes one common stop
+token through admission, queues, pixel pools and the serial export owner. Queue
+abort extracts pending ownership before destruction outside its mutex. Native
+finish waits for terminal acknowledgement; a process supervisor bounds APIs that
+cannot be interrupted safely. Publication observes stop at the serial owner's
+entry gate and preserves truthful published status thereafter. See the
+[shutdown guide](tools/workspace/README.md#interruption-and-bounded-shutdown).

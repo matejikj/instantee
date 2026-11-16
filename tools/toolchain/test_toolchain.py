@@ -25,6 +25,9 @@ class ToolchainTests(unittest.TestCase):
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/toolchain/check-node.cjs", helper)
+        workspace_tools = self.source / "tools/workspace"
+        workspace_tools.mkdir(parents=True)
+        shutil.copy2(ROOT / "tools/workspace/supervise.py", workspace_tools)
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)
         self.build = Path(self.temporary.name) / "build"
 

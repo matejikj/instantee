@@ -349,7 +349,8 @@ const std::string &OutputTransaction::job_nonce() const noexcept {
   return state_ ? state_->job_nonce : kEmpty;
 }
 
-std::expected<PublishResult, spike::Error> OutputTransaction::commit() {
+std::expected<PublishResult, spike::Error>
+OutputTransaction::commit(std::stop_token stop) {
   if (!state_) {
     return std::unexpected(make_error(spike::ExitCode::export_failure,
                                       "transaction_not_ready",
@@ -364,6 +365,12 @@ std::expected<PublishResult, spike::Error> OutputTransaction::commit() {
     return std::unexpected(make_error(spike::ExitCode::invalid_input,
                                       "transaction_abandoned",
                                       "Output transaction was abandoned"));
+  }
+
+  if (stop.stop_requested()) {
+    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+                                      "cancelled",
+                                      "Publication was cancelled"));
   }
 
   std::error_code ec;
@@ -410,6 +417,13 @@ std::expected<PublishResult, spike::Error> OutputTransaction::commit() {
                                       "open_staging_failed",
                                       "Cannot open staging directory for "
                                       "publish"));
+  }
+  // This stop observation is the serial owner's entry gate to Publishing.
+  // No stop checks follow it: rename/sync must return a truthful result.
+  if (stop.stop_requested()) {
+    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+                                      "cancelled",
+                                      "Publication was cancelled"));
   }
   if (::renameatx_np(staging_dir_fd.get(), kStagingFileName, parent_fd.get(),
                      to_rel.c_str(), flags) != 0) {

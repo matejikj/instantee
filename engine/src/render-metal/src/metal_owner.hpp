@@ -40,6 +40,11 @@ public:
     }
   }
 
+  void reset(T *value) noexcept {
+    reset();
+    value_ = value;
+  }
+
 private:
   T *value_ = nullptr;
 };

@@ -11,7 +11,8 @@ performance measurement are not implemented yet.
 engine/                    Native runtime component (C++23 / Objective-C++)
   apps/cli/                Entry points and private argument parser
   src/diagnostics/         Platform-neutral diagnostic value types
-  src/render-metal/        Metal device/queue backend behind a C++ public API
+  src/render-metal/        Metal device/queue/test-pattern backend (C++ API)
+  shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter with public include/ and private src/
   tests/                   Native unit, contract and subprocess tests
 third_party/metal-cpp/     Pinned metal-cpp headers with archive checksum metadata

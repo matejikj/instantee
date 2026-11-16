@@ -1,5 +1,6 @@
 #include <instantee/render_metal/device.hpp>
 
+#include "device_native.hpp"
 #include "metal_owner.hpp"
 
 #include <utility>
@@ -89,5 +90,13 @@ std::expected<Device, Error> Device::open() {
       std::unique_ptr<Impl>(new Impl{std::move(device), std::move(queue)});
   return Device{std::move(impl), std::move(report)};
 }
+
+namespace detail {
+
+DeviceNative native_handles(Device &device) noexcept {
+  return DeviceNative{device.impl_->device.get(), device.impl_->queue.get()};
+}
+
+} // namespace detail
 
 } // namespace instantee::spike::metal

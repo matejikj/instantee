@@ -9,6 +9,13 @@
 
 namespace instantee::spike::metal {
 
+class Device;
+
+namespace detail {
+struct DeviceNative;
+[[nodiscard]] DeviceNative native_handles(Device &device) noexcept;
+} // namespace detail
+
 // Value report with explicit byte units. Contains no Metal or Objective-C
 // types.
 struct DeviceReport {
@@ -44,6 +51,8 @@ public:
   [[nodiscard]] const DeviceReport &report() const noexcept;
 
 private:
+  friend detail::DeviceNative detail::native_handles(Device &device) noexcept;
+
   struct Impl;
   Device(std::unique_ptr<Impl> impl, DeviceReport report) noexcept;
 

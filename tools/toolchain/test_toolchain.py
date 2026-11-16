@@ -80,7 +80,8 @@ class ToolchainTests(unittest.TestCase):
         self.assert_success(self.run_command(command))
         source = self.source / "engine/tests/contracts/public_headers.cpp"
         original = source.read_text()
-        for header in ("cf_owner.hpp", "cli.hpp", "metal_owner.hpp", "Metal/Metal.hpp"):
+        for header in ("cf_owner.hpp", "cli.hpp", "metal_owner.hpp",
+                       "device_native.hpp", "Metal/Metal.hpp"):
             with self.subTest(header=header):
                 source.write_text(f'#include "{header}"\n' + original)
                 rejected = self.run_command(command)

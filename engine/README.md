@@ -3,12 +3,14 @@
 This is the C++23/Objective-C++ side of Instantee. It owns validation and runtime
 execution as those features are implemented, independently of the TypeScript
 authoring process. The current implementation contains the native spike CLI,
-diagnostics, a headless Metal device probe and Apple resource smoke checks.
+diagnostics, a headless Metal device probe, an offscreen test-pattern renderer
+and Apple resource smoke checks.
 
 ```text
 apps/cli/          Application entry points and private argument parser
 src/diagnostics/   Platform-neutral diagnostic value types
-src/render-metal/  Metal device and queue ownership behind a C++ API
+src/render-metal/  Metal device, queue and test-pattern ownership (C++ API)
+shaders/spike/     Spike MSL sources embedded into render-metal
 native/            Objective-C++ adapters with private implementation details
 tests/             Native unit, public-header contract and subprocess tests
 ```

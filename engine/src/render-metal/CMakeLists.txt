@@ -22,15 +22,28 @@ if(NOT INSTANTEE_METAL_CPP_SHA STREQUAL
   message(FATAL_ERROR "Unexpected metal-cpp archive hash '${INSTANTEE_METAL_CPP_SHA}'")
 endif()
 
+include("${PROJECT_SOURCE_DIR}/cmake/EmbedTextAsHeader.cmake")
+set(INSTANTEE_TEST_PATTERN_SHADER
+  "${PROJECT_SOURCE_DIR}/engine/shaders/spike/test_pattern.metal")
+set(INSTANTEE_TEST_PATTERN_SOURCE_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/test_pattern_source.hpp")
+instantee_embed_text_as_header(
+  "${INSTANTEE_TEST_PATTERN_SHADER}"
+  "${INSTANTEE_TEST_PATTERN_SOURCE_HEADER}"
+  "instantee::spike::metal::detail"
+  "kTestPatternSource")
+
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
 find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 
 add_library(instantee_render_metal STATIC
   src/metal_impl.cpp
-  src/device.cpp)
+  src/device.cpp
+  src/test_pattern.cpp)
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal
-  PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+  PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"
+  PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/generated")
 # Treat metal-cpp as a system include so its GNU layout extensions are not
 # elevated by the project's pedantic warning policy.
 target_include_directories(instantee_render_metal SYSTEM PRIVATE

@@ -1,0 +1,2342 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-16T10:49:16.073274+00:00",
+  "assignment_source": {
+    "path": "motion_framework_sas/implementation_tasks.json",
+    "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
+    "snapshot": "implementation-evidence/P0-001/task-contract.json"
+  },
+  "allowed_statuses": [
+    "todo",
+    "in_progress",
+    "blocked",
+    "done"
+  ],
+  "policy": "Generated backlog is assignment data. null acceptance means not assessed. A phase gate requires all phase tasks, evidence and review; done inventory does not pass a phase.",
+  "tracker_discovery": "implementation-evidence/P0-001/tracker-discovery.json",
+  "tasks": {
+    "P0-001": {
+      "status": "done",
+      "acceptance": {
+        "criterion": "Machine profile má explicitní jednotky, identitu hardware/OS/storage a podmínky opakování benchmarku.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Hardware/OS/storage identity and explicit units",
+            "met": true,
+            "evidence": "implementation-evidence/P0-001/reference/machine-profile.json"
+          },
+          {
+            "criterion": "Reproducible collection and benchmark conditions",
+            "met": true,
+            "evidence": [
+              "tools/machine-profile/README.md",
+              "implementation-evidence/P0-001/README.md"
+            ]
+          },
+          {
+            "criterion": "Profile checked against the required reference machine",
+            "met": true,
+            "evidence": "implementation-evidence/P0-001/verification.json"
+          }
+        ]
+      },
+      "evidence": [
+        "implementation-evidence/P0-001/README.md",
+        "implementation-evidence/P0-001/checks.json",
+        "implementation-evidence/P0-001/reference/SHA256.json",
+        "implementation-evidence/P0-001/reference/machine-profile.json",
+        "implementation-evidence/P0-001/reference/raw/probes.json",
+        "implementation-evidence/P0-001/task-contract.json",
+        "implementation-evidence/P0-001/tracker-discovery.json",
+        "implementation-evidence/P0-001/verification.json"
+      ],
+      "checks": [
+        {
+          "name": "machine inventory collection",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "profile live verification",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "collector regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "generated assignment drift check",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "JSON and helper diagnostics",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "working diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        },
+        {
+          "name": "staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-001/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Inventory collected on battery during development; future benchmark requires AC and quiet-system preconditions.",
+        "Ambient temperature and durability class unavailable with reasons; benchmark/toolchain feasibility not performed."
+      ]
+    },
+    "P0-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Clean build na cíli projde probes; chybějící library feature je configure error, nikoliv tichý fallback.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "CLI se sestaví; platformní headery nepronikají do core; smoke/CPU tests běží před release benchmarkem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Reálné GPU capabilities v reportu; absence Metal/unsupported feature skončí structured error bez resource leak.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Dva odlišné snímky mají očekávané pixely a správné rozměry.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "1 800 snímků má přesné PTS a celková délka je 60 s.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Delayed GPU completion ani cancel nevede k předčasné recyklaci nebo use-after-free; pixely souhlasí.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Pool pressure nezpůsobí fallback alokace mimo limit; partial init/submit failure a opožděné reference jsou bez double release/leak.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Správná video-only stopa; stop probudí readiness wait; výjimky neunikají z native callbacks.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Soubor přehraje standardní přehrávač; ffprobe/AVFoundation potvrdí parametry.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Žádné duplicity, mezery ani špatná délka při 60 s a 300 s.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Metadata i dekódovaný obraz jsou v definovaných tolerancích vůči test pattern.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Slow sink nevyvolá růst nad K/E, zahození offline frames ani busy-spin; kapacita 1 a stop při full/empty queue projdou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Před rename zůstane starý target beze změny; žádný částečný finální MP4. Po rename sync/report failure přizná published=true bez falešného rollbacku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stop při plné/prázdné frontě a pozdní callback nevyvolá deadlock/UB; SIGKILL může zanechat pouze vlastní temp artefakty.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Synthetic timestamp/counter test dává známé kvantily/formule; missing metrics jsou null, ztracené samples zneplatní certifikaci; telemetry overhead je změřen.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Measured comparison a ADR s correctness/RAII testy; zero-copy není předpoklad dokončení.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý běh má úplné samples, verified frame count a explicitní pass/fail; nezaměňuje se application cold cache s OS cache.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Je doložen throughput i p99/CPU/paměť v čase, kapacity a shutdown; žádná neomezená fronta, OOM nebo tichý drop.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P0-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Explicitní rozhodnutí o technické proveditelnosti a otevřených rizicích; bez P0 evidence nezačne plný engine.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Build/test z rootu funguje bez ručních lokálních kroků.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Zakázaný import render-metal do core-model vyvolá fail.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neplatné hodnoty nelze tiše konstruovat; overflow se explicitně ošetří.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Opakovaná kompilace zachová stabilní ID a kolize vrátí diagnostiku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Validní/negativní fixtures včetně hranic JS Number a uint64; žádná ztráta seed bitů nebo nezdokumentovaný default.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Schéma odmítá neznámá pole/intents a má ověřitelné typové reference; změny data kontraktu mají explicitní verzi.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neplatný JSON nebo typ vede na korektní CLI chybu včetně JSON path.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Cyklický parent graph a dangling asset reference jsou odmítnuty deterministicky.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Path traversal a přehnaná velikost vstupu se bezpečně odmítnou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "TS generovaný manifest projde C++23 validátorem a schématem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "SDK vytvoří minimální film bez runtime GPU/Node závislosti v IR.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stejný vstup generuje stejné integer frames na všech platformách.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Ekvivalentní vstupy mají stejný canonical hash; TS/C++ roundtrip neztrácí číselnou přesnost.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Změna obsahu assetu vede na změnu lockfile a správnou invalidaci.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Vstup starší podporované verze se převede bez změny originálu a bez sítě.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Tentýž authoring manifest dává stejné Scene IR a ověřenou délku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "CLI odmítá chyby před GPU inicializací a vypisuje přesné ID vadného uzlu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Contract CI proběhne bez GPU a pokrývá všechny povinné invarianty SAS §6.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Chybová hlášení jsou stabilní, typovaná a testovaná snapshots.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Architektonický gate potvrzuje validaci cross-language a povolený směr závislostí.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přesuny uzlů mění strukturu bez ztráty identit a bez cyklů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Runtime reprezentace neobsahuje JS callbacky ani mutable authoring objekty.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Hierarchické transformace odpovídají referenčním matricím a konvencím SAS §8.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Poloha textu a grafiky odpovídá očekávanému pixelovému layoutu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Vrstvy v různé depth mají definovaný parallax a nedochází k invertovaným osám.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Shodné scene state vykreslí shodné stabilní pořadí draw ops.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nepodporovaný target-property pár selže při kompilaci, ne při renderu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Náhodný přístup vrátí očekávanou hodnotu v počátku/konci/intervalu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Výsledky jsou spojité tam, kde mají být, a bez NaN na hranicích.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Snímek N je stejný při libovolném pořadí vyhodnocení.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Testy úhlu přes ±π a barevné přechody souhlasí s kontraktem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přidání nesouvisejícího uzlu neovlivní ostatní animace.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Různé pořadí snímků dává stejný logický stav.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Na hranicích shotů nevzniká chybějící ani nadbytečný snímek.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přechod udržuje monotónní PTS a správnou celkovou délku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Masky se správně dědí a neplatné reference se odmítnou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Frame N nepotřebuje postupné přehrání 0..N-1.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Capacity 1, delayed oldest frame a cancel na plné/prázdné frontě jsou bez deadlocku; počet leases≤K a output pořadí se nemění.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Report identifikuje bottlenecks a neobsahuje neomezený per-frame growth.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "P2 gate potvrzuje bitově shodný logický state pro stejné inputs na stejné build konfiguraci.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "render-core nemá Apple/Metal headery; ownership a error paths lze testovat CPU fake backendem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "GPU absence, unsupported feature a device loss vedou na strukturované chyby.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neplatný graph se odmítne před GPU submit, platný vykreslí očekávaný obraz.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stale handle se odmítne; partial init, delayed completion a cancel jsou bez UAF/leak/double-release.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Pooling neodhaluje obsah předchozího frame a nealokuje stále nové targety.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Delayed GPU/sink callback a cancel nepřepíší busy data; allocation threshold nelze obejít fallback alokací.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Všechny shadery projdou validací a neexistuje překlad MSL per-frame.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Opakovaný shot neprovádí opakovaný pipeline compile.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Pixel/alpha golden ukazuje správné souřadnice a blending.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Golden fixtures pokrývají složité cesty a hraniční geometrii; statická geometrie se neteseluje per-frame.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Více shodných objektů používá méně draw calls bez změny pixelů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Chybný soubor a obří bitmapa se odmítnou bez GPU crash.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Statické SVG importy jsou reprodukovatelné a externí odkazy se nenačtou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Změna bitmapy invaliduje jen relevantní asset/scene komponenty.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Atlas hit rate a staging bytes jsou reportované; výsledek bez pixel bleeding.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Čeština, ligatury a combining marks mají správné rozložení v referenčních fixtures.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Statický text se nesází a nerasterizuje kompletně každý snímek.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Vnořené clips a masky fungují i přes několik vrstev.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stíny nezpůsobí změnu blending pořadí a vynechaný efekt nevyvolá pass.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Test patterns odpovídají tolerancím i při poloprůhledném překryvu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Offscreen uzly nevytvářejí draw op; porovnání s unculled referencí souhlasí.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-022": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Známé synthetic workloads ověří p99/CPU/memory formule; GPU host notification není vydávána za device execution time.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-023": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "motion frame --at 450 funguje bez renderování předchozích snímků.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-024": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Validní IR se vykreslí do korektního H.264 MP4 bez TS runtime v hot path.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3-025": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Správný render a stabilní working set, doložené K/E/CPU/p99 a retirement stress; žádné zakázané dependencies ani neznámý memory budget.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Dva různé style manifests validují bez změny core-model.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neznámý/stará verze stylu vrátí diagnostiku před renderem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Chybné intent parametry a neznámé target ID se odmítnou na vstupu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Ve finálním IR nezůstane nevyřešený intent.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Ruční animace není nikdy tiše přepsána; hard conflict vytvoří compile error.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stejný intent dá různou, ale deterministickou animaci dle stylu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neřešitelný hard constraint skončí error s diagnostikou; soft konflikt warning.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nový token lze změnit bez rekompilace engine a důležitý obsah nepřekryje safe area.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Výstup má stejný počet snímků jako vstup při všech povolených intents.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý director volí kameru jen z deklarovaných capabilities.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přechod nezpůsobí dvojí započtení snímků ani špatný layer order.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přidání nesouvisejícího shotu nezmění již existující variace.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Z logu lze vysvětlit finální režijní volbu pro objekt a frame.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každé varování má stabilní code, severity a cestu k prvku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Kolize důležitých prvků je nalezena bez false guarantees o estetice.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Výstup má error/warning/info; pravidla lze verzovat se Style Bible.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Release build odmítne severity error; schválený waiver je auditovatelný.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stejná neutrální scéna se zkompiluje do tří různých režijních plánů bez modifikace rendereru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "SDK authoring s intenty projde do validního Scene IR a lze z něj vytvořit MP4.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Žádná CDS operace neběží pro každý snímek; všechny compiles jsou auditovatelné.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Pět reprezentativních layouts respektuje stylové tokeny a safe areas.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Čeština, ligatury a font fallback se při animaci nerozpadnou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Předvolby podporují intensity/duration a nevyžadují JS ve frame loop.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Text během transformací nepřeskočí nesprávným pivotem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Layout drží čitelný focal point ve 3 testovaných počtech prvků.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Fotografie se správně škáluje a clipping nepřetéká.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Halftone lze použít na fotografie i masky bez per-frame CPU rasteru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Výstup je deterministický a lze efekt snadno vypnout bez zbylého GPU passu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Komponenty se skládají ze shared render primitives bez nového rendereru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Graf interpoluje data s jednoznačnými jednotkami a nedělí nulou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Přechody zachovávají přesný frame count a safe areas.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Změna beat délky přepočítá navazující eventy bez změny celkové délky.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nastavení safe-area lze změnit verzovaným tokenem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nový obsah lze sestavit bez úprav rendereru nebo přepisování přechodů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý asset je dohledatelný a build offline reprodukovatelný.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Video má konzistentní editorial identitu, validní MP4 a žádnou externí video montáž.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Referenční obrázky schváleny a update vyžaduje explicitní změnový záznam.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý platný certifikační cold běh 60s má export wall≤360s; splněný předem zamčený p99/memory profil a úplná CPU evidence, jinak gate FAIL.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Variace zachová pravidla a nemění jiné scény při vložení nového shotu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Úplný 60s reel vytvořený pouze frameworkem a zelené B-01, golden a linter gate.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Notebook styl má explicitní vizuální a motion tokeny a lze jej verzovat.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nepodporovaný příkaz vrací přesnou diagnostiku; engine nespouští externí TeX.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "AST validuje hloubku/rozsah a odmítá malicious/unbounded vstupy.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Zlomky, odmocniny a indexy mají správnou geometrii v golden fixtures.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Autor může zvýraznit konkrétní subexpression bez odvozování z pixelů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Transformace dvou rovnic je čitelná, časově stabilní a bez rozbitých tokenů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Procento draw progress odpovídá skutečné délce, ne indexu vertexu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Tah od 0 do 100 % proběhne plynule bez CPU překreslování rastrové bitmapy.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Kreslení se dá přesně časovat podle shot beat markers.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Změna rozsahu nemění data a nevytváří label kolize bez warningu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Sinus/polynom/graf s diskontinuitou nepřekročí limity a vytváří správné křivky.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Konektory reagují na transformace uzlů a podporují mask/reveal.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Vysvětlovací graf může změnit stav bez přepisu rendereru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Komponenty používají sdílené primitivy a shader features.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Efekty se správně vrství s lineárním compositingem, explicitním sRGB importem a premultiplied alpha.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nové matematické téma lze vyjádřit kombinací template a dat.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Demo jde přeložit offline se stabilním typografickým layoutem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Video je čitelné, bez zvuku, kompletně renderované frameworkem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Referenční obrázky projdou testy a ruční design review.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý platný certifikační cold běh 60s má export wall≤360s; splněný předem zamčený p99/memory profil a úplná CPU evidence, jinak gate FAIL.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Dokončený 60s explainer a zelené testy, linter a performance.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Style Bible podporuje epoch varianty bez rozdílného rendereru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Parametry mají omezené rozsahy a verzované defaulty.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Materiál vypadá konzistentně v různých škálách a drží GPU budget.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Hrany jsou stabilní mezi snímky a nedeformují textové oblasti.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "10–20 vrstev reaguje na pohyb kamery správným parallaxem.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Viditelná hloubka bez náročného ray tracingu a bez halo artefaktů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stejná scéna má stabilní framing a bez rušivého jitteru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Props lze opakovaně použít s různou paletou a materiály.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Chybný rig odmítne validátor bez přístupu k GPU.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Rotace ramene posune loket/ruku bez nekonzistence rig stavu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "IK je deterministické, neprodukuje NaN a má definovaný fallback.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Ruka se deformuje přirozeně při gestu bez viditelných prasklin.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Tři výrazy jedné postavy fungují se stabilním ID parts.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Klíčová gesta jsou reprodukovatelná na referenčním human ringu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Postava plynule projde definovanou vzdálenost bez podstatného skluzu chodidel.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Snímek lze vyhodnotit random-access se stejnou pózou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Papír lze vizuálně složit/rozbalit bez 3D simulátoru.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Deformace nepřetrhává siluetu a nepřekračuje uvedený GPU complexity tier.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Náhodný seed generuje stabilní scénografii a asset count je omezený.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Jeden asset projde rig validation a má sadu goldens v různých pózách.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Template používá sdílený render graph a nepotřebuje style-name podmínky v core.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-022": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Příběh vznikne celý z frameworku, bez externího videostřihu.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-023": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Reference postava a materiály projdou vizuálním review.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-024": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý platný certifikační cold běh 60s má export wall≤360s; splněný předem zamčený p99/memory profil a úplná CPU evidence, jinak gate FAIL.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7-025": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Plně animované paper kino demo a zelené B-03, art, stability a linter gates.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-001": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Neexistuje nepokrytý MUST požadavek ani nesledovaný release gate.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-002": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Existuje ověřený příklad projektu pro všechny 3 styly bez interních importů.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-003": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "API linter odhalí nechtěné veřejné typy a zakázané importy.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-004": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Staré zamčené příklady se načtou nebo skončí jasnou unsupported-version chybou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-005": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Clean checkout offline vytvoří stejné IR a odhalí změněný asset.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-006": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "CLI lze bez UI použít z shell skriptu a CI; každá chyba má definovaný exit code.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-007": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Failure před publication zachová starý target; failure po publication pravdivě přizná existující výstup a jeho durability, bez falešného rollbacku.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-008": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Stop ve všech stavech a pozdní callbacks jsou bez UAF/deadlocku; post-publish cancel nesmí předstírat neexistující video.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-009": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nedochází k neošetřené výjimky na očekávaných chybách, temp soubory jsou uklizeny.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-010": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Slow sink/oldest-frame fault nezvýší limity, nezahodí export frames a nevede k busy-spin.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-011": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Při memory pressure dojde k řízenému odmítnutí, nikoliv OOM a silent quality downgrade.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-012": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Reprodukovatelné vstupy nevyvolají paniku, explozi paměti ani nekonečný loop.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-013": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Importer nedovolí network access, traversal, arbitrary code execution ani nekontrolované rozměry.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-014": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Traversal a externí cesta mimo sandbox se odmítnou.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-015": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Překročení deklarovaného profilu je předvídatelná chyba před OOM.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-016": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Všechna referenční MP4 projdou automatickou validací a fail na chybné metadata.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-017": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Barvy a jas zůstávají v definované toleranci na cílovém macOS.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-018": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Podporované konfigurace API jsou explicitně uvedeny; unsupported se ohlásí.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-019": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Measured evidence se odlišuje od design fixture; nekonzistentní počty/formule/kvantily nebo chybějící povinné metriky zneplatní certifikaci.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-020": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Regrese porovnává stejný workload; změna fixture/profile je explicitní nová baseline.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-021": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý platný certifikační cold běh wall≤1800s, memory/p99 v zamčeném profilu a kompletní CPU evidence; žádný unbounded working set.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-022": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Je zveřejněna podporovaná complexity tier a výkonový limit; žádné OOM.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-023": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý platný certifikační cold 60s běh≤360s; p99/memory threshold a CPU baseline jsou explicitní, jinak FAIL.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-024": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Není fatální zpomalení nebo růst working setu mimo deklarovaný budget.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-025": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Chybný header/import/schema či sanitizer/concurrency regression blokuje PR; native coverage limity jsou dokumentované.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-026": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Shader změna bez správného layoutu či zlatého snímku zablokuje PR.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-027": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Unreviewed pixel change nebo narušení čitelnosti selže jako release gate.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-028": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Žádný releasovaný example neobsahuje neodsouhlasené chyby.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-029": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Všechny distribuované assety mají oprávnění a žádná neřešená kritická zranitelnost.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-030": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Nový vývojář dokáže vyhledat owner modulu a rozšířit styl bez dotazu na vnitřní GPU handle.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-031": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Čistá instalace podle tutoriálu vytvoří všechna tři videa.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-032": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každé dokumentované běžné selhání má reprodukční postup a diagnostické informace.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-033": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Na čistém podporovaném Macu jde nainstalovat balíček bez lokální kompilace rendereru, pokud se distribuuje binary.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-034": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Tag v1.0 uvádí kompatibilní verze a migrace; release notes popisují breaking changes.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-035": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Všechna 3 MP4 mají 1080×1920/30fps, bez audio stopy a obsah podle tří Style Bibles.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-038": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Žádný předčasný release/reuse, double-delete ani callback do zaniklého jobu; každý resource má owner/borrow/completion/limit kontrakt.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-039": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "K/E a memory plateau dodrženy, žádný dropped export frame, spin wait nebo deadlock; všechny čekající cesty lze ukončit.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-040": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Před publish target původní/žádný, po publish pouze validní MP4 s pravdivým stavem. SIGKILL se nevydává za power-loss důkaz; unsupported durable profil se odmítne.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-041": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Raw evidence odpovídá reportu, všechny jednotky/intervaly/profily jsou explicitní; design fixture, ztracené samples a chybějící metriky nemohou získat PASS.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-036": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Každý MUST gate má reálnou evidence a PASS; ownership/concurrency/crash/measurement audity jsou zelené, žádný blocking defect nebo nevysvětlená chybějící metrika.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8-037": {
+      "status": "todo",
+      "acceptance": {
+        "criterion": "Git tag v1.0.0 odpovídá přezkoušenému buildu a package checksumům.",
+        "met": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    }
+  },
+  "phase_gates": {
+    "P0": {
+      "gate_task_id": "P0-020",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": null
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P1": {
+      "gate_task_id": "P1-020",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P2": {
+      "gate_task_id": "P2-020",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P3": {
+      "gate_task_id": "P3-025",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P4": {
+      "gate_task_id": "P4-020",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P5": {
+      "gate_task_id": "P5-020",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P6": {
+      "gate_task_id": "P6-021",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P7": {
+      "gate_task_id": "P7-025",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    },
+    "P8": {
+      "gate_task_id": "P8-037",
+      "status": "todo",
+      "decision": null,
+      "acceptance": {
+        "all_phase_tasks_done_and_evidenced": false,
+        "gate_task_acceptance_met": false,
+        "architecture_risks_reviewed": false,
+        "previous_phase_passed": false
+      },
+      "evidence": [],
+      "checks": [],
+      "blockers": []
+    }
+  }
+}

@@ -1,6 +1,9 @@
 # Local architecture and planning pack (including reference tools and examples)
 /motion_framework_sas/
 
+# Local implementation evidence
+/implementation-evidence/
+
 # Local documentation and coding assistant files
 /docs/
 /documentation/

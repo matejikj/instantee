@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T20:21:10.901163+00:00",
+  "updated_at_utc": "2026-11-16T20:25:50.195939+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2534,14 +2534,91 @@
       ]
     },
     "P0-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Technical feasibility and open risks have an explicit decision; full engine work does not begin without P0 evidence.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Explicit GO decision with locked toolchain/adapter/K-E/durability/metrics profile",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-020/go-no-go-decision.json",
+              "implementation-evidence/P0-020/adr/0012-p0-feasibility-go-no-go.md",
+              "ARCHITECTURE.md"
+            ]
+          },
+          {
+            "criterion": "All prior P0 evidence inventoried; no critical unresolved architecture risk for P1",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-020/go-no-go-decision.json",
+              "implementation-evidence/P0-020/dependency-verification.json",
+              "implementation-evidence/P0-020/checks.json"
+            ]
+          },
+          {
+            "criterion": "Performance thresholds not invented; B-00 remains uncertified feasibility evidence",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-020/go-no-go-decision.json",
+              "implementation-evidence/P0-018/baseline.json",
+              "implementation-evidence/P0-019/endurance.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-020/README.md",
+        "implementation-evidence/P0-020/go-no-go-decision.json",
+        "implementation-evidence/P0-020/checks.json",
+        "implementation-evidence/P0-020/dependency-verification.json",
+        "implementation-evidence/P0-020/ownership-review.json",
+        "implementation-evidence/P0-020/evidence-summary.json",
+        "implementation-evidence/P0-020/source-sha256.json",
+        "implementation-evidence/P0-020/task-contract.json",
+        "implementation-evidence/P0-020/adr/0012-p0-feasibility-go-no-go.md",
+        "implementation-evidence/P0-020/adr/0011-frame-transfer-path.md",
+        "implementation-evidence/P0-020/adr/0010-reproducible-performance.md",
+        "implementation-evidence/P0-020/adr/0007-cpp23-modular-monolith-typescript.md",
+        "ARCHITECTURE.md"
+      ],
+      "checks": [
+        {
+          "name": "complete P0 inventory",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "Go/No-Go decision and locked profile",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "open-risk review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "design pack ADR/MANIFEST and backlog --check",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "content/security review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "GO does not certify throughput/p99/CPU/memory product limits.",
+        "Generated milestones document keeps unchecked template boxes by design; gate status lives in tracker/ADR/evidence.",
+        "Design pack and implementation-evidence remain gitignored.",
+        "jsonschema unavailable for design-pack schema unit tests.",
+        "Remote CI was not executed for this documentary gate."
+      ]
     },
     "P1-001": {
       "status": "todo",
@@ -4467,17 +4544,37 @@
   "phase_gates": {
     "P0": {
       "gate_task_id": "P0-020",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "GO",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
         "previous_phase_passed": null
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-020/go-no-go-decision.json",
+        "implementation-evidence/P0-020/adr/0012-p0-feasibility-go-no-go.md",
+        "implementation-evidence/P0-020/checks.json",
+        "ARCHITECTURE.md"
+      ],
+      "checks": [
+        {
+          "name": "architecture review gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "explicit open risks without blocking P1",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/go-no-go-decision.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "Performance certification remains a later gate.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     },
     "P1": {
       "gate_task_id": "P1-020",
@@ -4487,7 +4584,7 @@
         "all_phase_tasks_done_and_evidenced": false,
         "gate_task_acceptance_met": false,
         "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "previous_phase_passed": true
       },
       "evidence": [],
       "checks": [],

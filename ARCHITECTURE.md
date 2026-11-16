@@ -5,6 +5,15 @@ implementation contains a native feasibility workspace with test-pattern H.264
 export, bounded shutdown, and export measurement, plus a private TypeScript
 authoring package shell. The scene engine and authoring API are not implemented.
 
+P0 feasibility is closed as **GO** for P1: offscreen C++23/Metal → Apple H.264
+export works on the reference MacBook Air with bounded K/E/queue capacities,
+cooperative cancellation and measurable B-00 reports. Locked defaults for the
+spike composition are K=2, queue capacity 1, encoder pool E=8, CPU staging as
+the default transfer path, and `process_crash_visible` publication on APFS.
+p99, memory SLO and CPU regression baselines remain unlocked; B-00 numbers are
+not product certification. Shared-surface transfer stays opt-in. Details live in
+the local design-pack ADR for the P0 Go/No-Go gate.
+
 ## Current layout
 
 ```text

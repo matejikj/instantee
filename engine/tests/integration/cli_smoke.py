@@ -14,6 +14,23 @@ def check(binary, arguments, directory, expected):
     return result
 
 
+def assert_metal_report(payload):
+    metal = payload["metal"]
+    assert isinstance(metal["name"], str) and metal["name"]
+    assert isinstance(metal["architecture"], str)
+    assert isinstance(metal["recommended_max_working_set_bytes"], int)
+    assert metal["recommended_max_working_set_bytes"] > 0
+    assert isinstance(metal["max_buffer_length_bytes"], int)
+    assert metal["max_buffer_length_bytes"] > 0
+    assert metal["supports_apple7"] is True
+    assert metal["has_command_queue"] is True
+    assert isinstance(metal["has_unified_memory"], bool)
+    assert isinstance(metal["is_low_power"], bool)
+    assert isinstance(metal["is_headless"], bool)
+    assert isinstance(metal["supports_metal3"], bool)
+    assert "registry_id" not in metal
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="instantee-cli-") as directory:
         for binary, code, unavailable in ((sys.argv[1], 5, "renderer_unavailable"),
@@ -21,8 +38,11 @@ def main():
             help_result = check(binary, ["--help"], directory, 0)
             assert Path(binary).name in help_result.stdout and not help_result.stderr
             smoke = check(binary, ["--smoke"], directory, 0)
-            assert json.loads(smoke.stdout) == {
-                "workspace": "ok", "published": False, "certified": False}
+            payload = json.loads(smoke.stdout)
+            assert payload["workspace"] == "ok"
+            assert payload["published"] is False
+            assert payload["certified"] is False
+            assert_metal_report(payload)
             assert not smoke.stderr
             # A read-only descriptor makes the buffered stdout flush fail with EBADF.
             for option in ("--help", "--smoke"):

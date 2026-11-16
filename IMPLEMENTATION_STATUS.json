@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T12:25:14.804751+00:00",
+  "updated_at_utc": "2026-11-16T12:41:21.756296+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -348,14 +348,146 @@
       ]
     },
     "P0-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The report contains actual GPU capabilities; missing Metal or unsupported features produce a structured error without resource leaks.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Actual GPU capabilities in the report",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-004/capabilities-report.json",
+              "implementation-evidence/P0-004/checks.json"
+            ]
+          },
+          {
+            "criterion": "Pinned metal-cpp with typed RAII owners and autorelease pool",
+            "met": true,
+            "evidence": [
+              "third_party/metal-cpp/PIN.json",
+              "engine/src/render-metal/src/metal_owner.hpp",
+              "engine/src/render-metal/src/device.cpp",
+              "implementation-evidence/P0-004/metal-cpp-pin.json"
+            ]
+          },
+          {
+            "criterion": "Missing Metal or unsupported features produce structured errors without leaks",
+            "met": true,
+            "evidence": [
+              "engine/src/render-metal/src/device.cpp",
+              "implementation-evidence/P0-004/checks.json",
+              "implementation-evidence/P0-004/README.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-004/README.md",
+        "implementation-evidence/P0-004/checks.json",
+        "implementation-evidence/P0-004/capabilities-report.json",
+        "implementation-evidence/P0-004/dependency-verification.json",
+        "implementation-evidence/P0-004/metal-cpp-pin.json",
+        "implementation-evidence/P0-004/reference-verification.json",
+        "implementation-evidence/P0-004/source-sha256.json",
+        "implementation-evidence/P0-004/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "preset instrumentation and isolation",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "CLI Metal capability report and GPU init",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "Metal ownership unit tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-004/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "No rendering, encoder, asynchronous GPU completion or output publication coverage",
+        "Missing-Metal and unsupported-family branches are implemented; they cannot be live-exercised on this Apple M1 host",
+        "Sanitizers do not instrument all internals of system Metal frameworks",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No performance certification; smoke report is capability evidence only",
+        "Remote CI was not executed; equivalent native checks ran locally"
+      ]
     },
     "P0-005": {
       "status": "todo",
@@ -820,7 +952,7 @@
     "P2-011": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Angle tests across ±π and color transitions match the contract.",
+        "criterion": "Angle tests across \u00b1\u03c0 and color transitions match the contract.",
         "met": null
       },
       "evidence": [],
@@ -890,7 +1022,7 @@
     "P2-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays ≤K and output order is unchanged.",
+        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays \u2264K and output order is unchanged.",
         "met": null
       },
       "evidence": [],
@@ -1540,7 +1672,7 @@
     "P5-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -1760,7 +1892,7 @@
     "P6-020": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -1820,7 +1952,7 @@
     "P7-005": {
       "status": "todo",
       "acceptance": {
-        "criterion": "10–20 layers respond to camera movement with correct parallax.",
+        "criterion": "10\u201320 layers respond to camera movement with correct parallax.",
         "met": null
       },
       "evidence": [],
@@ -2010,7 +2142,7 @@
     "P7-024": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -2230,7 +2362,7 @@
     "P8-021": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run has wall≤1800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
+        "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
         "met": null
       },
       "evidence": [],
@@ -2250,7 +2382,7 @@
     "P8-023": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
+        "criterion": "Every valid certification cold run of 60 s takes \u2264360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
         "met": null
       },
       "evidence": [],
@@ -2370,7 +2502,7 @@
     "P8-035": {
       "status": "todo",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
+        "criterion": "All 3 MP4 files have 1080\u00d71920/30fps, no audio track and content matching the three Style Bibles.",
         "met": null
       },
       "evidence": [],

@@ -20,7 +20,7 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
-        for name in ("engine", "authoring", "benchmarks"):
+        for name in ("engine", "authoring", "benchmarks", "third_party"):
             shutil.copytree(ROOT / name, self.source / name)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
@@ -70,7 +70,8 @@ class ToolchainTests(unittest.TestCase):
         self.assert_success(dependencies)
         for platform in ("Foundation.framework", "CoreFoundation.framework", "Metal.framework",
                          "CoreVideo.framework", "AVFoundation.framework", "IOSurface.framework",
-                         "/native/export-apple/src/", "/apps/cli/", "/objc/"):
+                         "/native/export-apple/src/", "/third_party/metal-cpp/", "/apps/cli/",
+                         "/objc/", "Metal/Metal.hpp"):
             self.assertNotIn(platform, dependencies.stdout)
 
     def test_private_headers_are_not_part_of_public_api(self):
@@ -79,7 +80,7 @@ class ToolchainTests(unittest.TestCase):
         self.assert_success(self.run_command(command))
         source = self.source / "engine/tests/contracts/public_headers.cpp"
         original = source.read_text()
-        for header in ("cf_owner.hpp", "cli.hpp"):
+        for header in ("cf_owner.hpp", "cli.hpp", "metal_owner.hpp", "Metal/Metal.hpp"):
             with self.subTest(header=header):
                 source.write_text(f'#include "{header}"\n' + original)
                 rejected = self.run_command(command)

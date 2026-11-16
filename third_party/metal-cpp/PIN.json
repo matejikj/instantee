@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "metal-cpp",
+  "vendor": "Apple Inc.",
+  "license": "Apache-2.0",
+  "tag": "release/metal-cpp_macOS27.0.1_iOS27.0.1",
+  "commit": "8cdde68ae36a636c84cbb48ebcbc8f3b60251ea0",
+  "archive_url": "https://codeload.github.com/apple/metal-cpp/tar.gz/refs/tags/release/metal-cpp_macOS27.0.1_iOS27.0.1",
+  "archive_sha256": "3a2f456c5373748e1b8de0896d1dbe53d6e0a1d3b8b9e5235c1a8abae6f373f5",
+  "include_root": "third_party/metal-cpp",
+  "notes": "Header-only Metal C++ bindings. SingleHeader generator omitted; Foundation/Metal/MetalFX/QuartzCore kept."
+}

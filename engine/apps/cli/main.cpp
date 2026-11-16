@@ -1,5 +1,6 @@
 #include "cli.hpp"
 #include <instantee/export_apple/workspace.hpp>
+#include <instantee/render_metal/device.hpp>
 
 #include <array>
 #include <cstdio>
@@ -41,6 +42,52 @@ int finish_stdout(int result) noexcept {
   return 0;
 }
 
+[[nodiscard]] bool write_json_string(std::FILE *out,
+                                     std::string_view value) noexcept {
+  if (std::fputc('"', out) == EOF) {
+    return false;
+  }
+  for (unsigned char ch : value) {
+    if (ch < 0x20 || ch == '"' || ch == '\\' || ch > 0x7E) {
+      if (std::fprintf(out, "\\u%04x", ch) < 0) {
+        return false;
+      }
+      continue;
+    }
+    if (std::fputc(ch, out) == EOF) {
+      return false;
+    }
+  }
+  return std::fputc('"', out) != EOF;
+}
+
+[[nodiscard]] int
+write_smoke_report(const metal::DeviceReport &metal) noexcept {
+  if (std::fputs("{\"workspace\":\"ok\",\"metal\":{\"name\":", stdout) == EOF ||
+      !write_json_string(stdout, metal.name) ||
+      std::fputs(",\"architecture\":", stdout) == EOF ||
+      !write_json_string(stdout, metal.architecture) ||
+      std::fprintf(
+          stdout,
+          ",\"recommended_max_working_set_bytes\":%llu,"
+          "\"max_buffer_length_bytes\":%llu,\"has_unified_memory\":%s,"
+          "\"is_low_power\":%s,\"is_headless\":%s,\"supports_apple7\":%s,"
+          "\"supports_metal3\":%s,\"has_command_queue\":%s},"
+          "\"published\":false,\"certified\":false}\n",
+          static_cast<unsigned long long>(
+              metal.recommended_max_working_set_bytes),
+          static_cast<unsigned long long>(metal.max_buffer_length_bytes),
+          metal.has_unified_memory ? "true" : "false",
+          metal.is_low_power ? "true" : "false",
+          metal.is_headless ? "true" : "false",
+          metal.supports_apple7 ? "true" : "false",
+          metal.supports_metal3 ? "true" : "false",
+          metal.has_command_queue ? "true" : "false") < 0) {
+    return -1;
+  }
+  return 0;
+}
+
 int run(int argc, char **argv) {
   // The parser accepts at most one option. Bound storage even for hostile argv.
   std::array<std::string_view, 2> arguments{};
@@ -56,16 +103,19 @@ int run(int argc, char **argv) {
   case Command::help:
     return finish_stdout(
         std::printf("Usage: %s [--help | --smoke]\n"
-                    "--smoke checks the native workspace without export or "
-                    "performance measurement.\n",
+                    "--smoke checks the native workspace and Metal device "
+                    "without export or performance measurement.\n",
                     tool));
-  case Command::smoke:
+  case Command::smoke: {
     if (auto result = apple::check_workspace(); !result) {
       return fail(result.error());
     }
-    return finish_stdout(
-        std::puts("{\"workspace\":\"ok\",\"published\":false,\"certified\":"
-                  "false}"));
+    auto device = metal::Device::open();
+    if (!device) {
+      return fail(device.error());
+    }
+    return finish_stdout(write_smoke_report(device->report()));
+  }
   case Command::run:
     return fail(unavailable);
   }

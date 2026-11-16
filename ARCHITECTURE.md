@@ -11,8 +11,10 @@ performance measurement are not implemented yet.
 engine/                    Native runtime component (C++23 / Objective-C++)
   apps/cli/                Entry points and private argument parser
   src/diagnostics/         Platform-neutral diagnostic value types
+  src/render-metal/        Metal device/queue backend behind a C++ public API
   native/export-apple/     Apple adapter with public include/ and private src/
   tests/                   Native unit, contract and subprocess tests
+third_party/metal-cpp/     Pinned metal-cpp headers with archive checksum metadata
 authoring/                 Authoring component (TypeScript)
   packages/authoring/      Private SDK package shell
   tsconfig.base.json       Shared strict compiler configuration
@@ -50,14 +52,15 @@ engine boundary without introducing UI dependencies into either component.
 
 ```text
 spike CLI ──> CLI parser ──> diagnostics
-    └──────> Apple adapter ──> diagnostics
+    ├──────> Apple adapter ──> diagnostics
+    └──────> render-metal ──> diagnostics
 ```
 
 The diagnostics module has no application or native dependency. The Apple
-adapter does not include CLI headers. The executables compose the parser and
-adapter; application policy stays at that composition boundary. The current
-diagnostic types remain in the `instantee::spike` namespace and are provisional,
-not a stable production API.
+adapter and Metal backend do not include CLI headers. The executables compose
+the parser and adapters; application policy stays at that composition boundary.
+The current diagnostic types remain in the `instantee::spike` namespace and are
+provisional, not a stable production API.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in
@@ -70,11 +73,13 @@ Tests may explicitly access a module's private headers when testing internal
 ownership behavior. That access is private to the test target and is not
 propagated to other consumers.
 
-Apple frameworks and Objective-C++/ARC are confined to the native adapter and
-its native tests. Public headers use C++ types only. The public-header contract
-target compiles as C++ without linking the adapter or Apple frameworks. Build
-integration tests inspect transitive includes and verify that private CF and
-CLI headers are unavailable through the public include paths.
+Apple frameworks and Objective-C++/ARC are confined to the native adapter, the
+Metal backend and their native tests. Public headers use C++ types only. The
+public-header contract target compiles as C++ without linking adapters or Apple
+frameworks. Build integration tests inspect transitive includes and verify that
+private CF, Metal and CLI headers are unavailable through the public include
+paths. Pinned `metal-cpp` headers live under `third_party/metal-cpp/` and are
+private to `render-metal`.
 
 ## Growth rules
 

@@ -24,8 +24,9 @@ build/release/spike-benchmark --smoke
 ```
 
 The workflow configures, builds and runs CTest. Both executables currently
-support help and a synchronous native smoke check. Actual rendering and
-measurement return explicit unavailable errors. See the
+support help and a smoke check that opens the Apple workspace plus a headless
+Metal device and prints capability JSON. Actual rendering and measurement return
+explicit unavailable errors. See the
 [CLI/workspace guide](tools/workspace/README.md) for exit codes and the checked
 benchmark entry point.
 

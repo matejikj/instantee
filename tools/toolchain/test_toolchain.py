@@ -61,7 +61,7 @@ class ToolchainTests(unittest.TestCase):
         adapter = next(item for item in commands if item["file"].endswith("export-apple/src/workspace.mm"))
         self.assertNotIn("apps/cli", adapter["command"])
         contract = next(item for item in commands if item["file"].endswith("contracts/public_headers.cpp"))
-        # Inspect actual transitive includes, not just spelling in public headers.
+#Inspect actual transitive includes, not just spelling in public headers.
         arguments = shlex.split(contract["command"])
         output = arguments.index("-o")
         del arguments[output:output + 2]
@@ -81,7 +81,8 @@ class ToolchainTests(unittest.TestCase):
         source = self.source / "engine/tests/contracts/public_headers.cpp"
         original = source.read_text()
         for header in ("cf_owner.hpp", "cli.hpp", "metal_owner.hpp",
-                       "device_native.hpp", "Metal/Metal.hpp"):
+                       "device_native.hpp", "Metal/Metal.hpp",
+                       "readback_impl.hpp"):
             with self.subTest(header=header):
                 source.write_text(f'#include "{header}"\n' + original)
                 rejected = self.run_command(command)
@@ -101,7 +102,7 @@ class ToolchainTests(unittest.TestCase):
         self.assertNotIn('"code":"benchmark_unavailable"', rejected.stdout + rejected.stderr)
         test.write_text(original)
         result = self.run_command(arguments)
-        # Preflight passes, but the unimplemented benchmark must still fail honestly.
+#Preflight passes, but the unimplemented benchmark must still fail honestly.
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("100% tests passed", result.stdout)
         self.assertIn('"code":"benchmark_unavailable"', result.stdout + result.stderr)

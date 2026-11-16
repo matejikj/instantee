@@ -34,7 +34,7 @@ struct LatencySummary {
 // accepted sample, with exact nearest-rank quantiles and no warm-up removal.
 class FrameSamples {
 public:
-  [[nodiscard]] static std::expected<FrameSamples, spike::Error>
+  [[nodiscard]] static std::expected<FrameSamples, diagnostics::Error>
   create(std::size_t capacity);
   [[nodiscard]] bool record(FrameSample sample) noexcept;
   [[nodiscard]] std::span<const FrameSample> samples() const noexcept;

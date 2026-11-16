@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  native-smoke:
+    name: native-smoke
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ninja, CMake and clang-tidy
+        run: |
+          brew install ninja cmake llvm
+          echo "CLANG_TIDY=$(brew --prefix llvm)/bin/clang-tidy" >> "$GITHUB_ENV"
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Development configure, build and test
+        run: cmake --workflow --preset dev
+
+      - name: Module boundary check
+        run: python3 tools/dev/check_module_boundaries.py
+
+      - name: clang-format dry-run on native sources
+        run: |
+          files="$(git ls-files engine | grep -E '\.(cpp|hpp|h|mm)$' || true)"
+          if [ -n "$files" ]; then
+            # shellcheck disable=SC2086
+            xcrun clang-format --dry-run --Werror $files
+          fi
+
+      - name: clang-tidy on production libraries
+        run: |
+          files="$(git ls-files \
+            engine/src/diagnostics \
+            engine/src/core-model \
+            engine/src/runtime \
+            engine/src/export-core \
+            engine/native/telemetry-apple | grep -E '\.cpp$' || true)"
+          if [ -n "$files" ]; then
+            # shellcheck disable=SC2086
+            "$CLANG_TIDY" -p build/dev --quiet --warnings-as-errors=* $files
+          fi

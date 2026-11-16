@@ -7,3 +7,4 @@ target_include_directories(instantee_export_core
 target_link_libraries(instantee_export_core
   PUBLIC instantee::diagnostics
   PRIVATE instantee_build_options)
+instantee_mark_module(instantee_export_core production export-core)

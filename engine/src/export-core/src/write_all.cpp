@@ -8,18 +8,20 @@ namespace {
 
 constexpr const char *kPhase = "write_all";
 
-[[nodiscard]] spike::Error io_error(const char *code, const char *message) {
-  return spike::Error{spike::ExitCode::export_failure, code, kPhase, message};
+[[nodiscard]] diagnostics::Error io_error(const char *code,
+                                          const char *message) {
+  return diagnostics::Error{diagnostics::ExitCode::export_failure, code, kPhase,
+                            message};
 }
 
 } // namespace
 
-std::expected<void, spike::Error>
+std::expected<void, diagnostics::Error>
 write_all(int fd, std::span<const std::byte> data, WriteFn write_fn) {
   if (fd < 0) {
-    return std::unexpected(
-        spike::Error{spike::ExitCode::invalid_input, "invalid_fd", kPhase,
-                     "write_all requires a valid file descriptor"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_fd", kPhase,
+        "write_all requires a valid file descriptor"});
   }
   if (!write_fn) {
     write_fn = [](int write_fd, const void *buffer,

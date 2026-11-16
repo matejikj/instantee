@@ -11,6 +11,8 @@
 #include <vector>
 
 namespace instantee::spike::apple {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 // Spike Rec.709 SDR export path. H.264 uses video (limited) range YCbCr with
 // ITU-R BT.709 primaries/transfer/matrix. Numeric roundtrip tolerances are

@@ -9,7 +9,7 @@
 
 namespace {
 
-using instantee::spike::ExitCode;
+using instantee::diagnostics::ExitCode;
 using instantee::spike::metal::Device;
 using instantee::spike::metal::expected_test_pattern_pixel;
 using instantee::spike::metal::frame_pixel;

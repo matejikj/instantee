@@ -9,7 +9,7 @@ using instantee::core::FrameClock;
 using instantee::core::FrameIndex;
 using instantee::core::FrameRate;
 using instantee::core::RationalTime;
-using instantee::spike::ExitCode;
+using instantee::diagnostics::ExitCode;
 
 [[nodiscard]] bool expect_eq(RationalTime actual, RationalTime expected) {
   return actual == expected;

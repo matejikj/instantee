@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "description": "Normative native module dependency graph. Production modules may depend only on listed production modules. Spike modules may depend on production modules and listed spike peers. Planned modules are reserved edges for later phases.",
+  "roles": {
+    "production": "Stable domain or platform-neutral library used by product code.",
+    "spike": "Feasibility adapter or composition retained until a later promote/retire decision.",
+    "planned": "Reserved module name with allowed edges; no target yet."
+  },
+  "modules": {
+    "diagnostics": {
+      "role": "production",
+      "target": "instantee_diagnostics",
+      "include_prefix": "instantee/diagnostics/",
+      "decision": "promote",
+      "allowed_dependencies": []
+    },
+    "core-model": {
+      "role": "production",
+      "target": "instantee_core_model",
+      "include_prefix": "instantee/core_model/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"]
+    },
+    "runtime": {
+      "role": "production",
+      "target": "instantee_runtime",
+      "include_prefix": "instantee/runtime/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"]
+    },
+    "export-core": {
+      "role": "production",
+      "target": "instantee_export_core",
+      "include_prefix": "instantee/export_core/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"]
+    },
+    "telemetry-apple": {
+      "role": "production",
+      "target": "instantee_telemetry_apple",
+      "include_prefix": "instantee/telemetry_apple/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"]
+    },
+    "render-metal": {
+      "role": "spike",
+      "target": "instantee_render_metal",
+      "include_prefix": "instantee/render_metal/",
+      "decision": "retain-spike",
+      "notes": "Test-pattern Metal backend until render-core lands; keep out of production libraries.",
+      "allowed_dependencies": ["diagnostics"]
+    },
+    "export-apple": {
+      "role": "spike",
+      "target": "instantee_export_apple",
+      "include_prefix": "instantee/export_apple/",
+      "decision": "retain-spike",
+      "notes": "AVFoundation adapter retained until the VideoSink port composition replaces spike callers.",
+      "allowed_dependencies": ["diagnostics", "core-model"]
+    },
+    "transfer-apple": {
+      "role": "spike",
+      "target": "instantee_transfer_apple",
+      "include_prefix": "instantee/transfer_apple/",
+      "decision": "retain-spike",
+      "notes": "Isolated Metal/IOSurface bridge; must not become a production default path.",
+      "allowed_dependencies": ["diagnostics", "render-metal", "export-apple"]
+    },
+    "direction": {
+      "role": "planned",
+      "target": null,
+      "include_prefix": "instantee/direction/",
+      "decision": "planned",
+      "allowed_dependencies": ["diagnostics", "core-model"]
+    },
+    "compiler": {
+      "role": "planned",
+      "target": null,
+      "include_prefix": "instantee/compiler/",
+      "decision": "planned",
+      "allowed_dependencies": ["diagnostics", "core-model", "scene-ir"]
+    },
+    "scene-ir": {
+      "role": "planned",
+      "target": null,
+      "include_prefix": "instantee/scene_ir/",
+      "decision": "planned",
+      "allowed_dependencies": ["diagnostics", "core-model"]
+    },
+    "render-core": {
+      "role": "planned",
+      "target": null,
+      "include_prefix": "instantee/render_core/",
+      "decision": "planned",
+      "allowed_dependencies": ["diagnostics", "core-model"]
+    },
+    "export": {
+      "role": "planned",
+      "target": null,
+      "include_prefix": "instantee/export/",
+      "decision": "planned",
+      "notes": "Logical export port above export-core/export-apple.",
+      "allowed_dependencies": ["diagnostics", "core-model", "export-core"]
+    }
+  },
+  "forbidden_examples": [
+    {
+      "from": "core-model",
+      "to": "render-metal",
+      "reason": "Domain values must stay free of Metal backends."
+    },
+    {
+      "from": "core-model",
+      "to": "export-apple",
+      "reason": "Domain values must stay free of AVFoundation adapters."
+    },
+    {
+      "from": "direction",
+      "to": "render-metal",
+      "reason": "Creative direction must not reach the GPU backend."
+    },
+    {
+      "from": "compiler",
+      "to": "export-apple",
+      "reason": "Scene compilation must not depend on the platform encoder."
+    },
+    {
+      "from": "runtime",
+      "to": "render-metal",
+      "reason": "Runtime admission/queues stay backend-agnostic."
+    }
+  ],
+  "spike_include_prefixes": [
+    "instantee/render_metal/",
+    "instantee/export_apple/",
+    "instantee/transfer_apple/"
+  ],
+  "production_source_roots": [
+    "engine/src/diagnostics/",
+    "engine/src/core-model/",
+    "engine/src/runtime/",
+    "engine/src/export-core/",
+    "engine/native/telemetry-apple/"
+  ]
+}

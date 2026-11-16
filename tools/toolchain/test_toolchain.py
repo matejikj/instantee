@@ -29,6 +29,10 @@ class ToolchainTests(unittest.TestCase):
         workspace_tools.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/workspace/supervise.py", workspace_tools)
         shutil.copytree(ROOT / "tools/benchmark", self.source / "tools/benchmark")
+        # Module-boundary CTest invokes this script against the sandboxed tree.
+        dev_tools = self.source / "tools/dev"
+        dev_tools.mkdir(parents=True)
+        shutil.copy2(ROOT / "tools/dev/check_module_boundaries.py", dev_tools)
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)
         self.build = Path(self.temporary.name) / "build"
 

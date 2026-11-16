@@ -8,6 +8,8 @@
 #include <string>
 
 namespace instantee::spike::transfer {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 // Feature and SDK facts for the Metal ↔ Core Video transfer experiment.
 // Strings carry version text only; no host or user identity is recorded.

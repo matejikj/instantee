@@ -43,3 +43,4 @@ target_link_libraries(instantee_transfer_apple
     "${INSTANTEE_TRANSFER_CORE_VIDEO}"
     "${INSTANTEE_TRANSFER_IOSURFACE}"
     "${INSTANTEE_TRANSFER_METAL}")
+instantee_mark_module(instantee_transfer_apple spike transfer-apple)

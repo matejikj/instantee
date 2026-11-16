@@ -65,20 +65,20 @@ FrameCreditPool::operator=(FrameCreditPool &&) noexcept = default;
 
 FrameCreditPool::~FrameCreditPool() { close(); }
 
-std::expected<FrameCreditPool, spike::Error>
+std::expected<FrameCreditPool, diagnostics::Error>
 FrameCreditPool::create(std::uint32_t capacity) {
   if (capacity == 0U) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "invalid_credit_capacity", kPhase,
-                                        "Frame credit capacity must be "
-                                        "non-zero"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_credit_capacity", kPhase,
+        "Frame credit capacity must be "
+        "non-zero"});
   }
   auto state = std::shared_ptr<detail::FrameCreditPoolState>(
       new (std::nothrow) detail::FrameCreditPoolState{});
   if (!state) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "out_of_memory", kPhase,
-                                        "Cannot allocate frame credit pool"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "out_of_memory", kPhase,
+        "Cannot allocate frame credit pool"});
   }
   state->capacity = capacity;
   return FrameCreditPool{std::move(state)};
@@ -117,26 +117,26 @@ void FrameCreditPool::close() noexcept {
   state_->notify_all_unlocked();
 }
 
-std::expected<FrameCredit, spike::Error>
+std::expected<FrameCredit, diagnostics::Error>
 FrameCreditPool::acquire(std::stop_token stop,
                          std::optional<clock::time_point> deadline) {
   if (!state_) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "credits_not_ready", kPhase,
-                                        "Frame credit pool is not ready"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "credits_not_ready", kPhase,
+        "Frame credit pool is not ready"});
   }
 
   std::unique_lock lock(state_->mutex);
   for (;;) {
     if (stop.stop_requested()) {
       return std::unexpected(
-          spike::Error{spike::ExitCode::invalid_input, "cancelled", kPhase,
-                       "Frame credit acquire was cancelled"});
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "cancelled",
+                             kPhase, "Frame credit acquire was cancelled"});
     }
     if (state_->closed) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "closed", kPhase,
-                                          "Frame credit pool is closed"});
+      return std::unexpected(
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "closed",
+                             kPhase, "Frame credit pool is closed"});
     }
     if (state_->in_flight < state_->capacity) {
       ++state_->in_flight;
@@ -154,15 +154,15 @@ FrameCreditPool::acquire(std::stop_token stop,
     };
     if (deadline.has_value()) {
       if (clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Frame credit acquire deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Frame credit acquire deadline exceeded"});
       }
       state_->available.wait_until(lock, stop, *deadline, wake);
       if (!wake() && clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Frame credit acquire deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Frame credit acquire deadline exceeded"});
       }
     } else {
       state_->available.wait(lock, stop, wake);

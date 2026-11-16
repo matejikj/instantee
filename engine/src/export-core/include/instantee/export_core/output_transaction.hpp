@@ -49,7 +49,7 @@ struct PublishResult {
   bool published = false;
   DurabilityState durability = DurabilityState::not_applicable;
   // Set when the caller must exit nonzero even though the MP4 is visible.
-  std::optional<spike::Error> post_publish_error;
+  std::optional<diagnostics::Error> post_publish_error;
 };
 
 // Owns a private staging directory beside the target. Destructor only cleans
@@ -63,7 +63,7 @@ public:
   OutputTransaction(const OutputTransaction &) = delete;
   OutputTransaction &operator=(const OutputTransaction &) = delete;
 
-  [[nodiscard]] static std::expected<OutputTransaction, spike::Error>
+  [[nodiscard]] static std::expected<OutputTransaction, diagnostics::Error>
   begin(OutputTransactionConfig config);
 
   [[nodiscard]] const std::filesystem::path &target_path() const noexcept;
@@ -79,7 +79,7 @@ public:
   // The serial owner observes stop before entering Publishing, immediately
   // before rename. Stop after this gate cannot roll back publication; commit
   // completes metadata sync and reports the actual publication outcome.
-  [[nodiscard]] std::expected<PublishResult, spike::Error>
+  [[nodiscard]] std::expected<PublishResult, diagnostics::Error>
   commit(std::stop_token stop = {});
 
 private:

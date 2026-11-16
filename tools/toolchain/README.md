@@ -11,8 +11,16 @@ ctest --preset toolchain
 python3 -m unittest discover -s tools/toolchain -p 'test_*.py' -v
 ```
 
+Certification presets (`toolchain`, `release`, sanitizers) set
+`INSTANTEE_TOOLCHAIN_MODE=certification` and enforce the exact pin below plus
+the Node/TypeScript lock. The `dev` preset sets `development` mode: same
+Darwin/arm64/Ninja/AppleClang and feature probes, without exact version or Node
+requirements. Use `dev` for local iteration and CI smoke; use certification
+presets for reference evidence.
+
 `cmake/ToolchainLock.cmake` pins CMake 4.3.0, Ninja 1.13.2,
 Apple Clang 21.0.0.21000401, Xcode 27.2 / 27B52 and macOS SDK 27.2 / 26B118.
+Clang-tidy is pinned separately in [CLANG_TIDY.md](CLANG_TIDY.md).
 The probes also verify Apple compiler build 21000401 and libc++ 220106.
 `package.json`, `.nvmrc`, `.npmrc` and `package-lock.json` pin Node 22.15.0,
 npm 11.14.0 and TypeScript 5.9.3, including package integrity.

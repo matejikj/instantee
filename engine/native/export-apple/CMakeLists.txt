@@ -20,3 +20,4 @@ target_link_libraries(instantee_export_apple
     "${INSTANTEE_CORE_VIDEO}"
     "${INSTANTEE_AVFOUNDATION}"
     "${INSTANTEE_CORE_MEDIA}")
+instantee_mark_module(instantee_export_apple spike export-apple)

@@ -12,6 +12,8 @@
 #include <vector>
 
 namespace instantee::spike::apple {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 struct VideoWriterConfig {
   std::filesystem::path output_path;

@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace instantee::spike {
+namespace instantee::diagnostics {
 
 enum class ExitCode : int {
   invalid_input = 2,
@@ -23,4 +23,4 @@ struct Error {
   std::string_view message;
 };
 
-} // namespace instantee::spike
+} // namespace instantee::diagnostics

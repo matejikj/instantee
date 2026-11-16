@@ -7,6 +7,8 @@
 #include <string_view>
 
 namespace instantee::spike {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 enum class Command { run, help, smoke };
 // Arguments are borrowed only during parsing. Unknown and repeated options

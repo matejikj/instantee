@@ -8,6 +8,7 @@ foreach(language IN ITEMS CXX OBJCXX)
 endforeach()
 include(cmake/VerifyToolchain.cmake)
 include(cmake/ProjectOptions.cmake)
+include(cmake/ModuleBoundaries.cmake)
 enable_testing()
 include(cmake/ToolchainProbes.cmake)
 

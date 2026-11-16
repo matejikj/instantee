@@ -16,7 +16,7 @@
 
 namespace {
 
-using instantee::spike::ExitCode;
+using instantee::diagnostics::ExitCode;
 using instantee::spike::apple::Bgra8Color;
 using instantee::spike::apple::flatten_straight_rgba8_over_black;
 using instantee::spike::apple::PixelBuffer;

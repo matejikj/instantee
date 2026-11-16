@@ -23,7 +23,22 @@ build/release/spike-render --smoke
 build/release/spike-benchmark --smoke
 ```
 
-The workflow configures, builds and runs CTest. Both executables currently
+`release`, `toolchain`, `asan-ubsan` and `tsan` use the **certification**
+toolchain lock (exact CMake/Ninja/AppleClang/Xcode/SDK versions and the Node
+pin). For day-to-day native work without the Node lock, use the **development**
+preset, which still requires Darwin/arm64/Ninja/AppleClang and the libc++
+feature probes:
+
+```sh
+cmake --workflow --preset dev
+```
+
+Minimal versioned CI is [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
+and runs the development workflow, module-boundary check, `clang-format` and
+`clang-tidy` (see [clang-tidy pin](tools/toolchain/CLANG_TIDY.md)). Certification
+measurements stay on the reference machine with the locked presets.
+
+The release workflow configures, builds and runs CTest. Both executables currently
 support help and a smoke check that opens the Apple workspace plus a headless
 Metal device and prints capability JSON. Actual rendering and measurement return
 explicit unavailable errors. See the

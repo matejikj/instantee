@@ -24,9 +24,10 @@ constexpr const char *kPhase = "output_transaction";
 constexpr const char *kMarkerName = ".instantee-output-txn";
 constexpr const char *kStagingFileName = "output.mp4";
 
-[[nodiscard]] spike::Error make_error(spike::ExitCode exit_code,
-                                      const char *code, const char *message) {
-  return spike::Error{exit_code, code, kPhase, message};
+[[nodiscard]] diagnostics::Error make_error(diagnostics::ExitCode exit_code,
+                                            const char *code,
+                                            const char *message) {
+  return diagnostics::Error{exit_code, code, kPhase, message};
 }
 
 [[nodiscard]] bool is_single_path_component(const std::filesystem::path &name) {
@@ -99,17 +100,17 @@ private:
   int fd_ = -1;
 };
 
-[[nodiscard]] std::expected<void, spike::Error>
+[[nodiscard]] std::expected<void, diagnostics::Error>
 sync_file(int fd, DurabilityClass durability, bool force_fail) {
   if (force_fail) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "file_sync_failed",
                                       "Injected file sync failure"));
   }
 #if defined(__APPLE__)
   if (durability == DurabilityClass::durable_local) {
     if (::fcntl(fd, F_FULLFSYNC) != 0) {
-      return std::unexpected(make_error(spike::ExitCode::export_failure,
+      return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                         "fullfsync_failed",
                                         "F_FULLFSYNC failed for durable-local "
                                         "publish"));
@@ -118,23 +119,23 @@ sync_file(int fd, DurabilityClass durability, bool force_fail) {
   }
 #endif
   if (::fsync(fd) != 0) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "fsync_failed",
                                       "fsync failed before publish"));
   }
   return {};
 }
 
-[[nodiscard]] std::expected<void, spike::Error>
+[[nodiscard]] std::expected<void, diagnostics::Error>
 sync_directory(int dir_fd, bool force_fail) {
   if (force_fail) {
     return std::unexpected(make_error(
-        spike::ExitCode::published_durability_unknown, "dir_sync_failed",
+        diagnostics::ExitCode::published_durability_unknown, "dir_sync_failed",
         "Injected directory sync failure after publish"));
   }
   if (::fsync(dir_fd) != 0) {
     return std::unexpected(
-        make_error(spike::ExitCode::published_durability_unknown,
+        make_error(diagnostics::ExitCode::published_durability_unknown,
                    "dir_sync_failed", "Directory sync failed after publish"));
   }
   return {};
@@ -172,16 +173,16 @@ OutputTransaction::~OutputTransaction() {
   remove_tree_best_effort(state_->staging_directory);
 }
 
-std::expected<OutputTransaction, spike::Error>
+std::expected<OutputTransaction, diagnostics::Error>
 OutputTransaction::begin(OutputTransactionConfig config) {
   if (config.target_path.empty()) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "empty_target",
                                       "Output target path is empty"));
   }
   if (!config.target_path.has_filename() ||
       !is_single_path_component(config.target_path.filename())) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "invalid_target_name",
                                       "Output target must be a single path "
                                       "component under an existing directory"));
@@ -193,13 +194,13 @@ OutputTransaction::begin(OutputTransactionConfig config) {
                           : config.target_path.parent_path();
   if (ec) {
     return std::unexpected(
-        make_error(spike::ExitCode::invalid_input, "parent_unresolved",
+        make_error(diagnostics::ExitCode::invalid_input, "parent_unresolved",
                    "Cannot resolve output parent directory"));
   }
 
   const auto canonical_parent = std::filesystem::weakly_canonical(parent, ec);
   if (ec || !std::filesystem::is_directory(canonical_parent, ec)) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "parent_not_directory",
                                       "Output parent must be an existing "
                                       "directory"));
@@ -209,7 +210,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
   // concrete directory the caller resolved.
   std::filesystem::path lexically_normal_parent = parent.lexically_normal();
   if (std::filesystem::is_symlink(lexically_normal_parent, ec)) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "parent_is_symlink",
                                       "Output parent directory must not be a "
                                       "symlink"));
@@ -217,7 +218,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
 
   UniqueFd parent_fd{::open(canonical_parent.c_str(), O_RDONLY | O_DIRECTORY)};
   if (!parent_fd) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "open_parent_failed",
                                       "Cannot open output parent directory"));
   }
@@ -226,7 +227,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
   if (config.durability == DurabilityClass::durable_local) {
     struct statfs fs_info{};
     if (::fstatfs(parent_fd.get(), &fs_info) != 0) {
-      return std::unexpected(make_error(spike::ExitCode::export_failure,
+      return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                         "statfs_failed",
                                         "Cannot inspect filesystem for "
                                         "durable-local publish"));
@@ -235,7 +236,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
     // silently weakening the requested durability class.
     const std::string_view fs_type = fs_info.f_fstypename;
     if (fs_type != "apfs" && fs_type != "hfs") {
-      return std::unexpected(make_error(spike::ExitCode::invalid_input,
+      return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                         "durability_unsupported",
                                         "durable-local requires APFS/HFS+"));
     }
@@ -252,14 +253,14 @@ OutputTransaction::begin(OutputTransactionConfig config) {
       break;
     }
     if (errno != EEXIST) {
-      return std::unexpected(make_error(spike::ExitCode::export_failure,
+      return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                         "staging_mkdir_failed",
                                         "Cannot create private staging "
                                         "directory"));
     }
   }
   if (staging_directory.empty()) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "staging_mkdir_exhausted",
                                       "Cannot allocate a unique staging "
                                       "directory"));
@@ -269,7 +270,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
       ::open(staging_directory.c_str(), O_RDONLY | O_DIRECTORY)};
   if (!staging_fd) {
     remove_tree_best_effort(staging_directory);
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "open_staging_failed",
                                       "Cannot open staging directory"));
   }
@@ -278,7 +279,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
                            O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0600)};
   if (!marker) {
     remove_tree_best_effort(staging_directory);
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "marker_create_failed",
                                       "Cannot create staging ownership "
                                       "marker"));
@@ -297,14 +298,14 @@ OutputTransaction::begin(OutputTransactionConfig config) {
         }
         close_once(marker.release());
         remove_tree_best_effort(staging_directory);
-        return std::unexpected(make_error(spike::ExitCode::export_failure,
+        return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                           "marker_write_failed",
                                           "Cannot write staging marker"));
       }
       if (wrote == 0) {
         close_once(marker.release());
         remove_tree_best_effort(staging_directory);
-        return std::unexpected(make_error(spike::ExitCode::export_failure,
+        return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                           "marker_write_failed",
                                           "Cannot write staging marker"));
       }
@@ -349,40 +350,40 @@ const std::string &OutputTransaction::job_nonce() const noexcept {
   return state_ ? state_->job_nonce : kEmpty;
 }
 
-std::expected<PublishResult, spike::Error>
+std::expected<PublishResult, diagnostics::Error>
 OutputTransaction::commit(std::stop_token stop) {
   if (!state_) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "transaction_not_ready",
                                       "Output transaction is not ready"));
   }
   if (state_->published) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "already_published",
                                       "Output transaction already published"));
   }
   if (state_->abandoned) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "transaction_abandoned",
                                       "Output transaction was abandoned"));
   }
 
   if (stop.stop_requested()) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "cancelled",
                                       "Publication was cancelled"));
   }
 
   std::error_code ec;
   if (!std::filesystem::is_regular_file(state_->staging_file, ec)) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "staging_missing",
                                       "Staging output file is missing"));
   }
 
   UniqueFd file_fd{::open(state_->staging_file.c_str(), O_RDONLY | O_CLOEXEC)};
   if (!file_fd) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "open_staging_file_failed",
                                       "Cannot open staging output for sync"));
   }
@@ -397,7 +398,7 @@ OutputTransaction::commit(std::stop_token stop) {
   UniqueFd parent_fd{
       ::open(state_->parent_path.c_str(), O_RDONLY | O_DIRECTORY | O_CLOEXEC)};
   if (!parent_fd) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "open_parent_failed",
                                       "Cannot open parent directory for "
                                       "publish"));
@@ -413,7 +414,7 @@ OutputTransaction::commit(std::stop_token stop) {
   UniqueFd staging_dir_fd{::open(state_->staging_directory.c_str(),
                                  O_RDONLY | O_DIRECTORY | O_CLOEXEC)};
   if (!staging_dir_fd) {
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "open_staging_failed",
                                       "Cannot open staging directory for "
                                       "publish"));
@@ -421,24 +422,24 @@ OutputTransaction::commit(std::stop_token stop) {
   // This stop observation is the serial owner's entry gate to Publishing.
   // No stop checks follow it: rename/sync must return a truthful result.
   if (stop.stop_requested()) {
-    return std::unexpected(make_error(spike::ExitCode::invalid_input,
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
                                       "cancelled",
                                       "Publication was cancelled"));
   }
   if (::renameatx_np(staging_dir_fd.get(), kStagingFileName, parent_fd.get(),
                      to_rel.c_str(), flags) != 0) {
     if (state_->config.mode == PublishMode::no_replace && errno == EEXIST) {
-      return std::unexpected(make_error(spike::ExitCode::publication_conflict,
-                                        "target_exists",
-                                        "Exclusive publish found an existing "
-                                        "target"));
+      return std::unexpected(make_error(
+          diagnostics::ExitCode::publication_conflict, "target_exists",
+          "Exclusive publish found an existing "
+          "target"));
     }
-    return std::unexpected(make_error(spike::ExitCode::export_failure,
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                       "rename_failed",
                                       "Atomic publish rename failed"));
   }
 #else
-  return std::unexpected(make_error(spike::ExitCode::export_failure,
+  return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
                                     "rename_unsupported",
                                     "Atomic exclusive rename requires macOS"));
 #endif

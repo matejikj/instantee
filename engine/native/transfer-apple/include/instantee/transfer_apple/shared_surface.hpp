@@ -15,6 +15,8 @@
 #include <vector>
 
 namespace instantee::spike::transfer {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 enum class FrameTransferKind : std::uint8_t { cpu_staging, iosurface_shared };
 

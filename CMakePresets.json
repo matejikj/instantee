@@ -3,13 +3,14 @@
   "configurePresets": [
     {
       "name": "toolchain",
-      "displayName": "Native arm64 toolchain verification",
+      "displayName": "Certification toolchain lock",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/toolchain",
       "toolchainFile": "${sourceDir}/cmake/MacOSToolchain.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": true
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "INSTANTEE_TOOLCHAIN_MODE": "certification"
       }
     },
     {
@@ -18,7 +19,8 @@
       "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "INSTANTEE_SANITIZER": "none"
+        "INSTANTEE_SANITIZER": "none",
+        "INSTANTEE_TOOLCHAIN_MODE": "certification"
       }
     },
     {
@@ -27,7 +29,8 @@
       "binaryDir": "${sourceDir}/build/asan-ubsan",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "INSTANTEE_SANITIZER": "address-undefined"
+        "INSTANTEE_SANITIZER": "address-undefined",
+        "INSTANTEE_TOOLCHAIN_MODE": "certification"
       }
     },
     {
@@ -36,7 +39,21 @@
       "binaryDir": "${sourceDir}/build/tsan",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "INSTANTEE_SANITIZER": "thread"
+        "INSTANTEE_SANITIZER": "thread",
+        "INSTANTEE_TOOLCHAIN_MODE": "certification"
+      }
+    },
+    {
+      "name": "dev",
+      "displayName": "Development mode (feature probes, no Node lock)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/dev",
+      "toolchainFile": "${sourceDir}/cmake/MacOSToolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "INSTANTEE_SANITIZER": "none",
+        "INSTANTEE_TOOLCHAIN_MODE": "development"
       }
     }
   ],
@@ -56,6 +73,10 @@
     {
       "name": "tsan",
       "configurePreset": "tsan"
+    },
+    {
+      "name": "dev",
+      "configurePreset": "dev"
     }
   ],
   "testPresets": [
@@ -102,6 +123,16 @@
       "environment": {
         "TSAN_OPTIONS": "halt_on_error=1"
       }
+    },
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
     }
   ],
   "workflowPresets": [
@@ -119,6 +150,23 @@
         {
           "type": "test",
           "name": "release"
+        }
+      ]
+    },
+    {
+      "name": "dev",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev"
+        },
+        {
+          "type": "build",
+          "name": "dev"
+        },
+        {
+          "type": "test",
+          "name": "dev"
         }
       ]
     },

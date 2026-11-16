@@ -14,12 +14,30 @@ p99, memory SLO and CPU regression baselines remain unlocked until the P3 draft
 thresholds ADR; B-00 numbers are not product certification. Shared-surface
 transfer stays opt-in.
 
-P1 must promote or retire spike modules rather than rewrite them, publish
-accepted schemas/fixtures under versioned `contracts/`, keep a production Error
-contract before parsers/CLI, and provide a minimal CI path plus a development
+P1 promotes or retires spike modules rather than rewriting them, publishes
+accepted schemas/fixtures under versioned `contracts/`, keeps a production Error
+contract before parsers/CLI, and provides a minimal CI path plus a development
 toolchain preset distinct from the certification lock. Later phases extend
 `VideoSink`, a shader-feature registry and a job state machine in P3; P8 audits
 those mechanisms instead of introducing them for the first time.
+
+Spike promotion decisions for the current native tree are recorded in
+`cmake/module_graph.json` and enforced by `tools/dev/check_module_boundaries.py`:
+
+| Module | Decision | Role |
+|---|---|---|
+| diagnostics | promote | production Error/ExitCode (`instantee::diagnostics`) |
+| core-model | promote | production |
+| runtime | promote | production |
+| export-core | promote | production |
+| telemetry-apple | promote | production sampler adapter |
+| render-metal | retain-spike | Metal test-pattern backend until render-core |
+| export-apple | retain-spike | AVFoundation adapter until VideoSink composition |
+| transfer-apple | retain-spike | isolated transfer experiment |
+
+Production libraries must not link or include spike modules and must not name
+the `instantee::spike` namespace. Allowed edges for core, direction, compiler,
+render and export (including planned modules) live in the same graph file.
 
 ## Current layout
 
@@ -99,8 +117,9 @@ composes both for the isolated Metal/IOSurface experiment without making either
 backend depend on the other. Composition of Metal readback into encoder pixel
 buffers and transactional publish belongs in executables or dedicated test
 targets. The executables compose the parser and adapters; application policy
-stays at that composition boundary. The current diagnostic types remain in the
-`instantee::spike` namespace and are provisional, not a stable production API.
+stays at that composition boundary. Diagnostic `Error`/`ExitCode` types live in `instantee::diagnostics`. Spike
+composition modules (`instantee::spike::*`) may import them; production modules
+must not depend on spike namespaces or spike libraries.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

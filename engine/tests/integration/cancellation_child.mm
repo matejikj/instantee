@@ -22,6 +22,8 @@
 namespace {
 using namespace instantee;
 using namespace instantee::spike;
+using instantee::diagnostics::Error;
+using instantee::diagnostics::ExitCode;
 using namespace std::chrono_literals;
 
 void ready() {

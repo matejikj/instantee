@@ -5,3 +5,4 @@ target_include_directories(instantee_runtime
 target_link_libraries(instantee_runtime
   PUBLIC instantee::diagnostics
   PRIVATE instantee_build_options)
+instantee_mark_module(instantee_runtime production runtime)

@@ -12,6 +12,8 @@
 #include <stop_token>
 
 namespace instantee::spike::apple {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 namespace detail {
 struct PixelBufferAccess;

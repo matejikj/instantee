@@ -12,6 +12,8 @@
 
 namespace {
 using namespace instantee::spike;
+using instantee::diagnostics::Error;
+using instantee::diagnostics::ExitCode;
 
 #if defined(INSTANTEE_SPIKE_BENCHMARK)
 constexpr auto tool = "spike-benchmark";

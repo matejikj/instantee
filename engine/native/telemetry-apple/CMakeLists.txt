@@ -3,3 +3,4 @@ add_library(instantee::telemetry_apple ALIAS instantee_telemetry_apple)
 target_include_directories(instantee_telemetry_apple PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(instantee_telemetry_apple PUBLIC instantee::diagnostics
   PRIVATE instantee_build_options)
+instantee_mark_module(instantee_telemetry_apple production telemetry-apple)

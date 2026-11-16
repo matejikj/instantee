@@ -34,7 +34,7 @@ public:
   BoundedQueue &operator=(BoundedQueue &&) noexcept = default;
   ~BoundedQueue() { close(); }
 
-  [[nodiscard]] static std::expected<BoundedQueue, spike::Error>
+  [[nodiscard]] static std::expected<BoundedQueue, diagnostics::Error>
   create(std::size_t capacity);
 
   [[nodiscard]] std::size_t capacity() const noexcept;
@@ -51,12 +51,12 @@ public:
   void abort() noexcept;
 
   // The rvalue reference is consumed only on successful insertion.
-  [[nodiscard]] std::expected<void, spike::Error>
+  [[nodiscard]] std::expected<void, diagnostics::Error>
   push(T &&value, std::stop_token stop = {},
        std::optional<std::chrono::steady_clock::time_point> deadline =
            std::nullopt);
 
-  [[nodiscard]] std::expected<T, spike::Error>
+  [[nodiscard]] std::expected<T, diagnostics::Error>
   pop(std::stop_token stop = {},
       std::optional<std::chrono::steady_clock::time_point> deadline =
           std::nullopt);
@@ -86,21 +86,21 @@ private:
 };
 
 template <typename T>
-std::expected<BoundedQueue<T>, spike::Error>
+std::expected<BoundedQueue<T>, diagnostics::Error>
 BoundedQueue<T>::create(std::size_t capacity) {
   if (capacity == 0U) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "invalid_queue_capacity", kPhase,
-                                        "Bounded queue capacity must be "
-                                        "non-zero"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_queue_capacity", kPhase,
+        "Bounded queue capacity must be "
+        "non-zero"});
   }
   std::unique_ptr<State> state;
   try {
     state = std::make_unique<State>(capacity);
   } catch (const std::bad_alloc &) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "out_of_memory", kPhase,
-                                        "Cannot allocate bounded queue"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "out_of_memory", kPhase,
+        "Cannot allocate bounded queue"});
   }
   return BoundedQueue{std::move(state)};
 }
@@ -160,25 +160,25 @@ template <typename T> void BoundedQueue<T>::abort() noexcept {
 }
 
 template <typename T>
-std::expected<void, spike::Error>
+std::expected<void, diagnostics::Error>
 BoundedQueue<T>::push(T &&value, std::stop_token stop,
                       std::optional<clock::time_point> deadline) {
   if (!state_) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "queue_not_ready", kPhase,
-                                        "Bounded queue is not ready"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "queue_not_ready", kPhase,
+        "Bounded queue is not ready"});
   }
   std::unique_lock lock(state_->mutex);
   for (;;) {
     if (state_->aborted || stop.stop_requested()) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "cancelled", kPhase,
-                                          "Bounded queue push was cancelled"});
+      return std::unexpected(
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "cancelled",
+                             kPhase, "Bounded queue push was cancelled"});
     }
     if (state_->closed) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "closed", kPhase,
-                                          "Bounded queue is closed"});
+      return std::unexpected(
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "closed",
+                             kPhase, "Bounded queue is closed"});
     }
     if (state_->items->size() < state_->capacity) {
       state_->items->push_back(std::move(value));
@@ -197,15 +197,15 @@ BoundedQueue<T>::push(T &&value, std::stop_token stop,
     };
     if (deadline.has_value()) {
       if (clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Bounded queue push deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Bounded queue push deadline exceeded"});
       }
       state_->not_full.wait_until(lock, stop, *deadline, wake);
       if (!wake() && clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Bounded queue push deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Bounded queue push deadline exceeded"});
       }
     } else {
       state_->not_full.wait(lock, stop, wake);
@@ -217,20 +217,20 @@ BoundedQueue<T>::push(T &&value, std::stop_token stop,
 }
 
 template <typename T>
-std::expected<T, spike::Error>
+std::expected<T, diagnostics::Error>
 BoundedQueue<T>::pop(std::stop_token stop,
                      std::optional<clock::time_point> deadline) {
   if (!state_) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "queue_not_ready", kPhase,
-                                        "Bounded queue is not ready"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "queue_not_ready", kPhase,
+        "Bounded queue is not ready"});
   }
   std::unique_lock lock(state_->mutex);
   for (;;) {
     if (state_->aborted || stop.stop_requested()) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "cancelled", kPhase,
-                                          "Bounded queue pop was cancelled"});
+      return std::unexpected(
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "cancelled",
+                             kPhase, "Bounded queue pop was cancelled"});
     }
     if (!state_->items->empty()) {
       T value = std::move(state_->items->front());
@@ -239,9 +239,9 @@ BoundedQueue<T>::pop(std::stop_token stop,
       return value;
     }
     if (state_->closed) {
-      return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                          "closed", kPhase,
-                                          "Bounded queue is closed"});
+      return std::unexpected(
+          diagnostics::Error{diagnostics::ExitCode::invalid_input, "closed",
+                             kPhase, "Bounded queue is closed"});
     }
     ++state_->metrics.blocked_pop_count;
     const auto started = clock::now();
@@ -251,15 +251,15 @@ BoundedQueue<T>::pop(std::stop_token stop,
     };
     if (deadline.has_value()) {
       if (clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Bounded queue pop deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Bounded queue pop deadline exceeded"});
       }
       state_->not_empty.wait_until(lock, stop, *deadline, wake);
       if (!wake() && clock::now() >= *deadline) {
-        return std::unexpected(
-            spike::Error{spike::ExitCode::invalid_input, "deadline_exceeded",
-                         kPhase, "Bounded queue pop deadline exceeded"});
+        return std::unexpected(diagnostics::Error{
+            diagnostics::ExitCode::invalid_input, "deadline_exceeded", kPhase,
+            "Bounded queue pop deadline exceeded"});
       }
     } else {
       state_->not_empty.wait(lock, stop, wake);

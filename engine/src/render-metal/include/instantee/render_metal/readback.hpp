@@ -8,6 +8,8 @@
 #include <memory>
 
 namespace instantee::spike::metal {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 // Move-only GPU readback submission. Owns the staging buffer and retains the
 // command buffer plus source texture until GPU completion or destructor

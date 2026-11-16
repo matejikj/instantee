@@ -10,9 +10,9 @@
 namespace instantee::runtime {
 namespace {
 std::atomic_bool active{false};
-constexpr spike::Error unavailable{spike::ExitCode::export_failure,
-                                   "signal_bridge_unavailable", "signals",
-                                   "Cannot start the process signal bridge"};
+constexpr diagnostics::Error unavailable{
+    diagnostics::ExitCode::export_failure, "signal_bridge_unavailable",
+    "signals", "Cannot start the process signal bridge"};
 } // namespace
 
 struct StopSignals::Impl {
@@ -61,7 +61,7 @@ StopSignals::StopSignals(std::unique_ptr<Impl> impl) noexcept
     : impl_(std::move(impl)) {}
 StopSignals::~StopSignals() = default;
 
-std::expected<std::unique_ptr<StopSignals>, spike::Error>
+std::expected<std::unique_ptr<StopSignals>, diagnostics::Error>
 StopSignals::start(std::stop_source source) {
   if (!source.stop_possible()) {
     return std::unexpected(unavailable);

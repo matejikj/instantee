@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T22:33:11.812404+00:00",
+  "updated_at_utc": "2026-11-16T23:29:27.331022+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2714,24 +2714,140 @@
       ]
     },
     "P1-001": {
-      "status": "todo",
+      "status": "done",
+      "delivery_slice": "P1-S1",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Clean checkout + CI smoke + toolchain preset matrix + clang-tidy negative check",
       "acceptance": {
-        "criterion": "Build and tests run from the repository root without manual local steps.",
-        "met": null
+        "criterion": "Clean checkout builds and tests production targets without manual steps; spike namespace is not a dependency of production libraries; CI smoke and the development preset are documented and separated from the certification lock; a clang-tidy finding in changed project code fails CI.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Clean checkout builds and tests production targets",
+            "met": true,
+            "evidence": "implementation-evidence/P1-001/checks.json"
+          },
+          {
+            "criterion": "Spike namespace is not a dependency of production libraries",
+            "met": true,
+            "evidence": [
+              "cmake/module_graph.json",
+              "tools/dev/check_module_boundaries.py",
+              "engine/src/diagnostics/include/instantee/diagnostics/error.hpp"
+            ]
+          },
+          {
+            "criterion": "CI smoke and development preset separated from certification lock",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "CMakePresets.json",
+              "cmake/VerifyToolchain.cmake",
+              "CONTRIBUTING.md"
+            ]
+          },
+          {
+            "criterion": "clang-tidy finding in changed project code fails CI",
+            "met": true,
+            "evidence": [
+              ".clang-tidy",
+              "tools/toolchain/CLANG_TIDY.md",
+              "tools/dev/test_clang_tidy_gate.py",
+              "implementation-evidence/P1-001/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-001/README.md",
+        "implementation-evidence/P1-001/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "tools/dev/check.py change matrix",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-001/checks.json"
+        },
+        {
+          "name": "development preset configure",
+          "status": "pass"
+        },
+        {
+          "name": "clang-tidy negative gate",
+          "status": "pass",
+          "evidence": "tools/dev/test_clang_tidy_gate.py"
+        },
+        {
+          "name": "module boundary checker",
+          "status": "pass"
+        }
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "clang-tidy uses Homebrew LLVM 23.1.5 via CLANG_TIDY; Xcode does not ship it."
+      ]
     },
     "P1-002": {
-      "status": "todo",
+      "status": "done",
+      "delivery_slice": "P1-S1",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Dependency negative + isolated public-header compile tests",
       "acceptance": {
-        "criterion": "A forbidden render-metal import into core-model fails.",
-        "met": null
+        "criterion": "A forbidden render-metal import into core-model fails; a public header missing a required include fails isolated compilation; a spike include in a production target fails.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Forbidden render-metal import into core-model fails",
+            "met": true,
+            "evidence": "tools/dev/test_module_boundaries.py"
+          },
+          {
+            "criterion": "Missing include in public header fails isolated compilation",
+            "met": true,
+            "evidence": [
+              "cmake/ModuleBoundaries.cmake",
+              "engine/tests/contracts/CMakeLists.txt",
+              "tools/dev/test_module_boundaries.py"
+            ]
+          },
+          {
+            "criterion": "Spike include in production target fails",
+            "met": true,
+            "evidence": [
+              "tools/dev/check_module_boundaries.py",
+              "tools/dev/test_module_boundaries.py",
+              "cmake/module_graph.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-002/README.md",
+        "implementation-evidence/P1-002/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "tools/dev/check.py change matrix (shared with slice)",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-002/checks.json"
+        },
+        {
+          "name": "dependency negative tests",
+          "status": "pass"
+        },
+        {
+          "name": "isolated public-header compiles",
+          "status": "pass"
+        }
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. Shared release/ASan/TSan matrix with the slice companion entry.",
+        "No performance measurement or certification claim."
+      ]
     },
     "P1-003": {
       "status": "todo",
@@ -3026,7 +3142,7 @@
     "P2-011": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Angle tests across \u00b1\u03c0 and color transitions match the contract.",
+        "criterion": "Angle tests across ±π and color transitions match the contract.",
         "met": null
       },
       "evidence": [],
@@ -3096,7 +3212,7 @@
     "P2-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays \u2264K and output order is unchanged.",
+        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays ≤K and output order is unchanged.",
         "met": null
       },
       "evidence": [],
@@ -3756,7 +3872,7 @@
     "P5-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -3976,7 +4092,7 @@
     "P6-020": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4036,7 +4152,7 @@
     "P7-005": {
       "status": "todo",
       "acceptance": {
-        "criterion": "10\u201320 layers respond to camera movement with correct parallax.",
+        "criterion": "10–20 layers respond to camera movement with correct parallax.",
         "met": null
       },
       "evidence": [],
@@ -4226,7 +4342,7 @@
     "P7-024": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4446,7 +4562,7 @@
     "P8-021": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
+        "criterion": "Every valid certification cold run has wall≤1800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
         "met": null
       },
       "evidence": [],
@@ -4466,7 +4582,7 @@
     "P8-023": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s takes \u2264360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
+        "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
         "met": null
       },
       "evidence": [],
@@ -4586,7 +4702,7 @@
     "P8-035": {
       "status": "todo",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080\u00d71920/30fps, no audio track and content matching the three Style Bibles.",
+        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
         "met": null
       },
       "evidence": [],

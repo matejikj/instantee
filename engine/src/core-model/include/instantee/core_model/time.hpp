@@ -33,7 +33,7 @@ struct RationalTime {
   std::uint64_t numerator = 0;
   std::uint64_t denominator = 1;
 
-  [[nodiscard]] static std::expected<RationalTime, spike::Error>
+  [[nodiscard]] static std::expected<RationalTime, diagnostics::Error>
   make(std::uint64_t numerator, std::uint64_t denominator) noexcept;
 
   [[nodiscard]] RationalTime reduced() const noexcept;
@@ -47,7 +47,7 @@ struct RationalTime {
 // Contract: pts(frame) = frame * rate.denominator / rate.numerator (exact).
 class FrameClock {
 public:
-  [[nodiscard]] static std::expected<FrameClock, spike::Error>
+  [[nodiscard]] static std::expected<FrameClock, diagnostics::Error>
   create(FrameRate rate) noexcept;
 
   [[nodiscard]] static FrameClock media_30_1() noexcept;
@@ -55,11 +55,11 @@ public:
   [[nodiscard]] constexpr FrameRate rate() const noexcept { return rate_; }
 
   // Start time of frame `index`.
-  [[nodiscard]] std::expected<RationalTime, spike::Error>
+  [[nodiscard]] std::expected<RationalTime, diagnostics::Error>
   pts(FrameIndex index) const noexcept;
 
   // Exclusive end time after `frame_count` frames (media duration).
-  [[nodiscard]] std::expected<RationalTime, spike::Error>
+  [[nodiscard]] std::expected<RationalTime, diagnostics::Error>
   duration(FrameIndex frame_count) const noexcept;
 
 private:

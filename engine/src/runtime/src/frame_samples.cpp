@@ -10,19 +10,19 @@ namespace instantee::runtime {
 FrameSamples::FrameSamples(std::vector<FrameSample> storage) noexcept
     : storage_(std::move(storage)) {}
 
-std::expected<FrameSamples, spike::Error>
+std::expected<FrameSamples, diagnostics::Error>
 FrameSamples::create(std::size_t capacity) {
   if (capacity == 0 || capacity > std::vector<FrameSample>{}.max_size()) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "invalid_sample_capacity", "telemetry",
-                                        "Sample capacity is invalid"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_sample_capacity",
+        "telemetry", "Sample capacity is invalid"});
   }
   try {
     return FrameSamples{std::vector<FrameSample>(capacity)};
   } catch (const std::bad_alloc &) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "out_of_memory", "telemetry",
-                                        "Cannot allocate frame samples"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "out_of_memory", "telemetry",
+        "Cannot allocate frame samples"});
   }
 }
 

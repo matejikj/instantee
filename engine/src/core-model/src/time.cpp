@@ -6,12 +6,12 @@
 namespace instantee::core {
 namespace {
 
-constexpr spike::Error invalid_rate{
-    spike::ExitCode::invalid_input, "invalid_frame_rate", "time",
+constexpr diagnostics::Error invalid_rate{
+    diagnostics::ExitCode::invalid_input, "invalid_frame_rate", "time",
     "Frame rate numerator and denominator must be non-zero"};
 
-constexpr spike::Error pts_overflow{
-    spike::ExitCode::invalid_input, "pts_overflow", "time",
+constexpr diagnostics::Error pts_overflow{
+    diagnostics::ExitCode::invalid_input, "pts_overflow", "time",
     "Presentation timestamp multiplication overflowed"};
 
 [[nodiscard]] constexpr bool checked_mul(std::uint64_t lhs, std::uint64_t rhs,
@@ -33,13 +33,13 @@ constexpr spike::Error pts_overflow{
 
 } // namespace
 
-std::expected<RationalTime, spike::Error>
+std::expected<RationalTime, diagnostics::Error>
 RationalTime::make(std::uint64_t numerator,
                    std::uint64_t denominator) noexcept {
   if (denominator == 0U) {
-    return std::unexpected(
-        spike::Error{spike::ExitCode::invalid_input, "invalid_rational_time",
-                     "time", "Rational time denominator must be non-zero"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_rational_time", "time",
+        "Rational time denominator must be non-zero"});
   }
   return RationalTime{numerator, denominator};
 }
@@ -66,7 +66,7 @@ std::strong_ordering operator<=>(RationalTime lhs, RationalTime rhs) noexcept {
   return std::strong_ordering::equal;
 }
 
-std::expected<FrameClock, spike::Error>
+std::expected<FrameClock, diagnostics::Error>
 FrameClock::create(FrameRate rate) noexcept {
   if (!rate.valid()) {
     return std::unexpected(invalid_rate);
@@ -78,7 +78,7 @@ FrameClock FrameClock::media_30_1() noexcept {
   return FrameClock{FrameRate::media_30_1()};
 }
 
-std::expected<RationalTime, spike::Error>
+std::expected<RationalTime, diagnostics::Error>
 FrameClock::pts(FrameIndex index) const noexcept {
   std::uint64_t scaled = 0;
   if (!checked_mul(index, static_cast<std::uint64_t>(rate_.denominator),
@@ -88,7 +88,7 @@ FrameClock::pts(FrameIndex index) const noexcept {
   return RationalTime::make(scaled, rate_.numerator);
 }
 
-std::expected<RationalTime, spike::Error>
+std::expected<RationalTime, diagnostics::Error>
 FrameClock::duration(FrameIndex frame_count) const noexcept {
   // Duration of N frames equals the PTS of frame index N (exclusive end).
   return pts(frame_count);

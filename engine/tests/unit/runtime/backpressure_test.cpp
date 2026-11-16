@@ -64,7 +64,7 @@ struct AdmittedFrame {
 
   std::atomic_bool started{false};
   std::atomic_bool finished{false};
-  std::expected<instantee::runtime::FrameCredit, instantee::spike::Error>
+  std::expected<instantee::runtime::FrameCredit, instantee::diagnostics::Error>
       result;
   std::thread waiter([&] {
     started.store(true, std::memory_order_release);
@@ -122,7 +122,7 @@ struct AdmittedFrame {
 
   std::stop_source stop;
   std::atomic_bool started{false};
-  std::expected<void, instantee::spike::Error> push_result;
+  std::expected<void, instantee::diagnostics::Error> push_result;
   std::thread producer([&] {
     started.store(true, std::memory_order_release);
     push_result = queue->push(8, stop.get_token());
@@ -144,7 +144,7 @@ struct AdmittedFrame {
   }
 
   started.store(false, std::memory_order_release);
-  std::expected<int, instantee::spike::Error> pop_result;
+  std::expected<int, instantee::diagnostics::Error> pop_result;
   std::stop_source empty_stop;
   std::thread consumer([&] {
     started.store(true, std::memory_order_release);

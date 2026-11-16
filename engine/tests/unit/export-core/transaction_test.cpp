@@ -19,13 +19,13 @@
 
 namespace {
 
+using instantee::diagnostics::ExitCode;
 using instantee::export_core::DurabilityClass;
 using instantee::export_core::DurabilityState;
 using instantee::export_core::OutputTransaction;
 using instantee::export_core::OutputTransactionConfig;
 using instantee::export_core::PublishMode;
 using instantee::export_core::write_all;
-using instantee::spike::ExitCode;
 
 [[nodiscard]] int fail(int code) { return code; }
 
@@ -39,22 +39,22 @@ using instantee::spike::ExitCode;
   return std::filesystem::path{template_path};
 }
 
-[[nodiscard]] std::expected<void, instantee::spike::Error>
+[[nodiscard]] std::expected<void, instantee::diagnostics::Error>
 write_staging_payload(const std::filesystem::path &path,
                       std::string_view payload) {
   const int fd =
       ::open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0600);
   if (fd < 0) {
     return std::unexpected(
-        instantee::spike::Error{ExitCode::export_failure, "open_failed", "test",
-                                "Cannot create staging payload"});
+        instantee::diagnostics::Error{ExitCode::export_failure, "open_failed",
+                                      "test", "Cannot create staging payload"});
   }
   auto bytes = std::as_bytes(std::span{payload.data(), payload.size()});
   auto written = write_all(fd, bytes);
   if (::close(fd) != 0 && written) {
     return std::unexpected(
-        instantee::spike::Error{ExitCode::export_failure, "close_failed",
-                                "test", "Cannot close staging payload"});
+        instantee::diagnostics::Error{ExitCode::export_failure, "close_failed",
+                                      "test", "Cannot close staging payload"});
   }
   return written;
 }

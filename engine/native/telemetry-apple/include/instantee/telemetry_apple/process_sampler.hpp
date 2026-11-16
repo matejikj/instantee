@@ -26,7 +26,7 @@ struct ResourceSample {
 class ProcessSampler {
 public:
   [[nodiscard]] static std::expected<std::unique_ptr<ProcessSampler>,
-                                     spike::Error>
+                                     diagnostics::Error>
   start(std::chrono::steady_clock::time_point epoch, std::size_t capacity,
         std::chrono::milliseconds period = std::chrono::milliseconds{100});
   ~ProcessSampler();

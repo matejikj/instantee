@@ -22,7 +22,7 @@ public:
   ReorderBuffer(ReorderBuffer &&) noexcept = default;
   ReorderBuffer &operator=(ReorderBuffer &&) noexcept = default;
 
-  [[nodiscard]] static std::expected<ReorderBuffer, spike::Error>
+  [[nodiscard]] static std::expected<ReorderBuffer, diagnostics::Error>
   create(std::uint32_t capacity);
 
   [[nodiscard]] std::uint32_t capacity() const noexcept { return capacity_; }
@@ -34,8 +34,8 @@ public:
 
   // Stores value for absolute frame index. Rejects duplicates, already-released
   // indices, and overflow beyond the open window [next_index, next_index+cap).
-  [[nodiscard]] std::expected<void, spike::Error> insert(std::uint64_t index,
-                                                         T value);
+  [[nodiscard]] std::expected<void, diagnostics::Error>
+  insert(std::uint64_t index, T value);
 
   // Removes and returns the next contiguous frame when present.
   [[nodiscard]] std::optional<T> try_pop_next();
@@ -59,37 +59,38 @@ private:
 };
 
 template <typename T>
-std::expected<ReorderBuffer<T>, spike::Error>
+std::expected<ReorderBuffer<T>, diagnostics::Error>
 ReorderBuffer<T>::create(std::uint32_t capacity) {
   if (capacity == 0U) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "invalid_reorder_capacity", kPhase,
-                                        "Reorder buffer capacity must be "
-                                        "non-zero"});
+    return std::unexpected(
+        diagnostics::Error{diagnostics::ExitCode::invalid_input,
+                           "invalid_reorder_capacity", kPhase,
+                           "Reorder buffer capacity must be "
+                           "non-zero"});
   }
   return ReorderBuffer{capacity};
 }
 
 template <typename T>
-std::expected<void, spike::Error> ReorderBuffer<T>::insert(std::uint64_t index,
-                                                           T value) {
+std::expected<void, diagnostics::Error>
+ReorderBuffer<T>::insert(std::uint64_t index, T value) {
   if (index < next_index_) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "stale_frame_index", kPhase,
-                                        "Frame index was already released"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "stale_frame_index", kPhase,
+        "Frame index was already released"});
   }
   const std::uint64_t offset = index - next_index_;
   if (offset >= capacity_) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "reorder_window_full", kPhase,
-                                        "Frame index is outside the open "
-                                        "reorder window"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "reorder_window_full", kPhase,
+        "Frame index is outside the open "
+        "reorder window"});
   }
   Slot &slot = slots_[static_cast<std::size_t>(offset)];
   if (slot.occupied) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "duplicate_frame_index", kPhase,
-                                        "Frame index is already buffered"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "duplicate_frame_index", kPhase,
+        "Frame index is already buffered"});
   }
   slot.occupied = true;
   slot.value = std::move(value);

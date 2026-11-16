@@ -19,7 +19,7 @@ using WriteFn =
 // Writes the entire buffer. Retries EINTR. Treats a zero-length successful
 // write before completion as an I/O error. Never publishes; callers own any
 // rename.
-[[nodiscard]] std::expected<void, spike::Error>
+[[nodiscard]] std::expected<void, diagnostics::Error>
 write_all(int fd, std::span<const std::byte> data, WriteFn write_fn = {});
 
 } // namespace instantee::export_core

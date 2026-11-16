@@ -10,6 +10,8 @@
 #include <memory>
 
 namespace instantee::spike::metal {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 // Owns the offscreen target and compiled MSL pipeline. Each submission creates
 // a move-only readback lease that owns staging until GPU completion.

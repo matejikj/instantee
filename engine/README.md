@@ -16,14 +16,14 @@ transfer comparison, and Apple resource smoke checks.
 ```text
 apps/cli/              Application entry points and private argument parser
 apps/transfer-compare/ Isolated staging vs shared-surface timing harness
-src/diagnostics/       Platform-neutral diagnostic value types
+src/diagnostics/       Production Error/ExitCode value types
 src/core-model/        Platform-neutral frame clock and rational time types
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, write_all and publish results
-src/render-metal/      Metal device, queue, test-pattern and readback leases
+src/render-metal/      Spike Metal device, queue, test-pattern and readback leases
 shaders/spike/         Spike MSL sources embedded into render-metal/transfer
-native/                Objective-C++ adapters with private implementation details
-tests/                 Native unit, public-header contract and subprocess tests
+native/                Objective-C++ adapters; export/transfer remain spike
+tests/                 Native unit, isolated public-header and subprocess tests
 ```
 
 

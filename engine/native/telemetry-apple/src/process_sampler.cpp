@@ -102,16 +102,16 @@ ProcessSampler::ProcessSampler(std::unique_ptr<Impl> impl) noexcept
     : impl_(std::move(impl)) {}
 ProcessSampler::~ProcessSampler() { finish(); }
 
-std::expected<std::unique_ptr<ProcessSampler>, spike::Error>
+std::expected<std::unique_ptr<ProcessSampler>, diagnostics::Error>
 ProcessSampler::start(std::chrono::steady_clock::time_point epoch,
                       std::size_t capacity, std::chrono::milliseconds period) {
   if (capacity == 0 || capacity > 65536 || period.count() <= 0 ||
       period > std::chrono::seconds{60} ||
       (epoch > std::chrono::steady_clock::now() ||
        epoch < std::chrono::steady_clock::now() - std::chrono::hours{24})) {
-    return std::unexpected(spike::Error{spike::ExitCode::invalid_input,
-                                        "invalid_sampler_config", "telemetry",
-                                        "Sampler configuration is invalid"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::invalid_input, "invalid_sampler_config",
+        "telemetry", "Sampler configuration is invalid"});
   }
   try {
     auto impl = std::make_unique<Impl>();
@@ -122,9 +122,9 @@ ProcessSampler::start(std::chrono::steady_clock::time_point epoch,
         [state = impl.get()](std::stop_token stop) { state->run(stop); });
     return std::unique_ptr<ProcessSampler>(new ProcessSampler(std::move(impl)));
   } catch (...) {
-    return std::unexpected(spike::Error{spike::ExitCode::export_failure,
-                                        "sampler_start_failed", "telemetry",
-                                        "Cannot start process sampler"});
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "sampler_start_failed",
+        "telemetry", "Cannot start process sampler"});
   }
 }
 void ProcessSampler::finish() noexcept {

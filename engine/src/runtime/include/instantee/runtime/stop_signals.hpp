@@ -21,7 +21,8 @@ public:
   StopSignals &operator=(const StopSignals &) = delete;
   ~StopSignals();
 
-  [[nodiscard]] static std::expected<std::unique_ptr<StopSignals>, spike::Error>
+  [[nodiscard]] static std::expected<std::unique_ptr<StopSignals>,
+                                     diagnostics::Error>
   start(std::stop_source source);
 
 private:

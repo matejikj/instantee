@@ -8,6 +8,8 @@
 #include <string>
 
 namespace instantee::spike::metal {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 class Device;
 

@@ -5,6 +5,7 @@
 
 int main() {
   using namespace instantee::spike;
+  using instantee::diagnostics::ExitCode;
   using namespace std::literals;
   if (parse_command({}) != Command::run ||
       parse_command(std::array{"--help"sv}) != Command::help ||

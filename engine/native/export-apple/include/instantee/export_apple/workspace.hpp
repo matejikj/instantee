@@ -5,6 +5,8 @@
 #include <expected>
 
 namespace instantee::spike::apple {
+using diagnostics::Error;
+using diagnostics::ExitCode;
 
 // Synchronous adapter smoke check; owns no persistent state and performs no
 // I/O. Video resources and their asynchronous lifetimes are not initialized

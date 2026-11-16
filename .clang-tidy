@@ -1,0 +1,25 @@
+# Pinned analyzer for changed native translation units. Xcode does not ship
+# clang-tidy; use the Homebrew LLVM package documented in
+# tools/toolchain/CLANG_TIDY.md and set CLANG_TIDY when it is not on PATH.
+Checks: >
+  -*,
+  bugprone-assert-side-effect,
+  bugprone-dangling-handle,
+  bugprone-infinite-loop,
+  bugprone-move-forwarding-reference,
+  bugprone-redundant-branch-condition,
+  bugprone-sizeof-expression,
+  bugprone-suspicious-memset-usage,
+  bugprone-undefined-memory-manipulation,
+  bugprone-use-after-move,
+  clang-analyzer-core.uninitialized.Assign,
+  clang-analyzer-core.uninitialized.Branch,
+  clang-analyzer-core.UndefRegexp,
+  clang-analyzer-cplusplus.NewDeleteLeaks,
+  modernize-use-nullptr,
+  modernize-use-override,
+  readability-misleading-indentation
+WarningsAsErrors: '*'
+HeaderFilterRegex: 'engine/(src|native|apps)/.*'
+FormatStyle: file
+UseColor: false

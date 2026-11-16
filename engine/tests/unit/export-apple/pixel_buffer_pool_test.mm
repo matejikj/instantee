@@ -17,12 +17,12 @@
 
 namespace {
 
-using instantee::spike::Error;
+using instantee::diagnostics::Error;
 using instantee::spike::apple::PixelBuffer;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
-using instantee::spike::apple::detail::PixelBufferAccess;
 using instantee::spike::apple::detail::adopt_cf;
+using instantee::spike::apple::detail::PixelBufferAccess;
 using instantee::spike::apple::detail::retain_cf;
 
 struct AcquireResult {

@@ -54,3 +54,4 @@ target_link_libraries(instantee_render_metal
   PRIVATE instantee_build_options
     "${INSTANTEE_METAL_FRAMEWORK}"
     "${INSTANTEE_FOUNDATION_FRAMEWORK}")
+instantee_mark_module(instantee_render_metal spike render-metal)

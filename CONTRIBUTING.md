@@ -134,5 +134,12 @@ personal paths, device identifiers or private configuration.
 Review the full proposed contents, run an available secret scanner and inspect
 the staged diff and commit metadata. Stage explicit delivery paths; preserve
 pre-existing unrelated edits. Never rely on `.gitignore` or a scanner alone to
-decide that content is safe. Use a non-personal project identity for commits.
+decide that content is safe. Commit under your own Git identity. Commit
+messages carry no tool or agent attribution; enable the repository hook that
+removes such trailers:
+
+```sh
+git config core.hooksPath tools/dev/hooks
+```
+
 Do not push unless explicitly requested.

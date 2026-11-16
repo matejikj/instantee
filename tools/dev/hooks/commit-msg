@@ -1,0 +1,10 @@
+#!/bin/sh
+# Commits carry only the contributor's identity; tool attribution lines are removed.
+msg_file=$1
+tmp_file="$msg_file.tmp"
+awk '
+  /^[Cc]o-[Aa]uthored-[Bb]y:.*<cursoragent@cursor\.com>[[:space:]]*$/ { next }
+  /^Made with Cursor[[:space:]]*$/ { next }
+  /^[[:space:]]*$/ { blank++; next }
+  { while (blank > 0) { print ""; blank-- } print }
+' "$msg_file" > "$tmp_file" && mv "$tmp_file" "$msg_file"

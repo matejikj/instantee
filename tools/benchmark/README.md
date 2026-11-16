@@ -152,3 +152,21 @@ pass/fail for sample completeness and verified frame count. `baseline.json`
 summarizes wall/p99/CPU/RSS without certifying throughput limits. Use a long
 `--timeout` (default 600 s). Do not commit MP4 binaries; keep checksummed raw
 reports under ignored local evidence.
+
+## B-00 300 s thermal and memory endurance
+
+Lock a B-00 300 s profile (`workload.id=B-00-test-pattern-300s-v1`, 9000 frames,
+same feasibility-baseline quality tier) before the first endurance series:
+
+```sh
+python3 tools/benchmark/endurance.py build/release/spike-export-metrics \
+  /tmp/instantee-b00-endurance --profile /tmp/b00-300-profile.json \
+  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+```
+
+Each measured process keeps telemetry on and records RSS/footprint/CPU resource
+samples, K/E/queue peaks, the oldest slow frame, clean shutdown and an
+allowlisted thermal series sampled during the run. Pass/fail requires complete
+verified samples, capacity bounds, no silent drops and bounded post-warmup RSS
+growth under the soft/hard budgets used only as anti-leak gates—not as certified
+SLO caps. Default `--timeout` is 1800 s.

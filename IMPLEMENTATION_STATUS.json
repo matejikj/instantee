@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T20:07:46.179370+00:00",
+  "updated_at_utc": "2026-11-16T20:21:10.901163+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2398,14 +2398,140 @@
       ]
     },
     "P0-019": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Evidence includes throughput, p99/CPU/memory time series, capacities and shutdown; there is no unbounded queue, OOM or silent drop.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Locked B-00 300s workload/profile with 9000-frame cold and warm process trials",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-019/measurement-profile.json",
+              "tools/benchmark/endurance.py",
+              "implementation-evidence/P0-019/endurance.json"
+            ]
+          },
+          {
+            "criterion": "RSS/footprint/CPU/thermal time series, capacities, oldest slow frame and clean shutdown",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-019/runs/cold-00/output/resources.json",
+              "implementation-evidence/P0-019/runs/cold-00/reports/thermal_series.json",
+              "implementation-evidence/P0-019/endurance.json"
+            ]
+          },
+          {
+            "criterion": "No unbounded queue, OOM or silent drop under declared K/E/queue and RSS anti-leak gates",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P0-019/endurance.json",
+              "implementation-evidence/P0-019/checks.json",
+              "implementation-evidence/P0-019/ownership-review.json"
+            ]
+          },
+          {
+            "criterion": "Application cold cache distinguished from uncontrolled OS caches",
+            "met": true,
+            "evidence": [
+              "tools/benchmark/endurance.py",
+              "implementation-evidence/P0-019/endurance.json",
+              "tools/benchmark/README.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-019/README.md",
+        "implementation-evidence/P0-019/endurance.json",
+        "implementation-evidence/P0-019/checks.json",
+        "implementation-evidence/P0-019/conditions.json",
+        "implementation-evidence/P0-019/dependency-verification.json",
+        "implementation-evidence/P0-019/measurement-profile.json",
+        "implementation-evidence/P0-019/media-checksums.json",
+        "implementation-evidence/P0-019/ownership-review.json",
+        "implementation-evidence/P0-019/source-sha256.json",
+        "implementation-evidence/P0-019/task-contract.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/resources.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/resources.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/resources.json"
+      ],
+      "checks": [
+        {
+          "name": "locked profile and B-00 300s series",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        },
+        {
+          "name": "metric/endurance unit tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        },
+        {
+          "name": "capacity, silent-drop and RSS growth gates",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        },
+        {
+          "name": "reproducibility and cache-policy review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        },
+        {
+          "name": "thermal preconditions and per-trial series",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        },
+        {
+          "name": "content/security review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-019/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "p99/CPU/RSS thresholds remain unlocked; no throughput certification.",
+        "RSS soft/hard budgets are anti-leak gates only, not certified memory SLOs.",
+        "Spike has no durable application asset/scene cache.",
+        "OS/filesystem/driver caches were uncontrolled.",
+        "Power source not collected; background load uncontrolled.",
+        "Thermal state moved from nominal to fair after the series; not a quiet-system certification.",
+        "jsonschema unavailable; structural report validation used."
+      ]
     },
     "P0-020": {
       "status": "todo",
@@ -2720,7 +2846,7 @@
     "P2-011": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Angle tests across ±π and color transitions match the contract.",
+        "criterion": "Angle tests across \u00b1\u03c0 and color transitions match the contract.",
         "met": null
       },
       "evidence": [],
@@ -2790,7 +2916,7 @@
     "P2-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays ≤K and output order is unchanged.",
+        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays \u2264K and output order is unchanged.",
         "met": null
       },
       "evidence": [],
@@ -3440,7 +3566,7 @@
     "P5-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -3660,7 +3786,7 @@
     "P6-020": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -3720,7 +3846,7 @@
     "P7-005": {
       "status": "todo",
       "acceptance": {
-        "criterion": "10–20 layers respond to camera movement with correct parallax.",
+        "criterion": "10\u201320 layers respond to camera movement with correct parallax.",
         "met": null
       },
       "evidence": [],
@@ -3910,7 +4036,7 @@
     "P7-024": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4130,7 +4256,7 @@
     "P8-021": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run has wall≤1800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
+        "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
         "met": null
       },
       "evidence": [],
@@ -4150,7 +4276,7 @@
     "P8-023": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
+        "criterion": "Every valid certification cold run of 60 s takes \u2264360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
         "met": null
       },
       "evidence": [],
@@ -4270,7 +4396,7 @@
     "P8-035": {
       "status": "todo",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
+        "criterion": "All 3 MP4 files have 1080\u00d71920/30fps, no audio track and content matching the three Style Bibles.",
         "met": null
       },
       "evidence": [],

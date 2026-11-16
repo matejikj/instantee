@@ -11,6 +11,8 @@ import unittest
 from measure import (PROFILE_KEYS, cpu_metrics, derive_metrics, nearest_rank,
                      validate_profile, wait_for_export)
 from baseline import B00_FRAMES, B00_WORKLOAD_ID, trial_pass
+from endurance import (B00_300_FRAMES, B00_300_WORKLOAD_ID, analyze_resource_series,
+                       endurance_pass, oldest_slow_frame)
 
 BINARY = sys.argv.pop(1) if len(sys.argv) > 1 and not sys.argv[1].startswith('-') else None
 ROOT = Path(__file__).resolve().parents[2]
@@ -44,12 +46,55 @@ class MetricOracleTests(unittest.TestCase):
 
     def test_cli_errors_do_not_echo_supplied_input(self):
         marker = "private-input-do-not-echo"
-        for program in ("measure.py", "compare.py", "baseline.py"):
+        for program in ("measure.py", "compare.py", "baseline.py", "endurance.py"):
             result = subprocess.run([sys.executable, str(Path(__file__).parent / program),
                                      "--unknown-option", marker], capture_output=True, text=True, timeout=5)
             self.assertEqual(result.returncode, 2)
             self.assertNotIn(marker, result.stderr)
             self.assertEqual(json.loads(result.stderr)["code"], "invalid_measurement_arguments")
+
+    def test_endurance_series_helpers_reject_growth_and_find_oldest_slow_frame(self):
+        resources = [
+            [0, 10, 5, 1000, 1000, 900],
+            [100, 20, 10, 1100, 1100, 950],
+            [200, 30, 15, 1200, 1200, 1000],
+            [300, 40, 20, 1300, 1300, 1050],
+            [400, 50, 25, 1400, 1400, 1100],
+        ]
+        series = analyze_resource_series(resources, warmup_fraction=0.2)
+        self.assertEqual(series["sample_count"], 5)
+        self.assertGreater(series["post_warmup_rss_slope_bytes_per_ns"], 0)
+        frames = [
+            [0, 0, 1, 2, 3, 4, 5, 6, 100],
+            [1, 10, 11, 12, 13, 14, 15, 16, 210],
+            [2, 20, 21, 22, 23, 24, 25, 26, 220],
+        ]
+        slow = oldest_slow_frame(frames)
+        self.assertEqual(slow, {"frame_index": 1, "latency_ns": 200})
+        self.assertEqual(B00_300_FRAMES, 9000)
+        self.assertEqual(B00_300_WORKLOAD_ID, "B-00-test-pattern-300s-v1")
+        report = {
+            "result": "success", "certified": False, "evidence_kind": "measured",
+            "child_exit_code": 0,
+            "frames": {"verified": 9000, "scheduled": 9000, "admitted": 9000,
+                       "accepted": 9000, "failed": 0, "cancelled": 0},
+            "metrics": {
+                "frame_latency_ns": {"sample_count": 9000, "p99": 1},
+                "effective_fps": 30.0,
+                "cpu": {"scope": "renderer_process_all_threads"},
+                "memory": {"rss_peak_bytes": 1000},
+            },
+            "output": {"published": True},
+        }
+        child = {"in_flight_peak": 2, "queue_peak": 1, "encoder_pool_peak": 8,
+                 "frame_lost_samples": 0, "resource_lost_samples": 0}
+        flat = [[i * 10, i, i, 1000, 1000, 900] for i in range(10)]
+        self.assertTrue(endurance_pass(report, 9000, child, flat, frames))
+        leaky = [[i * 10, i, i, i * (512 * 1024 * 1024), i * (512 * 1024 * 1024), 900]
+                 for i in range(10)]
+        self.assertFalse(endurance_pass(report, 9000, child, leaky, frames))
+        over_cap = dict(child, queue_peak=2)
+        self.assertFalse(endurance_pass(report, 9000, over_cap, flat, frames))
 
     def test_baseline_pass_requires_complete_verified_samples(self):
         report = {

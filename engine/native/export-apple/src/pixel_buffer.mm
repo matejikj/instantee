@@ -1,6 +1,7 @@
 #include <instantee/export_apple/pixel_buffer.hpp>
 
 #include "cf_owner.hpp"
+#include "pixel_buffer_native.hpp"
 
 #include <CoreVideo/CoreVideo.h>
 
@@ -100,6 +101,28 @@ PixelBuffer::PixelBuffer(std::unique_ptr<Impl> impl) noexcept
 PixelBuffer::PixelBuffer(PixelBuffer &&) noexcept = default;
 PixelBuffer &PixelBuffer::operator=(PixelBuffer &&) noexcept = default;
 PixelBuffer::~PixelBuffer() = default;
+
+namespace detail {
+
+void *PixelBufferAccess::raw_buffer(PixelBuffer &buffer) noexcept {
+  return buffer.impl_ && buffer.impl_->buffer
+             ? static_cast<void *>(buffer.impl_->buffer.get())
+             : nullptr;
+}
+
+bool PixelBufferAccess::empty(const PixelBuffer &buffer) noexcept {
+  return !buffer.impl_ || !buffer.impl_->buffer;
+}
+
+CVPixelBufferRef borrow_cv_pixel_buffer(PixelBuffer &buffer) noexcept {
+  return static_cast<CVPixelBufferRef>(PixelBufferAccess::raw_buffer(buffer));
+}
+
+bool pixel_buffer_empty(const PixelBuffer &buffer) noexcept {
+  return PixelBufferAccess::empty(buffer);
+}
+
+} // namespace detail
 
 PixelBufferFormat PixelBuffer::format() const noexcept {
   return impl_ ? impl_->format : PixelBufferFormat{};

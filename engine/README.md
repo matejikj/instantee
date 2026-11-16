@@ -5,7 +5,8 @@ execution as those features are implemented, independently of the TypeScript
 authoring process. The current implementation contains the native spike CLI,
 diagnostics, a rational frame clock, a headless Metal device probe, an offscreen
 test-pattern renderer with completion-owned readback leases, a bounded Core Video
-pixel-buffer pool and Apple resource smoke checks.
+pixel-buffer pool, an AVFoundation video-only writer adapter and Apple resource
+smoke checks.
 
 ```text
 apps/cli/          Application entry points and private argument parser

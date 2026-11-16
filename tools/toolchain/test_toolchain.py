@@ -82,7 +82,7 @@ class ToolchainTests(unittest.TestCase):
         original = source.read_text()
         for header in ("cf_owner.hpp", "cli.hpp", "metal_owner.hpp",
                        "device_native.hpp", "Metal/Metal.hpp",
-                       "readback_impl.hpp"):
+                       "readback_impl.hpp", "pixel_buffer_native.hpp"):
             with self.subTest(header=header):
                 source.write_text(f'#include "{header}"\n' + original)
                 rejected = self.run_command(command)

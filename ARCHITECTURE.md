@@ -14,7 +14,7 @@ engine/                    Native runtime component (C++23 / Objective-C++)
   src/core-model/          Platform-neutral frame clock and rational time types
   src/render-metal/        Metal device/queue/test-pattern/readback backend
   shaders/spike/           Spike MSL sources embedded into the Metal backend
-  native/export-apple/     Apple adapter (workspace + bounded pixel-buffer pool)
+  native/export-apple/     Apple adapter (pixel-buffer pool + H.264 video writer)
   tests/                   Native unit, contract and subprocess tests
 third_party/metal-cpp/     Pinned metal-cpp headers with archive checksum metadata
 authoring/                 Authoring component (TypeScript)
@@ -55,6 +55,7 @@ engine boundary without introducing UI dependencies into either component.
 ```text
 spike CLI ──> CLI parser ──> diagnostics
     ├──────> Apple adapter ──> diagnostics
+    │                 └──────> core-model
     └──────> render-metal ──> diagnostics
 
 core-model ──> diagnostics
@@ -62,10 +63,12 @@ core-model ──> diagnostics
 
 The diagnostics module has no application or native dependency. The core-model
 module stays platform-neutral and must not include Metal, AVFoundation or CLI
-headers. The Apple adapter and Metal backend do not include CLI headers. The
-executables compose the parser and adapters; application policy stays at that
-composition boundary. The current diagnostic types remain in the
-`instantee::spike` namespace and are provisional, not a stable production API.
+headers. The Apple adapter may use core-model time types for presentation
+timestamps, but keeps AVFoundation inside Objective-C++. The Apple adapter and
+Metal backend do not include CLI headers. The executables compose the parser and
+adapters; application policy stays at that composition boundary. The current
+diagnostic types remain in the `instantee::spike` namespace and are provisional,
+not a stable production API.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

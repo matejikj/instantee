@@ -16,3 +16,11 @@ add_test(NAME spike_apple_pixel_buffer_pool
   COMMAND spike_apple_pixel_buffer_pool_test)
 set_tests_properties(spike_apple_pixel_buffer_pool PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
+
+add_executable(spike_apple_video_writer_test video_writer_test.mm)
+target_compile_options(spike_apple_video_writer_test PRIVATE -fobjc-arc)
+target_link_libraries(spike_apple_video_writer_test PRIVATE
+  instantee::export_apple instantee_build_options)
+add_test(NAME spike_apple_video_writer COMMAND spike_apple_video_writer_test)
+set_tests_properties(spike_apple_video_writer PROPERTIES TIMEOUT 120
+  LABELS "cpu;smoke")

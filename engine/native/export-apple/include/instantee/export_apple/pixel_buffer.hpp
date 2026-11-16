@@ -13,6 +13,10 @@
 
 namespace instantee::spike::apple {
 
+namespace detail {
+struct PixelBufferAccess;
+}
+
 // Fixed 32BGRA buffers matching the V1 export geometry. Core Video types stay
 // inside the adapter implementation.
 struct PixelBufferFormat {
@@ -54,11 +58,22 @@ public:
 
 private:
   friend class PixelBufferPool;
+  friend struct detail::PixelBufferAccess;
   struct Impl;
   explicit PixelBuffer(std::unique_ptr<Impl> impl) noexcept;
 
   std::unique_ptr<Impl> impl_;
 };
+
+namespace detail {
+
+// Opaque access used by the Apple writer adapter implementation only.
+struct PixelBufferAccess {
+  [[nodiscard]] static void *raw_buffer(PixelBuffer &buffer) noexcept;
+  [[nodiscard]] static bool empty(const PixelBuffer &buffer) noexcept;
+};
+
+} // namespace detail
 
 // Bounded CVPixelBufferPool with allocation threshold E. Exhausted acquires
 // wait with stop/deadline awareness and never fall back to unbounded

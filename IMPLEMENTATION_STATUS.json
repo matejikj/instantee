@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T13:20:20.243923+00:00",
+  "updated_at_utc": "2026-11-16T13:40:32.621533+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -996,14 +996,130 @@
       ]
     },
     "P0-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The video-only track is correct; stop wakes the readiness wait; exceptions do not escape native callbacks.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Video-only H.264 track without audio",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/export-apple/video_writer_test.mm",
+              "implementation-evidence/P0-009/checks.json"
+            ]
+          },
+          {
+            "criterion": "stop/cancel wakes readiness wait",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/video_writer.mm",
+              "engine/tests/unit/export-apple/video_writer_test.mm"
+            ]
+          },
+          {
+            "criterion": "Native callbacks catch exceptions",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/video_writer.mm",
+              "implementation-evidence/P0-009/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-009/README.md",
+        "implementation-evidence/P0-009/checks.json",
+        "implementation-evidence/P0-009/dependency-verification.json",
+        "implementation-evidence/P0-009/reference-verification.json",
+        "implementation-evidence/P0-009/source-sha256.json",
+        "implementation-evidence/P0-009/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "native video writer integration",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-009/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "Readiness uses stop-aware polling rather than requestMediaDataWhenReady producer pump",
+        "Swift C ABI shim not required on the current SDK/OS combination",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No performance certification",
+        "Remote CI was not executed"
+      ]
     },
     "P0-010": {
       "status": "todo",

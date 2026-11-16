@@ -13,6 +13,7 @@ engine/                    Native runtime component (C++23 / Objective-C++)
   src/diagnostics/         Platform-neutral diagnostic value types
   src/core-model/          Platform-neutral frame clock and rational time types
   src/runtime/             Frame credits, bounded queues and reorder slots
+  src/export-core/         Output transactions, write_all and publish results
   src/render-metal/        Metal device/queue/test-pattern/readback backend
   shaders/spike/           Spike MSL sources embedded into the Metal backend
   native/export-apple/     Apple adapter (pixel-buffer pool + H.264 video writer)
@@ -60,22 +61,26 @@ spike CLI ──> CLI parser ──> diagnostics
     │                 └──────> core-model
     └──────> render-metal ──> diagnostics
 
-core-model ──> diagnostics
-runtime    ──> diagnostics
+core-model  ──> diagnostics
+runtime     ──> diagnostics
+export-core ──> diagnostics
 ```
 
-The diagnostics module has no application or native dependency. The core-model
-and runtime modules stay platform-neutral and must not include Metal,
-AVFoundation or CLI headers. Runtime owns global frame-credit admission (K),
-stop-aware bounded queues and reorder slots; encoder pixel-buffer capacity (E)
-remains in the Apple adapter pool and is a separate limit. The Apple adapter may
-use core-model time types for presentation timestamps, but keeps AVFoundation
-inside Objective-C++. The Apple adapter and Metal backend do not include CLI
-headers and do not depend on each other. Composition of Metal readback into
-encoder pixel buffers belongs in executables or dedicated test targets. The
-executables compose the parser and adapters; application policy stays at that
-composition boundary. The current diagnostic types remain in the
-`instantee::spike` namespace and are provisional, not a stable production API.
+The diagnostics module has no application or native dependency. The core-model,
+runtime and export-core modules stay free of Metal, AVFoundation and CLI
+headers. Runtime owns global frame-credit admission (K), stop-aware bounded
+queues and reorder slots; encoder pixel-buffer capacity (E) remains in the Apple
+adapter pool and is a separate limit. Export-core owns staging directories,
+`write_all`, exclusive/overwrite publish and separate publication/durability
+results; it may use POSIX/macOS file APIs but not AVFoundation. The Apple
+adapter may use core-model time types for presentation timestamps, but keeps
+AVFoundation inside Objective-C++. The Apple adapter and Metal backend do not
+include CLI headers and do not depend on each other. Composition of Metal
+readback into encoder pixel buffers and transactional publish belongs in
+executables or dedicated test targets. The executables compose the parser and
+adapters; application policy stays at that composition boundary. The current
+diagnostic types remain in the `instantee::spike` namespace and are provisional,
+not a stable production API.
 
 Reusable libraries expose headers under
 `include/instantee/<module>/`. Their `.cpp`, `.mm` and internal headers live in

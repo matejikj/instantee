@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T15:04:37.358790+00:00",
+  "updated_at_utc": "2026-11-16T15:20:11.092976+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1627,14 +1627,130 @@
       ]
     },
     "P0-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Before rename, the old target remains unchanged and no partial final MP4 exists. After rename, sync/report failure acknowledges published=true without claiming a false rollback.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Pre-publish failure leaves the old target unchanged",
+            "met": true,
+            "evidence": [
+              "engine/src/export-core/src/output_transaction.cpp",
+              "engine/tests/unit/export-core/transaction_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Exclusive no-replace and atomic overwrite publish",
+            "met": true,
+            "evidence": [
+              "engine/src/export-core/src/output_transaction.cpp",
+              "implementation-evidence/P0-014/checks.json"
+            ]
+          },
+          {
+            "criterion": "Post-rename sync failure reports published without false rollback",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/export-core/transaction_test.cpp",
+              "implementation-evidence/P0-014/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-014/README.md",
+        "implementation-evidence/P0-014/checks.json",
+        "implementation-evidence/P0-014/dependency-verification.json",
+        "implementation-evidence/P0-014/reference-verification.json",
+        "implementation-evidence/P0-014/source-sha256.json",
+        "implementation-evidence/P0-014/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "transactional publish and write_all faults",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-014/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Apple writer finish/conformance is still composed by callers; this delivery owns publish/sync primitives",
+        "clang-tidy unavailable; Clang static analyzer used",
+        "No power-loss durability certification; durable-local uses F_FULLFSYNC on APFS/HFS+",
+        "Remote CI was not executed"
+      ]
     },
     "P0-015": {
       "status": "todo",

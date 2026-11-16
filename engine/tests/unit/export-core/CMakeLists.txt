@@ -1,0 +1,7 @@
+add_executable(spike_export_core_transaction_test transaction_test.cpp)
+target_link_libraries(spike_export_core_transaction_test PRIVATE
+  instantee::export_core instantee_build_options)
+add_test(NAME spike_export_core_transaction
+  COMMAND spike_export_core_transaction_test)
+set_tests_properties(spike_export_core_transaction PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")

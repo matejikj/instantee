@@ -6,7 +6,8 @@ authoring process. The current implementation contains the native spike CLI,
 diagnostics, a rational frame clock, a headless Metal device probe, an offscreen
 test-pattern renderer with completion-owned readback leases, a bounded Core Video
 pixel-buffer pool, an AVFoundation video-only writer adapter with exact-frame
-sample durations, presentation-timeline extraction/validation, a Metal-to-MP4
+sample durations, SDR Rec.709 color tags, straight-alpha flatten over black,
+presentation-timeline and color roundtrip validation, a Metal-to-MP4
 composition path exercised by native tests, and Apple resource smoke checks.
 
 ```text

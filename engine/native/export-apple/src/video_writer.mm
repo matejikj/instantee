@@ -135,11 +135,18 @@ VideoWriter::create(VideoWriterConfig config) {
       AVVideoProfileLevelKey : AVVideoProfileLevelH264HighAutoLevel,
       AVVideoAllowFrameReorderingKey : @NO
     };
+    // SDR Rec.709 tags travel with the track; H.264 uses video-range YCbCr.
+    NSDictionary *color = @{
+      AVVideoColorPrimariesKey : AVVideoColorPrimaries_ITU_R_709_2,
+      AVVideoTransferFunctionKey : AVVideoTransferFunction_ITU_R_709_2,
+      AVVideoYCbCrMatrixKey : AVVideoYCbCrMatrix_ITU_R_709_2
+    };
     NSDictionary *settings = @{
       AVVideoCodecKey : AVVideoCodecTypeH264,
       AVVideoWidthKey : @(impl->config.format.width),
       AVVideoHeightKey : @(impl->config.format.height),
-      AVVideoCompressionPropertiesKey : compression
+      AVVideoCompressionPropertiesKey : compression,
+      AVVideoColorPropertiesKey : color
     };
     impl->input = [[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeVideo
                                                  outputSettings:settings];
@@ -291,6 +298,16 @@ std::expected<void, Error> VideoWriter::append(PixelBuffer &buffer,
   // duration equal to FrameClock::duration(frame_count).
   BOOL ok = NO;
   @try {
+    CVBufferSetAttachment(native, kCVImageBufferColorPrimariesKey,
+                          kCVImageBufferColorPrimaries_ITU_R_709_2,
+                          kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(native, kCVImageBufferTransferFunctionKey,
+                          kCVImageBufferTransferFunction_ITU_R_709_2,
+                          kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(native, kCVImageBufferYCbCrMatrixKey,
+                          kCVImageBufferYCbCrMatrix_ITU_R_709_2,
+                          kCVAttachmentMode_ShouldPropagate);
+
     CMVideoFormatDescriptionRef format = nullptr;
     const OSStatus format_status = CMVideoFormatDescriptionCreateForImageBuffer(
         kCFAllocatorDefault, native, &format);
@@ -476,6 +493,22 @@ inspect_media(const std::filesystem::path &path) {
                               track.formatDescriptions.firstObject;
         info.h264 =
             CMFormatDescriptionGetMediaSubType(desc) == kCMVideoCodecType_H264;
+
+        const auto matches = [&](CFStringRef key, CFStringRef expected) {
+          const auto value = static_cast<CFStringRef>(
+              CMFormatDescriptionGetExtension(desc, key));
+          return value != nullptr &&
+                 CFStringCompare(value, expected, 0) == kCFCompareEqualTo;
+        };
+        info.rec709_primaries =
+            matches(kCMFormatDescriptionExtension_ColorPrimaries,
+                    kCMFormatDescriptionColorPrimaries_ITU_R_709_2);
+        info.rec709_transfer =
+            matches(kCMFormatDescriptionExtension_TransferFunction,
+                    kCMFormatDescriptionTransferFunction_ITU_R_709_2);
+        info.rec709_ycbcr_matrix =
+            matches(kCMFormatDescriptionExtension_YCbCrMatrix,
+                    kCMFormatDescriptionYCbCrMatrix_ITU_R_709_2);
       }
     }
     return info;

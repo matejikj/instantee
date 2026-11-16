@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T14:28:35.328769+00:00",
+  "updated_at_utc": "2026-11-16T14:43:06.883098+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -1376,14 +1376,128 @@
       ]
     },
     "P0-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Metadata and decoded images stay within the defined tolerances relative to the test pattern.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Rec.709 metadata on exported MP4",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/src/video_writer.mm",
+              "implementation-evidence/P0-012/checks.json"
+            ]
+          },
+          {
+            "criterion": "Alpha flatten over black before encode",
+            "met": true,
+            "evidence": [
+              "engine/native/export-apple/include/instantee/export_apple/color_path.hpp",
+              "engine/tests/unit/export-apple/color_roundtrip_test.mm"
+            ]
+          },
+          {
+            "criterion": "Decoded colors within documented spike tolerance",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/export-apple/color_roundtrip_test.mm",
+              "implementation-evidence/P0-012/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P0-012/README.md",
+        "implementation-evidence/P0-012/checks.json",
+        "implementation-evidence/P0-012/dependency-verification.json",
+        "implementation-evidence/P0-012/reference-verification.json",
+        "implementation-evidence/P0-012/source-sha256.json",
+        "implementation-evidence/P0-012/task-contract.json"
+      ],
+      "checks": [
+        {
+          "name": "reference and predecessor evidence",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "native release configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "ASan+UBSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "TSan configure/build/CTest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "isolated build integration and negative tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "SDR Rec.709 color roundtrip",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "Clang static analyzer",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "clang-format",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "Python syntax",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "machine profile regression tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "architecture contract tests",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "generated assignment drift",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "controlled design manifest",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "diff whitespace",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        },
+        {
+          "name": "content/security and staged delivery review",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-012/checks.json"
+        }
+      ],
+      "blockers": [],
+      "remaining_target_verification": [],
+      "limitations": [
+        "Spike channel tolerance is not a release color-grade certification.",
+        "No performance certification in this delivery."
+      ]
     },
     "P0-013": {
       "status": "todo",

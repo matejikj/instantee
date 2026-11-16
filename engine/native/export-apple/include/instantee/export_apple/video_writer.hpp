@@ -75,6 +75,10 @@ struct MediaInspection {
   std::int64_t duration_numerator = 0;
   std::int32_t duration_denominator = 1;
   bool h264 = false;
+  // ITU-R BT.709 / Rec.709 color tags from the video format description.
+  bool rec709_primaries = false;
+  bool rec709_transfer = false;
+  bool rec709_ycbcr_matrix = false;
   bool playable = false;
 };
 

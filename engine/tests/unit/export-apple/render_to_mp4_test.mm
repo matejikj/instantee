@@ -1,4 +1,5 @@
 #include <instantee/core_model/time.hpp>
+#include <instantee/export_apple/color_path.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>
 #include <instantee/render_metal/device.hpp>
@@ -8,6 +9,7 @@
 #include <filesystem>
 #include <string>
 #include <unistd.h>
+#include <vector>
 
 #if !__has_feature(objc_arc)
 #error "Apple adapter tests require ARC"
@@ -17,6 +19,7 @@ namespace {
 
 using instantee::core::FrameClock;
 using instantee::spike::apple::extract_presentation_timeline;
+using instantee::spike::apple::flatten_straight_rgba8_to_opaque_bgra8;
 using instantee::spike::apple::inspect_media;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
@@ -80,36 +83,41 @@ int main() {
         return 6;
       }
 
-      auto buffer = pool->acquire();
-      if (!buffer || !buffer->fill_rgba8(rgba->rgba)) {
+      std::vector<std::uint8_t> bgra(rgba->rgba.size());
+      if (!flatten_straight_rgba8_to_opaque_bgra8(rgba->rgba, bgra)) {
         return 7;
       }
-      if (!writer->append(*buffer, frame)) {
+      auto buffer = pool->acquire();
+      if (!buffer || !buffer->fill_bgra8(bgra)) {
         return 8;
+      }
+      if (!writer->append(*buffer, frame)) {
+        return 9;
       }
     }
 
     if (!writer->finish() || !writer->finished()) {
-      return 9;
+      return 10;
     }
 
     const auto info = inspect_media(output);
     if (!info) {
-      return 10;
-    }
-    if (!info->playable || !info->h264 || info->video_track_count != 1 ||
-        info->audio_track_count != 0 || info->width != 1080 ||
-        info->height != 1920) {
       return 11;
     }
-    if (std::abs(info->nominal_frame_rate - 30.0) > 0.05) {
+    if (!info->playable || !info->h264 || !info->rec709_primaries ||
+        !info->rec709_transfer || !info->rec709_ycbcr_matrix ||
+        info->video_track_count != 1 || info->audio_track_count != 0 ||
+        info->width != 1080 || info->height != 1920) {
       return 12;
+    }
+    if (std::abs(info->nominal_frame_rate - 30.0) > 0.05) {
+      return 13;
     }
 
     const auto timeline = extract_presentation_timeline(output);
     if (!timeline || !validate_presentation_timeline(
                          *timeline, FrameClock::media_30_1(), kFrameCount)) {
-      return 13;
+      return 14;
     }
 
     std::error_code ec;

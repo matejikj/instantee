@@ -43,3 +43,12 @@ add_test(NAME spike_apple_pts_timeline COMMAND spike_apple_pts_timeline_test)
 # 60 s + 300 s H.264 encodes. Label avoids the cpu|smoke benchmark preflight.
 set_tests_properties(spike_apple_pts_timeline PROPERTIES TIMEOUT 1800
   LABELS pts)
+
+add_executable(spike_apple_color_roundtrip_test color_roundtrip_test.mm)
+target_compile_options(spike_apple_color_roundtrip_test PRIVATE -fobjc-arc)
+target_link_libraries(spike_apple_color_roundtrip_test PRIVATE
+  instantee::export_apple instantee::render_metal instantee_build_options)
+add_test(NAME spike_apple_color_roundtrip
+  COMMAND spike_apple_color_roundtrip_test)
+set_tests_properties(spike_apple_color_roundtrip PROPERTIES TIMEOUT 180
+  LABELS "cpu;smoke")

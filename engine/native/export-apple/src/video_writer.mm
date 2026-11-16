@@ -5,6 +5,7 @@
 #include <AVFoundation/AVFoundation.h>
 #include <CoreMedia/CoreMedia.h>
 
+#include <algorithm>
 #include <chrono>
 #include <condition_variable>
 #include <future>
@@ -27,13 +28,22 @@ constexpr const char *kPhase = "video_writer";
                     static_cast<int32_t>(pts.denominator));
 }
 
+[[nodiscard]] std::expected<core::RationalTime, Error>
+from_cm_time(CMTime time, const char *invalid_code) noexcept {
+  if (!CMTIME_IS_NUMERIC(time) || time.value < 0 || time.timescale <= 0) {
+    return std::unexpected(Error{ExitCode::export_failure, invalid_code, kPhase,
+                                 "Media timing value is not a numeric CMTime"});
+  }
+  return core::RationalTime::make(static_cast<std::uint64_t>(time.value),
+                                  static_cast<std::uint64_t>(time.timescale));
+}
+
 } // namespace
 
 struct VideoWriter::Impl {
   VideoWriterConfig config{};
   AVAssetWriter *writer = nil;
   AVAssetWriterInput *input = nil;
-  AVAssetWriterInputPixelBufferAdaptor *adaptor = nil;
   core::FrameClock clock = core::FrameClock::media_30_1();
 
   std::mutex mutex;
@@ -118,9 +128,12 @@ VideoWriter::create(VideoWriterConfig config) {
                                    "Cannot create AVAssetWriter"});
     }
 
+    // Disable frame reordering so decode order matches presentation order and
+    // every appended PTS lands in the finished MP4 without B-frame delay.
     NSDictionary *compression = @{
       AVVideoAverageBitRateKey : @(6 * 1000 * 1000),
-      AVVideoProfileLevelKey : AVVideoProfileLevelH264HighAutoLevel
+      AVVideoProfileLevelKey : AVVideoProfileLevelH264HighAutoLevel,
+      AVVideoAllowFrameReorderingKey : @NO
     };
     NSDictionary *settings = @{
       AVVideoCodecKey : AVVideoCodecTypeH264,
@@ -137,15 +150,6 @@ VideoWriter::create(VideoWriterConfig config) {
                                    "Cannot add video-only writer input"});
     }
     [impl->writer addInput:impl->input];
-
-    NSDictionary *source = @{
-      (id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
-      (id)kCVPixelBufferWidthKey : @(impl->config.format.width),
-      (id)kCVPixelBufferHeightKey : @(impl->config.format.height)
-    };
-    impl->adaptor = [[AVAssetWriterInputPixelBufferAdaptor alloc]
-           initWithAssetWriterInput:impl->input
-        sourcePixelBufferAttributes:source];
 
     if (![impl->writer startWriting]) {
       return std::unexpected(Error{ExitCode::export_failure,
@@ -265,19 +269,55 @@ std::expected<void, Error> VideoWriter::append(PixelBuffer &buffer,
   if (!pts) {
     return std::unexpected(pts.error());
   }
+  const auto frame_duration = impl_->clock.pts(1);
+  if (!frame_duration) {
+    return std::unexpected(frame_duration.error());
+  }
   if (pts->numerator >
           static_cast<std::uint64_t>(std::numeric_limits<int64_t>::max()) ||
       pts->denominator >
+          static_cast<std::uint64_t>(std::numeric_limits<int32_t>::max()) ||
+      frame_duration->numerator >
+          static_cast<std::uint64_t>(std::numeric_limits<int64_t>::max()) ||
+      frame_duration->denominator >
           static_cast<std::uint64_t>(std::numeric_limits<int32_t>::max())) {
     return std::unexpected(
         Error{ExitCode::invalid_input, "pts_out_of_range", kPhase,
               "Presentation timestamp exceeds CMTime range"});
   }
 
+  // appendPixelBuffer leaves sample duration invalid, so the last frame would
+  // truncate declared media length. Explicit one-frame duration keeps asset
+  // duration equal to FrameClock::duration(frame_count).
   BOOL ok = NO;
   @try {
-    ok = [impl_->adaptor appendPixelBuffer:native
-                      withPresentationTime:to_cm_time(*pts)];
+    CMVideoFormatDescriptionRef format = nullptr;
+    const OSStatus format_status = CMVideoFormatDescriptionCreateForImageBuffer(
+        kCFAllocatorDefault, native, &format);
+    if (format_status != noErr || format == nullptr) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "format_description_failed", kPhase,
+                                   "Cannot describe pixel buffer for sample"});
+    }
+
+    CMSampleTimingInfo timing{};
+    timing.duration = to_cm_time(*frame_duration);
+    timing.presentationTimeStamp = to_cm_time(*pts);
+    timing.decodeTimeStamp = kCMTimeInvalid;
+
+    CMSampleBufferRef sample = nullptr;
+    const OSStatus sample_status = CMSampleBufferCreateForImageBuffer(
+        kCFAllocatorDefault, native, true, nullptr, nullptr, format, &timing,
+        &sample);
+    CFRelease(format);
+    if (sample_status != noErr || sample == nullptr) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "sample_buffer_failed", kPhase,
+                                   "Cannot create timed sample buffer"});
+    }
+
+    ok = [impl_->input appendSampleBuffer:sample];
+    CFRelease(sample);
   } @catch (...) {
     return std::unexpected(Error{ExitCode::export_failure, "append_exception",
                                  kPhase,
@@ -443,6 +483,182 @@ inspect_media(const std::filesystem::path &path) {
     return std::unexpected(Error{ExitCode::export_failure, "inspect_exception",
                                  kPhase, "Exception while inspecting media"});
   }
+}
+
+std::expected<PresentationTimeline, Error>
+extract_presentation_timeline(const std::filesystem::path &path) {
+  if (path.empty() || !std::filesystem::exists(path)) {
+    return std::unexpected(Error{ExitCode::invalid_input, "missing_media",
+                                 kPhase, "Media file does not exist"});
+  }
+
+  @try {
+    NSURL *url = [NSURL fileURLWithPath:@(path.c_str()) isDirectory:NO];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+
+    dispatch_semaphore_t done = dispatch_semaphore_create(0);
+    __block NSArray<AVAssetTrack *> *tracks = nil;
+    [asset
+        loadTracksWithMediaType:AVMediaTypeVideo
+              completionHandler:^(NSArray<AVAssetTrack *> *loaded, NSError *) {
+                @try {
+                  tracks = loaded;
+                } @catch (...) {
+                  tracks = nil;
+                }
+                dispatch_semaphore_signal(done);
+              }];
+    dispatch_semaphore_wait(done, DISPATCH_TIME_FOREVER);
+    if (tracks.count != 1) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "timeline_track_count", kPhase,
+                                   "Expected exactly one video track"});
+    }
+
+    NSError *error = nil;
+    AVAssetReader *reader = [[AVAssetReader alloc] initWithAsset:asset
+                                                           error:&error];
+    if (reader == nil) {
+      return std::unexpected(
+          Error{ExitCode::export_failure, "timeline_reader_failed", kPhase,
+                "Cannot open media for timeline extraction"});
+    }
+
+    // Decode to BGRA so each output sample is one presented frame with a
+    // stable presentation timestamp (compressed decode-order is unsuitable).
+    NSDictionary *settings =
+        @{(id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)};
+    AVAssetReaderTrackOutput *output =
+        [[AVAssetReaderTrackOutput alloc] initWithTrack:tracks.firstObject
+                                         outputSettings:settings];
+    output.alwaysCopiesSampleData = NO;
+    if (![reader canAddOutput:output]) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "timeline_output_failed", kPhase,
+                                   "Cannot attach timeline reader output"});
+    }
+    [reader addOutput:output];
+    if (![reader startReading]) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "timeline_start_failed", kPhase,
+                                   "Timeline reader failed to start"});
+    }
+
+    PresentationTimeline timeline{};
+    for (;;) {
+      CMSampleBufferRef sample = [output copyNextSampleBuffer];
+      if (sample == nullptr) {
+        break;
+      }
+      CMTime pts = CMSampleBufferGetPresentationTimeStamp(sample);
+      if (!CMTIME_IS_NUMERIC(pts)) {
+        pts = CMSampleBufferGetOutputPresentationTimeStamp(sample);
+      }
+      CFRelease(sample);
+      // Non-media control samples can appear without a presentation time.
+      if (!CMTIME_IS_NUMERIC(pts)) {
+        continue;
+      }
+      auto rational = from_cm_time(pts, "timeline_pts_invalid");
+      if (!rational) {
+        return std::unexpected(rational.error());
+      }
+      timeline.presentation_timestamps.push_back(*rational);
+    }
+
+    if (reader.status != AVAssetReaderStatusCompleted) {
+      return std::unexpected(Error{ExitCode::export_failure,
+                                   "timeline_read_failed", kPhase,
+                                   "Timeline reader did not complete"});
+    }
+
+    // Compressed readers may yield decode order; presentation validation needs
+    // ascending PTS with no duplicates.
+    std::sort(timeline.presentation_timestamps.begin(),
+              timeline.presentation_timestamps.end());
+    for (std::size_t index = 1; index < timeline.presentation_timestamps.size();
+         ++index) {
+      if (!(timeline.presentation_timestamps[index] >
+            timeline.presentation_timestamps[index - 1U])) {
+        return std::unexpected(Error{ExitCode::export_failure,
+                                     "timeline_not_monotonic", kPhase,
+                                     "Extracted presentation times contain "
+                                     "duplicates or are not increasing"});
+      }
+    }
+
+    auto duration = from_cm_time(asset.duration, "timeline_duration_invalid");
+    if (!duration) {
+      return std::unexpected(duration.error());
+    }
+    timeline.asset_duration = *duration;
+    return timeline;
+  } @catch (...) {
+    return std::unexpected(Error{ExitCode::export_failure, "timeline_exception",
+                                 kPhase,
+                                 "Exception while extracting presentation "
+                                 "timeline"});
+  }
+}
+
+std::expected<void, Error>
+validate_presentation_timeline(const PresentationTimeline &timeline,
+                               const core::FrameClock &clock,
+                               core::FrameIndex expected_frame_count) {
+  if (expected_frame_count == 0U) {
+    return std::unexpected(Error{ExitCode::invalid_input, "empty_timeline",
+                                 kPhase,
+                                 "Expected frame count must be non-zero"});
+  }
+  if (timeline.presentation_timestamps.size() != expected_frame_count) {
+    return std::unexpected(Error{ExitCode::export_failure,
+                                 "frame_count_mismatch", kPhase,
+                                 "Extracted frame count does not match the "
+                                 "expected media length"});
+  }
+
+  const auto expected_duration = clock.duration(expected_frame_count);
+  if (!expected_duration) {
+    return std::unexpected(expected_duration.error());
+  }
+  if (timeline.asset_duration != *expected_duration) {
+    return std::unexpected(Error{ExitCode::export_failure, "duration_mismatch",
+                                 kPhase,
+                                 "Declared media duration does not match the "
+                                 "frame clock"});
+  }
+
+  for (core::FrameIndex index = 0; index < expected_frame_count; ++index) {
+    const auto expected_pts = clock.pts(index);
+    if (!expected_pts) {
+      return std::unexpected(expected_pts.error());
+    }
+    const auto &actual = timeline.presentation_timestamps[index];
+    if (actual != *expected_pts) {
+      return std::unexpected(Error{ExitCode::export_failure, "pts_mismatch",
+                                   kPhase,
+                                   "Presentation timestamp does not match the "
+                                   "exact frame clock"});
+    }
+  }
+
+  if (timeline.presentation_timestamps.front() != core::RationalTime{0, 1}) {
+    return std::unexpected(Error{ExitCode::export_failure, "first_pts_mismatch",
+                                 kPhase,
+                                 "First presentation timestamp must be "
+                                 "zero"});
+  }
+  const auto last_expected = clock.pts(expected_frame_count - 1U);
+  if (!last_expected) {
+    return std::unexpected(last_expected.error());
+  }
+  if (timeline.presentation_timestamps.back() != *last_expected) {
+    return std::unexpected(Error{ExitCode::export_failure, "last_pts_mismatch",
+                                 kPhase,
+                                 "Last presentation timestamp does not match "
+                                 "the final frame index"});
+  }
+  return {};
 }
 
 } // namespace instantee::spike::apple

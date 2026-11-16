@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <memory>
 #include <stop_token>
+#include <vector>
 
 namespace instantee::spike::apple {
 
@@ -79,5 +80,24 @@ struct MediaInspection {
 
 [[nodiscard]] std::expected<MediaInspection, Error>
 inspect_media(const std::filesystem::path &path);
+
+// Sample presentation times extracted from a finished MP4, in decode order of
+// the video track. PTS values are exact rationals (seconds).
+struct PresentationTimeline {
+  std::vector<core::RationalTime> presentation_timestamps;
+  core::RationalTime asset_duration{0, 1};
+};
+
+// Decodes the video track to per-frame BGRA samples and records presentation
+// timestamps. Fails on missing media, non-numeric timing, or duplicate PTS.
+[[nodiscard]] std::expected<PresentationTimeline, Error>
+extract_presentation_timeline(const std::filesystem::path &path);
+
+// Checks frame count, first/last PTS, exclusive media duration, and that every
+// sample matches clock.pts(i) exactly (no duplicates or gaps).
+[[nodiscard]] std::expected<void, Error>
+validate_presentation_timeline(const PresentationTimeline &timeline,
+                               const core::FrameClock &clock,
+                               core::FrameIndex expected_frame_count);
 
 } // namespace instantee::spike::apple

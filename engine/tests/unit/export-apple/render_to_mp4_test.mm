@@ -1,3 +1,4 @@
+#include <instantee/core_model/time.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>
 #include <instantee/render_metal/device.hpp>
@@ -14,9 +15,12 @@
 
 namespace {
 
+using instantee::core::FrameClock;
+using instantee::spike::apple::extract_presentation_timeline;
 using instantee::spike::apple::inspect_media;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
+using instantee::spike::apple::validate_presentation_timeline;
 using instantee::spike::apple::VideoWriter;
 using instantee::spike::apple::VideoWriterConfig;
 using instantee::spike::metal::Device;
@@ -33,17 +37,6 @@ constexpr std::uint32_t kPoolCapacity = 32;
     return {};
   }
   return std::filesystem::path{template_path} / "render_spike.mp4";
-}
-
-[[nodiscard]] bool duration_near_one_second(std::int64_t numerator,
-                                            std::int32_t denominator) {
-  if (denominator <= 0 || numerator < 0) {
-    return false;
-  }
-  const double seconds =
-      static_cast<double>(numerator) / static_cast<double>(denominator);
-  // Last PTS is 29/30; some writers report that, others include one frame.
-  return seconds >= (29.0 / 30.0) - 1e-6 && seconds <= 1.0 + 1e-6;
 }
 
 } // namespace
@@ -112,8 +105,10 @@ int main() {
     if (std::abs(info->nominal_frame_rate - 30.0) > 0.05) {
       return 12;
     }
-    if (!duration_near_one_second(info->duration_numerator,
-                                  info->duration_denominator)) {
+
+    const auto timeline = extract_presentation_timeline(output);
+    if (!timeline || !validate_presentation_timeline(
+                         *timeline, FrameClock::media_30_1(), kFrameCount)) {
       return 13;
     }
 

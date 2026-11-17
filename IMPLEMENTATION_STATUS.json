@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T18:03:09Z",
+  "updated_at_utc": "2026-11-17T18:11:27Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4745,14 +4745,22 @@
       "evidence_tier_min": "A"
     },
     "P5-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Presets support intensity/duration and require no JS in the frame loop.",
-        "met": null
+        "criterion": "P\u0159edvolby podporuj\u00ed intensity/duration a nevy\u017eaduj\u00ed JS ve frame loop.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-003/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-003/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Headline golden frames",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P5-004": {
       "status": "todo",

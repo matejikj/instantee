@@ -1,0 +1,5 @@
+preset=mask_reveal mode=mask_reveal units=3 duration=18 intensity=0.8 stagger=2
+f=0 |u0 p=0 o=0 m=0 s=1 oy=0 |u1 p=0 o=0 m=0 s=1 oy=0 |u2 p=0 o=0 m=0 s=1 oy=0
+f=4 |u0 p=0.489796 o=0.391837 m=0.489796 s=1 oy=0 |u1 p=0.265306 o=0.212245 m=0.265306 s=1 oy=0 |u2 p=0 o=0 m=0 s=1 oy=0
+f=9 |u0 p=0.872449 o=0.697959 m=0.872449 s=1 oy=0 |u1 p=0.75 o=0.6 m=0.75 s=1 oy=0 |u2 p=0.586735 o=0.469388 m=0.586735 s=1 oy=0
+f=18 |u0 p=1 o=0.8 m=1 s=1 oy=0 |u1 p=1 o=0.8 m=1 s=1 oy=0 |u2 p=1 o=0.8 m=1 s=1 oy=0

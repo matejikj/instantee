@@ -1,0 +1,5 @@
+preset=headline_reveal mode=word_stagger units=4 duration=18 intensity=0.8 stagger=2
+f=0 |u0 p=0 o=0 m=0 s=1 oy=1229 |u1 p=0 o=0 m=0 s=1 oy=1229 |u2 p=0 o=0 m=0 s=1 oy=1229 |u3 p=0 o=0 m=0 s=1 oy=1229
+f=4 |u0 p=0.555556 o=0.444444 m=0.555556 s=1 oy=546 |u1 p=0.305556 o=0.244444 m=0.305556 s=1 oy=853 |u2 p=0 o=0 m=0 s=1 oy=1229 |u3 p=0 o=0 m=0 s=1 oy=1229
+f=9 |u0 p=0.9375 o=0.75 m=0.9375 s=1 oy=77 |u1 p=0.826389 o=0.661111 m=0.826389 s=1 oy=213 |u2 p=0.659722 o=0.527778 m=0.659722 s=1 oy=418 |u3 p=0.4375 o=0.35 m=0.4375 s=1 oy=691
+f=18 |u0 p=1 o=0.8 m=1 s=1 oy=0 |u1 p=1 o=0.8 m=1 s=1 oy=0 |u2 p=1 o=0.8 m=1 s=1 oy=0 |u3 p=1 o=0.8 m=1 s=1 oy=0

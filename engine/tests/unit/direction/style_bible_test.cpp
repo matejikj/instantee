@@ -78,8 +78,17 @@ int main(int argc, char **argv) {
          "notebook motion");
 
   // Style Bible skeletons validate without requiring any core-model change:
-  // colors use existing LinearRgba values.
+  // colors use existing LinearRgba values. Editorial completes black / dirty
+  // white / linearized #C6FF00 with a five-step type scale.
   expect(a->colors().at("ink").value.a == 1.0, "linear alpha");
+  expect(a->colors().at("ink").value.r == 0.0 &&
+             a->colors().at("ink").value.g == 0.0 &&
+             a->colors().at("ink").value.b == 0.0,
+         "editorial ink is black");
+  expect(a->colors().at("accent").value.g == 1.0 &&
+             a->colors().at("accent").value.b == 0.0,
+         "editorial accent is acid green");
+  expect(a->fonts().size() == 5, "editorial type scale size");
 
   auto unsupported = load_style_bible_file(bad_schema);
   expect(!unsupported.has_value(), "reject unsupported schema");

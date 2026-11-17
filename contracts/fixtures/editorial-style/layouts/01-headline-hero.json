@@ -1,0 +1,43 @@
+{
+  "schema_version": "editorial-layout/1",
+  "id": "headline-hero",
+  "description": "Hero headline with acid accent bar and body copy inside Reels safe area.",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "headline",
+      "role": "headline",
+      "bounds": { "x_px": 64, "y_px": 220, "width_px": 952, "height_px": 160 },
+      "importance": 0.98,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 64,
+      "text": { "width_px": 880, "height_px": 120, "ascent_px": 96, "descent_px": 24 },
+      "max_width_px": 952
+    },
+    {
+      "id": "accent_bar",
+      "role": "deco",
+      "bounds": { "x_px": 64, "y_px": 400, "width_px": 160, "height_px": 12 },
+      "importance": 0.4,
+      "keep_visible": false,
+      "foreground_token": "accent",
+      "background_token": "paper"
+    },
+    {
+      "id": "body",
+      "role": "body",
+      "bounds": { "x_px": 64, "y_px": 440, "width_px": 900, "height_px": 200 },
+      "importance": 0.8,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 32,
+      "text": { "width_px": 860, "height_px": 160, "ascent_px": 128, "descent_px": 32 },
+      "max_width_px": 900
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

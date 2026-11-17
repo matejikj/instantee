@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T17:46:31Z",
+  "updated_at_utc": "2026-11-17T17:50:32Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4709,14 +4709,22 @@
       "evidence_tier_min": "C"
     },
     "P5-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Five representative layouts respect style tokens and safe areas.",
-        "met": null
+        "criterion": "P\u011bt reprezentativn\u00edch layouts respektuje stylov\u00e9 tokeny a safe areas.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-001/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-001/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Editorial style review",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P5-002": {
       "status": "todo",

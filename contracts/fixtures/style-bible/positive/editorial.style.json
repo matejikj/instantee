@@ -7,9 +7,9 @@
     "colors": {
       "ink": {
         "space": "linear-rgba",
-        "r": 0.02,
-        "g": 0.02,
-        "b": 0.03,
+        "r": 0,
+        "g": 0,
+        "b": 0,
         "a": 1
       },
       "paper": {
@@ -21,9 +21,9 @@
       },
       "accent": {
         "space": "linear-rgba",
-        "r": 0.85,
-        "g": 0.12,
-        "b": 0.08,
+        "r": 0.5647,
+        "g": 1,
+        "b": 0,
         "a": 1
       }
     },
@@ -31,12 +31,27 @@
       "display": {
         "family": "Noto Sans",
         "role": "headline",
+        "size_scale": 2
+      },
+      "subhead": {
+        "family": "Noto Sans",
+        "role": "subhead",
         "size_scale": 1.35
       },
       "body": {
         "family": "Noto Sans",
         "role": "body",
         "size_scale": 1
+      },
+      "caption": {
+        "family": "Noto Sans",
+        "role": "caption",
+        "size_scale": 0.75
+      },
+      "mono": {
+        "family": "Noto Sans Mono",
+        "role": "mono",
+        "size_scale": 0.85
       }
     },
     "materials": {
@@ -53,6 +68,13 @@
         "parameters": {
           "dot_scale": 1.25
         }
+      },
+      "acid_block": {
+        "shader_feature": "solid-fill",
+        "opacity": 1,
+        "parameters": {
+          "grain": 0.05
+        }
       }
     },
     "spacing": {
@@ -64,6 +86,12 @@
       },
       "stack": {
         "px": 16
+      },
+      "column_gap": {
+        "px": 32
+      },
+      "accent_bar": {
+        "px": 12
       }
     },
     "motion": {
@@ -77,6 +105,12 @@
         "ease": "spring",
         "duration_frames": 24,
         "intensity": 0.55,
+        "stagger_frames": 0
+      },
+      "accent_slam": {
+        "ease": "ease_in",
+        "duration_frames": 10,
+        "intensity": 1,
         "stagger_frames": 0
       }
     },

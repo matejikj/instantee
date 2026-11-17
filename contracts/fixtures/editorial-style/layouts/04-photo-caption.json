@@ -1,0 +1,31 @@
+{
+  "schema_version": "editorial-layout/1",
+  "id": "photo-caption",
+  "description": "Photo frame with mono caption strip remaining inside safe area.",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "photo",
+      "role": "deco",
+      "bounds": { "x_px": 64, "y_px": 200, "width_px": 952, "height_px": 900 },
+      "importance": 0.85,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper"
+    },
+    {
+      "id": "caption",
+      "role": "mono",
+      "bounds": { "x_px": 64, "y_px": 1120, "width_px": 952, "height_px": 56 },
+      "importance": 0.8,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 28,
+      "text": { "width_px": 720, "height_px": 40, "ascent_px": 32, "descent_px": 8 },
+      "max_width_px": 952
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "editorial-layout/1",
+  "id": "dual-callout",
+  "description": "Two important callout panels with column gap, no hard overlap.",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "callout_left",
+      "role": "body",
+      "bounds": { "x_px": 64, "y_px": 360, "width_px": 440, "height_px": 320 },
+      "importance": 0.9,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 32,
+      "text": { "width_px": 400, "height_px": 240, "ascent_px": 192, "descent_px": 48 },
+      "max_width_px": 440
+    },
+    {
+      "id": "callout_right",
+      "role": "body",
+      "bounds": { "x_px": 536, "y_px": 360, "width_px": 440, "height_px": 320 },
+      "importance": 0.9,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 32,
+      "text": { "width_px": 400, "height_px": 240, "ascent_px": 192, "descent_px": 48 },
+      "max_width_px": 440
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

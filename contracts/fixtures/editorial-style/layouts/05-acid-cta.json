@@ -1,0 +1,34 @@
+{
+  "schema_version": "editorial-layout/1",
+  "id": "acid-cta",
+  "description": "Body copy plus acid CTA block with black type on #C6FF00 (high contrast).",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "body",
+      "role": "body",
+      "bounds": { "x_px": 64, "y_px": 280, "width_px": 900, "height_px": 280 },
+      "importance": 0.82,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 32,
+      "text": { "width_px": 860, "height_px": 220, "ascent_px": 176, "descent_px": 44 },
+      "max_width_px": 900
+    },
+    {
+      "id": "cta",
+      "role": "subhead",
+      "bounds": { "x_px": 64, "y_px": 1480, "width_px": 480, "height_px": 96 },
+      "importance": 0.97,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "accent",
+      "font_size_px": 40,
+      "text": { "width_px": 360, "height_px": 64, "ascent_px": 52, "descent_px": 12 },
+      "max_width_px": 480
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

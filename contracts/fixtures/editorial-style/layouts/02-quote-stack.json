@@ -1,0 +1,34 @@
+{
+  "schema_version": "editorial-layout/1",
+  "id": "quote-stack",
+  "description": "Centered quote with caption attribution, both on dirty-white paper.",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "quote",
+      "role": "subhead",
+      "bounds": { "x_px": 80, "y_px": 520, "width_px": 920, "height_px": 280 },
+      "importance": 0.95,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 44,
+      "text": { "width_px": 880, "height_px": 220, "ascent_px": 176, "descent_px": 44 },
+      "max_width_px": 920
+    },
+    {
+      "id": "attribution",
+      "role": "caption",
+      "bounds": { "x_px": 80, "y_px": 820, "width_px": 640, "height_px": 48 },
+      "importance": 0.75,
+      "keep_visible": true,
+      "foreground_token": "ink",
+      "background_token": "paper",
+      "font_size_px": 24,
+      "text": { "width_px": 420, "height_px": 36, "ascent_px": 28, "descent_px": 8 },
+      "max_width_px": 640
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

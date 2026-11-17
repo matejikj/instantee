@@ -1,0 +1,35 @@
+{
+  "schema_version": "typography-lint/1",
+  "id": "small-low-contrast-clipped",
+  "limits": {
+    "min_font_size_px": 24,
+    "min_contrast_ratio": 4.5,
+    "large_text_min_contrast_ratio": 3.0,
+    "large_text_size_px": 36,
+    "canvas_width_px": 1080,
+    "canvas_height_px": 1920
+  },
+  "elements": [
+    {
+      "id": "caption",
+      "path": "/shots/0/nodes/caption",
+      "font_size_px": 14,
+      "bounds": { "x_px": 40, "y_px": 1800, "width_px": 200, "height_px": 40 },
+      "foreground": { "r": 0.55, "g": 0.55, "b": 0.55, "a": 1 },
+      "background": { "r": 0.6, "g": 0.6, "b": 0.6, "a": 1 },
+      "text": { "width_px": 320, "height_px": 36, "ascent_px": 28, "descent_px": 8 },
+      "mask": { "x_px": 40, "y_px": 1800, "width_px": 180, "height_px": 40 },
+      "max_width_px": 200
+    }
+  ],
+  "expect": {
+    "codes": ["contrast_ratio", "min_font_size", "text_mask_clip", "text_overflow"],
+    "severities": {
+      "min_font_size": "error",
+      "contrast_ratio": "error",
+      "text_mask_clip": "error",
+      "text_overflow": "warning"
+    },
+    "path": "/shots/0/nodes/caption"
+  }
+}

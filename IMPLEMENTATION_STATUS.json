@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:21:44Z",
+  "updated_at_utc": "2026-11-17T16:27:18Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4564,14 +4564,22 @@
       "evidence_tier_min": "A"
     },
     "P4-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Every warning has a stable code, severity and element path.",
-        "met": null
+        "criterion": "Každé varování má stabilní code, severity a cestu k prvku.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-014/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Typography lint fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-015": {
       "status": "todo",

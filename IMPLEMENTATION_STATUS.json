@@ -3619,14 +3619,24 @@
       "notes": "Short-arc 2D angles + quat slerp; linear RGBA working-space color lerp."
     },
     "P2-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Adding an unrelated node does not affect other animations.",
-        "met": null
+        "criterion": "P\u0159id\u00e1n\u00ed nesouvisej\u00edc\u00edho uzlu neovlivn\u00ed ostatn\u00ed animace.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-012/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Seed stability tests",
+      "completed_at_utc": "2026-11-17T04:22:22Z",
+      "notes": "SplitMix64+FNV channel hash; unit noise; -fno-fast-math -ffp-contract=off."
     },
     "P2-013": {
       "status": "todo",

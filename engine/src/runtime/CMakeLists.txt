@@ -4,6 +4,7 @@ add_library(instantee_runtime STATIC
   src/frame_samples.cpp
   src/hot_path_telemetry.cpp
   src/compiled_scene.cpp
+  src/render_job.cpp
   src/transforms.cpp
   src/layering.cpp
   src/timeline.cpp

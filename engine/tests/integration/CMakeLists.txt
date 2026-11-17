@@ -50,3 +50,12 @@ add_test(NAME instantee_walking_skeleton
   "${CMAKE_BINARY_DIR}/walking-skeleton-out")
 set_tests_properties(instantee_walking_skeleton PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
+
+add_executable(instantee_scene_video_mp4_test scene_video_mp4_test.cpp)
+target_link_libraries(instantee_scene_video_mp4_test PRIVATE
+  instantee::export instantee::export_apple instantee::compiler
+  instantee::scene_ir instantee_build_options)
+add_test(NAME instantee_scene_video_mp4
+  COMMAND instantee_scene_video_mp4_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(instantee_scene_video_mp4 PROPERTIES TIMEOUT 120 LABELS
+  "cpu;smoke;pts")

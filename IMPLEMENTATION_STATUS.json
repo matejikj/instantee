@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T13:10:51Z",
+  "updated_at_utc": "2026-11-17T13:34:06Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4267,14 +4267,23 @@
       "notes": "Added preview module that random-access evaluates FrameState, rasterizes Rec.709/sRGB proxy fills via the linear compositor, and writes PNG with an sRGB chunk. CLI frame --at N --out *.png reports evaluations=1."
     },
     "P3-024": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Valid IR renders to a correct H.264 MP4 without a TypeScript runtime in the hot path.",
-        "met": null
+        "criterion": "Validn\u00ed IR \u2192 korektn\u00ed H.264 MP4 bez TS runtime v hot path; failure p\u0159ed/po publication m\u00e1 pravdiv\u00e9 stavy; cancel a budget exceed jsou \u0159\u00edzen\u00e9.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-024/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-024/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Full pipeline integration + job/cancel/budget tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Promoted export orchestration: RenderJob phase machine with publish/cancel/budget enforcement, AppleVideoSink VideoSink adapter, and Scene IR \u2192 preview Rec.709 raster \u2192 H.264 MP4 via OutputTransaction."
     },
     "P3-025": {
       "status": "todo",

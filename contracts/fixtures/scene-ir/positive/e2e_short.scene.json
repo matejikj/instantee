@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 64,
+    "height": 64,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 4,
+  "seed": 7,
+  "assets": [
+    {
+      "id": "font0",
+      "uri": "assets/example-font.ttf",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "mat0",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.2,
+        "g": 0.7,
+        "b": 1,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [],
+  "text_runs": [
+    {
+      "id": "txt0",
+      "text": "E2E",
+      "font_asset_id": "font0",
+      "font_size_px": 24,
+      "max_width_px": 56,
+      "text_role": "headline"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 10
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "headline",
+      "kind": "text",
+      "layer_order": 1,
+      "text_run_id": "txt0",
+      "material_id": "mat0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 4,
+          "y": 20,
+          "z": 0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "layer_order": 0,
+      "camera_id": "cam0",
+      "visible": true
+    }
+  ],
+  "animation_tracks": [],
+  "shots": [
+    {
+      "id": "clip",
+      "start_frame": 0,
+      "duration_frames": 4,
+      "node_ids": [
+        "headline",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [],
+  "provenance": {
+    "project_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "style_packages": [
+      {
+        "id": "editorial",
+        "version": "1.0.0"
+      }
+    ],
+    "source_schema_version": "1.0.0"
+  }
+}

@@ -57,8 +57,8 @@
       "target": "instantee_export_apple",
       "include_prefix": "instantee/export_apple/",
       "decision": "retain-spike",
-      "notes": "AVFoundation adapter retained until the VideoSink port composition replaces spike callers.",
-      "allowed_dependencies": ["diagnostics", "core-model"]
+      "notes": "AVFoundation VideoWriter plus AppleVideoSink (VideoSink adapter). Domain callers use export-core ports; AVFoundation types stay private to the adapter.",
+      "allowed_dependencies": ["diagnostics", "core-model", "export-core"]
     },
     "transfer-apple": {
       "role": "spike",
@@ -136,12 +136,18 @@
       "notes": "Random-access frame preview: FrameState → Rec.709/sRGB RGBA8 via linear compositor proxies, PNG encode with sRGB chunk; Compression.framework private. No Metal/AVFoundation."
     },
     "export": {
-      "role": "planned",
-      "target": null,
+      "role": "production",
+      "target": "instantee_export",
       "include_prefix": "instantee/export/",
-      "decision": "planned",
-      "notes": "Logical export port above export-core/export-apple.",
-      "allowed_dependencies": ["diagnostics", "core-model", "export-core"]
+      "decision": "promote",
+      "notes": "Scene IR video export orchestration: RenderJob phases, preview Rec.709 raster, VideoSink/FrameBridge, OutputTransaction. Platform encoders stay behind VideoSink factories (e.g. AppleVideoSink).",
+      "allowed_dependencies": [
+        "diagnostics",
+        "core-model",
+        "export-core",
+        "runtime",
+        "preview"
+      ]
     }
   },
   "forbidden_examples": [
@@ -182,10 +188,12 @@
     "engine/src/compiler/",
     "engine/src/runtime/",
     "engine/src/export-core/",
+    "engine/src/export/",
     "engine/src/geometry/",
     "engine/src/asset-pipeline/",
     "engine/src/typography/",
     "engine/src/render-core/",
+    "engine/src/preview/",
     "engine/src/render-metal/",
     "engine/native/telemetry-apple/"
   ]

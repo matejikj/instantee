@@ -42,6 +42,8 @@ def module_by_target(graph: dict) -> dict[str, str]:
             "instantee::compiler": "compiler",
             "instantee::runtime": "runtime",
             "instantee::export_core": "export-core",
+            "instantee::export": "export",
+            "instantee::preview": "preview",
             "instantee::render_metal": "render-metal",
             "instantee::export_apple": "export-apple",
             "instantee::telemetry_apple": "telemetry-apple",

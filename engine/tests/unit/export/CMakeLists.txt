@@ -1,0 +1,6 @@
+add_executable(spike_export_scene_video_test scene_video_export_test.cpp)
+target_link_libraries(spike_export_scene_video_test PRIVATE
+  instantee::export instantee_build_options)
+add_test(NAME spike_export_scene_video COMMAND spike_export_scene_video_test)
+set_tests_properties(spike_export_scene_video PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

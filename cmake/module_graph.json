@@ -35,7 +35,7 @@
       "include_prefix": "instantee/export_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "Owns OutputTransaction and the VideoSink/FrameBridge ports; no Apple encoder types."
+      "notes": "Owns OutputTransaction and the VideoSink/FrameBridge ports, plus Rec.709 RGBA8 flatten/handoff into EncodableFrame; no Apple encoder types."
     },
     "telemetry-apple": {
       "role": "production",
@@ -120,7 +120,7 @@
       "include_prefix": "instantee/render_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching, 2D primitive raster/lowering, nested scissor/shape-mask clip compositor, and screen-space hard/soft shadow passes with quality-tier separable blur plus a Paper depth-shadow capability probe; no Apple/Metal headers; no FrameLease."
+      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching, 2D primitive raster/lowering, nested scissor/shape-mask clip compositor, screen-space hard/soft shadow passes with quality-tier separable blur plus a Paper depth-shadow capability probe, and linear-light premultiplied compositor with Rec.709/sRGB-transfer encode; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",

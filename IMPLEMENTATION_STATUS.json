@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T12:17:40Z",
+  "updated_at_utc": "2026-11-17T12:37:40Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4191,14 +4191,23 @@
       "notes": "Added screen-space hard/soft shadow planning and CPU golden raster: separate shadow passes sort before main_color, inactive features add no passes, soft shadows use quality-tier separable box blur, and paper_layered_depth_probe is a registered capability hook (not a style fork)."
     },
     "P3-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Test patterns stay within tolerances even with semitransparent overlays.",
-        "met": null
+        "criterion": "Test patterns odpov\u00eddaj\u00ed toleranc\u00edm i p\u0159i polopr\u016fhledn\u00e9m p\u0159ekryvu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-020/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-020/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Color golden + MP4 roundtrip",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Added linear-light premultiplied compositor in render-core with Rec.709/sRGB-transfer encode, plus export-core flatten/handoff into EncodableFrame/FrameBridge. Semi-transparent overlay goldens and a small MP4 roundtrip stay within defined channel tolerances; legacy gamma primitive paths remain intact."
     },
     "P3-021": {
       "status": "todo",

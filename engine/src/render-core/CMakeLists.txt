@@ -8,6 +8,7 @@ add_library(instantee_render_core STATIC
   src/pipeline_cache.cpp
   src/primitives.cpp
   src/clip_compositor.cpp
+  src/shadow.cpp
   src/frame_primitives.cpp
   src/instance_batch.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)

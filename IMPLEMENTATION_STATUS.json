@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T12:09:53Z",
+  "updated_at_utc": "2026-11-17T12:17:40Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4171,14 +4171,24 @@
       "notes": "Added GPU-neutral ClipScript compositor (nested scissors + shape masks) and Metal ClipMaskRenderer using MTLScissorRect plus stencil increment/decrement. Mask compositing goldens compare CPU vs Metal."
     },
     "P3-019": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Shadows do not change blending order and an omitted effect does not create a pass.",
-        "met": null
+        "criterion": "St\u00edny nezp\u016fsob\u00ed zm\u011bnu blending po\u0159ad\u00ed; vynechan\u00fd efekt nep\u0159id\u00e1 pass; probe je registrovan\u00e1 feature.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-019/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-019/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Shadow golden + pass count + paper probe",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T12:17:40Z",
+      "notes": "Added screen-space hard/soft shadow planning and CPU golden raster: separate shadow passes sort before main_color, inactive features add no passes, soft shadows use quality-tier separable box blur, and paper_layered_depth_probe is a registered capability hook (not a style fork)."
     },
     "P3-020": {
       "status": "todo",

@@ -1,0 +1,11 @@
+export type {
+  InstanteeAuthoringManifestV1 as AuthoringManifestV1,
+  Uint64Value as AuthoringUint64Value,
+  Id as AuthoringId,
+  Node as AuthoringNode,
+} from "./authoring-v1.js";
+export type {
+  InstanteeSceneIRV1 as SceneIrV1,
+  Uint64Value as SceneIrUint64Value,
+  Id as SceneIrId,
+} from "./scene-ir-v1.js";

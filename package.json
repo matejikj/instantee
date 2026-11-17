@@ -10,9 +10,15 @@
   "scripts": {
     "check:toolchain": "node tools/toolchain/check-node.cjs",
     "build:authoring": "npm run build --workspaces",
-    "check:authoring": "npm run typecheck --workspaces"
+    "check:authoring": "npm run typecheck --workspaces",
+    "contracts:generate": "node tools/contracts/generate_types.mjs",
+    "contracts:check": "node tools/contracts/check_contracts.mjs",
+    "contracts:test": "node tools/contracts/test_contracts.mjs"
   },
   "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "json-schema-to-typescript": "15.0.4",
     "typescript": "5.9.3"
   },
   "workspaces": [

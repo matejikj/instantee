@@ -145,6 +145,8 @@ def plan_steps(
     if risks.authoring:
         for name, script in (
             ("node-toolchain", "check:toolchain"),
+            ("contracts-check", "contracts:check"),
+            ("contracts-test", "contracts:test"),
             ("authoring-typecheck", "check:authoring"),
             ("authoring-build", "build:authoring"),
         ):

@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 1800,
+  "seed": 9007199254740992,
+  "assets": [
+    {
+      "id": "font0",
+      "uri": "assets/example-font.ttf",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "mat0",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.8,
+        "g": 1,
+        "b": 0,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [],
+  "text_runs": [
+    {
+      "id": "txt0",
+      "text": "TECH HAS CHANGED",
+      "font_asset_id": "font0",
+      "font_size_px": 118,
+      "max_width_px": 980,
+      "text_role": "headline"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 10
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "headline",
+      "kind": "text",
+      "layer_order": 1,
+      "text_run_id": "txt0",
+      "material_id": "mat0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 250,
+          "z": 0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "layer_order": 0,
+      "camera_id": "cam0",
+      "visible": true
+    }
+  ],
+  "animation_tracks": [
+    {
+      "id": "fade",
+      "target_id": "headline",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 15,
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "intro",
+      "start_frame": 0,
+      "duration_frames": 1800,
+      "node_ids": [
+        "headline",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [],
+  "provenance": {
+    "project_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "style_packages": [
+      {
+        "id": "editorial",
+        "version": "1.0.0"
+      }
+    ],
+    "source_schema_version": "1.0.0"
+  }
+}

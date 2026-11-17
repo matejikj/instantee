@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "editorial-001",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 42,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "intro",
+      "duration_frames": 1800,
+      "intent": {
+        "type": "reveal",
+        "intensity": 0.8,
+        "importance": 0.9,
+        "target_ids": [
+          "headline"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "headline",
+          "type": "text",
+          "text": "TECH HAS CHANGED",
+          "role": "headline",
+          "visible": true,
+          "transform": {
+            "translate": {
+              "x": 50,
+              "y": 250,
+              "z": 0
+            },
+            "opacity": 1
+          }
+        }
+      ]
+    }
+  ]
+}

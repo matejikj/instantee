@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-16T23:49:00.758736+00:00",
+  "updated_at_utc": "2026-11-17T00:01:42.145374+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2949,24 +2949,42 @@
       ]
     },
     "P1-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Positive/negative fixtures cover JS Number and uint64 boundaries; no seed bits are lost and no defaults are undocumented.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-005/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S3",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "JSON Schema contract suite + codegen drift check",
+      "notes": "Authoring schema, integer encoding, fixtures, defaults, codegen drift"
     },
     "P1-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The schema rejects unknown fields/intents and has verifiable typed references; data contract changes have explicit versions.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-006/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S3",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "IR schema negative tests + ADR review",
+      "notes": "Scene IR camera/transition/rig schema + published evolution ADR"
     },
     "P1-007": {
       "status": "todo",
@@ -2999,14 +3017,23 @@
       "blockers": []
     },
     "P1-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A TypeScript-generated manifest passes the C++23 validator and schema.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-010/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S3",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Cross-language contract test",
+      "notes": "Generated TS types + C++ seed encoding cross-language suite"
     },
     "P1-011": {
       "status": "todo",

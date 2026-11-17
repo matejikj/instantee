@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "documented_defaults": {
+    "authoring.assets": [],
+    "authoring.rigs": [],
+    "authoring.transitions": [],
+    "authoring.node.visible": true,
+    "authoring.node.transform.opacity": 1,
+    "authoring.shot.camera.projection": "orthographic",
+    "authoring.shot.camera.near": 0.1,
+    "authoring.shot.camera.far": 1000,
+    "authoring.transition.overlap_frames": 0,
+    "authoring.transition.blend": "cut",
+    "authoring.canvas.color": "rec709-sdr",
+    "scene_ir.cameras": [],
+    "scene_ir.rigs": [],
+    "scene_ir.transition_spans": [],
+    "scene_ir.node.visible": true,
+    "scene_ir.node.transform.opacity": 1,
+    "scene_ir.camera.projection": "orthographic",
+    "scene_ir.camera.near": 0.1,
+    "scene_ir.camera.far": 1000,
+    "scene_ir.material.opacity": 1,
+    "scene_ir.asset.color_profile": "untagged",
+    "scene_ir.geometry.closed": true,
+    "scene_ir.canvas.color": "rec709-sdr"
+  },
+  "integer_encoding": {
+    "js_safe_integer_max": 9007199254740991,
+    "uint64_max_decimal": "18446744073709551615",
+    "number_form_max": 9007199254740991,
+    "string_form": "decimal without leading zeros (except 0); reject overflow of uint64"
+  }
+}

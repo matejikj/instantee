@@ -1,0 +1,567 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://instantee.dev/contracts/schemas/authoring-v1.schema.json",
+  "title": "Instantee Authoring Manifest v1",
+  "description": "Structural contract for authoring documents. Semantic rules (unique IDs, typed references, uint64 overflow of decimal seeds, camera FOV for perspective) are enforced by language validators beyond JSON Schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "film_id",
+    "canvas",
+    "frame_rate",
+    "seed",
+    "style",
+    "shots"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "film_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "canvas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "color"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "color": {
+          "enum": [
+            "rec709-sdr"
+          ],
+          "default": "rec709-sdr"
+        }
+      }
+    },
+    "frame_rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "numerator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 240000
+        },
+        "denominator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1001
+        }
+      }
+    },
+    "seed": {
+      "$ref": "#/$defs/uint64_value"
+    },
+    "style": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]+@\\d+$"
+    },
+    "assets": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "uri",
+          "sha256",
+          "media_type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "uri": {
+            "type": "string",
+            "pattern": "^assets/[a-zA-Z0-9_./-]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "rigs": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "format_version",
+          "payload_ref"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "format_version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "Opaque rig interchange version; payload format lands later."
+          },
+          "payload_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "description": "Opaque versioned reference; not a native handle or memory dump."
+          }
+        }
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "from_shot_id",
+          "to_shot_id",
+          "overlap_frames",
+          "blend"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "from_shot_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "to_shot_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "overlap_frames": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000,
+            "default": 0
+          },
+          "blend": {
+            "enum": [
+              "cut",
+              "dissolve",
+              "wipe"
+            ],
+            "default": "cut"
+          }
+        }
+      }
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "duration_frames",
+          "nodes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "duration_frames": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "style_override": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "intent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "intensity"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "reveal",
+                  "explain",
+                  "compare",
+                  "focus",
+                  "build_suspense",
+                  "resolve"
+                ]
+              },
+              "intensity": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "importance": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "target_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+                },
+                "uniqueItems": true
+              }
+            }
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/node"
+            }
+          },
+          "camera": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "projection": {
+                "enum": [
+                  "orthographic",
+                  "perspective"
+                ],
+                "default": "orthographic"
+              },
+              "near": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "default": 0.1
+              },
+              "far": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "default": 1000
+              },
+              "fov_y_rad": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "exclusiveMaximum": 3.141592653589793
+              },
+              "preset": {
+                "type": "string",
+                "maxLength": 128
+              },
+              "transform": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "translate": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y",
+                      "z"
+                    ],
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "z": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "scale": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y",
+                      "z"
+                    ],
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "z": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "rotation_z_rad": {
+                    "type": "number"
+                  },
+                  "opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "default": 1
+                  },
+                  "pivot": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y",
+                      "z"
+                    ],
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "z": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "uint64_value": {
+      "description": "Designated uint64 for seed and similar values. JSON numbers are limited to integers in [0, 9007199254740991] (JS Number safe range). Values above that MUST use a decimal string (no leading zeros except \"0\"). Consumers must reject decimal strings that overflow uint64; the schema alone cannot express 2^64-1 exactly for every draft-2020-12 validator.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$",
+          "maxLength": 20
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "type": {
+          "enum": [
+            "group",
+            "shape",
+            "text",
+            "image",
+            "puppet",
+            "path"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 100000
+        },
+        "asset_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "rig_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "shape": {
+          "enum": [
+            "rect",
+            "circle",
+            "polygon",
+            "custom"
+          ]
+        },
+        "transform": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "translate": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "z"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              }
+            },
+            "scale": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "z"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              }
+            },
+            "rotation_z_rad": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 1
+            },
+            "pivot": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "z"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "material": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "property",
+              "keyframes"
+            ],
+            "properties": {
+              "property": {
+                "enum": [
+                  "translate_x",
+                  "translate_y",
+                  "rotation_z",
+                  "scale_x",
+                  "scale_y",
+                  "opacity"
+                ]
+              },
+              "keyframes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "frame",
+                    "value"
+                  ],
+                  "properties": {
+                    "frame": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

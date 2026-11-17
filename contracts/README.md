@@ -12,22 +12,32 @@ cross-language positive/negative fixtures.
   the file/CLI boundary.
 - JSON Schema under `schemas/` is the source of truth. TypeScript types are
   generated from it. C++ defaults are tested against schema defaults.
-- Designated integers beyond JS safe range (seed/hash) use the encoding policy
-  locked in P1; there is no silent precision loss.
+- Designated integers beyond the JS safe range (`seed` and future `uint64`
+  fields) follow [INTEGER_ENCODING.md](INTEGER_ENCODING.md). There is no silent
+  precision loss.
 - Schema changes require explicit versions, fixtures and compatibility tests.
-- Completing the domain/IR phase requires this directory to contain the accepted
-  authoring and Scene IR schemas plus the contract fixtures needed for clean
-  clone CI. Drafts that live only in the ignored local design pack are not
-  sufficient for production gates.
+- Scene IR growth follows [adrs/0013-scene-ir-evolution-policy.md](adrs/0013-scene-ir-evolution-policy.md).
 
 ## Layout
 
 ```text
 contracts/
-  schemas/     Accepted JSON Schema documents
-  fixtures/    Cross-language positive/negative examples
-  README.md    This boundary guide
+  schemas/      Accepted JSON Schema documents (Draft 2020-12)
+  fixtures/     Cross-language positive/negative examples
+  defaults/     Documented omitted-field defaults
+  generated/ts/ Checked-in TypeScript types from schemas
+  adrs/         Published data-contract ADRs
+  INTEGER_ENCODING.md
+  README.md
 ```
 
 Keep language-specific serializers in `engine/` and `authoring/`. Do not
 duplicate independently maintained schemas inside both language components.
+
+## Tooling
+
+```sh
+npm run contracts:generate   # regenerate TypeScript types
+npm run contracts:check      # drift + fixture schema validation
+npm run contracts:test       # encoding + cross-language suite
+```

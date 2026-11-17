@@ -37,6 +37,20 @@ class InferRisksTest(unittest.TestCase):
         authoring = check.infer_risks(["authoring/packages/sdk/src/index.ts", "package.json"])
         self.assertFalse(authoring.native)
         self.assertTrue(authoring.authoring)
+        self.assertTrue(
+            check.infer_risks(["contracts/schemas/authoring-v1.schema.json"]).authoring
+        )
+
+    def test_authoring_plan_includes_contract_checks(self):
+        steps = check.plan_steps(
+            ["contracts/schemas/authoring-v1.schema.json"],
+            check.Risks(authoring=True),
+            gate=False,
+            configured=True,
+        )
+        selected = names(steps)
+        self.assertIn("contracts-check", selected)
+        self.assertIn("contracts-test", selected)
 
     def test_python_tool_changes_select_their_suite(self):
         risks = check.infer_risks(["tools/benchmark/measure.py", "tools/dev/check.py"])

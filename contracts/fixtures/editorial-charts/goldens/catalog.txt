@@ -1,0 +1,12 @@
+name=catalog w=64 h=48 charts=5 ops=19
+kind=bar
+kind=line
+kind=comparison
+kind=percent_meter
+kind=counter
+p40,4=0,0,0
+p22,24=0,0,0
+p58,8=255,255,255
+p8,8=255,255,255
+p35,4=0,0,0
+p0,0=255,255,255

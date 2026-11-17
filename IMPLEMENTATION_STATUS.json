@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T19:15:40Z",
+  "updated_at_utc": "2026-11-17T19:22:30Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4871,14 +4871,22 @@
       "evidence_tier_min": "A"
     },
     "P5-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Charts interpolate data with unambiguous units and do not divide by zero.",
-        "met": null
+        "criterion": "Graf interpoluje data s jednoznačnými jednotkami a nedělí nulou.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-010/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Chart data + visuals tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P5-011": {
       "status": "todo",

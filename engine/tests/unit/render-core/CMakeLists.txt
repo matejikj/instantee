@@ -99,6 +99,14 @@ add_test(NAME spike_graphic_shapes
 set_tests_properties(spike_graphic_shapes PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_editorial_charts_test editorial_charts_test.cpp)
+target_link_libraries(spike_editorial_charts_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_editorial_charts
+  COMMAND spike_editorial_charts_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_editorial_charts PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_shadow_test shadow_test.cpp)
 target_link_libraries(spike_shadow_test PRIVATE
   instantee::render_core instantee_build_options)

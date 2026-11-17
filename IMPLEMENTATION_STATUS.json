@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T19:40:38Z",
+  "updated_at_utc": "2026-11-17T19:49:49Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4944,14 +4944,23 @@
       "completed_at_utc": "2026-11-17T19:40:38Z"
     },
     "P5-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "New content can be assembled without modifying the renderer or rewriting transitions.",
-        "met": null
+        "criterion": "Nový obsah lze sestavit bez úprav rendereru nebo přepisování přechodů. Sdílená typografie/geometrie zůstává ve sdílených modulech; styl dodává presets/kompozici.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-014/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Template authoring example",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T19:49:49Z"
     },
     "P5-015": {
       "status": "todo",

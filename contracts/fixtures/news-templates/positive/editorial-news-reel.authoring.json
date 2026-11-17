@@ -1,0 +1,133 @@
+{
+  "schema_version": "news-reel-template/1",
+  "film_id": "editorial-news-reel-demo",
+  "description": "Authoring example: five reusable news scenes. Style Bible supplies composition; content payloads swap without renderer or transition rewrites. Silent (no audio).",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "scenes": [
+    {
+      "kind": "hook",
+      "duration_frames": 120,
+      "outgoing_transition": "crop_wipe",
+      "outgoing_transition_frames": 8,
+      "outgoing_emphasis": "mask_push",
+      "content": {
+        "headline": "Markets open under pressure",
+        "supporting": "Live desk"
+      }
+    },
+    {
+      "kind": "hero_claim",
+      "duration_frames": 180,
+      "outgoing_transition": "rapid_zoom",
+      "outgoing_transition_frames": 10,
+      "outgoing_emphasis": "slam_in",
+      "content": {
+        "headline": "Yields jumped overnight",
+        "supporting": "Bond desk note"
+      }
+    },
+    {
+      "kind": "data_comparison",
+      "duration_frames": 240,
+      "outgoing_transition": "camera_snap",
+      "outgoing_transition_frames": 0,
+      "outgoing_emphasis": "none",
+      "content": {
+        "headline": "Two-session spread",
+        "supporting": "Basis points",
+        "comparison": {
+          "left_label": "Session A",
+          "right_label": "Session B",
+          "unit": "count",
+          "left_values": [12, 18, 15],
+          "right_values": [9, 21, 17]
+        }
+      }
+    },
+    {
+      "kind": "source_screenshot_crop",
+      "duration_frames": 210,
+      "outgoing_transition": "hard_cut",
+      "outgoing_transition_frames": 0,
+      "outgoing_emphasis": "none",
+      "content": {
+        "headline": "Source capture",
+        "supporting": "Exchange board",
+        "screenshot": {
+          "asset_id": "demo-board-still",
+          "source_width_px": 1600,
+          "source_height_px": 900,
+          "fit": "cover"
+        }
+      }
+    },
+    {
+      "kind": "closing_cta",
+      "duration_frames": 150,
+      "outgoing_transition": "hard_cut",
+      "outgoing_transition_frames": 0,
+      "outgoing_emphasis": "none",
+      "content": {
+        "headline": "Follow the desk",
+        "supporting": "Tap for the full brief"
+      }
+    }
+  ],
+  "variant_content": {
+    "description": "Second story assembled with the same templates and transitions.",
+    "scenes": [
+      {
+        "kind": "hook",
+        "content": {
+          "headline": "Storm warnings widen",
+          "supporting": "Weather desk"
+        }
+      },
+      {
+        "kind": "hero_claim",
+        "content": {
+          "headline": "Coastal gusts peak tonight",
+          "supporting": "Met office note"
+        }
+      },
+      {
+        "kind": "data_comparison",
+        "content": {
+          "headline": "Gust peaks by region",
+          "supporting": "km/h",
+          "comparison": {
+            "left_label": "North",
+            "right_label": "South",
+            "unit": "count",
+            "left_values": [40, 55, 62],
+            "right_values": [28, 33, 41]
+          }
+        }
+      },
+      {
+        "kind": "source_screenshot_crop",
+        "content": {
+          "headline": "Radar still",
+          "supporting": "Frame grab",
+          "screenshot": {
+            "asset_id": "demo-radar-still",
+            "source_width_px": 1920,
+            "source_height_px": 1080,
+            "fit": "contain"
+          }
+        }
+      },
+      {
+        "kind": "closing_cta",
+        "content": {
+          "headline": "Stay weather-ready",
+          "supporting": "Open the alert map"
+        }
+      }
+    ]
+  }
+}

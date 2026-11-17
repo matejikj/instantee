@@ -10,6 +10,7 @@ add_library(instantee_render_core STATIC
   src/clip_compositor.cpp
   src/shadow.cpp
   src/linear_compositor.cpp
+  src/visibility.cpp
   src/frame_primitives.cpp
   src/instance_batch.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)

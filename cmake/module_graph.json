@@ -120,7 +120,7 @@
       "include_prefix": "instantee/render_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching, 2D primitive raster/lowering, nested scissor/shape-mask clip compositor, screen-space hard/soft shadow passes with quality-tier separable blur plus a Paper depth-shadow capability probe, and linear-light premultiplied compositor with Rec.709/sRGB-transfer encode; no Apple/Metal headers; no FrameLease."
+      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching, 2D primitive raster/lowering, nested scissor/shape-mask clip compositor, screen-space hard/soft shadow passes with quality-tier separable blur plus a Paper depth-shadow capability probe, linear-light premultiplied compositor with Rec.709/sRGB-transfer encode, and viewport visibility/culling with opaque-then-transparent draw sorting plus counters; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",

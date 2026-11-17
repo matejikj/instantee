@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T12:37:40Z",
+  "updated_at_utc": "2026-11-17T12:46:29Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4210,14 +4210,23 @@
       "notes": "Added linear-light premultiplied compositor in render-core with Rec.709/sRGB-transfer encode, plus export-core flatten/handoff into EncodableFrame/FrameBridge. Semi-transparent overlay goldens and a small MP4 roundtrip stay within defined channel tolerances; legacy gamma primitive paths remain intact."
     },
     "P3-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Offscreen nodes produce no draw operations; comparison with the unculled reference matches.",
-        "met": null
+        "criterion": "Offscreen uzly nevytv\u00e1\u0159ej\u00ed draw op; porovn\u00e1n\u00ed s unculled referenc\u00ed souhlas\u00ed.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-021/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-021/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Culling golden + counters",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Added viewport visibility/culling and opaque-then-transparent draw sorting in render-core: fully offscreen/invisible/empty-clip items emit no draws with counters, culled pass pixels match the unculled golden, and alpha order stays back-to-front after the opaque batch."
     },
     "P3-022": {
       "status": "todo",

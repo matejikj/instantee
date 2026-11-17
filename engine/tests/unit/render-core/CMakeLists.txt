@@ -80,3 +80,9 @@ target_link_libraries(spike_linear_compositor_test PRIVATE
 add_test(NAME spike_linear_compositor COMMAND spike_linear_compositor_test)
 set_tests_properties(spike_linear_compositor PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_visibility_test visibility_test.cpp)
+target_link_libraries(spike_visibility_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_visibility COMMAND spike_visibility_test)
+set_tests_properties(spike_visibility PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")

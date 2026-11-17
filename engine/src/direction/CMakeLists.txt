@@ -13,6 +13,7 @@ add_library(instantee_direction STATIC
   src/camera_language.cpp
   src/transition_planner.cpp
   src/editorial_transitions.cpp
+  src/editorial_beats.cpp
   src/creative_variation.cpp
   src/direction_report.cpp
   src/typography_lint.cpp

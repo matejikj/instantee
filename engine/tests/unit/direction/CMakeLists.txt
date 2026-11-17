@@ -5,3 +5,12 @@ add_test(NAME spike_direction_style_bible
   COMMAND spike_direction_style_bible_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_style_bible PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_direction_style_package_registry_test
+  style_package_registry_test.cpp)
+target_link_libraries(spike_direction_style_package_registry_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_style_package_registry
+  COMMAND spike_direction_style_package_registry_test)
+set_tests_properties(spike_direction_style_package_registry PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")

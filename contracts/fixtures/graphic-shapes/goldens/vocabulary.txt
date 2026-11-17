@@ -1,0 +1,13 @@
+name=vocabulary w=64 h=48 shapes=6 ops=25
+kind=arrow
+kind=technical_line
+kind=outline
+kind=stamp
+kind=numeric_callout
+kind=highlight
+p2,2=255,255,255,255
+p16,8=198,255,0,255
+p24,20=255,255,255,255
+p40,12=255,255,255,255
+p56,28=255,255,255,255
+p8,36=93,120,0,255

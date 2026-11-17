@@ -11,6 +11,7 @@ add_library(instantee_render_core STATIC
   src/photo_crop.cpp
   src/halftone.cpp
   src/print_grain.cpp
+  src/graphic_shapes.cpp
   src/shadow.cpp
   src/linear_compositor.cpp
   src/visibility.cpp

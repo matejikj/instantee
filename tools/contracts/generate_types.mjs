@@ -20,6 +20,7 @@ const authoringCopyDir = path.join(
 const schemas = [
   { file: "authoring-v1.schema.json", out: "authoring-v1.ts" },
   { file: "scene-ir-v1.schema.json", out: "scene-ir-v1.ts" },
+  { file: "style-bible-v1.schema.json", out: "style-bible-v1.ts" },
 ];
 
 const banner = `/* eslint-disable */
@@ -65,6 +66,9 @@ export type {
   Uint64Value as SceneIrUint64Value,
   Id as SceneIrId,
 } from "./scene-ir-v1.js";
+export type {
+  InstanteeStyleBibleV1 as StyleBibleV1,
+} from "./style-bible-v1.js";
 `,
   "utf8",
 );

@@ -69,10 +69,11 @@
       "allowed_dependencies": ["diagnostics", "render-metal", "export-apple"]
     },
     "direction": {
-      "role": "planned",
-      "target": null,
+      "role": "production",
+      "target": "instantee_direction",
       "include_prefix": "instantee/direction/",
-      "decision": "planned",
+      "decision": "promote",
+      "notes": "Style Bible token documents and later CDS/intents. Depends only on diagnostics and core-model value types; never on render-metal or export-apple.",
       "allowed_dependencies": ["diagnostics", "core-model"]
     },
     "compiler": {
@@ -189,6 +190,7 @@
     "engine/src/runtime/",
     "engine/src/export-core/",
     "engine/src/export/",
+    "engine/src/direction/",
     "engine/src/geometry/",
     "engine/src/asset-pipeline/",
     "engine/src/typography/",

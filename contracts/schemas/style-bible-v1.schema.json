@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://instantee.dev/contracts/schemas/style-bible-v1.schema.json",
+  "title": "Instantee Style Bible v1",
+  "description": "Versioned creative-direction token document. Typed color, font, material, spacing, motion, camera and safe-area tokens. No GPU handles, native paths as public URIs, or core-model mutations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "package_id",
+    "version",
+    "minimum_engine_version",
+    "tokens"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "minimum_engine_version": {
+      "$ref": "#/$defs/semver"
+    },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "colors",
+        "fonts",
+        "materials",
+        "spacing",
+        "motion",
+        "camera",
+        "safe_area"
+      ],
+      "properties": {
+        "colors": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/color_token"
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/font_token"
+          }
+        },
+        "materials": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/material_token"
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/spacing_token"
+          }
+        },
+        "motion": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/motion_token"
+          }
+        },
+        "camera": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/camera_token"
+          }
+        },
+        "safe_area": {
+          "$ref": "#/$defs/safe_area_policy"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "token_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "color_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "space",
+        "r",
+        "g",
+        "b",
+        "a"
+      ],
+      "properties": {
+        "space": {
+          "const": "linear-rgba"
+        },
+        "r": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "g": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "b": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "a": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "font_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "role",
+        "size_scale"
+      ],
+      "properties": {
+        "family": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "role": {
+          "enum": [
+            "headline",
+            "subhead",
+            "body",
+            "caption",
+            "mono"
+          ]
+        },
+        "size_scale": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 16
+        }
+      }
+    },
+    "material_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shader_feature",
+        "opacity"
+      ],
+      "properties": {
+        "shader_feature": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "parameters": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "spacing_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "px"
+      ],
+      "properties": {
+        "px": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4096
+        }
+      }
+    },
+    "motion_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ease",
+        "duration_frames",
+        "intensity"
+      ],
+      "properties": {
+        "ease": {
+          "enum": [
+            "linear",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "spring"
+          ]
+        },
+        "duration_frames": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18000
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "stagger_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600,
+          "default": 0
+        }
+      }
+    },
+    "camera_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "framing"
+      ],
+      "properties": {
+        "framing": {
+          "enum": [
+            "static",
+            "push_in",
+            "pull_out",
+            "pan",
+            "orbit"
+          ]
+        },
+        "ease": {
+          "enum": [
+            "linear",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "spring"
+          ],
+          "default": "ease_in_out"
+        }
+      }
+    },
+    "safe_area_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "top_px",
+        "bottom_px",
+        "left_px",
+        "right_px"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "reels_overlay",
+            "reels_clear",
+            "full_frame"
+          ]
+        },
+        "top_px": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 960
+        },
+        "bottom_px": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 960
+        },
+        "left_px": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 540
+        },
+        "right_px": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 540
+        }
+      }
+    }
+  }
+}

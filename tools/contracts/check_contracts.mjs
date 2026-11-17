@@ -84,7 +84,7 @@ async function expectedGenerated(schemaFile) {
 }
 
 async function checkDrift() {
-  for (const name of ["authoring-v1.ts", "scene-ir-v1.ts"]) {
+  for (const name of ["authoring-v1.ts", "scene-ir-v1.ts", "style-bible-v1.ts"]) {
     const schemaName = name.replace(".ts", ".schema.json");
     const expected = await expectedGenerated(schemaName);
     const actual = await readFile(path.join(generatedDir, name), "utf8");
@@ -112,21 +112,34 @@ async function checkFixtures() {
   const sceneSchema = JSON.parse(
     await readFile(path.join(schemasDir, "scene-ir-v1.schema.json"), "utf8"),
   );
+  const styleBibleSchema = JSON.parse(
+    await readFile(path.join(schemasDir, "style-bible-v1.schema.json"), "utf8"),
+  );
   const validateAuthoring = ajv.compile(authoringSchema);
   const validateScene = ajv.compile(sceneSchema);
+  const validateStyleBible = ajv.compile(styleBibleSchema);
 
   const suites = [
     {
       kind: "authoring",
       validate: validateAuthoring,
+      requireSeed: true,
       positive: path.join(fixturesRoot, "authoring/positive"),
       negative: path.join(fixturesRoot, "authoring/negative"),
     },
     {
       kind: "scene-ir",
       validate: validateScene,
+      requireSeed: true,
       positive: path.join(fixturesRoot, "scene-ir/positive"),
       negative: path.join(fixturesRoot, "scene-ir/negative"),
+    },
+    {
+      kind: "style-bible",
+      validate: validateStyleBible,
+      requireSeed: false,
+      positive: path.join(fixturesRoot, "style-bible/positive"),
+      negative: path.join(fixturesRoot, "style-bible/negative"),
     },
   ];
 
@@ -134,7 +147,7 @@ async function checkFixtures() {
     for (const file of await listJsonFiles(suite.positive)) {
       const doc = JSON.parse(await readFile(file, "utf8"));
       const schemaOk = suite.validate(doc);
-      const seedOk = seedSemanticallyValid(doc.seed);
+      const seedOk = suite.requireSeed ? seedSemanticallyValid(doc.seed) : true;
       if (!schemaOk || !seedOk) {
         fail(
           `positive fixture failed (${suite.kind}): ${path.relative(repoRoot, file)}\n${JSON.stringify(suite.validate.errors, null, 2)}`,
@@ -144,7 +157,7 @@ async function checkFixtures() {
     for (const file of await listJsonFiles(suite.negative)) {
       const doc = JSON.parse(await readFile(file, "utf8"));
       const schemaOk = suite.validate(doc);
-      const seedOk = seedSemanticallyValid(doc.seed);
+      const seedOk = suite.requireSeed ? seedSemanticallyValid(doc.seed) : true;
       if (schemaOk && seedOk) {
         fail(
           `negative fixture unexpectedly valid (${suite.kind}): ${path.relative(repoRoot, file)}`,

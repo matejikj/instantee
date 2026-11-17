@@ -19,3 +19,15 @@ buffer, and never touch the network or filesystem. Fixtures live under
 
 Current accepted version is `1.0.0`. Older IR documents are rejected until an
 explicit migrator and fixtures are added.
+
+## Style Bible
+
+| Version | Status | Notes |
+|---|---|---|
+| `1.0.0` | current | Typed color/font/material/spacing/motion/camera/safe-area tokens |
+| other `1.*` / `0.*` | rejected | Explicit unsupported schema until a migrator exists |
+| `MAJOR >= 2` | rejected | Incompatible major |
+
+`package_id` + `version` identify a Style Package revision. Changing Style Bible
+rules requires a new `version` (and therefore a new cache key for CDS). The
+document must not mutate `core-model` types.

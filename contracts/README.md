@@ -23,9 +23,10 @@ cross-language positive/negative fixtures.
 ```text
 contracts/
   schemas/      Accepted JSON Schema documents (Draft 2020-12)
-                (authoring, scene-ir, asset-lockfile)
+                (authoring, scene-ir, style-bible, asset-lockfile)
   fixtures/     Cross-language positive/negative examples
-                (plus authoring/migrations and scene-ir/semantic-negative)
+                (plus authoring/migrations, scene-ir/semantic-negative,
+                 style-bible)
   defaults/     Documented omitted-field defaults
   generated/ts/ Checked-in TypeScript types from schemas
   adrs/         Published data-contract ADRs

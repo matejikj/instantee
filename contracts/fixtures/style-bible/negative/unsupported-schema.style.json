@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.0.0",
+  "package_id": "editorial",
+  "version": "1.0.0",
+  "minimum_engine_version": "0.1.0",
+  "tokens": {
+    "colors": {
+      "ink": {
+        "space": "linear-rgba",
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 1
+      }
+    },
+    "fonts": {
+      "body": {
+        "family": "Noto Sans",
+        "role": "body",
+        "size_scale": 1
+      }
+    },
+    "materials": {
+      "flat": {
+        "shader_feature": "solid-fill",
+        "opacity": 1
+      }
+    },
+    "spacing": {
+      "gutter": {
+        "px": 8
+      }
+    },
+    "motion": {
+      "reveal": {
+        "ease": "linear",
+        "duration_frames": 10,
+        "intensity": 0.5
+      }
+    },
+    "camera": {
+      "hold": {
+        "framing": "static"
+      }
+    },
+    "safe_area": {
+      "mode": "full_frame",
+      "top_px": 0,
+      "bottom_px": 0,
+      "left_px": 0,
+      "right_px": 0
+    }
+  }
+}

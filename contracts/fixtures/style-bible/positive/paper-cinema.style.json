@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "paper-cinema",
+  "version": "1.0.0",
+  "minimum_engine_version": "0.1.0",
+  "tokens": {
+    "colors": {
+      "pulp": {
+        "space": "linear-rgba",
+        "r": 0.9,
+        "g": 0.84,
+        "b": 0.72,
+        "a": 1
+      },
+      "shadow": {
+        "space": "linear-rgba",
+        "r": 0.18,
+        "g": 0.12,
+        "b": 0.08,
+        "a": 0.65
+      },
+      "wash": {
+        "space": "linear-rgba",
+        "r": 0.35,
+        "g": 0.55,
+        "b": 0.7,
+        "a": 1
+      }
+    },
+    "fonts": {
+      "title": {
+        "family": "DejaVu Sans",
+        "role": "headline",
+        "size_scale": 1.15
+      },
+      "note": {
+        "family": "DejaVu Sans",
+        "role": "caption",
+        "size_scale": 0.85
+      }
+    },
+    "materials": {
+      "paper_sheet": {
+        "shader_feature": "paper-shade",
+        "opacity": 1,
+        "parameters": {
+          "fiber": 0.4,
+          "fold": 0.15
+        }
+      },
+      "cutout": {
+        "shader_feature": "solid-fill",
+        "opacity": 1,
+        "parameters": {}
+      }
+    },
+    "spacing": {
+      "stage_pad": {
+        "px": 36
+      },
+      "layer_gap": {
+        "px": 12
+      }
+    },
+    "motion": {
+      "fold_reveal": {
+        "ease": "ease_in_out",
+        "duration_frames": 30,
+        "intensity": 0.7,
+        "stagger_frames": 4
+      },
+      "puppet_settle": {
+        "ease": "spring",
+        "duration_frames": 36,
+        "intensity": 0.45,
+        "stagger_frames": 0
+      }
+    },
+    "camera": {
+      "depth_orbit": {
+        "framing": "orbit",
+        "ease": "ease_in_out"
+      },
+      "stage_hold": {
+        "framing": "static",
+        "ease": "linear"
+      }
+    },
+    "safe_area": {
+      "mode": "reels_clear",
+      "top_px": 96,
+      "bottom_px": 180,
+      "left_px": 40,
+      "right_px": 40
+    }
+  }
+}

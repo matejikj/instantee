@@ -9,3 +9,6 @@ export type {
   Uint64Value as SceneIrUint64Value,
   Id as SceneIrId,
 } from "./scene-ir-v1.js";
+export type {
+  InstanteeStyleBibleV1 as StyleBibleV1,
+} from "./style-bible-v1.js";

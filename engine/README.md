@@ -20,7 +20,8 @@ src/diagnostics/       Production Error/ExitCode value types
 src/core-model/        Platform-neutral frame clock and rational time types
 src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
-src/export-core/       Output transactions, write_all and publish results
+src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
+src/render-core/       GPU-neutral DrawOp/PassDesc and Renderer port
 src/render-metal/      Spike Metal device, queue, test-pattern and readback leases
 shaders/spike/         Spike MSL sources embedded into render-metal/transfer
 native/                Objective-C++ adapters; export/transfer remain spike

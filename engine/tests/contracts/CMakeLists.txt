@@ -5,6 +5,7 @@ target_include_directories(spike_public_headers_test PRIVATE
   "$<TARGET_PROPERTY:instantee_render_metal,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_runtime,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_export_core,INTERFACE_INCLUDE_DIRECTORIES>"
+  "$<TARGET_PROPERTY:instantee_render_core,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_telemetry_apple,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_transfer_apple,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_scene_ir,INTERFACE_INCLUDE_DIRECTORIES>"
@@ -23,6 +24,7 @@ foreach(module_target IN ITEMS
     instantee_compiler
     instantee_runtime
     instantee_export_core
+    instantee_render_core
     instantee_telemetry_apple
     instantee_render_metal
     instantee_export_apple

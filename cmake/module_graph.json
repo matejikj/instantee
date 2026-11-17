@@ -34,7 +34,8 @@
       "target": "instantee_export_core",
       "include_prefix": "instantee/export_core/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics"]
+      "allowed_dependencies": ["diagnostics", "core-model"],
+      "notes": "Owns OutputTransaction and the VideoSink/FrameBridge ports; no Apple encoder types."
     },
     "telemetry-apple": {
       "role": "production",
@@ -48,7 +49,7 @@
       "target": "instantee_render_metal",
       "include_prefix": "instantee/render_metal/",
       "decision": "retain-spike",
-      "notes": "Test-pattern Metal backend until render-core lands; keep out of production libraries.",
+      "notes": "Test-pattern Metal spike until the production backend adopts render-core ports; keep out of production libraries.",
       "allowed_dependencies": ["diagnostics"]
     },
     "export-apple": {
@@ -90,11 +91,12 @@
       "notes": "yyjson is a private implementation dependency and must not leak into public headers."
     },
     "render-core": {
-      "role": "planned",
-      "target": null,
+      "role": "production",
+      "target": "instantee_render_core",
       "include_prefix": "instantee/render_core/",
-      "decision": "planned",
-      "allowed_dependencies": ["diagnostics", "core-model"]
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics", "core-model"],
+      "notes": "GPU-neutral DrawOp/PassDesc and Renderer port; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",
@@ -144,6 +146,7 @@
     "engine/src/compiler/",
     "engine/src/runtime/",
     "engine/src/export-core/",
+    "engine/src/render-core/",
     "engine/native/telemetry-apple/"
   ]
 }

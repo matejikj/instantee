@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T07:22:38.332172+00:00",
+  "updated_at_utc": "2026-11-17T07:39:42.589448+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3811,14 +3811,24 @@
       "notes": "Determinism phase gate PASS: permuted evaluate_frame bit-identical to sequential; preview single-eval seek; boundaries/errors; time conversion; full --gate matrix."
     },
     "P3-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "render-core has no Apple/Metal headers; ownership and error paths can be tested with a CPU fake backend.",
-        "met": null
+        "criterion": "render-core nemá Apple/Metal headery; fake sink pokrývá ownership/error paths; produkční kód nepoužívá spike namespace.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-001/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-001/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Dependency, compile and fake-sink tests",
+      "completed_at_utc": "2026-11-17T07:39:42Z",
+      "notes": "Promoted render-core DrawOp/PassDesc/Renderer; export-core VideoSink+CpuFrameBridge; fake sink ownership/cancel/stop tests; no spike namespace in production ports."
     },
     "P3-002": {
       "status": "todo",

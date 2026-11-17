@@ -55,3 +55,12 @@ target_link_libraries(spike_metal_primitives_test PRIVATE
 add_test(NAME spike_metal_primitives COMMAND spike_metal_primitives_test)
 set_tests_properties(spike_metal_primitives PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
+
+add_executable(spike_metal_glyph_atlas_test metal_glyph_atlas_test.cpp)
+target_link_libraries(spike_metal_glyph_atlas_test PRIVATE
+  instantee::render_metal instantee_build_options)
+target_compile_definitions(spike_metal_glyph_atlas_test PRIVATE
+  "INSTANTEE_PINNED_FONT_DIR=\"${PROJECT_SOURCE_DIR}/third_party/fonts\"")
+add_test(NAME spike_metal_glyph_atlas COMMAND spike_metal_glyph_atlas_test)
+set_tests_properties(spike_metal_glyph_atlas PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

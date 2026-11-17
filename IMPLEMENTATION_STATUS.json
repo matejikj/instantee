@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T11:05:53Z",
+  "updated_at_utc": "2026-11-17T11:39:39Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4131,14 +4131,24 @@
       "notes": "Added typography module with RAII FreeType/HarfBuzz/ICU adapters, pinned Noto Sans + DejaVu Sans fallback fonts, and shaping fixtures for Czech diacritics, combining marks, and fi ligatures. External deps resolved via pkg-config with version pins; no implicit system font catalog."
     },
     "P3-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Static text is not fully laid out and rasterized again for every frame.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-017/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-017/checks.json"
+      ],
+      "blockers": [],
+      "completed_at_utc": "2026-11-17T11:39:39Z",
+      "notes": "Added CPU GlyphAtlas over TextureAtlas (font fingerprint/size/flags cache, in-flight pin eviction) and MetalGlyphAtlas with registry-backed page textures retained across SubmissionContext frames. font-atlas-bench shows warm_shape_calls=0 and warm_raster_calls=0 (non_certified_dev_baseline).",
+      "verification": "Font atlas benchmark",
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C"
     },
     "P3-018": {
       "status": "todo",

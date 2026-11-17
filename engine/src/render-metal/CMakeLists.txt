@@ -111,6 +111,7 @@ add_library(instantee_render_metal STATIC
   src/shader_module.cpp
   src/test_pattern.cpp
   src/primitive_renderer.cpp
+  src/metal_glyph_atlas.cpp
   "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
   "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}"
   "${INSTANTEE_PRIMITIVES_METALLIB_HEADER}")
@@ -123,7 +124,7 @@ target_include_directories(instantee_render_metal
 target_include_directories(instantee_render_metal SYSTEM PRIVATE
   "${INSTANTEE_METAL_CPP_ROOT}")
 target_link_libraries(instantee_render_metal
-  PUBLIC instantee::diagnostics instantee::render_core
+  PUBLIC instantee::diagnostics instantee::render_core instantee::typography
   PRIVATE instantee_build_options
     "${INSTANTEE_METAL_FRAMEWORK}"
     "${INSTANTEE_FOUNDATION_FRAMEWORK}")

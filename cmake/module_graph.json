@@ -49,8 +49,8 @@
       "target": "instantee_render_metal",
       "include_prefix": "instantee/render_metal/",
       "decision": "promote",
-      "notes": "Production Metal backend over render-core Renderer; metal-cpp/ObjC++ stay private. Offline metallibs cover smoke helpers and SDF primitive draws.",
-      "allowed_dependencies": ["diagnostics", "render-core"]
+      "notes": "Production Metal backend over render-core Renderer; metal-cpp/ObjC++ stay private. Offline metallibs cover smoke helpers and SDF primitive draws. Metal glyph atlas pages retain GPU textures across in-flight frames via the resource registry.",
+      "allowed_dependencies": ["diagnostics", "render-core", "typography"]
     },
     "export-apple": {
       "role": "spike",
@@ -111,8 +111,8 @@
       "target": "instantee_typography",
       "include_prefix": "instantee/typography/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics"],
-      "notes": "CPU text shaping with HarfBuzz, FreeType glyph raster and ICU grapheme/bidi adapters. External deps resolved via pkg-config (see third_party/typography-deps/PIN.json). Font faces come from explicit pinned paths (third_party/fonts); no implicit system font catalog. HarfBuzz/FreeType/ICU headers stay private."
+      "allowed_dependencies": ["diagnostics", "asset-pipeline"],
+      "notes": "CPU text shaping with HarfBuzz, FreeType glyph raster and ICU grapheme/bidi adapters, plus a CPU glyph atlas over TextureAtlas with in-flight eviction. External deps resolved via pkg-config (see third_party/typography-deps/PIN.json). Font faces come from explicit pinned paths (third_party/fonts); no implicit system font catalog. HarfBuzz/FreeType/ICU headers stay private."
     },
     "render-core": {
       "role": "production",

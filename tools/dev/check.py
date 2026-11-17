@@ -152,6 +152,7 @@ def plan_steps(
             ("contracts-test", "contracts:test"),
             ("authoring-typecheck", "check:authoring"),
             ("authoring-build", "build:authoring"),
+            ("authoring-test", "test:authoring"),
         ):
             steps.append(Step(name, ("npm", "run", script), requires="npm"))
     for suite in risks.python_suites:

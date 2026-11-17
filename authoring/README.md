@@ -1,9 +1,9 @@
 # Authoring workspace
 
-This is the TypeScript side of Instantee: the future code-first authoring SDK
-and its authoring-time helpers. It prepares documents for the native engine;
-it does not participate in the engine's per-frame evaluation or export loop.
-It is not a graphical frontend.
+This is the TypeScript side of Instantee: the code-first authoring SDK and its
+authoring-time helpers. It prepares documents for the native engine; it does
+not participate in the engine's per-frame evaluation or export loop. It is not
+a graphical frontend.
 
 The npm workspace is managed from the repository root using the shared lockfile
 and pinned TypeScript compiler:
@@ -12,12 +12,12 @@ and pinned TypeScript compiler:
 npm ci --ignore-scripts --no-audit --no-fund
 npm run check:authoring
 npm run build:authoring
+npm run test:authoring
 ```
 
-`packages/authoring` is currently a private, buildable package shell with an empty
-module entry point. It does not implement an SDK, document schema or engine
-integration. Its output is generated under the ignored `build/authoring/`
-directory. The package is not publishable and has no public package exports yet.
+`packages/authoring` exposes declarative `createFilm` builders, shared
+seconds→frames conversion, and generated contract types. Output lands under the
+ignored `build/authoring/` directory. The package is private and not publishable.
 
 Keep authoring packages under `packages/<name>/`, source under each package's
 `src/`, and package-specific tests beside that package when behavior is added.

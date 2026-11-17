@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T00:12:51.866619+00:00",
+  "updated_at_utc": "2026-11-17T00:22:51.541530+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3063,44 +3063,80 @@
       "notes": "Generated TS types + C++ seed encoding cross-language suite"
     },
     "P1-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The SDK creates a minimal film without runtime GPU/Node dependencies in the IR.",
-        "met": null
+        "criterion": "SDK vytvoří minimální film bez runtime GPU/Node závislosti v IR.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-011/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S5",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "TS API tests",
+      "notes": "Declarative createFilm builders; frozen manifest; schema-validated"
     },
     "P1-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The same input produces the same integer frames on all platforms.",
-        "met": null
+        "criterion": "Stejný vstup generuje stejné integer frames na všech platformách; chybějící policy nelze obejít tichým float castem.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-012/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S5",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Time conversion property tests",
+      "notes": "Shared seconds→frames nearest/half-away policy with sub-frame loss"
     },
     "P1-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Equivalent inputs have the same canonical hash; TypeScript/C++ round trips preserve numeric precision.",
-        "met": null
+        "criterion": "Ekvivalentní vstupy mají stejný canonical hash; TS/C++ roundtrip neztrácí číselnou přesnost.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-013/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S5",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Canonicalization snapshots",
+      "notes": "Canonical JSON + SHA-256; key-order independent"
     },
     "P1-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Changing asset contents updates the lockfile and triggers correct invalidation.",
-        "met": null
+        "criterion": "Změna obsahu assetu vede na změnu lockfile a správnou invalidaci.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-014/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S5",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Provenance fixture",
+      "notes": "Asset lockfile with content digest invalidation"
     },
     "P1-015": {
       "status": "todo",

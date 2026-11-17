@@ -23,6 +23,7 @@ cross-language positive/negative fixtures.
 ```text
 contracts/
   schemas/      Accepted JSON Schema documents (Draft 2020-12)
+                (authoring, scene-ir, asset-lockfile)
   fixtures/     Cross-language positive/negative examples
   defaults/     Documented omitted-field defaults
   generated/ts/ Checked-in TypeScript types from schemas
@@ -30,6 +31,7 @@ contracts/
   INTEGER_ENCODING.md
   README.md
 ```
+
 
 Keep language-specific serializers in `engine/` and `authoring/`. Do not
 duplicate independently maintained schemas inside both language components.

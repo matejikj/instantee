@@ -13,7 +13,8 @@
     "check:authoring": "npm run typecheck --workspaces",
     "contracts:generate": "node tools/contracts/generate_types.mjs",
     "contracts:check": "node tools/contracts/check_contracts.mjs",
-    "contracts:test": "node tools/contracts/test_contracts.mjs"
+    "contracts:test": "node tools/contracts/test_contracts.mjs",
+    "test:authoring": "npm run build:authoring && node tools/contracts/test_authoring_sdk.mjs"
   },
   "devDependencies": {
     "ajv": "8.17.1",

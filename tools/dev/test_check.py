@@ -51,6 +51,7 @@ class InferRisksTest(unittest.TestCase):
         selected = names(steps)
         self.assertIn("contracts-check", selected)
         self.assertIn("contracts-test", selected)
+        self.assertIn("authoring-test", selected)
 
     def test_python_tool_changes_select_their_suite(self):
         risks = check.infer_risks(["tools/benchmark/measure.py", "tools/dev/check.py"])

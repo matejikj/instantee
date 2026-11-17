@@ -59,3 +59,14 @@ add_test(NAME instantee_scene_video_mp4
   COMMAND instantee_scene_video_mp4_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(instantee_scene_video_mp4 PROPERTIES TIMEOUT 120 LABELS
   "cpu;smoke;pts")
+
+add_executable(instantee_p3_gate_metrics_smoke_test
+  p3_gate_metrics_smoke_test.cpp)
+target_link_libraries(instantee_p3_gate_metrics_smoke_test PRIVATE
+  instantee_build_options)
+add_dependencies(instantee_p3_gate_metrics_smoke_test p3-gate-metrics)
+add_test(NAME instantee_p3_gate_metrics_smoke
+  COMMAND instantee_p3_gate_metrics_smoke_test
+  "$<TARGET_FILE:p3-gate-metrics>")
+set_tests_properties(instantee_p3_gate_metrics_smoke PROPERTIES TIMEOUT 120
+  LABELS "cpu;smoke;pts")

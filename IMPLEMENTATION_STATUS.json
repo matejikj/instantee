@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T13:34:06Z",
+  "updated_at_utc": "2026-11-17T14:08:06Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4286,14 +4286,48 @@
       "notes": "Promoted export orchestration: RenderJob phase machine with publish/cancel/budget enforcement, AppleVideoSink VideoSink adapter, and Scene IR \u2192 preview Rec.709 raster \u2192 H.264 MP4 via OutputTransaction."
     },
     "P3-025": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Rendering is correct and the working set is stable, with evidence for K/E/CPU/p99 and retirement stress; there are no forbidden dependencies or unknown memory budgets.",
-        "met": null
+        "criterion": "Spr\u00e1vn\u00fd render a stabiln\u00ed working set, dolo\u017een\u00e9 K/E/CPU/p99 a retirement stress; thresholds ADR existuje a nezn\u00e1m\u00fd budget nen\u00ed PASS; \u017e\u00e1dn\u00e9 zak\u00e1zan\u00e9 dependencies.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "60s geometry/text/mask cold/warm series with K/E/CPU/p99",
+            "met": true,
+            "evidence": "implementation-evidence/P3-025/p3_gate_series.json"
+          },
+          {
+            "criterion": "Draft thresholds ADR non-null; unknown budget FAIL",
+            "met": true,
+            "evidence": "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+          },
+          {
+            "criterion": "Full gate matrix passed",
+            "met": true,
+            "evidence": "implementation-evidence/P3-025/checks.json"
+          },
+          {
+            "criterion": "Phase decision PASS",
+            "met": true,
+            "evidence": "implementation-evidence/P3-025/gate-decision.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-025/",
+        "implementation-evidence/P3-025/p3_gate_series.json",
+        "implementation-evidence/P3-025/gate-decision.json",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+      ],
+      "checks": [
+        "implementation-evidence/P3-025/checks.json"
+      ],
+      "blockers": [],
+      "verification": "P3 gate + 60s report + thresholds ADR",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "notes": "P3 GPU/memory gate PASS: geometry/text/mask 60s cold/warm series, registry retire stress, draft ADR-0014 thresholds (unknown budget FAIL), full --gate matrix."
     },
     "P4-001": {
       "status": "todo",

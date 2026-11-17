@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:49:01Z",
+  "updated_at_utc": "2026-11-17T15:55:35Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4474,14 +4474,22 @@
       "evidence_tier_min": "A"
     },
     "P4-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Output has the same frame count as input for every allowed intent.",
-        "met": null
+        "criterion": "Výstup má stejný počet snímků jako vstup při všech povolených intents.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-009/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Shot timeline tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-010": {
       "status": "todo",
@@ -5774,16 +5782,23 @@
     },
     "P3": {
       "gate_task_id": "P3-025",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
+        "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
+      "evidence": [
+        "implementation-evidence/P3-025/",
+        "implementation-evidence/P3-025/p3_gate_series.json",
+        "implementation-evidence/P3-025/gate-decision.json",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+      ],
+      "checks": [
+        "implementation-evidence/P3-025/checks.json"
+      ],
       "blockers": []
     },
     "P4": {

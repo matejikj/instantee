@@ -4,7 +4,8 @@ add_library(instantee_direction STATIC
   src/semantic_intent.cpp
   src/directed_film.cpp
   src/track_precedence.cpp
-  src/motion_grammar.cpp)
+  src/motion_grammar.cpp
+  src/composition_constraints.cpp)
 add_library(instantee::direction ALIAS instantee_direction)
 target_include_directories(instantee_direction
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

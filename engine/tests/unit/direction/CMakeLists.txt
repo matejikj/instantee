@@ -38,3 +38,24 @@ add_test(NAME spike_direction_motion_grammar
   COMMAND spike_direction_motion_grammar_test)
 set_tests_properties(spike_direction_motion_grammar PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_direction_composition_constraints_test
+  composition_constraints_test.cpp)
+target_link_libraries(spike_direction_composition_constraints_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_composition_constraints
+  COMMAND spike_direction_composition_constraints_test)
+set_tests_properties(spike_direction_composition_constraints PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")
+
+add_executable(spike_direction_composition_typography_metrics_test
+  composition_typography_metrics_test.cpp)
+target_link_libraries(spike_direction_composition_typography_metrics_test
+  PRIVATE instantee::direction instantee::typography instantee_build_options)
+target_compile_definitions(
+  spike_direction_composition_typography_metrics_test PRIVATE
+  "INSTANTEE_PINNED_FONT_DIR=\"${PROJECT_SOURCE_DIR}/third_party/fonts\"")
+add_test(NAME spike_direction_composition_typography_metrics
+  COMMAND spike_direction_composition_typography_metrics_test)
+set_tests_properties(spike_direction_composition_typography_metrics PROPERTIES
+  TIMEOUT 60 LABELS "cpu;smoke")

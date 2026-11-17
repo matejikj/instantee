@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:33:00Z",
+  "updated_at_utc": "2026-11-17T15:38:57Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4438,14 +4438,22 @@
       "evidence_tier_min": "A"
     },
     "P4-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "An unsatisfiable hard constraint produces an error with diagnostics; a soft conflict produces a warning.",
-        "met": null
+        "criterion": "Neřešitelný hard constraint skončí error s diagnostikou; soft konflikt warning; výsledek je deterministický při stejném vstupu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-007/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Constraint solver tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-008": {
       "status": "todo",

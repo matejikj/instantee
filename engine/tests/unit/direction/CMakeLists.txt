@@ -101,3 +101,11 @@ add_test(NAME spike_direction_creative_variation
   COMMAND spike_direction_creative_variation_test)
 set_tests_properties(spike_direction_creative_variation PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_direction_direction_report_test direction_report_test.cpp)
+target_link_libraries(spike_direction_direction_report_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_direction_report
+  COMMAND spike_direction_direction_report_test)
+set_tests_properties(spike_direction_direction_report PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

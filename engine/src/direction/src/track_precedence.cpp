@@ -41,9 +41,9 @@ struct ChannelKey {
 
 } // namespace
 
-std::expected<std::vector<DirectedTrack>, diagnostics::Error>
-resolve_track_precedence(std::span<const TrackClaim> claims,
-                         std::span<const HardConstraint> constraints) {
+std::expected<PrecedenceResolution, diagnostics::Error>
+resolve_track_precedence_detailed(std::span<const TrackClaim> claims,
+                                  std::span<const HardConstraint> constraints) {
   for (const TrackClaim &claim : claims) {
     if (claim.track.target_id.empty() || claim.track.property.empty()) {
       return std::unexpected(make_conflict(
@@ -86,8 +86,9 @@ resolve_track_precedence(std::span<const TrackClaim> claims,
         .push_back(&claim);
   }
 
-  std::vector<DirectedTrack> resolved;
-  resolved.reserve(by_channel.size());
+  PrecedenceResolution resolution;
+  resolution.tracks.reserve(by_channel.size());
+  resolution.winners.reserve(by_channel.size());
   for (auto &[channel, group] : by_channel) {
     (void)channel;
     std::sort(group.begin(), group.end(),
@@ -112,10 +113,11 @@ resolve_track_precedence(std::span<const TrackClaim> claims,
       }
       // Lower sources lose to a unique higher non-author source.
     }
-    resolved.push_back(winner->track);
+    resolution.winners.push_back(*winner);
+    resolution.tracks.push_back(winner->track);
   }
 
-  std::sort(resolved.begin(), resolved.end(),
+  std::sort(resolution.tracks.begin(), resolution.tracks.end(),
             [](const DirectedTrack &a, const DirectedTrack &b) {
               if (a.target_id != b.target_id) {
                 return a.target_id < b.target_id;
@@ -125,7 +127,27 @@ resolve_track_precedence(std::span<const TrackClaim> claims,
               }
               return a.id < b.id;
             });
-  return resolved;
+  std::sort(resolution.winners.begin(), resolution.winners.end(),
+            [](const TrackClaim &a, const TrackClaim &b) {
+              if (a.track.target_id != b.track.target_id) {
+                return a.track.target_id < b.track.target_id;
+              }
+              if (a.track.property != b.track.property) {
+                return a.track.property < b.track.property;
+              }
+              return a.track.id < b.track.id;
+            });
+  return resolution;
+}
+
+std::expected<std::vector<DirectedTrack>, diagnostics::Error>
+resolve_track_precedence(std::span<const TrackClaim> claims,
+                         std::span<const HardConstraint> constraints) {
+  auto detailed = resolve_track_precedence_detailed(claims, constraints);
+  if (!detailed) {
+    return std::unexpected(detailed.error());
+  }
+  return std::move(detailed->tracks);
 }
 
 } // namespace instantee::direction

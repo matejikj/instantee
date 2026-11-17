@@ -37,10 +37,21 @@ struct HardConstraint {
   HardConstraintKind kind = HardConstraintKind::forbid_animation;
 };
 
+// Winning claims retain their TrackSource for audit/direction_report.
+struct PrecedenceResolution {
+  std::vector<DirectedTrack> tracks;
+  std::vector<TrackClaim> winners;
+};
+
 // Resolve claims by precedence. Explicit author tracks are never overwritten:
 // a lower-priority claim on the same (target, property) is a hard conflict.
 // Hard constraints that forbid animation or require keep_visible also fail
 // closed when violated.
+[[nodiscard]] std::expected<PrecedenceResolution, diagnostics::Error>
+resolve_track_precedence_detailed(
+    std::span<const TrackClaim> claims,
+    std::span<const HardConstraint> constraints = {});
+
 [[nodiscard]] std::expected<std::vector<DirectedTrack>, diagnostics::Error>
 resolve_track_precedence(std::span<const TrackClaim> claims,
                          std::span<const HardConstraint> constraints = {});

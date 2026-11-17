@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:15:05Z",
+  "updated_at_utc": "2026-11-17T16:21:44Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4546,14 +4546,22 @@
       "evidence_tier_min": "A"
     },
     "P4-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The log explains the final direction choice for an object and frame.",
-        "met": null
+        "criterion": "Z logu lze vysvětlit finální režijní volbu pro objekt a frame.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-013/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Audit snapshot tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-014": {
       "status": "todo",

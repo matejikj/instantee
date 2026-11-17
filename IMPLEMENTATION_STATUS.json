@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T12:46:29Z",
+  "updated_at_utc": "2026-11-17T13:01:48Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4229,14 +4229,23 @@
       "notes": "Added viewport visibility/culling and opaque-then-transparent draw sorting in render-core: fully offscreen/invisible/empty-clip items emit no draws with counters, culled pass pixels match the unculled golden, and alpha order stays back-to-front after the opaque batch."
     },
     "P3-022": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Known synthetic workloads verify p99/CPU/memory formulas; GPU host notification is not presented as device execution time.",
-        "met": null
+        "criterion": "Zn\u00e1m\u00e9 synthetic workloads ov\u011b\u0159\u00ed p99/CPU/memory formule; GPU host notification nen\u00ed vyd\u00e1v\u00e1na za device execution time.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-022/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-022/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Telemetry contract tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Added hot-path telemetry in runtime: FrameSamples-backed instrument with exact nearest-rank admission/frame/GPU-host summaries, BENCHMARK_PROTOCOL CPU totals, memory peak aggregation that keeps missing metrics null, and explicit separation of host-observed GPU completion from device counters."
     },
     "P3-023": {
       "status": "todo",

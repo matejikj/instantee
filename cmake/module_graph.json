@@ -27,7 +27,7 @@
       "include_prefix": "instantee/runtime/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "Owns CompiledScene/RenderJob value types; no Scene IR or GPU backends."
+      "notes": "Owns CompiledScene/RenderJob value types, frame samples, and hot-path telemetry formulas (p99/CPU/memory; GPU host-observed timing distinct from device counters); no Scene IR or GPU backends."
     },
     "export-core": {
       "role": "production",

@@ -2,6 +2,7 @@ add_library(instantee_runtime STATIC
   src/frame_credits.cpp
   src/stop_signals.cpp
   src/frame_samples.cpp
+  src/hot_path_telemetry.cpp
   src/compiled_scene.cpp
   src/transforms.cpp
   src/layering.cpp

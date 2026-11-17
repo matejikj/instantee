@@ -17,6 +17,13 @@ target_link_libraries(spike_frame_samples_test PRIVATE instantee::runtime instan
 add_test(NAME spike_frame_samples COMMAND spike_frame_samples_test)
 set_tests_properties(spike_frame_samples PROPERTIES TIMEOUT 10 LABELS cpu)
 
+add_executable(spike_hot_path_telemetry_test hot_path_telemetry_test.cpp)
+target_link_libraries(spike_hot_path_telemetry_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_hot_path_telemetry COMMAND spike_hot_path_telemetry_test)
+set_tests_properties(spike_hot_path_telemetry PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_runtime_compiled_scene_test compiled_scene_test.cpp)
 target_link_libraries(spike_runtime_compiled_scene_test PRIVATE
   instantee::runtime instantee_build_options)

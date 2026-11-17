@@ -5,8 +5,8 @@
 #include <utility>
 
 int main() {
-  using instantee::spike::metal::Device;
-  using instantee::spike::metal::DeviceReport;
+  using instantee::render_metal::Device;
+  using instantee::render_metal::DeviceReport;
   static_assert(!std::is_copy_constructible_v<Device>);
   static_assert(!std::is_copy_assignable_v<Device>);
   static_assert(std::is_nothrow_move_constructible_v<Device>);

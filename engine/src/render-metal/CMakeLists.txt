@@ -30,7 +30,7 @@ set(INSTANTEE_TEST_PATTERN_SOURCE_HEADER
 instantee_embed_text_as_header(
   "${INSTANTEE_TEST_PATTERN_SHADER}"
   "${INSTANTEE_TEST_PATTERN_SOURCE_HEADER}"
-  "instantee::spike::metal::detail"
+  "instantee::render_metal::detail"
   "kTestPatternSource")
 
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
@@ -39,6 +39,7 @@ find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 add_library(instantee_render_metal STATIC
   src/metal_impl.cpp
   src/device.cpp
+  src/metal_backend.cpp
   src/readback.cpp
   src/test_pattern.cpp)
 add_library(instantee::render_metal ALIAS instantee_render_metal)
@@ -50,8 +51,8 @@ target_include_directories(instantee_render_metal
 target_include_directories(instantee_render_metal SYSTEM PRIVATE
   "${INSTANTEE_METAL_CPP_ROOT}")
 target_link_libraries(instantee_render_metal
-  PUBLIC instantee::diagnostics
+  PUBLIC instantee::diagnostics instantee::render_core
   PRIVATE instantee_build_options
     "${INSTANTEE_METAL_FRAMEWORK}"
     "${INSTANTEE_FOUNDATION_FRAMEWORK}")
-instantee_mark_module(instantee_render_metal spike render-metal)
+instantee_mark_module(instantee_render_metal production render-metal)

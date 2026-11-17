@@ -38,7 +38,7 @@ constexpr const char *kPhase = "transfer_features";
 } // namespace
 
 std::expected<TransferFeatureMatrix, Error>
-probe_transfer_features(metal::Device &device) {
+probe_transfer_features(render_metal::Device &device) {
   TransferFeatureMatrix matrix;
   const auto &report = device.report();
   matrix.metal_device_available = report.has_command_queue;
@@ -63,8 +63,8 @@ probe_transfer_features(metal::Device &device) {
                                    std::to_string(version.patchVersion);
   }
 
-  const metal::detail::DeviceNative native =
-      metal::detail::native_handles(device);
+  const render_metal::detail::DeviceNative native =
+      render_metal::detail::native_handles(device);
   if (native.device == nullptr || !matrix.metal_device_available) {
     return std::unexpected(Error{ExitCode::gpu_failure,
                                  "metal_device_unavailable", kPhase,

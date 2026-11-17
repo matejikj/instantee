@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace instantee::spike::metal {
+namespace instantee::render_metal {
 
 inline constexpr std::uint32_t kTestPatternWidth = 1080;
 inline constexpr std::uint32_t kTestPatternHeight = 1920;
@@ -62,4 +62,4 @@ expected_test_pattern_pixel(std::uint32_t frame_index, std::uint32_t x,
                frame.rgba[index + 3]};
 }
 
-} // namespace instantee::spike::metal
+} // namespace instantee::render_metal

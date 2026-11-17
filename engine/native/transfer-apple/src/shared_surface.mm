@@ -26,9 +26,9 @@ namespace instantee::spike::transfer {
 namespace {
 
 constexpr const char *kPhase = "shared_surface";
-constexpr std::uint32_t kWidth = metal::kTestPatternWidth;
-constexpr std::uint32_t kHeight = metal::kTestPatternHeight;
-constexpr std::size_t kChannels = metal::kTestPatternChannels;
+constexpr std::uint32_t kWidth = render_metal::kTestPatternWidth;
+constexpr std::uint32_t kHeight = render_metal::kTestPatternHeight;
+constexpr std::size_t kChannels = render_metal::kTestPatternChannels;
 
 [[nodiscard]] const char *ns_error_message(NS::Error *error) {
   if (error == nullptr || error->localizedDescription() == nullptr) {
@@ -41,7 +41,7 @@ constexpr std::size_t kChannels = metal::kTestPatternChannels;
 } // namespace
 
 struct SharedSurfaceLease::Impl {
-  metal::detail::MetalOwner<MTL::CommandBuffer> command;
+  render_metal::detail::MetalOwner<MTL::CommandBuffer> command;
   detail::CfOwner<CVMetalTextureRef> cv_texture;
   std::optional<apple::PixelBuffer> buffer;
   CVMetalTextureCacheRef cache = nullptr; // borrowed; renderer outlives leases
@@ -257,7 +257,7 @@ SharedSurfaceLease::take_pixel_buffer() {
 struct SharedSurfaceRenderer::Impl {
   MTL::Device *device = nullptr;
   MTL::CommandQueue *queue = nullptr;
-  metal::detail::MetalOwner<MTL::RenderPipelineState> pipeline;
+  render_metal::detail::MetalOwner<MTL::RenderPipelineState> pipeline;
   detail::CfOwner<CVMetalTextureCacheRef> texture_cache;
   std::unique_ptr<apple::PixelBufferPool> pool;
   std::uint32_t capacity = 0;
@@ -274,14 +274,15 @@ SharedSurfaceRenderer::operator=(SharedSurfaceRenderer &&) noexcept = default;
 SharedSurfaceRenderer::~SharedSurfaceRenderer() = default;
 
 std::expected<SharedSurfaceRenderer, Error>
-SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
+SharedSurfaceRenderer::create(render_metal::Device &device,
+                              std::uint32_t capacity) {
   if (capacity == 0U) {
     return std::unexpected(Error{ExitCode::invalid_input, "invalid_capacity",
                                  kPhase,
                                  "Shared-surface pool capacity must be > 0"});
   }
 
-  metal::detail::MetalOwner<NS::AutoreleasePool> pool{
+  render_metal::detail::MetalOwner<NS::AutoreleasePool> pool{
       NS::AutoreleasePool::alloc()->init()};
   if (!pool) {
     return std::unexpected(Error{ExitCode::gpu_failure,
@@ -289,8 +290,8 @@ SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
                                  "Cannot create Metal autorelease pool"});
   }
 
-  const metal::detail::DeviceNative native =
-      metal::detail::native_handles(device);
+  const render_metal::detail::DeviceNative native =
+      render_metal::detail::native_handles(device);
   if (native.device == nullptr || native.queue == nullptr) {
     return std::unexpected(Error{ExitCode::gpu_failure,
                                  "metal_device_unavailable", kPhase,
@@ -324,7 +325,7 @@ SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
         Error{ExitCode::gpu_failure, "shader_source_failed", kPhase,
               "Cannot allocate shared-surface shader source"});
   }
-  metal::detail::MetalOwner<MTL::Library> library{
+  render_metal::detail::MetalOwner<MTL::Library> library{
       native.device->newLibrary(source, nullptr, &error)};
   if (!library) {
     static_cast<void>(ns_error_message(error));
@@ -332,10 +333,10 @@ SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
                                  kPhase, "Cannot compile shared-surface MSL"});
   }
 
-  metal::detail::MetalOwner<MTL::Function> vertex{
+  render_metal::detail::MetalOwner<MTL::Function> vertex{
       library->newFunction(NS::String::string(
           "vs_shared_main", NS::StringEncoding::UTF8StringEncoding))};
-  metal::detail::MetalOwner<MTL::Function> fragment{
+  render_metal::detail::MetalOwner<MTL::Function> fragment{
       library->newFunction(NS::String::string(
           "fs_shared_main", NS::StringEncoding::UTF8StringEncoding))};
   if (!vertex || !fragment) {
@@ -344,7 +345,7 @@ SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
               "Shared-surface shader entry points are missing"});
   }
 
-  metal::detail::MetalOwner<MTL::RenderPipelineDescriptor> pipeline_desc{
+  render_metal::detail::MetalOwner<MTL::RenderPipelineDescriptor> pipeline_desc{
       MTL::RenderPipelineDescriptor::alloc()->init()};
   if (!pipeline_desc) {
     return std::unexpected(Error{ExitCode::gpu_failure, "pipeline_alloc_failed",
@@ -358,7 +359,7 @@ SharedSurfaceRenderer::create(metal::Device &device, std::uint32_t capacity) {
   attachment->setBlendingEnabled(false);
 
   error = nullptr;
-  metal::detail::MetalOwner<MTL::RenderPipelineState> pipeline{
+  render_metal::detail::MetalOwner<MTL::RenderPipelineState> pipeline{
       native.device->newRenderPipelineState(pipeline_desc.get(), &error)};
   if (!pipeline) {
     static_cast<void>(ns_error_message(error));
@@ -407,7 +408,7 @@ std::expected<SharedSurfaceLease, Error> SharedSurfaceRenderer::submit(
                                  "Shared-surface renderer is not ready"});
   }
 
-  metal::detail::MetalOwner<NS::AutoreleasePool> pool{
+  render_metal::detail::MetalOwner<NS::AutoreleasePool> pool{
       NS::AutoreleasePool::alloc()->init()};
   if (!pool) {
     return std::unexpected(Error{ExitCode::gpu_failure,
@@ -452,10 +453,10 @@ std::expected<SharedSurfaceLease, Error> SharedSurfaceRenderer::submit(
                                  kPhase,
                                  "Cannot create a Metal command buffer"});
   }
-  metal::detail::MetalOwner<MTL::CommandBuffer> command =
-      metal::detail::retain_owner(raw_command);
+  render_metal::detail::MetalOwner<MTL::CommandBuffer> command =
+      render_metal::detail::retain_owner(raw_command);
 
-  metal::detail::MetalOwner<MTL::RenderPassDescriptor> pass{
+  render_metal::detail::MetalOwner<MTL::RenderPassDescriptor> pass{
       MTL::RenderPassDescriptor::alloc()->init()};
   if (!pass) {
     return std::unexpected(Error{ExitCode::gpu_failure, "render_pass_failed",

@@ -19,6 +19,8 @@ namespace {
 
 using instantee::core::FrameClock;
 using instantee::core::FrameIndex;
+using instantee::render_metal::Device;
+using instantee::render_metal::TestPatternRenderer;
 using instantee::spike::apple::extract_presentation_timeline;
 using instantee::spike::apple::flatten_straight_rgba8_to_opaque_bgra8;
 using instantee::spike::apple::inspect_media;
@@ -27,8 +29,6 @@ using instantee::spike::apple::PixelBufferPool;
 using instantee::spike::apple::validate_presentation_timeline;
 using instantee::spike::apple::VideoWriter;
 using instantee::spike::apple::VideoWriterConfig;
-using instantee::spike::metal::Device;
-using instantee::spike::metal::TestPatternRenderer;
 
 constexpr std::uint64_t kFrameCount = 30; // 1 s at 30/1
 constexpr std::uint32_t kPoolCapacity = 32;

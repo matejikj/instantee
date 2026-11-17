@@ -4,7 +4,7 @@
 
 #include <utility>
 
-namespace instantee::spike::metal::detail {
+namespace instantee::render_metal::detail {
 
 // Adopts a +1 Create/Copy Metal or Foundation object. Unlike NS::SharedPtr,
 // reset and destruction are no-ops for a null pointer so sanitizers accept
@@ -58,4 +58,4 @@ template <typename T>
   return MetalOwner<T>{value};
 }
 
-} // namespace instantee::spike::metal::detail
+} // namespace instantee::render_metal::detail

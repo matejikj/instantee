@@ -23,12 +23,12 @@
 
 namespace {
 
+using instantee::render_metal::Device;
+using instantee::render_metal::TestPatternRenderer;
 using instantee::spike::apple::flatten_straight_rgba8_to_opaque_bgra8;
 using instantee::spike::apple::PixelBufferCompatibility;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
-using instantee::spike::metal::Device;
-using instantee::spike::metal::TestPatternRenderer;
 using instantee::spike::transfer::nearest_rank_latency_ns;
 using instantee::spike::transfer::probe_transfer_features;
 using instantee::spike::transfer::SharedSurfaceRenderer;

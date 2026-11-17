@@ -4,6 +4,13 @@ target_link_libraries(spike_metal_device_test PRIVATE instantee::render_metal
 add_test(NAME spike_metal_device COMMAND spike_metal_device_test)
 set_tests_properties(spike_metal_device PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")
 
+add_executable(spike_metal_backend_test metal_backend_test.cpp)
+target_link_libraries(spike_metal_backend_test PRIVATE instantee::render_metal
+  instantee_build_options)
+add_test(NAME spike_metal_backend COMMAND spike_metal_backend_test)
+set_tests_properties(spike_metal_backend PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")
+
 add_executable(spike_metal_owner_test owner_test.cpp)
 target_include_directories(spike_metal_owner_test PRIVATE
   "${PROJECT_SOURCE_DIR}/engine/src/render-metal/src")

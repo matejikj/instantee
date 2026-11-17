@@ -22,7 +22,7 @@ src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
 src/render-core/       GPU-neutral DrawOp/PassDesc and Renderer port
-src/render-metal/      Spike Metal device, queue, test-pattern and readback leases
+src/render-metal/      Production Metal device/submit owner, test-pattern smoke helpers
 shaders/spike/         Spike MSL sources embedded into render-metal/transfer
 native/                Objective-C++ adapters; export/transfer remain spike
 tests/                 Native unit, isolated public-header and subprocess tests

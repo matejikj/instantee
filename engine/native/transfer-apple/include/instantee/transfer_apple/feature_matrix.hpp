@@ -37,6 +37,6 @@ struct TransferFeatureMatrix {
 // the shared-surface path. Failure is a structured error, never a silent
 // fallback to an unverified feature set.
 [[nodiscard]] std::expected<TransferFeatureMatrix, Error>
-probe_transfer_features(metal::Device &device);
+probe_transfer_features(render_metal::Device &device);
 
 } // namespace instantee::spike::transfer

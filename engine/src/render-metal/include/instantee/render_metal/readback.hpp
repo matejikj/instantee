@@ -7,7 +7,7 @@
 #include <expected>
 #include <memory>
 
-namespace instantee::spike::metal {
+namespace instantee::render_metal {
 using diagnostics::Error;
 using diagnostics::ExitCode;
 
@@ -49,4 +49,4 @@ private:
   std::unique_ptr<Impl> impl_;
 };
 
-} // namespace instantee::spike::metal
+} // namespace instantee::render_metal

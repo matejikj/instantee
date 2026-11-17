@@ -12,6 +12,7 @@
 #include <string_view>
 
 namespace {
+using namespace instantee;
 using namespace instantee::spike;
 using instantee::diagnostics::Error;
 using instantee::diagnostics::ExitCode;
@@ -65,7 +66,7 @@ int finish_stdout(int result) noexcept {
 }
 
 [[nodiscard]] int
-write_smoke_report(const metal::DeviceReport &metal) noexcept {
+write_smoke_report(const render_metal::DeviceReport &metal) noexcept {
   if (std::fputs("{\"workspace\":\"ok\",\"metal\":{\"name\":", stdout) == EOF ||
       !write_json_string(stdout, metal.name) ||
       std::fputs(",\"architecture\":", stdout) == EOF ||
@@ -117,7 +118,7 @@ int run(int argc, char **argv, std::stop_token stop) {
     if (auto result = apple::check_workspace(); !result) {
       return fail(result.error());
     }
-    auto device = metal::Device::open();
+    auto device = render_metal::Device::open();
     if (!device) {
       return fail(device.error());
     }

@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace instantee::spike::metal {
+namespace instantee::render_metal {
 
 struct ReadbackLease::Impl {
   detail::MetalOwner<MTL::CommandBuffer> command;
@@ -51,4 +51,4 @@ struct ReadbackLease::Impl {
   }
 };
 
-} // namespace instantee::spike::metal
+} // namespace instantee::render_metal

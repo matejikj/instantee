@@ -11,7 +11,7 @@
 #include <new>
 #include <utility>
 
-namespace instantee::spike::metal {
+namespace instantee::render_metal {
 namespace {
 
 [[nodiscard]] std::size_t align_up(std::size_t value, std::size_t alignment) {
@@ -275,4 +275,4 @@ TestPatternRenderer::render(std::uint32_t frame_index) {
   return lease->take_pixels();
 }
 
-} // namespace instantee::spike::metal
+} // namespace instantee::render_metal

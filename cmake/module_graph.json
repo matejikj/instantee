@@ -45,12 +45,12 @@
       "allowed_dependencies": ["diagnostics"]
     },
     "render-metal": {
-      "role": "spike",
+      "role": "production",
       "target": "instantee_render_metal",
       "include_prefix": "instantee/render_metal/",
-      "decision": "retain-spike",
-      "notes": "Test-pattern Metal spike until the production backend adopts render-core ports; keep out of production libraries.",
-      "allowed_dependencies": ["diagnostics"]
+      "decision": "promote",
+      "notes": "Production Metal backend over render-core Renderer; metal-cpp/ObjC++ stay private. Test-pattern helpers remain for smoke parity.",
+      "allowed_dependencies": ["diagnostics", "render-core"]
     },
     "export-apple": {
       "role": "spike",
@@ -135,7 +135,6 @@
     }
   ],
   "spike_include_prefixes": [
-    "instantee/render_metal/",
     "instantee/export_apple/",
     "instantee/transfer_apple/"
   ],
@@ -147,6 +146,7 @@
     "engine/src/runtime/",
     "engine/src/export-core/",
     "engine/src/render-core/",
+    "engine/src/render-metal/",
     "engine/native/telemetry-apple/"
   ]
 }

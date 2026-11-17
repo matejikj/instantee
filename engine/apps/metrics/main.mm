@@ -81,7 +81,7 @@ void optional_number(std::ostream &out, std::optional<std::uint64_t> number) {
 
 struct Frame {
   runtime::FrameCredit credit;
-  spike::metal::Rgba8Frame pixels;
+  render_metal::Rgba8Frame pixels;
   runtime::FrameSample timing;
 };
 using Queue = runtime::BoundedQueue<Frame>;
@@ -125,9 +125,9 @@ int run(const std::filesystem::path &directory, std::uint32_t frames,
   auto tx = export_core::OutputTransaction::begin(
       {directory / "output.mp4", export_core::PublishMode::no_replace,
        export_core::DurabilityClass::process_crash_visible});
-  auto device = spike::metal::Device::open();
+  auto device = render_metal::Device::open();
   require(tx.has_value() && device.has_value());
-  auto renderer = spike::metal::TestPatternRenderer::create(*device);
+  auto renderer = render_metal::TestPatternRenderer::create(*device);
   auto pool = spike::apple::PixelBufferPool::create(
       spike::apple::PixelBufferFormat::media_1080x1920(), 8);
   require(renderer.has_value() && pool.has_value());

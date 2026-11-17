@@ -7,7 +7,7 @@
 
 namespace {
 
-using instantee::spike::metal::Device;
+using instantee::render_metal::Device;
 using instantee::spike::transfer::probe_transfer_features;
 
 } // namespace

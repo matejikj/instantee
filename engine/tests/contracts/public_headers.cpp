@@ -18,6 +18,7 @@
 #include <instantee/render_core/renderer.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/frame.hpp>
+#include <instantee/render_metal/metal_backend.hpp>
 #include <instantee/render_metal/readback.hpp>
 #include <instantee/render_metal/test_pattern.hpp>
 #include <instantee/runtime/bounded_queue.hpp>

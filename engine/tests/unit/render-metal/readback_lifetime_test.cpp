@@ -10,14 +10,14 @@
 namespace {
 
 using instantee::diagnostics::ExitCode;
-using instantee::spike::metal::Device;
-using instantee::spike::metal::expected_test_pattern_pixel;
-using instantee::spike::metal::frame_pixel;
-using instantee::spike::metal::kTestPatternHeight;
-using instantee::spike::metal::kTestPatternWidth;
-using instantee::spike::metal::ReadbackLease;
-using instantee::spike::metal::Rgba8Frame;
-using instantee::spike::metal::TestPatternRenderer;
+using instantee::render_metal::Device;
+using instantee::render_metal::expected_test_pattern_pixel;
+using instantee::render_metal::frame_pixel;
+using instantee::render_metal::kTestPatternHeight;
+using instantee::render_metal::kTestPatternWidth;
+using instantee::render_metal::ReadbackLease;
+using instantee::render_metal::Rgba8Frame;
+using instantee::render_metal::TestPatternRenderer;
 
 [[nodiscard]] int verify_frame(const Rgba8Frame &frame, std::uint32_t index) {
   if (!frame.valid_dimensions()) {

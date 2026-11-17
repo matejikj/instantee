@@ -19,6 +19,11 @@
 namespace {
 
 using instantee::core::FrameIndex;
+using instantee::render_metal::Device;
+using instantee::render_metal::expected_test_pattern_pixel;
+using instantee::render_metal::kTestPatternHeight;
+using instantee::render_metal::kTestPatternWidth;
+using instantee::render_metal::TestPatternRenderer;
 using instantee::spike::apple::Bgra8Color;
 using instantee::spike::apple::bgra_within_tolerance;
 using instantee::spike::apple::decode_video_frames_bgra;
@@ -31,11 +36,6 @@ using instantee::spike::apple::PixelBufferPool;
 using instantee::spike::apple::Rgba8Color;
 using instantee::spike::apple::VideoWriter;
 using instantee::spike::apple::VideoWriterConfig;
-using instantee::spike::metal::Device;
-using instantee::spike::metal::expected_test_pattern_pixel;
-using instantee::spike::metal::kTestPatternHeight;
-using instantee::spike::metal::kTestPatternWidth;
-using instantee::spike::metal::TestPatternRenderer;
 
 [[nodiscard]] std::filesystem::path make_temp_mp4(const char *name) {
   const auto directory =

@@ -4,7 +4,7 @@
 
 #include <Metal/Metal.hpp>
 
-namespace instantee::spike::metal::detail {
+namespace instantee::render_metal::detail {
 
 struct DeviceNative {
   MTL::Device *device = nullptr;
@@ -13,4 +13,4 @@ struct DeviceNative {
 
 [[nodiscard]] DeviceNative native_handles(Device &device) noexcept;
 
-} // namespace instantee::spike::metal::detail
+} // namespace instantee::render_metal::detail

@@ -18,13 +18,13 @@
 
 namespace {
 
-using instantee::spike::metal::Device;
-using instantee::spike::metal::expected_test_pattern_pixel;
-using instantee::spike::metal::frame_pixel;
-using instantee::spike::metal::kTestPatternHeight;
-using instantee::spike::metal::kTestPatternWidth;
-using instantee::spike::metal::Rgba8Frame;
-using instantee::spike::metal::TestPatternRenderer;
+using instantee::render_metal::Device;
+using instantee::render_metal::expected_test_pattern_pixel;
+using instantee::render_metal::frame_pixel;
+using instantee::render_metal::kTestPatternHeight;
+using instantee::render_metal::kTestPatternWidth;
+using instantee::render_metal::Rgba8Frame;
+using instantee::render_metal::TestPatternRenderer;
 
 [[nodiscard]] std::string hex_sha256(std::span<const std::uint8_t> bytes) {
   std::array<unsigned char, CC_SHA256_DIGEST_LENGTH> digest{};

@@ -6,7 +6,7 @@
 #include <limits>
 #include <utility>
 
-namespace instantee::spike::metal {
+namespace instantee::render_metal {
 
 ReadbackLease::ReadbackLease(std::unique_ptr<Impl> impl) noexcept
     : impl_(std::move(impl)) {}
@@ -109,4 +109,4 @@ std::expected<Rgba8Frame, Error> ReadbackLease::take_pixels() {
   return frame;
 }
 
-} // namespace instantee::spike::metal
+} // namespace instantee::render_metal

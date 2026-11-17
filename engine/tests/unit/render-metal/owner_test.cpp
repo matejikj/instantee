@@ -13,7 +13,7 @@ struct FakeObject {
 } // namespace
 
 int main() {
-  using Owner = instantee::spike::metal::detail::MetalOwner<FakeObject>;
+  using Owner = instantee::render_metal::detail::MetalOwner<FakeObject>;
   static_assert(!std::is_copy_constructible_v<Owner>);
   static_assert(!std::is_copy_assignable_v<Owner>);
   static_assert(std::is_nothrow_move_constructible_v<Owner>);

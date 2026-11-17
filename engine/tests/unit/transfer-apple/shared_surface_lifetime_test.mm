@@ -17,13 +17,13 @@
 namespace {
 
 using instantee::diagnostics::ExitCode;
+using instantee::render_metal::Device;
+using instantee::render_metal::expected_test_pattern_pixel;
+using instantee::render_metal::kTestPatternHeight;
+using instantee::render_metal::kTestPatternWidth;
 using instantee::spike::apple::Bgra8Color;
 using instantee::spike::apple::flatten_straight_rgba8_over_black;
 using instantee::spike::apple::PixelBuffer;
-using instantee::spike::metal::Device;
-using instantee::spike::metal::expected_test_pattern_pixel;
-using instantee::spike::metal::kTestPatternHeight;
-using instantee::spike::metal::kTestPatternWidth;
 using instantee::spike::transfer::SharedSurfaceLease;
 using instantee::spike::transfer::SharedSurfaceRenderer;
 

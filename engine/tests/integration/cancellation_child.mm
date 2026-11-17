@@ -134,11 +134,11 @@ int late_completion(std::stop_token stop) {
 int native_wait(std::string_view mode, export_core::OutputTransaction &tx,
                 std::stop_token stop) {
   if (mode == "gpu") {
-    auto device = metal::Device::open();
+    auto device = render_metal::Device::open();
     if (!device) {
       return 30;
     }
-    auto renderer = metal::TestPatternRenderer::create(*device);
+    auto renderer = render_metal::TestPatternRenderer::create(*device);
     if (!renderer) {
       return 31;
     }

@@ -79,7 +79,7 @@ public:
   // device must outlive this renderer. capacity is the pool allocation
   // threshold E for IOSurface-backed buffers.
   [[nodiscard]] static std::expected<SharedSurfaceRenderer, Error>
-  create(metal::Device &device, std::uint32_t capacity);
+  create(render_metal::Device &device, std::uint32_t capacity);
 
   [[nodiscard]] apple::PixelBufferCompatibility compatibility() const noexcept;
   [[nodiscard]] std::uint32_t capacity() const noexcept;

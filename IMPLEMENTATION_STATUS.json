@@ -3139,14 +3139,39 @@
       "notes": "Asset lockfile with content digest invalidation"
     },
     "P1-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "An input from an older supported version is converted without modifying the original or using the network.",
-        "met": null
+        "criterion": "Vstup star\u0161\u00ed podporovan\u00e9 verze se p\u0159evede bez zm\u011bny origin\u00e1lu a bez s\u00edt\u011b.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Older supported version migrates without mutating input or using network",
+            "met": true,
+            "evidence": [
+              "engine/src/scene-ir/src/migrate.cpp",
+              "engine/tests/unit/scene-ir/migrate_test.cpp",
+              "contracts/fixtures/authoring/migrations/from-0.9.0/"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-015/",
+        "implementation-evidence/P1-015/NOTES.md",
+        "engine/src/scene-ir/src/migrate.cpp",
+        "engine/tests/unit/scene-ir/migrate_test.cpp",
+        "contracts/fixtures/authoring/migrations/from-0.9.0/",
+        "contracts/VERSIONING.md"
+      ],
+      "checks": [
+        "implementation-evidence/P1-015/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S7",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Migration golden tests",
+      "notes": "Pure 0.9.0\u21921.0.0 authoring migration; unsupported majors rejected"
     },
     "P1-016": {
       "status": "done",
@@ -3218,14 +3243,40 @@
       "notes": "GPU-free validate/compile CLI with stable exit codes 2/4 and JSON diagnostics"
     },
     "P1-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Contract CI runs without a GPU and covers all mandatory invariants in SAS section 6.",
-        "met": null
+        "criterion": "Contract CI prob\u011bhne z \u010dist\u00e9ho klonu bez GPU a pokr\u00fdv\u00e1 povinn\u00e9 invarianty SAS \u00a76; design-pack draft u\u017e nen\u00ed jedin\u00fd zdroj pravdy.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Contract CI without GPU covers SAS \u00a76 invariants; contracts/ is source of truth",
+            "met": true,
+            "evidence": [
+              "contracts/invariants-sas6.json",
+              "tools/contracts/check_contracts.mjs",
+              "implementation-evidence/P1-018/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-018/",
+        "implementation-evidence/P1-018/NOTES.md",
+        "contracts/invariants-sas6.json",
+        "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",
+        "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
+        "contracts/fixtures/scene-ir/semantic-negative/",
+        "tools/contracts/check_contracts.mjs"
+      ],
+      "checks": [
+        "implementation-evidence/P1-018/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S7",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "CI contract gate + clean-clone contracts presence",
+      "notes": "Versioned contracts fixtures + SAS \u00a76 coverage map; GPU-free contracts:check"
     },
     "P1-019": {
       "status": "done",
@@ -3315,14 +3366,37 @@
       "notes": "Non-certified parse/compile baseline; keep JSON IR; draft cold-start budgets in ADR-0014"
     },
     "P1-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The architecture gate confirms cross-language validation and allowed dependency directions.",
-        "met": null
+        "criterion": "Architektonick\u00fd gate potvrzuje validaci cross-language, povolen\u00fd sm\u011br z\u00e1vislost\u00ed, verzovan\u00e9 contracts/ a \u017e\u00e1dn\u00fd tich\u00fd unsupported-intent drop.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Cross-language validation, dependency directions, versioned contracts, no silent intent drop",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P1-020/gate-decision.json",
+              "implementation-evidence/P1-020/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-020/",
+        "implementation-evidence/P1-020/NOTES.md",
+        "implementation-evidence/P1-020/gate-decision.json",
+        "contracts/adrs/0013-scene-ir-evolution-policy.md"
+      ],
+      "checks": [
+        "implementation-evidence/P1-020/checks.json",
+        "implementation-evidence/P1-020/gate-decision.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S7",
+      "measurement": "none",
+      "evidence_tier_min": "C",
+      "verification": "P1 gate report",
+      "notes": "P1 architecture gate PASS; contract baseline locked; check.py --gate passed"
     },
     "P2-001": {
       "status": "todo",

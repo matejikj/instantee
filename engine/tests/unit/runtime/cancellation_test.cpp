@@ -22,8 +22,10 @@ int check_abort_and_ownership() {
   }
   std::stop_source stop;
   stop.request_stop();
+  // Cancelled push returns before moving out of `second` (T&& is unbound).
   auto rejected = queue->push(std::move(second), stop.get_token());
-  if (rejected || !second || *second != 9 || queue->size() != 1) {
+  const bool kept = second && *second == 9; // NOLINT(bugprone-use-after-move)
+  if (rejected || !kept || queue->size() != 1) {
     return 2;
   }
   // Stop never delivers already queued work to a cancelled consumer.

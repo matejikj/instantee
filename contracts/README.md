@@ -25,9 +25,12 @@ contracts/
   schemas/      Accepted JSON Schema documents (Draft 2020-12)
                 (authoring, scene-ir, asset-lockfile)
   fixtures/     Cross-language positive/negative examples
+                (plus authoring/migrations and scene-ir/semantic-negative)
   defaults/     Documented omitted-field defaults
   generated/ts/ Checked-in TypeScript types from schemas
   adrs/         Published data-contract ADRs
+  VERSIONING.md Schema semver + pure migration policy
+  invariants-sas6.json  Coverage map for SAS §6.2 invariants
   INTEGER_ENCODING.md
   README.md
 ```

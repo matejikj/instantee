@@ -154,6 +154,64 @@ async function checkFixtures() {
   }
 }
 
+async function listDirs(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+}
+
+async function checkMigrations(validateAuthoring) {
+  const migrationsRoot = path.join(fixturesRoot, "authoring/migrations");
+  const cases = await listDirs(migrationsRoot);
+  if (cases.length === 0) {
+    fail("missing authoring migration fixtures");
+    return;
+  }
+  for (const name of cases) {
+    const inputPath = path.join(migrationsRoot, name, "input.authoring.json");
+    const expectedPath = path.join(migrationsRoot, name, "expected.authoring.json");
+    const input = JSON.parse(await readFile(inputPath, "utf8"));
+    const expected = JSON.parse(await readFile(expectedPath, "utf8"));
+    if (validateAuthoring(input)) {
+      fail(`migration input unexpectedly valid for current schema: ${name}`);
+    }
+    if (!validateAuthoring(expected) || !seedSemanticallyValid(expected.seed)) {
+      fail(
+        `migration expected fixture invalid (${name})\n${JSON.stringify(validateAuthoring.errors, null, 2)}`,
+      );
+    }
+    if (expected.schema_version !== "1.0.0") {
+      fail(`migration expected must target schema 1.0.0 (${name})`);
+    }
+  }
+}
+
+async function checkCleanClonePresence() {
+  const required = [
+    "contracts/README.md",
+    "contracts/VERSIONING.md",
+    "contracts/schemas/authoring-v1.schema.json",
+    "contracts/schemas/scene-ir-v1.schema.json",
+    "contracts/schemas/asset-lockfile-v1.schema.json",
+    "contracts/defaults/v1.defaults.json",
+    "contracts/fixtures/authoring/positive/minimal.authoring.json",
+    "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",
+    "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
+    "contracts/fixtures/authoring/migrations/from-0.9.0/input.authoring.json",
+    "contracts/fixtures/authoring/migrations/from-0.9.0/expected.authoring.json",
+    "contracts/fixtures/scene-ir/positive/minimal.scene.json",
+    "contracts/fixtures/scene-ir/semantic-negative/cyclic-parent.scene.json",
+    "contracts/fixtures/scene-ir/semantic-negative/dangling-ref.scene.json",
+    "contracts/invariants-sas6.json",
+  ];
+  for (const rel of required) {
+    try {
+      await readFile(path.join(repoRoot, rel));
+    } catch {
+      fail(`clean-clone contracts presence missing: ${rel}`);
+    }
+  }
+}
+
 async function checkDefaults() {
   const defaults = JSON.parse(await readFile(defaultsPath, "utf8"));
   const encoded = defaults.integer_encoding;
@@ -183,6 +241,19 @@ async function checkDefaults() {
 
 await checkDrift();
 await checkFixtures();
+{
+  const ajv = new Ajv2020.default({
+    allErrors: true,
+    strict: true,
+    validateFormats: true,
+  });
+  addFormats.default(ajv);
+  const authoringSchema = JSON.parse(
+    await readFile(path.join(schemasDir, "authoring-v1.schema.json"), "utf8"),
+  );
+  await checkMigrations(ajv.compile(authoringSchema));
+}
+await checkCleanClonePresence();
 await checkDefaults();
 if (process.exitCode) {
   process.exit(process.exitCode);

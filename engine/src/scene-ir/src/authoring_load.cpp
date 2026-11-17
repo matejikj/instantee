@@ -1,5 +1,6 @@
 #include <instantee/scene_ir/authoring.hpp>
 #include <instantee/scene_ir/load.hpp>
+#include <instantee/scene_ir/migrate.hpp>
 
 #include <instantee/core_model/integer_encoding.hpp>
 
@@ -326,8 +327,12 @@ load_authoring_json(std::span<const std::byte> bytes,
   if (bytes.empty()) {
     return std::unexpected(err("invalid_json", "JSON input is empty", "/"));
   }
-  std::string buffer(reinterpret_cast<const char *>(bytes.data()),
-                     bytes.size());
+  auto migrated = migrate_authoring_json(bytes);
+  if (!migrated) {
+    return std::unexpected(migrated.error());
+  }
+  // Decode owns a mutable parse buffer; migration already copied input.
+  std::string buffer = std::move(*migrated);
   yyjson_read_err read_err{};
   DocGuard guard{
       yyjson_read_opts(buffer.data(), buffer.size(), 0, nullptr, &read_err)};

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "source": "SOFTWARE_ARCHITECTURE_SPECIFICATION.md §6.2",
+  "invariants": [
+    {
+      "id": "schema_version_supported",
+      "coverage": [
+        "contracts/VERSIONING.md",
+        "engine/src/scene-ir/src/migrate.cpp",
+        "contracts/fixtures/authoring/migrations/from-0.9.0/"
+      ]
+    },
+    {
+      "id": "unique_ids_and_typed_refs",
+      "coverage": [
+        "engine/src/scene-ir/src/graph_validate.cpp",
+        "contracts/fixtures/scene-ir/semantic-negative/dangling-ref.scene.json"
+      ]
+    },
+    {
+      "id": "acyclic_parent_graph",
+      "coverage": [
+        "engine/src/scene-ir/src/graph_validate.cpp",
+        "contracts/fixtures/scene-ir/semantic-negative/cyclic-parent.scene.json"
+      ]
+    },
+    {
+      "id": "duration_and_keyframe_bounds",
+      "coverage": [
+        "engine/src/scene-ir/src/graph_validate.cpp",
+        "engine/tests/unit/scene-ir/graph_test.cpp"
+      ]
+    },
+    {
+      "id": "rational_frame_rate",
+      "coverage": [
+        "contracts/schemas/authoring-v1.schema.json",
+        "engine/src/core-model/src/time.cpp"
+      ]
+    },
+    {
+      "id": "reject_nan_inf_invalid_transforms",
+      "coverage": [
+        "engine/src/scene-ir/src/load.cpp",
+        "contracts/fixtures/scene-ir/negative/"
+      ]
+    },
+    {
+      "id": "explicit_transition_spans",
+      "coverage": [
+        "contracts/fixtures/authoring/positive/rig-and-transition.authoring.json",
+        "contracts/fixtures/scene-ir/positive/camera-transition-rig.scene.json"
+      ]
+    },
+    {
+      "id": "no_js_callbacks_or_unresolved_cds",
+      "coverage": [
+        "contracts/schemas/authoring-v1.schema.json",
+        "engine/src/compiler/src/compile.cpp"
+      ]
+    },
+    {
+      "id": "sandboxed_asset_uri",
+      "coverage": [
+        "engine/src/scene-ir/src/uri_sandbox.cpp",
+        "engine/tests/unit/scene-ir/security_test.cpp"
+      ]
+    },
+    {
+      "id": "documented_defaults",
+      "coverage": [
+        "contracts/defaults/v1.defaults.json",
+        "tools/contracts/check_contracts.mjs"
+      ]
+    }
+  ]
+}

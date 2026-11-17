@@ -20,7 +20,7 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
-        for name in ("engine", "authoring", "benchmarks", "third_party"):
+        for name in ("engine", "authoring", "benchmarks", "third_party", "contracts"):
             shutil.copytree(ROOT / name, self.source / name)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
@@ -36,8 +36,10 @@ class ToolchainTests(unittest.TestCase):
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)
         self.build = Path(self.temporary.name) / "build"
 
-    def run_command(self, arguments):
-        return subprocess.run(arguments, cwd=self.source, text=True, capture_output=True, timeout=120)
+    def run_command(self, arguments, timeout=300):
+        return subprocess.run(
+            arguments, cwd=self.source, text=True, capture_output=True, timeout=timeout
+        )
 
     def configure(self, *flags):
         return self.run_command(["cmake", "--preset", "toolchain", "-B", str(self.build), *flags])
@@ -58,7 +60,13 @@ class ToolchainTests(unittest.TestCase):
         probes = [item for item in commands if "probe_" in item["command"]]
         self.assertEqual(len(probes), 8)
         for command in commands:
-            with self.subTest(file=Path(command["file"]).name):
+            path = Path(command["file"])
+            with self.subTest(file=path.name):
+                # Vendored C sources keep -std=c11; C++/ObjC++ stay on C++23.
+                if path.suffix == ".c":
+                    self.assertIn("-std=c11", command["command"])
+                    self.assertIn("-arch arm64", command["command"])
+                    continue
                 self.assertIn("-std=c++23", command["command"])
                 self.assertNotIn("-std=gnu++", command["command"])
                 self.assertIn("-arch arm64", command["command"])

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "film-日本語",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 1,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "záber-1",
+      "duration_frames": 60,
+      "intent": {
+        "type": "focus",
+        "intensity": 0.4,
+        "target_ids": [
+          "nadpis-α"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "nadpis-α",
+          "type": "text",
+          "text": "你好世界 · こんにちは",
+          "role": "headline",
+          "visible": true
+        }
+      ]
+    }
+  ]
+}

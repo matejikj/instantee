@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "bad/id",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 1,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "intro",
+      "duration_frames": 30,
+      "nodes": [
+        {
+          "id": "n0",
+          "type": "text",
+          "text": "x",
+          "visible": true
+        }
+      ]
+    }
+  ]
+}

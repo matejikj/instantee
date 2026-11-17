@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "legacy-editorial",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 7,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "intro",
+      "duration_frames": 90,
+      "intent": {
+        "type": "reveal",
+        "intensity": 0.5,
+        "importance": 0.5,
+        "target_ids": [
+          "title"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "LEGACY",
+          "role": "headline",
+          "visible": true
+        }
+      ]
+    }
+  ]
+}

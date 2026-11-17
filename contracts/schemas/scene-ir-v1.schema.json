@@ -97,7 +97,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "uri": {
             "type": "string",
@@ -136,7 +136,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "shader_feature": {
             "type": "string",
@@ -169,7 +169,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "kind": {
             "enum": [
@@ -238,14 +238,14 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "text": {
             "type": "string"
           },
           "font_asset_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "font_size_px": {
             "type": "number",
@@ -274,7 +274,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "projection": {
             "enum": [
@@ -391,7 +391,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "format_version": {
             "type": "string",
@@ -420,7 +420,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "kind": {
             "enum": [
@@ -434,7 +434,7 @@
           },
           "parent_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "layer_order": {
             "type": "integer",
@@ -518,27 +518,27 @@
           },
           "geometry_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "text_run_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "asset_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "material_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "camera_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "rig_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "visible": {
             "type": "boolean",
@@ -561,11 +561,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "target_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "property": {
             "enum": [
@@ -643,7 +643,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "start_frame": {
             "type": "integer",
@@ -657,13 +657,13 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+              "pattern": "^[^/\\\\]{1,128}$"
             },
             "uniqueItems": true
           },
           "camera_node_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           }
         }
       }
@@ -685,15 +685,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "from_shot_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "to_shot_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "start_frame": {
             "type": "integer",
@@ -739,7 +739,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+                "pattern": "^[^/\\\\]{1,128}$"
               },
               "version": {
                 "type": "string",
@@ -758,7 +758,7 @@
   "$defs": {
     "id": {
       "type": "string",
-      "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+      "pattern": "^[^/\\\\]{1,128}$"
     },
     "uint64_value": {
       "description": "Designated uint64 for seed and similar values. JSON numbers are limited to integers in [0, 9007199254740991] (JS Number safe range). Values above that MUST use a decimal string (no leading zeros except \"0\"). Consumers must reject decimal strings that overflow uint64; the schema alone cannot express 2^64-1 exactly for every draft-2020-12 validator.",

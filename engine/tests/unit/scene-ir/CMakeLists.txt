@@ -42,3 +42,22 @@ target_compile_definitions(spike_scene_ir_lockfile_test PRIVATE
 add_test(NAME spike_scene_ir_lockfile COMMAND spike_scene_ir_lockfile_test)
 set_tests_properties(spike_scene_ir_lockfile PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_scene_ir_migrate_test migrate_test.cpp)
+target_link_libraries(spike_scene_ir_migrate_test PRIVATE instantee::scene_ir
+  instantee_build_options)
+target_compile_definitions(spike_scene_ir_migrate_test PRIVATE
+  "INSTANTEE_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\"")
+add_test(NAME spike_scene_ir_migrate COMMAND spike_scene_ir_migrate_test)
+set_tests_properties(spike_scene_ir_migrate PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
+add_executable(spike_scene_ir_semantic_fixture_test semantic_fixture_test.cpp)
+target_link_libraries(spike_scene_ir_semantic_fixture_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+target_compile_definitions(spike_scene_ir_semantic_fixture_test PRIVATE
+  "INSTANTEE_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\"")
+add_test(NAME spike_scene_ir_semantic_fixture
+  COMMAND spike_scene_ir_semantic_fixture_test)
+set_tests_properties(spike_scene_ir_semantic_fixture PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

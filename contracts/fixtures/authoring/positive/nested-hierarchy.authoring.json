@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "hierarchy-001",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 3,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "root-shot",
+      "duration_frames": 120,
+      "intent": {
+        "type": "explain",
+        "intensity": 0.6,
+        "target_ids": [
+          "group-a",
+          "leaf-b"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "group-a",
+          "type": "group",
+          "visible": true,
+          "children": [
+            {
+              "id": "leaf-a",
+              "type": "text",
+              "text": "child",
+              "visible": true
+            },
+            {
+              "id": "leaf-b",
+              "type": "text",
+              "text": "sibling",
+              "visible": true,
+              "transform": {
+                "translate": {
+                  "x": 10,
+                  "y": 20,
+                  "z": 0
+                },
+                "opacity": 0.9
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

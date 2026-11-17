@@ -31,12 +31,17 @@ int main() {
   {
     Owner owned{&first};
     Owner moved{std::move(owned)};
-    if (owned || !moved || moved.get() != &first) {
+    // Moved-from Owner is empty by contract; clang-tidy cannot prove that.
+    const bool owned_empty =
+        owned.get() == nullptr; // NOLINT(bugprone-use-after-move)
+    if (!owned_empty || moved.get() != &first) {
       return 2;
     }
     Owner assigned;
     assigned = std::move(moved);
-    if (moved || !assigned || assigned.get() != &first) {
+    const bool moved_empty =
+        moved.get() == nullptr; // NOLINT(bugprone-use-after-move)
+    if (!moved_empty || assigned.get() != &first) {
       return 3;
     }
     assigned = Owner{&second};

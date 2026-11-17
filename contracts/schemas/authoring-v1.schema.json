@@ -20,7 +20,7 @@
     },
     "film_id": {
       "type": "string",
-      "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+      "pattern": "^[^/\\\\]{1,128}$"
     },
     "canvas": {
       "type": "object",
@@ -91,7 +91,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "uri": {
             "type": "string",
@@ -123,7 +123,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "format_version": {
             "type": "string",
@@ -155,15 +155,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "from_shot_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "to_shot_id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "overlap_frames": {
             "type": "integer",
@@ -196,7 +196,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+            "pattern": "^[^/\\\\]{1,128}$"
           },
           "duration_frames": {
             "type": "integer",
@@ -239,7 +239,7 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+                  "pattern": "^[^/\\\\]{1,128}$"
                 },
                 "uniqueItems": true
               }
@@ -365,7 +365,8 @@
   "$defs": {
     "id": {
       "type": "string",
-      "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+      "description": "Stable document identifier. UTF-8 allowed; U+0000, slash and backslash are rejected by language validators.",
+      "pattern": "^[^/\\\\]{1,128}$"
     },
     "uint64_value": {
       "description": "Designated uint64 for seed and similar values. JSON numbers are limited to integers in [0, 9007199254740991] (JS Number safe range). Values above that MUST use a decimal string (no leading zeros except \"0\"). Consumers must reject decimal strings that overflow uint64; the schema alone cannot express 2^64-1 exactly for every draft-2020-12 validator.",
@@ -392,7 +393,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          "pattern": "^[^/\\\\]{1,128}$"
         },
         "type": {
           "enum": [
@@ -410,11 +411,11 @@
         },
         "asset_id": {
           "type": "string",
-          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          "pattern": "^[^/\\\\]{1,128}$"
         },
         "rig_id": {
           "type": "string",
-          "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$"
+          "pattern": "^[^/\\\\]{1,128}$"
         },
         "shape": {
           "enum": [

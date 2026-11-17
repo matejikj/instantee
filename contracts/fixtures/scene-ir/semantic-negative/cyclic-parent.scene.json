@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 30,
+  "seed": 1,
+  "assets": [],
+  "materials": [],
+  "geometry": [],
+  "text_runs": [],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "a",
+      "kind": "group",
+      "parent_id": "b",
+      "layer_order": 0,
+      "visible": true
+    },
+    {
+      "id": "b",
+      "kind": "group",
+      "parent_id": "a",
+      "layer_order": 1,
+      "visible": true
+    },
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "camera_id": "cam0",
+      "layer_order": 2,
+      "visible": true
+    }
+  ],
+  "animation_tracks": [],
+  "shots": [
+    {
+      "id": "s0",
+      "start_frame": 0,
+      "duration_frames": 30,
+      "node_ids": [
+        "a",
+        "b",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [],
+  "provenance": {
+    "project_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "style_packages": [
+      {
+        "id": "editorial",
+        "version": "1.0.0"
+      }
+    ]
+  }
+}

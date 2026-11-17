@@ -12,6 +12,8 @@
  */
 export type Uint64Value = number | string;
 /**
+ * Stable document identifier. UTF-8 allowed; U+0000, slash and backslash are rejected by language validators.
+ *
  * This interface was referenced by `InstanteeAuthoringManifestV1`'s JSON-Schema
  * via the `definition` "id".
  */

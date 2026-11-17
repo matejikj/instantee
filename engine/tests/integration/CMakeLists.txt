@@ -60,6 +60,17 @@ add_test(NAME instantee_scene_video_mp4
 set_tests_properties(instantee_scene_video_mp4 PROPERTIES TIMEOUT 120 LABELS
   "cpu;smoke;pts")
 
+add_executable(instantee_b01_editorial_demo_test b01_editorial_demo_test.cpp)
+target_link_libraries(instantee_b01_editorial_demo_test PRIVATE
+  instantee::export instantee::export_apple instantee::compiler
+  instantee::scene_ir instantee_build_options)
+add_test(NAME instantee_b01_editorial_demo
+  COMMAND instantee_b01_editorial_demo_test "${PROJECT_SOURCE_DIR}")
+# Preview raster of the locked 1080×1920 Scene IR is intentionally heavy under
+# TSan; keep enough frames to prove native MP4 assembly with sanitizer headroom.
+set_tests_properties(instantee_b01_editorial_demo PROPERTIES TIMEOUT 600
+  LABELS "cpu;smoke;pts")
+
 add_executable(instantee_cds_sdk_e2e_test cds_sdk_e2e_test.cpp)
 target_link_libraries(instantee_cds_sdk_e2e_test PRIVATE
   instantee::export instantee::export_apple instantee::compiler

@@ -1,0 +1,25 @@
+{
+  "workload_id": "B-01-editorial-news-reel-60s-v1",
+  "scene": "contracts/fixtures/b01-editorial/b01-news-reel.scene.json",
+  "scene_sha256": "73d1acf8bfb2fa462c8bbd04cd57684f543131ca1443407cb03b732f4a55d910",
+  "asset_lock": "assets/editorial/editorial.lock.json",
+  "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "style_sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+  "font_primary_sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+  "quality_tier": "editorial-b01-v1",
+  "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder",
+  "duration_frames": 1800,
+  "width": 1080,
+  "height": 1920,
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed_decimal": "42",
+  "notes": [
+    "Locked before first B-01 reference-series measurement.",
+    "Preview raster uses proxy fills for text/geometry/image; export is framework-native MP4 only.",
+    "No external video assembly."
+  ]
+}

@@ -3539,14 +3539,24 @@
       "notes": "PropertyRegistry + compile-time target/property validation; custom properties via register_property."
     },
     "P2-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Random access returns the expected value at the start, end and within the interval.",
-        "met": null
+        "criterion": "N\u00e1hodn\u00fd p\u0159\u00edstup vr\u00e1t\u00ed o\u010dek\u00e1vanou hodnotu v po\u010d\u00e1tku/konci/intervalu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-008/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Track unit tests",
+      "completed_at_utc": "2026-11-17T03:40:25Z",
+      "notes": "ScalarTrack segment lookup + clamp ends; hold/linear; film-absolute frames across shots."
     },
     "P2-009": {
       "status": "todo",

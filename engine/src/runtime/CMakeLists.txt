@@ -4,7 +4,8 @@ add_library(instantee_runtime STATIC
   src/frame_samples.cpp
   src/compiled_scene.cpp
   src/transforms.cpp
-  src/layering.cpp)
+  src/layering.cpp
+  src/timeline.cpp)
 add_library(instantee::runtime ALIAS instantee_runtime)
 target_include_directories(instantee_runtime
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

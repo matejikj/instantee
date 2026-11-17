@@ -38,3 +38,10 @@ target_link_libraries(spike_runtime_layering_test PRIVATE
 add_test(NAME spike_runtime_layering COMMAND spike_runtime_layering_test)
 set_tests_properties(spike_runtime_layering PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_runtime_timeline_test timeline_test.cpp)
+target_link_libraries(spike_runtime_timeline_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_timeline COMMAND spike_runtime_timeline_test)
+set_tests_properties(spike_runtime_timeline PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

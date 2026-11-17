@@ -73,7 +73,9 @@ void usage() {
   std::fputs(
       "usage:\n"
       "  instantee validate <authoring.json>\n"
-      "  instantee compile <authoring.json> --out <scene.json>\n"
+      "  instantee compile <authoring.json> --out <scene.json> "
+      "[--direction-report <report.txt>]\n"
+      "  instantee direction-report <authoring.json> [--out <report.txt>]\n"
       "  instantee frame <scene.json> --at <N> [--out "
       "<report.json|preview.png>]\n"
       "  instantee lint <findings.json> [--policy off|warn|strict] "
@@ -131,7 +133,22 @@ int cmd_validate(const std::string &path) {
   return 0;
 }
 
-int cmd_compile(const std::string &path, const std::string &out_path) {
+int write_text_file(const std::string &path, std::string_view body) {
+  std::ofstream output(path, std::ios::binary | std::ios::trunc);
+  if (!output) {
+    return fail(Error{ExitCode::invalid_input, "io_error", "cli",
+                      "Cannot open output file"});
+  }
+  output << body;
+  if (!output) {
+    return fail(Error{ExitCode::report_failure, "io_error", "cli",
+                      "Cannot write output file"});
+  }
+  return 0;
+}
+
+int cmd_compile(const std::string &path, const std::string &out_path,
+                const std::optional<std::string> &direction_report_path) {
   auto text = read_file(path);
   if (!text) {
     return fail(text.error());
@@ -139,8 +156,10 @@ int cmd_compile(const std::string &path, const std::string &out_path) {
   const auto *bytes = reinterpret_cast<const std::byte *>(text->data());
   instantee::compiler::CompileOptions options;
   instantee::compiler::CompileStageTiming timing;
+  instantee::direction::DirectionReport report;
   auto compiled = instantee::compiler::compile_authoring_json(
-      std::span<const std::byte>(bytes, text->size()), options, &timing);
+      std::span<const std::byte>(bytes, text->size()), options, &timing,
+      direction_report_path ? &report : nullptr);
   if (!compiled) {
     return fail(compiled.error());
   }
@@ -148,17 +167,46 @@ int cmd_compile(const std::string &path, const std::string &out_path) {
   if (!json) {
     return fail(json.error());
   }
-  std::ofstream output(out_path, std::ios::binary | std::ios::trunc);
-  if (!output) {
-    return fail(Error{ExitCode::invalid_input, "io_error", "cli",
-                      "Cannot open output file"});
+  if (const int wrote = write_text_file(out_path, *json); wrote != 0) {
+    return wrote;
   }
-  output << *json;
-  if (!output) {
-    return fail(Error{ExitCode::report_failure, "io_error", "cli",
-                      "Cannot write output file"});
+  if (direction_report_path) {
+    if (const int wrote =
+            write_text_file(*direction_report_path, report.to_snapshot());
+        wrote != 0) {
+      return wrote;
+    }
   }
   print_ok("compile", timing, compiled->duration_frames.value(), out_path);
+  return 0;
+}
+
+int cmd_direction_report(const std::string &path,
+                         const std::optional<std::string> &out_path) {
+  auto text = read_file(path);
+  if (!text) {
+    return fail(text.error());
+  }
+  const auto *bytes = reinterpret_cast<const std::byte *>(text->data());
+  instantee::compiler::CompileOptions options;
+  instantee::compiler::CompileStageTiming timing;
+  instantee::direction::DirectionReport report;
+  auto compiled = instantee::compiler::compile_authoring_json(
+      std::span<const std::byte>(bytes, text->size()), options, &timing,
+      &report);
+  if (!compiled) {
+    return fail(compiled.error());
+  }
+  const std::string snapshot = report.to_snapshot();
+  if (out_path) {
+    if (const int wrote = write_text_file(*out_path, snapshot); wrote != 0) {
+      return wrote;
+    }
+  }
+  if (std::fputs(snapshot.c_str(), stdout) == EOF || std::fflush(stdout) != 0) {
+    return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
+                      "Cannot write CLI output"});
+  }
   return 0;
 }
 
@@ -385,11 +433,40 @@ int run(int argc, char **argv) {
     return cmd_validate(argv[2]);
   }
   if (cmd == "compile") {
-    if (argc != 5 || std::string_view(argv[3]) != "--out") {
+    if (argc < 5 || std::string_view(argv[3]) != "--out") {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_compile(argv[2], argv[4]);
+    std::optional<std::string> direction_report;
+    if (argc == 7) {
+      if (std::string_view(argv[5]) != "--direction-report") {
+        usage();
+        return static_cast<int>(ExitCode::invalid_input);
+      }
+      direction_report = argv[6];
+    } else if (argc != 5) {
+      usage();
+      return static_cast<int>(ExitCode::invalid_input);
+    }
+    return cmd_compile(argv[2], argv[4], direction_report);
+  }
+  if (cmd == "direction-report") {
+    if (argc < 3) {
+      usage();
+      return static_cast<int>(ExitCode::invalid_input);
+    }
+    std::optional<std::string> out_path;
+    if (argc == 5) {
+      if (std::string_view(argv[3]) != "--out") {
+        usage();
+        return static_cast<int>(ExitCode::invalid_input);
+      }
+      out_path = argv[4];
+    } else if (argc != 3) {
+      usage();
+      return static_cast<int>(ExitCode::invalid_input);
+    }
+    return cmd_direction_report(argv[2], out_path);
   }
   if (cmd == "frame") {
     std::vector<std::string_view> args;

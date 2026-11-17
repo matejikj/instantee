@@ -207,6 +207,7 @@ async function checkCleanClonePresence() {
     "contracts/schemas/asset-lockfile-v1.schema.json",
     "contracts/defaults/v1.defaults.json",
     "contracts/fixtures/authoring/positive/minimal.authoring.json",
+    "contracts/fixtures/authoring/positive/cds-sdk-intents.authoring.json",
     "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",
     "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
     "contracts/fixtures/authoring/migrations/from-0.9.0/input.authoring.json",

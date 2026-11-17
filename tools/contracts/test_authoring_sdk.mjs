@@ -10,8 +10,10 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  INTENT_TYPES,
   collectNodeIds,
   createFilm,
+  createIntent,
   filmToJson,
   parentIdOf,
   reparentNode,
@@ -29,6 +31,18 @@ function fail(message) {
   process.exit(1);
 }
 
+if (!INTENT_TYPES.includes("reveal") || INTENT_TYPES.length < 5) {
+  fail("INTENT_TYPES must list CDS intent kinds");
+}
+
+const reveal = createIntent("reveal", 0.8, {
+  importance: 0.9,
+  targetIds: ["headline"],
+});
+if (reveal.type !== "reveal" || reveal.targetIds?.[0] !== "headline") {
+  fail("createIntent must produce typed semantic intent");
+}
+
 const film = createFilm({
   filmId: "sdk-minimal",
   seed: 42,
@@ -36,12 +50,8 @@ const film = createFilm({
     {
       id: "intro",
       durationSeconds: 60,
-      intent: {
-        type: "reveal",
-        intensity: 0.8,
-        importance: 0.9,
-        targetIds: ["headline"],
-      },
+      styleOverride: "editorial@1",
+      intent: reveal,
       nodes: [
         {
           id: "headline",
@@ -57,6 +67,15 @@ const film = createFilm({
 
 if (film.shots[0]?.duration_frames !== 1800) {
   fail(`expected 60s → 1800 frames, got ${film.shots[0]?.duration_frames}`);
+}
+if (film.shots[0]?.style_override !== "editorial@1") {
+  fail("createFilm must emit style_override from styleOverride");
+}
+if (film.seed !== 42) {
+  fail("createFilm must preserve explicit seed");
+}
+if (film.shots[0]?.intent?.type !== "reveal") {
+  fail("createFilm must emit typed intent");
 }
 
 Object.freeze(film);

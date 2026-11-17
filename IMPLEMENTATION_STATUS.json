@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:54:12Z",
+  "updated_at_utc": "2026-11-17T17:06:04Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4654,14 +4654,22 @@
       "evidence_tier_min": "A"
     },
     "P4-019": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "SDK authoring with intents produces valid Scene IR from which an MP4 can be created.",
-        "met": null
+        "criterion": "SDK authoring s intenty projde do validního Scene IR a lze z něj vytvořit MP4.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-019/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-019/checks.json"
+      ],
+      "blockers": [],
+      "verification": "E2E CDS test",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-021": {
       "status": "todo",

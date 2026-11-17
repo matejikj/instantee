@@ -1,13 +1,23 @@
-import type { AuthoringManifestV1, AuthoringNode } from "./generated/index.js";
-import { durationSecondsToFrames, type FrameRate } from "./time.js";
+import type {AuthoringManifestV1, AuthoringNode} from "./generated/index.js";
+import {durationSecondsToFrames, type FrameRate} from "./time.js";
 
-export type IntentType =
-  | "reveal"
-  | "explain"
-  | "compare"
-  | "focus"
-  | "build_suspense"
-  | "resolve";
+export const INTENT_TYPES = [
+  "reveal",
+  "explain",
+  "compare",
+  "focus",
+  "build_suspense",
+  "resolve",
+] as const;
+
+export type IntentType = (typeof INTENT_TYPES)[number];
+
+export type SemanticIntentInput = {
+  readonly type: IntentType;
+  readonly intensity: number;
+  readonly importance?: number;
+  readonly targetIds?: readonly string[];
+};
 
 export type TextNodeInput = {
   readonly id: string;
@@ -23,12 +33,9 @@ export type ShotInput = {
   /** Prefer durationFrames; durationSeconds uses the shared rounding policy. */
   readonly durationFrames?: number;
   readonly durationSeconds?: number;
-  readonly intent?: {
-    readonly type: IntentType;
-    readonly intensity: number;
-    readonly importance?: number;
-    readonly targetIds?: readonly string[];
-  };
+  /** Per-shot Style Bible / package override tag (audited as shot_override). */
+  readonly styleOverride?: string;
+  readonly intent?: SemanticIntentInput;
   readonly nodes: readonly TextNodeInput[];
 };
 
@@ -37,10 +44,42 @@ export type FilmInput = {
   readonly width?: number;
   readonly height?: number;
   readonly frameRate?: FrameRate;
+  /** Explicit film seed (number in JS-safe range, or decimal string for uint64). */
   readonly seed?: number | string;
   readonly style?: string;
   readonly shots: readonly ShotInput[];
 };
+
+/** Build a typed semantic intent for SDK authoring / CLI fixtures. */
+export function createIntent(
+  type: IntentType,
+  intensity: number,
+  options: {
+    readonly importance?: number;
+    readonly targetIds?: readonly string[];
+  } = {},
+): SemanticIntentInput {
+  if (!(INTENT_TYPES as readonly string[]).includes(type)) {
+    throw new Error(`unsupported intent type: ${type}`);
+  }
+  if (!Number.isFinite(intensity) || intensity < 0 || intensity > 1) {
+    throw new RangeError("intent intensity must be a finite number in [0, 1]");
+  }
+  if (options.importance !== undefined &&
+      (!Number.isFinite(options.importance) || options.importance < 0 ||
+       options.importance > 1)) {
+    throw new RangeError("intent importance must be in [0, 1]");
+  }
+  return Object.freeze({
+    type,
+    intensity,
+    ...(options.importance !== undefined ? {importance : options.importance}
+                                         : {}),
+    ...(options.targetIds !== undefined
+            ? {targetIds : Object.freeze([...options.targetIds ])}
+            : {}),
+  });
+}
 
 function freezeDeep<T>(value: T): Readonly<T> {
   if (value !== null && typeof value === "object") {
@@ -54,13 +93,13 @@ function freezeDeep<T>(value: T): Readonly<T> {
 
 function buildNode(input: TextNodeInput): AuthoringNode {
   const node: AuthoringNode = {
-    id: input.id,
-    type: "text",
-    text: input.text,
-    visible: true,
-    transform: {
-      translate: { x: input.x ?? 0, y: input.y ?? 0, z: 0 },
-      opacity: input.opacity ?? 1,
+    id : input.id,
+    type : "text",
+    text : input.text,
+    visible : true,
+    transform : {
+      translate : {x : input.x ?? 0, y : input.y ?? 0, z : 0},
+      opacity : input.opacity ?? 1,
     },
   };
   if (input.role !== undefined) {
@@ -81,40 +120,49 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
     throw new Error("at least one shot is required");
   }
 
-  const frameRate = input.frameRate ?? { numerator: 30, denominator: 1 };
+  const frameRate = input.frameRate ?? {numerator : 30, denominator : 1};
   const shots = input.shots.map((shot) => {
     let durationFrames = shot.durationFrames;
     if (durationFrames === undefined) {
       if (shot.durationSeconds === undefined) {
-        throw new Error(`shot ${shot.id} needs durationFrames or durationSeconds`);
+        throw new Error(
+            `shot ${shot.id} needs durationFrames or durationSeconds`);
       }
-      const converted = durationSecondsToFrames(shot.durationSeconds, frameRate);
+      const converted =
+          durationSecondsToFrames(shot.durationSeconds, frameRate);
       durationFrames = converted.frame;
       if (durationFrames < 1) {
         throw new RangeError(`shot ${shot.id} duration rounds to zero frames`);
       }
     }
     if (!Number.isInteger(durationFrames) || durationFrames < 1) {
-      throw new RangeError(`shot ${shot.id} durationFrames must be a positive integer`);
+      throw new RangeError(
+          `shot ${shot.id} durationFrames must be a positive integer`);
     }
 
     const nodes = shot.nodes.map(buildNode);
     const entry: AuthoringManifestV1["shots"][number] = {
-      id: shot.id,
-      duration_frames: durationFrames,
-      camera: { projection: "orthographic" },
+      id : shot.id,
+      duration_frames : durationFrames,
+      camera : {projection : "orthographic"},
       nodes,
     };
+    if (shot.styleOverride !== undefined) {
+      if (!shot.styleOverride) {
+        throw new Error(`shot ${shot.id} styleOverride must be non-empty`);
+      }
+      entry.style_override = shot.styleOverride;
+    }
     if (shot.intent) {
       entry.intent = {
-        type: shot.intent.type,
-        intensity: shot.intent.intensity,
+        type : shot.intent.type,
+        intensity : shot.intent.intensity,
       };
       if (shot.intent.importance !== undefined) {
         entry.intent.importance = shot.intent.importance;
       }
       if (shot.intent.targetIds !== undefined) {
-        entry.intent.target_ids = [...shot.intent.targetIds];
+        entry.intent.target_ids = [...shot.intent.targetIds ];
       }
     }
     return entry;
@@ -126,23 +174,23 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
   }
 
   const manifest: AuthoringManifestV1 = {
-    schema_version: "1.0.0",
-    film_id: input.filmId,
-    canvas: {
-      width: input.width ?? 1080,
-      height: input.height ?? 1920,
-      color: "rec709-sdr",
+    schema_version : "1.0.0",
+    film_id : input.filmId,
+    canvas : {
+      width : input.width ?? 1080,
+      height : input.height ?? 1920,
+      color : "rec709-sdr",
     },
-    frame_rate: {
-      numerator: frameRate.numerator,
-      denominator: frameRate.denominator,
+    frame_rate : {
+      numerator : frameRate.numerator,
+      denominator : frameRate.denominator,
     },
-    seed: input.seed ?? 42,
-    style: input.style ?? "editorial@1",
-    assets: [],
-    rigs: [],
-    transitions: [],
-    shots: [firstShot, ...restShots],
+    seed : input.seed ?? 42,
+    style : input.style ?? "editorial@1",
+    assets : [],
+    rigs : [],
+    transitions : [],
+    shots : [ firstShot, ...restShots ],
   };
 
   return freezeDeep(manifest);

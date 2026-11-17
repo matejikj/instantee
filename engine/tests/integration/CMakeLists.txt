@@ -60,6 +60,15 @@ add_test(NAME instantee_scene_video_mp4
 set_tests_properties(instantee_scene_video_mp4 PROPERTIES TIMEOUT 120 LABELS
   "cpu;smoke;pts")
 
+add_executable(instantee_cds_sdk_e2e_test cds_sdk_e2e_test.cpp)
+target_link_libraries(instantee_cds_sdk_e2e_test PRIVATE
+  instantee::export instantee::export_apple instantee::compiler
+  instantee::scene_ir instantee_build_options)
+add_test(NAME instantee_cds_sdk_e2e
+  COMMAND instantee_cds_sdk_e2e_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(instantee_cds_sdk_e2e PROPERTIES TIMEOUT 120 LABELS
+  "cpu;smoke;pts")
+
 add_executable(instantee_p3_gate_metrics_smoke_test
   p3_gate_metrics_smoke_test.cpp)
 target_link_libraries(instantee_p3_gate_metrics_smoke_test PRIVATE

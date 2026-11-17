@@ -1,11 +1,14 @@
 export type * from "./generated/index.js";
 export {
+  INTENT_TYPES,
   createFilm,
+  createIntent,
   filmToJson,
   type FilmInput,
   type ShotInput,
   type TextNodeInput,
   type IntentType,
+  type SemanticIntentInput,
 } from "./film.js";
 export {
   collectNodeIds,

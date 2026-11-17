@@ -4,6 +4,7 @@
 #include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/core_model/properties.hpp>
 #include <instantee/direction/directed_film.hpp>
+#include <instantee/direction/direction_report.hpp>
 #include <instantee/direction/motion_grammar.hpp>
 #include <instantee/direction/semantic_intent.hpp>
 #include <instantee/direction/style_package_registry.hpp>
@@ -153,7 +154,8 @@ void collect_author_claims(const scene_ir::AuthoringNode &node,
 std::expected<void, diagnostics::Error>
 resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
                     std::uint64_t start_frame, std::string_view package_id,
-                    std::vector<scene_ir::AnimationTrack> &tracks) {
+                    std::vector<scene_ir::AnimationTrack> &tracks,
+                    direction::DirectionReport *direction_report) {
   std::vector<direction::TrackClaim> claims;
   for (const auto &node : shot.nodes) {
     collect_author_claims(node, shot.id, claims);
@@ -199,6 +201,10 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
     // packages arrive in a later delivery).
     static const auto grammar =
         direction::make_builtin_motion_grammar_registry();
+    auto binding = grammar.resolve(package_id, *kind);
+    if (!binding) {
+      return std::unexpected(binding.error().with_shot(shot.id));
+    }
     auto lowered = direction::lower_semantic_intent(
         *semantic, shot.duration_frames, shot.id, package_id, grammar);
     if (!lowered) {
@@ -215,6 +221,10 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
     const direction::TrackSource cds_source =
         shot.style_override.has_value() ? direction::TrackSource::shot_override
                                         : direction::TrackSource::style_bible;
+    if (direction_report != nullptr) {
+      direction_report->add_intent(direction::make_intent_decision(
+          shot.id, *semantic, *binding, cds_source));
+    }
     for (auto &directed : *lowered) {
       claims.push_back(direction::TrackClaim{
           .track = std::move(directed),
@@ -227,7 +237,7 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
     return {};
   }
 
-  auto resolved = direction::resolve_track_precedence(claims);
+  auto resolved = direction::resolve_track_precedence_detailed(claims);
   if (!resolved) {
     return std::unexpected(
         std::move(resolved.error())
@@ -235,7 +245,14 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
             .with_json_path("/shots/" + std::to_string(index)));
   }
 
-  for (auto &directed : *resolved) {
+  if (direction_report != nullptr) {
+    for (auto &decision :
+         direction::make_channel_decisions(shot.id, resolved->winners)) {
+      direction_report->add_channel(std::move(decision));
+    }
+  }
+
+  for (auto &directed : resolved->tracks) {
     scene_ir::AnimationTrack track;
     track.id = std::move(directed.id);
     track.target_id = std::move(directed.target_id);
@@ -256,7 +273,8 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
 
 std::expected<scene_ir::SceneDocument, diagnostics::Error>
 compile_authoring(const scene_ir::AuthoringDocument &authoring,
-                  const CompileOptions &options) {
+                  const CompileOptions &options,
+                  direction::DirectionReport *direction_report) {
   const auto package_name = style_id(authoring.style);
   const auto package_ver = style_version(authoring.style);
   auto registry = direction::make_builtin_style_package_registry();
@@ -265,6 +283,10 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       registry.check_before_render(package_name, package_ver, engine);
   if (!package) {
     return std::unexpected(package.error());
+  }
+
+  if (direction_report != nullptr) {
+    *direction_report = direction::DirectionReport{};
   }
 
   scene_ir::SceneDocument doc;
@@ -322,8 +344,9 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
                    out_shot.node_ids, "font0", "mat0");
     }
-    if (auto lowered = resolve_shot_tracks(shot, index, cursor, package_name,
-                                           doc.animation_tracks);
+    if (auto lowered =
+            resolve_shot_tracks(shot, index, cursor, package_name,
+                                doc.animation_tracks, direction_report);
         !lowered) {
       return std::unexpected(lowered.error());
     }
@@ -376,6 +399,10 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
                 "Incoming transition shot must paint above the outgoing shot",
                 "/transitions"));
       }
+      if (direction_report != nullptr) {
+        direction_report->add_transition(
+            direction::make_transition_decision(span));
+      }
       scene_ir::TransitionSpan out;
       out.id = span.id;
       out.from_shot_id = span.from_shot_id;
@@ -403,6 +430,19 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
     return std::unexpected(graph.error());
   }
   return doc;
+}
+
+std::expected<CompileAuthoringResult, diagnostics::Error>
+compile_authoring_with_report(const scene_ir::AuthoringDocument &authoring,
+                              const CompileOptions &options) {
+  CompileAuthoringResult result;
+  auto document =
+      compile_authoring(authoring, options, &result.direction_report);
+  if (!document) {
+    return std::unexpected(document.error());
+  }
+  result.document = std::move(*document);
+  return result;
 }
 
 std::expected<std::string, diagnostics::Error>
@@ -595,7 +635,8 @@ scene_document_to_json(const scene_ir::SceneDocument &document) {
 std::expected<scene_ir::SceneDocument, diagnostics::Error>
 compile_authoring_json(std::span<const std::byte> bytes,
                        const CompileOptions &options,
-                       CompileStageTiming *timing) {
+                       CompileStageTiming *timing,
+                       direction::DirectionReport *direction_report) {
   CompileStageTiming local{};
   const auto t0 = clock::now();
   scene_ir::LoadOptions load_options;
@@ -610,7 +651,7 @@ compile_authoring_json(std::span<const std::byte> bytes,
   }
 
   const auto t1 = clock::now();
-  auto compiled = compile_authoring(*authoring, options);
+  auto compiled = compile_authoring(*authoring, options, direction_report);
   local.compile_ms = ms_since(t1);
   local.graph_ms = local.compile_ms;
   if (!compiled) {

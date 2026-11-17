@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T08:29:59.997327+00:00",
+  "updated_at_utc": "2026-11-17T08:45:49.063115+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3911,14 +3911,24 @@
       "notes": "Added RenderTargetPool over GpuResourceRegistry: exact-size reuse, clear-on-recycle/acquire policies, byte-budget preflight without silent downscale, move-only leases, and allocation/reuse counters."
     },
     "P3-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Delayed GPU/sink callbacks and cancellation do not overwrite busy data; fallback allocations cannot bypass the allocation threshold.",
-        "met": null
+        "criterion": "Delayed GPU/sink callback a cancel nepřepíší busy data; allocation threshold nelze obejít fallback alokací.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-006/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Interop integration test",
+      "completed_at_utc": "2026-11-17T08:45:49Z",
+      "notes": "Added fixed-capacity StagingBufferPool with GPU/sink holds: cancel does not clear busy bytes; try_acquire returns would_block without fallback allocation; interop copy_staging_to_sink covered by unit tests."
     },
     "P3-007": {
       "status": "todo",

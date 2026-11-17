@@ -19,6 +19,7 @@
 #include <instantee/render_core/render_target_pool.hpp>
 #include <instantee/render_core/renderer.hpp>
 #include <instantee/render_core/resource_registry.hpp>
+#include <instantee/render_core/staging_pool.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/frame.hpp>
 #include <instantee/render_metal/metal_backend.hpp>

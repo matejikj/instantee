@@ -3559,14 +3559,24 @@
       "notes": "ScalarTrack segment lookup + clamp ends; hold/linear; film-absolute frames across shots."
     },
     "P2-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Results are continuous where required and have no NaN values at boundaries.",
-        "met": null
+        "criterion": "V\u00fdsledky jsou spojit\u00e9 tam, kde maj\u00ed b\u00fdt, bez NaN na hranic\u00edch a s dokumentovanou extrapolation.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-009/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Easing numeric + boundary tests",
+      "completed_at_utc": "2026-11-17T03:53:53Z",
+      "notes": "cubic-bezier unit easing + clamp/extrapolate_linear; end-exclusive segments."
     },
     "P2-010": {
       "status": "todo",

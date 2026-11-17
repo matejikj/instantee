@@ -150,8 +150,9 @@ Create a directory when it gains its first implementation or executable
 contract. Do not create placeholder modules for the entire roadmap.
 
 - Add platform-neutral domain and runtime modules under `engine/src/`, such as
-  `core-model`, `scene-ir`, `compiler`, `animation`, `render-core`, `export-core`
-  and `runtime`. Each has a cohesive responsibility and explicit dependencies.
+  `core-model`, `scene-ir`, `compiler`, `animation`, `geometry`, `render-core`,
+  `export-core` and `runtime`. Each has a cohesive responsibility and explicit
+  dependencies.
 - Keep the Metal C++ backend in `engine/src/render-metal/` and Objective-C++ export
   integration in `engine/native/export-apple/`. Domain modules never include backend
   implementation details.

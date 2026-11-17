@@ -3991,14 +3991,24 @@
       "notes": "Extended DrawOp with ellipse/rounded-rect/line, CPU src-over goldens, FrameState-oriented WorldPrimitive lowering, Metal SDF PrimitiveRenderer, and a native walking-skeleton smoke that evaluates frames, stages RGBA and publishes via VideoSink plus PNG."
     },
     "P3-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Golden fixtures cover complex paths and geometry boundaries; static geometry is not tessellated per frame.",
-        "met": null
+        "criterion": "Golden fixtures pokrývají složité cesty a hraniční geometrii; statická geometrie se neteseluje per-frame.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-010/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Path tessellation tests",
+      "completed_at_utc": "2026-11-17T09:55:47Z",
+      "notes": "Added production geometry module with path flatten, private libtess2 fill tessellation, in-tree stroke expand and a compile-once PathGeometryCache. Pin is v1.0.2 (SGI-B-2.0). Unit goldens cover holes, winding rules, degenerates, budgets and cache hit/miss so static geometry is not re-tessellated per frame."
     },
     "P3-011": {
       "status": "todo",

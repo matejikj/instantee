@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "libtess2",
+  "vendor": "Mikko Mononen / Silicon Graphics, Inc.",
+  "license": "SGI-B-2.0",
+  "tag": "v1.0.2",
+  "commit": "882e5e92953d5ea2626a83da7ffbfd119ef80f53",
+  "archive_url": "https://codeload.github.com/memononen/libtess2/tar.gz/refs/tags/v1.0.2",
+  "archive_sha256": "f2a04467515555ab45abbf05f5ecdf0eb807f56f2e8b60e31f3848d51f9b4a41",
+  "include_root": "third_party/libtess2/Include",
+  "notes": "Vendored Source/ and Include/tesselator.h only (no Example/Contrib). Used privately behind the geometry path-tessellation port for flattened polygon fills. Stroking is implemented separately in engine/src/geometry."
+}

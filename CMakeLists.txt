@@ -13,6 +13,7 @@ enable_testing()
 include(cmake/ToolchainProbes.cmake)
 
 add_subdirectory(third_party/yyjson)
+add_subdirectory(third_party/libtess2)
 
 # Pinned Google Benchmark for CPU micrometrics. Never enable its test suite or
 # install rules inside the product tree.

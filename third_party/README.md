@@ -7,6 +7,7 @@ an immutable archive identity.
 | --- | --- | --- |
 | `metal-cpp/` | Apple metal-cpp tag `release/metal-cpp_macOS27.0.1_iOS27.0.1` | Apache-2.0 |
 | `google-benchmark/` | Google Benchmark tag `v1.9.1` | Apache-2.0 |
+| `libtess2/` | memononen/libtess2 tag `v1.0.2` | SGI-B-2.0 |
 
 Each pin directory contains `PIN.json` with the tag, commit and archive SHA-256
 used to verify the snapshot. Prefer replacing a pin as a whole. Document any

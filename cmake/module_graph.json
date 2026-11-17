@@ -90,6 +90,14 @@
       "allowed_dependencies": ["diagnostics", "core-model"],
       "notes": "yyjson is a private implementation dependency and must not leak into public headers."
     },
+    "geometry": {
+      "role": "production",
+      "target": "instantee_geometry",
+      "include_prefix": "instantee/geometry/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"],
+      "notes": "Path flatten/tessellate/stroke and compile-once mesh cache. libtess2 is a private fill dependency and must not leak into public headers; stroking is local."
+    },
     "render-core": {
       "role": "production",
       "target": "instantee_render_core",
@@ -145,6 +153,7 @@
     "engine/src/compiler/",
     "engine/src/runtime/",
     "engine/src/export-core/",
+    "engine/src/geometry/",
     "engine/src/render-core/",
     "engine/src/render-metal/",
     "engine/native/telemetry-apple/"

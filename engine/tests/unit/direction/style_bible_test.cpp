@@ -32,6 +32,8 @@ int main(int argc, char **argv) {
       root / "contracts/fixtures/style-bible/positive/editorial.style.json";
   const auto paper =
       root / "contracts/fixtures/style-bible/positive/paper-cinema.style.json";
+  const auto notebook = root / "contracts/fixtures/style-bible/positive/"
+                               "scientific-notebook.style.json";
   const auto bad_schema =
       root /
       "contracts/fixtures/style-bible/negative/unsupported-schema.style.json";
@@ -43,28 +45,40 @@ int main(int argc, char **argv) {
   expect(a.has_value(), "load editorial");
   auto b = load_style_bible_file(paper);
   expect(b.has_value(), "load paper-cinema");
-  if (!a || !b) {
+  auto c = load_style_bible_file(notebook);
+  expect(c.has_value(), "load scientific-notebook");
+  if (!a || !b || !c) {
     return EXIT_FAILURE;
   }
 
   expect(a->package_id() == "editorial", "editorial package_id");
   expect(b->package_id() == "paper-cinema", "paper package_id");
-  expect(a->package_id() != b->package_id(), "distinct packages");
+  expect(c->package_id() == "scientific-notebook", "notebook package_id");
+  expect(a->package_id() != b->package_id() &&
+             a->package_id() != c->package_id() &&
+             b->package_id() != c->package_id(),
+         "three distinct packages");
   expect(a->schema_version() == "1.0.0", "schema version");
   expect(a->colors().count("accent") == 1, "editorial accent color");
   expect(b->colors().count("pulp") == 1, "paper pulp color");
+  expect(c->colors().count("grid") == 1, "notebook grid color");
   expect(a->materials().count("halftone_panel") == 1, "editorial material");
   expect(b->materials().count("paper_sheet") == 1, "paper material");
+  expect(c->materials().count("pen_ink") == 1, "notebook material");
   expect(a->safe_area().mode == SafeAreaMode::reels_overlay, "editorial safe");
   expect(b->safe_area().mode == SafeAreaMode::reels_clear, "paper safe");
+  expect(c->safe_area().mode == SafeAreaMode::full_frame, "notebook safe");
   expect(a->motion().at("headline_reveal").duration_frames == 18,
          "editorial motion");
   expect(b->camera().at("depth_orbit").framing ==
              instantee::direction::CameraFraming::orbit,
          "paper camera");
+  expect(c->motion().at("ink_reveal").ease ==
+             instantee::direction::MotionEase::linear,
+         "notebook motion");
 
-  // Two manifests validate without requiring any core-model change: colors use
-  // existing LinearRgba values.
+  // Style Bible skeletons validate without requiring any core-model change:
+  // colors use existing LinearRgba values.
   expect(a->colors().at("ink").value.a == 1.0, "linear alpha");
 
   auto unsupported = load_style_bible_file(bad_schema);

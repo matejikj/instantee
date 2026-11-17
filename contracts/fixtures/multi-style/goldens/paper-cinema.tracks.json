@@ -1,0 +1,12 @@
+{
+  "schema_version": "multi-style-tracks/1",
+  "package_id": "paper-cinema",
+  "package_version": "1.0.0",
+  "tracks": [
+    {
+      "target_id": "title",
+      "property": "opacity",
+      "keyframes": [{"frame":0,"value":0}, {"frame":32,"value":0.68}]
+    }
+  ]
+}

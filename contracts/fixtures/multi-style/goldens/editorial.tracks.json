@@ -1,0 +1,12 @@
+{
+  "schema_version": "multi-style-tracks/1",
+  "package_id": "editorial",
+  "package_version": "1.0.0",
+  "tracks": [
+    {
+      "target_id": "title",
+      "property": "opacity",
+      "keyframes": [{"frame":0,"value":0}, {"frame":20,"value":0.8}]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "scientific-notebook",
+  "version": "1.0.0",
+  "minimum_engine_version": "0.1.0",
+  "tokens": {
+    "colors": {
+      "ink": {
+        "space": "linear-rgba",
+        "r": 0.08,
+        "g": 0.1,
+        "b": 0.14,
+        "a": 1
+      },
+      "page": {
+        "space": "linear-rgba",
+        "r": 0.97,
+        "g": 0.96,
+        "b": 0.93,
+        "a": 1
+      },
+      "grid": {
+        "space": "linear-rgba",
+        "r": 0.55,
+        "g": 0.7,
+        "b": 0.85,
+        "a": 0.35
+      }
+    },
+    "fonts": {
+      "equation": {
+        "family": "DejaVu Sans",
+        "role": "mono",
+        "size_scale": 1.05
+      },
+      "caption": {
+        "family": "DejaVu Sans",
+        "role": "caption",
+        "size_scale": 0.9
+      }
+    },
+    "materials": {
+      "pen_ink": {
+        "shader_feature": "ink-stroke",
+        "opacity": 1,
+        "parameters": {
+          "bleed": 0.12
+        }
+      },
+      "notebook_grid": {
+        "shader_feature": "grid-paper",
+        "opacity": 1,
+        "parameters": {
+          "cell_px": 24
+        }
+      }
+    },
+    "spacing": {
+      "margin": {
+        "px": 40
+      },
+      "note_gap": {
+        "px": 14
+      }
+    },
+    "motion": {
+      "ink_reveal": {
+        "ease": "linear",
+        "duration_frames": 24,
+        "intensity": 0.7,
+        "stagger_frames": 1
+      },
+      "diagram_settle": {
+        "ease": "ease_out",
+        "duration_frames": 20,
+        "intensity": 0.5,
+        "stagger_frames": 0
+      }
+    },
+    "camera": {
+      "page_hold": {
+        "framing": "static",
+        "ease": "linear"
+      },
+      "detail_push": {
+        "framing": "push_in",
+        "ease": "ease_out"
+      }
+    },
+    "safe_area": {
+      "mode": "full_frame",
+      "top_px": 0,
+      "bottom_px": 0,
+      "left_px": 0,
+      "right_px": 0
+    }
+  }
+}

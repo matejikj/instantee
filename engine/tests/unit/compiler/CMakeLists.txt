@@ -49,3 +49,14 @@ add_test(NAME spike_compiler_transition_compile
   COMMAND spike_compiler_transition_compile_test)
 set_tests_properties(spike_compiler_transition_compile PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_compiler_multi_style_compile_test
+  multi_style_compile_test.cpp)
+target_link_libraries(spike_compiler_multi_style_compile_test PRIVATE
+  instantee::compiler instantee::direction instantee_build_options)
+target_compile_definitions(spike_compiler_multi_style_compile_test PRIVATE
+  "INSTANTEE_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\"")
+add_test(NAME spike_compiler_multi_style_compile
+  COMMAND spike_compiler_multi_style_compile_test)
+set_tests_properties(spike_compiler_multi_style_compile PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

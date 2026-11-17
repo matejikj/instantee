@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:48:41Z",
+  "updated_at_utc": "2026-11-17T16:54:12Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4636,14 +4636,22 @@
       "evidence_tier_min": "A"
     },
     "P4-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The same neutral scene compiles into three distinct direction plans without modifying the renderer.",
-        "met": null
+        "criterion": "Stejná scéna má tři validní direction outputs a extension-style test je zelený bez změny doménového jádra.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-018/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Multi-style compiler goldens + extension test",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-019": {
       "status": "todo",

@@ -3579,14 +3579,24 @@
       "notes": "cubic-bezier unit easing + clamp/extrapolate_linear; end-exclusive segments."
     },
     "P2-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Frame N is identical regardless of evaluation order.",
-        "met": null
+        "criterion": "Sn\u00edmek N je stejn\u00fd p\u0159i libovoln\u00e9m po\u0159ad\u00ed vyhodnocen\u00ed.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-010/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Spring property tests",
+      "completed_at_utc": "2026-11-17T04:06:15Z",
+      "notes": "Analytical under/critical/overdamped spring; pure time/frame sampling."
     },
     "P2-011": {
       "status": "todo",

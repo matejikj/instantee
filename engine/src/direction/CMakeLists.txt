@@ -7,6 +7,7 @@ add_library(instantee_direction STATIC
   src/motion_grammar.cpp
   src/headline_reveal.cpp
   src/editorial_asym_layout.cpp
+  src/editorial_reels_composition.cpp
   src/composition_constraints.cpp
   src/safe_area.cpp
   src/shot_planner.cpp

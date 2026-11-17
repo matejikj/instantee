@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T19:34:33Z",
+  "updated_at_utc": "2026-11-17T19:40:38Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4925,14 +4925,23 @@
       "evidence_tier_min": "A"
     },
     "P5-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Safe-area settings can be changed through a versioned token.",
-        "met": null
+        "criterion": "Nastavení safe-area lze změnit verzovaným tokenem.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-013/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Reels layout smoke",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T19:40:38Z"
     },
     "P5-014": {
       "status": "todo",

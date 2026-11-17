@@ -3,6 +3,7 @@
 #include "device_native.hpp"
 #include "halftone_metallib.hpp"
 #include "metal_owner.hpp"
+#include "print_grain_metallib.hpp"
 #include "shared_surface_pattern_metallib.hpp"
 #include "test_pattern_metallib.hpp"
 
@@ -129,9 +130,21 @@ ShaderModuleDesc halftone_shader_module() {
   };
 }
 
+ShaderModuleDesc print_grain_shader_module() {
+  return ShaderModuleDesc{
+      .id = "print_grain",
+      .version = 1,
+      .feature_id = "print_grain",
+      .entry_points = {"vs_print_grain_main", "fs_print_grain_main"},
+      .metallib_bytes =
+          std::span<const std::uint8_t>{detail::kPrintGrainMetallib,
+                                        detail::kPrintGrainMetallib_size},
+  };
+}
+
 std::vector<ShaderModuleDesc> builtin_shader_modules() {
   return {test_pattern_shader_module(), shared_surface_shader_module(),
-          halftone_shader_module()};
+          halftone_shader_module(), print_grain_shader_module()};
 }
 
 } // namespace instantee::render_metal

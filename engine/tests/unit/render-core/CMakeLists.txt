@@ -83,6 +83,14 @@ add_test(NAME spike_halftone
   COMMAND spike_halftone_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_halftone PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")
 
+add_executable(spike_print_grain_test print_grain_test.cpp)
+target_link_libraries(spike_print_grain_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_print_grain
+  COMMAND spike_print_grain_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_print_grain PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_shadow_test shadow_test.cpp)
 target_link_libraries(spike_shadow_test PRIVATE
   instantee::render_core instantee_build_options)

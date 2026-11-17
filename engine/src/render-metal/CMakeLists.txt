@@ -113,6 +113,19 @@ instantee_compile_metallib(
   SYMBOL_NAMESPACE "instantee::render_metal::detail"
   SYMBOL_NAME "kHalftoneMetallib")
 
+set(INSTANTEE_PRINT_GRAIN_SHADER
+  "${PROJECT_SOURCE_DIR}/engine/shaders/spike/print_grain.metal")
+set(INSTANTEE_PRINT_GRAIN_METALLIB
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/print_grain.metallib")
+set(INSTANTEE_PRINT_GRAIN_METALLIB_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/print_grain_metallib.hpp")
+instantee_compile_metallib(
+  SOURCES "${INSTANTEE_PRINT_GRAIN_SHADER}"
+  OUTPUT_METALLIB "${INSTANTEE_PRINT_GRAIN_METALLIB}"
+  OUTPUT_HEADER "${INSTANTEE_PRINT_GRAIN_METALLIB_HEADER}"
+  SYMBOL_NAMESPACE "instantee::render_metal::detail"
+  SYMBOL_NAME "kPrintGrainMetallib")
+
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
 find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 
@@ -129,7 +142,8 @@ add_library(instantee_render_metal STATIC
   "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
   "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}"
   "${INSTANTEE_PRIMITIVES_METALLIB_HEADER}"
-  "${INSTANTEE_HALFTONE_METALLIB_HEADER}")
+  "${INSTANTEE_HALFTONE_METALLIB_HEADER}"
+  "${INSTANTEE_PRINT_GRAIN_METALLIB_HEADER}")
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"

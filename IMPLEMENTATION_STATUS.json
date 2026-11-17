@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T11:39:39Z",
+  "updated_at_utc": "2026-11-17T12:09:53Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4151,14 +4151,24 @@
       "evidence_tier_min": "C"
     },
     "P3-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Nested clips and masks work across multiple layers.",
-        "met": null
+        "criterion": "Vno\u0159en\u00e9 clips a masky funguj\u00ed i p\u0159es n\u011bkolik vrstev.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-018/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Mask compositing goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T12:09:53Z",
+      "notes": "Added GPU-neutral ClipScript compositor (nested scissors + shape masks) and Metal ClipMaskRenderer using MTLScissorRect plus stencil increment/decrement. Mask compositing goldens compare CPU vs Metal."
     },
     "P3-019": {
       "status": "todo",

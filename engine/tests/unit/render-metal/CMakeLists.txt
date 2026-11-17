@@ -64,3 +64,10 @@ target_compile_definitions(spike_metal_glyph_atlas_test PRIVATE
 add_test(NAME spike_metal_glyph_atlas COMMAND spike_metal_glyph_atlas_test)
 set_tests_properties(spike_metal_glyph_atlas PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
+
+add_executable(spike_metal_clip_mask_test clip_mask_test.cpp)
+target_link_libraries(spike_metal_clip_mask_test PRIVATE
+  instantee::render_metal instantee_build_options)
+add_test(NAME spike_metal_clip_mask COMMAND spike_metal_clip_mask_test)
+set_tests_properties(spike_metal_clip_mask PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

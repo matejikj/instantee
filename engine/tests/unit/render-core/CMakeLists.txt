@@ -60,3 +60,10 @@ target_link_libraries(spike_instance_batch_test PRIVATE
 add_test(NAME spike_instance_batch COMMAND spike_instance_batch_test)
 set_tests_properties(spike_instance_batch PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_clip_compositor_test clip_compositor_test.cpp)
+target_link_libraries(spike_clip_compositor_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_clip_compositor COMMAND spike_clip_compositor_test)
+set_tests_properties(spike_clip_compositor PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

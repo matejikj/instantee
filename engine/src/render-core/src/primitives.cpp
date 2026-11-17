@@ -145,7 +145,36 @@ void visit_bounds(Rgba8Image &image, float x0, float y0, float x1, float y1,
   }
 }
 
+[[nodiscard]] float shape_coverage_impl(const DrawOp &op, float px,
+                                        float py) noexcept {
+  switch (op.kind) {
+  case DrawOpKind::fill_rect:
+    return is_valid_rect(op.rect) ? cover_rect(px, py, op.rect) : 0.0f;
+  case DrawOpKind::fill_ellipse:
+    return is_valid_rect(op.rect) ? cover_ellipse(px, py, op.rect) : 0.0f;
+  case DrawOpKind::fill_rounded_rect:
+    return is_valid_rect(op.rect)
+               ? cover_rounded_rect(px, py, op.rect, op.corner_radius)
+               : 0.0f;
+  case DrawOpKind::stroke_line:
+    if (!(op.stroke_width > 0.0f) || !std::isfinite(op.stroke_width) ||
+        !std::isfinite(op.rect.x) || !std::isfinite(op.rect.y) ||
+        !std::isfinite(op.x1) || !std::isfinite(op.y1)) {
+      return 0.0f;
+    }
+    return cover_line(px, py, op.rect.x, op.rect.y, op.x1, op.y1,
+                      op.stroke_width);
+  case DrawOpKind::clear:
+    return 0.0f;
+  }
+  return 0.0f;
+}
+
 } // namespace
+
+float shape_coverage(const DrawOp &op, float px, float py) noexcept {
+  return shape_coverage_impl(op, px, py);
+}
 
 std::expected<void, diagnostics::Error> apply_draw_op(Rgba8Image &image,
                                                       const DrawOp &op) {

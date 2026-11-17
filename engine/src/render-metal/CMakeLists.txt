@@ -111,6 +111,7 @@ add_library(instantee_render_metal STATIC
   src/shader_module.cpp
   src/test_pattern.cpp
   src/primitive_renderer.cpp
+  src/clip_mask_renderer.cpp
   src/metal_glyph_atlas.cpp
   "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
   "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}"

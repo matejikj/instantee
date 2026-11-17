@@ -7,6 +7,7 @@ add_library(instantee_render_core STATIC
   src/shader_features.cpp
   src/pipeline_cache.cpp
   src/primitives.cpp
+  src/clip_compositor.cpp
   src/frame_primitives.cpp
   src/instance_batch.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)

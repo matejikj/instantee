@@ -1,0 +1,5 @@
+name=crop-wipe preset=crop_wipe emphasis=mask_push packed=150 planned=150 preserved=1 safe=1 frames=20
+span start=80 dur=20 blend=wipe kind=wipe
+f0 p=0 wipe=0 zoom=1 type_s=1 type_o=0.15 inside=1
+f10 p=0.526316 wipe=0.526316 zoom=1 type_s=1 type_o=0.597368 inside=1
+f19 p=1 wipe=1 zoom=1 type_s=1 type_o=1 inside=1

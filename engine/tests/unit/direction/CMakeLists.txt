@@ -93,6 +93,15 @@ add_test(NAME spike_direction_transition_planner
 set_tests_properties(spike_direction_transition_planner PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
 
+add_executable(spike_direction_editorial_transitions_test
+  editorial_transitions_test.cpp)
+target_link_libraries(spike_direction_editorial_transitions_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_editorial_transitions
+  COMMAND spike_direction_editorial_transitions_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_editorial_transitions PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")
+
 add_executable(spike_direction_creative_variation_test
   creative_variation_test.cpp)
 target_link_libraries(spike_direction_creative_variation_test PRIVATE

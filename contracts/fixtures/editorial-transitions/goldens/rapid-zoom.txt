@@ -1,0 +1,5 @@
+name=rapid-zoom preset=rapid_zoom emphasis=slam_in packed=150 planned=150 preserved=1 safe=1 frames=16
+span start=82 dur=16 blend=dissolve kind=reveal
+f0 p=0 wipe=0 zoom=1 type_s=1 type_o=1 inside=1
+f8 p=0.533333 wipe=0.533333 zoom=1.098 type_s=1.03267 type_o=1 inside=1
+f15 p=1 wipe=1 zoom=1 type_s=1 type_o=1 inside=1

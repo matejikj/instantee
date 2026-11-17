@@ -1,0 +1,11 @@
+{
+  "schema_version": "kinetic-text/1",
+  "id": "fi-ligature",
+  "text": "fi",
+  "size_px": 48,
+  "expect": {
+    "glyph_count": 1,
+    "cluster_lock_prevents_tear": true,
+    "notes": "Grapheme-level offsets share the ligature glyph via cluster locks."
+  }
+}

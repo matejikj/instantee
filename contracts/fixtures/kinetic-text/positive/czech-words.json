@@ -1,0 +1,12 @@
+{
+  "schema_version": "kinetic-text/1",
+  "id": "czech-words",
+  "text": "Příliš žluťoučký kůň úpěl ďábelské ódy",
+  "size_px": 32,
+  "expect": {
+    "min_words": 5,
+    "lines": 1,
+    "animation_preserves_glyph_ids": true,
+    "notes": "Diacritics stay inside grapheme/word units; sampling does not reshape."
+  }
+}

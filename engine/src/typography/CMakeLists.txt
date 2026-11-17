@@ -2,7 +2,8 @@ include("${PROJECT_SOURCE_DIR}/cmake/FindTypographyDeps.cmake")
 
 add_library(instantee_typography STATIC
   src/text_shape.cpp
-  src/glyph_atlas.cpp)
+  src/glyph_atlas.cpp
+  src/kinetic_layout.cpp)
 add_library(instantee::typography ALIAS instantee_typography)
 target_include_directories(instantee_typography
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

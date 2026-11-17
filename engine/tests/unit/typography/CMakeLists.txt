@@ -16,3 +16,14 @@ add_test(NAME spike_typography_glyph_atlas
          COMMAND spike_typography_glyph_atlas_test)
 set_tests_properties(spike_typography_glyph_atlas PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
+
+add_executable(spike_typography_kinetic_layout_test kinetic_layout_test.cpp)
+target_link_libraries(spike_typography_kinetic_layout_test PRIVATE
+  instantee::typography instantee_build_options)
+target_compile_definitions(spike_typography_kinetic_layout_test PRIVATE
+  "INSTANTEE_PINNED_FONT_DIR=\"${PROJECT_SOURCE_DIR}/third_party/fonts\""
+  "INSTANTEE_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\"")
+add_test(NAME spike_typography_kinetic_layout
+         COMMAND spike_typography_kinetic_layout_test)
+set_tests_properties(spike_typography_kinetic_layout PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")

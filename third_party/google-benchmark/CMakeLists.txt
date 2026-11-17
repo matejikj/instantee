@@ -138,7 +138,9 @@ if (BENCHMARK_BUILD_32_BITS)
   add_required_cxx_compiler_flag(-m32)
 endif()
 
-set(BENCHMARK_CXX_STANDARD 17)
+# Instantee local patch: keep the library on the product C++23 dialect so
+# compile_commands and toolchain probes stay consistent across the tree.
+set(BENCHMARK_CXX_STANDARD 23)
 
 set(CMAKE_CXX_STANDARD ${BENCHMARK_CXX_STANDARD})
 set(CMAKE_CXX_STANDARD_REQUIRED YES)

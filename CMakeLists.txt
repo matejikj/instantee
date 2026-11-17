@@ -22,6 +22,14 @@ set(BENCHMARK_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
 set(BENCHMARK_ENABLE_WERROR OFF CACHE BOOL "" FORCE)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES OFF CACHE BOOL "" FORCE)
 add_subdirectory(third_party/google-benchmark EXCLUDE_FROM_ALL)
+foreach(benchmark_target IN ITEMS benchmark benchmark_main)
+  if(TARGET ${benchmark_target})
+    set_target_properties(${benchmark_target} PROPERTIES
+      CXX_STANDARD 23
+      CXX_STANDARD_REQUIRED ON
+      CXX_EXTENSIONS OFF)
+  endif()
+endforeach()
 
 add_subdirectory(engine)
 add_subdirectory(benchmarks)

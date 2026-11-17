@@ -108,3 +108,12 @@ add_test(NAME spike_runtime_frame_eval_scheduler
   COMMAND spike_runtime_frame_eval_scheduler_test)
 set_tests_properties(spike_runtime_frame_eval_scheduler PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
+
+add_executable(spike_runtime_determinism_phase_gate_test
+  determinism_phase_gate_test.cpp)
+target_link_libraries(spike_runtime_determinism_phase_gate_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_determinism_phase_gate
+  COMMAND spike_runtime_determinism_phase_gate_test)
+set_tests_properties(spike_runtime_determinism_phase_gate PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

@@ -8,5 +8,5 @@
   "archive_url": "https://github.com/google/benchmark/archive/refs/tags/v1.9.1.tar.gz",
   "archive_sha256": "32131c08ee31eeff2c8968d7e874f3cb648034377dfc32a4c377fa8796d84981",
   "include_root": "third_party/google-benchmark/include",
-  "notes": "Vendored for CPU micrometrics (frame evaluation / allocations). Tests and docs excluded. Configure with BENCHMARK_ENABLE_TESTING=OFF. Local patch: benchmark.h uses __LINE__ for BENCHMARK_PRIVATE_UNIQUE_ID (avoids clang-tidy -Wc2y-extensions on __COUNTER__)."
+  "notes": "Vendored for CPU micrometrics (frame evaluation / allocations). Tests and docs excluded. Configure with BENCHMARK_ENABLE_TESTING=OFF. Local patches: (1) benchmark.h uses __LINE__ for BENCHMARK_PRIVATE_UNIQUE_ID (avoids clang-tidy -Wc2y-extensions on __COUNTER__); (2) BENCHMARK_CXX_STANDARD forced to 23 for toolchain consistency."
 }

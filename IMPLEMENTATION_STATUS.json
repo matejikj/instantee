@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T06:18:41.733198+00:00",
+  "updated_at_utc": "2026-11-17T07:22:38.332172+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3779,14 +3779,36 @@
       "notes": "Google Benchmark v1.9.1 frame-eval-bench micrometrics; anonymized report shows bottlenecks and plateaued per-frame RSS; non_certified_dev_baseline."
     },
     "P2-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The P2 gate confirms bit-identical logical state for the same inputs and build configuration.",
-        "met": null
+        "criterion": "P2 gate potvrzuje bitově shodný logický state pro stejné inputs na stejné build konfiguraci.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Bit-identical logical state for same inputs/build; independent frame evaluation",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P2-020/gate-decision.json",
+              "implementation-evidence/P2-020/gate-report.json",
+              "implementation-evidence/P2-020/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-020/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-020/checks.json",
+        "implementation-evidence/P2-020/gate-decision.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "C",
+      "verification": "P2 gate report",
+      "completed_at_utc": "2026-11-17T07:22:38Z",
+      "notes": "Determinism phase gate PASS: permuted evaluate_frame bit-identical to sequential; preview single-eval seek; boundaries/errors; time conversion; full --gate matrix."
     },
     "P3-001": {
       "status": "todo",
@@ -5356,31 +5378,66 @@
     },
     "P1": {
       "gate_task_id": "P1-020",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
         "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-020/",
+        "implementation-evidence/P1-020/gate-decision.json",
+        "implementation-evidence/P1-020/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "architecture gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-020/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "Performance certification remains a later gate.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     },
     "P2": {
       "gate_task_id": "P2-020",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
+        "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-020/",
+        "implementation-evidence/P2-020/gate-decision.json",
+        "implementation-evidence/P2-020/gate-report.json",
+        "implementation-evidence/P2-020/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "determinism gate binary",
+          "status": "pass",
+          "evidence": "implementation-evidence/P2-020/gate-report.json"
+        },
+        {
+          "name": "full check.py --gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P2-020/checks.json"
+        }
+      ],
+      "blockers": [],
+      "limitations": [
+        "Bit-identical logical FrameState is for the same build configuration.",
+        "Performance certification remains a later gate.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     },
     "P3": {
       "gate_task_id": "P3-025",

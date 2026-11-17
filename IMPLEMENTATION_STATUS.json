@@ -3599,14 +3599,24 @@
       "notes": "Analytical under/critical/overdamped spring; pure time/frame sampling."
     },
     "P2-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Angle tests across \u00b1\u03c0 and color transitions match the contract.",
-        "met": null
+        "criterion": "Testy \u00fahlu p\u0159es \u00b1\u03c0 a barevn\u00e9 p\u0159echody souhlas\u00ed s kontraktem.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-011/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Rotation/color tests",
+      "completed_at_utc": "2026-11-17T04:14:00Z",
+      "notes": "Short-arc 2D angles + quat slerp; linear RGBA working-space color lerp."
     },
     "P2-012": {
       "status": "todo",

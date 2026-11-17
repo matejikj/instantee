@@ -57,3 +57,12 @@ add_test(NAME spike_core_model_properties
   COMMAND spike_core_model_properties_test)
 set_tests_properties(spike_core_model_properties PROPERTIES TIMEOUT 10 LABELS
   "cpu;smoke")
+
+add_executable(spike_core_model_orientation_color_test
+  orientation_color_test.cpp)
+target_link_libraries(spike_core_model_orientation_color_test PRIVATE
+  instantee::core_model instantee_build_options)
+add_test(NAME spike_core_model_orientation_color
+  COMMAND spike_core_model_orientation_color_test)
+set_tests_properties(spike_core_model_orientation_color PROPERTIES TIMEOUT 10
+  LABELS "cpu;smoke")

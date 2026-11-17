@@ -4,25 +4,34 @@ using namespace metal;
 
 struct VertexOut {
   float4 position [[position]];
+  uint iid [[flat]];
 };
 
-struct PrimitiveUniforms {
+struct CanvasUniforms {
   float2 canvas; // width, height
-  float2 _pad0;  // float4 alignment
-  float4 rect;   // x, y, w, h (line: x,y = start)
-  float4 color;  // straight rgba 0..1
+  float2 _pad0;
+};
+
+// Per-instance attributes; must match CPU InstanceGpu packing.
+// Aligned to 16 bytes (float4); stride is 64 for device arrays.
+struct InstanceData {
+  float4 rect;  // x, y, w, h (line: x,y = start)
+  float4 color; // straight rgba 0..1
   float2 line_end;
   float corner_radius;
   float stroke_width;
   uint kind; // 2 rect, 3 ellipse, 4 rounded, 5 line
   uint _pad1;
+  float2 _pad2; // total stride 64 (16-byte aligned)
 };
 
-vertex VertexOut vs_prim_main(uint vid [[vertex_id]]) {
+vertex VertexOut vs_prim_main(uint vid [[vertex_id]],
+                              uint iid [[instance_id]]) {
   constexpr float2 positions[3] = {float2(-1.0, -1.0), float2(3.0, -1.0),
                                    float2(-1.0, 3.0)};
   VertexOut out;
   out.position = float4(positions[vid], 0.0, 1.0);
+  out.iid = iid;
   return out;
 }
 
@@ -55,9 +64,13 @@ static float cover_line(float2 p, float2 a, float2 b, float width) {
 }
 
 fragment float4 fs_prim_main(VertexOut in [[stage_in]],
-                             constant PrimitiveUniforms &u [[buffer(0)]]) {
+                             constant CanvasUniforms &canvas [[buffer(0)]],
+                             const device InstanceData *instances
+                             [[buffer(1)]]) {
+  const InstanceData u = instances[in.iid];
   // Framebuffer pixel coords: origin top-left, +Y down.
   const float2 pixel = in.position.xy;
+  (void)canvas;
   float cover = 0.0;
   if (u.kind == 2u) {
     cover = cover_rect(pixel, u.rect);

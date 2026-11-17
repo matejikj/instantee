@@ -43,6 +43,9 @@ struct DrawOp {
   float corner_radius = 0;
   // stroke_line half-extent is stroke_width/2 in pixel space.
   float stroke_width = 1;
+  // Opaque texture/atlas binding for batch splits. Zero means unbound/solid.
+  // Changing this value between consecutive shape ops ends the current batch.
+  std::uint64_t texture_binding = 0;
 };
 
 // One render pass description. Resource handles stay opaque indices so

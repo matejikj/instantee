@@ -22,7 +22,7 @@ src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
 src/geometry/          Path flatten, fill tessellation port, stroke expand, mesh cache
-src/render-core/       GPU-neutral DrawOp/PassDesc, primitives, graph, registry, pools, features, cache
+src/render-core/       GPU-neutral DrawOp/PassDesc, primitives, instance batching, graph, registry, pools, features, cache
 src/render-metal/      Production Metal device/submit owner, SDF primitives, offline metallib modules
 shaders/               Pinned MSL sources and module manifest; metallibs compiled offline
 native/                Objective-C++ adapters; export/transfer remain spike

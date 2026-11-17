@@ -1,5 +1,6 @@
 #include <instantee/render_metal/primitive_renderer.hpp>
 
+#include <instantee/render_core/instance_batch.hpp>
 #include <instantee/render_core/renderer.hpp>
 
 #include "device_native.hpp"
@@ -15,13 +16,18 @@
 #include <new>
 #include <span>
 #include <utility>
+#include <vector>
 
 namespace instantee::render_metal {
 namespace {
 
-struct PrimitiveUniforms {
+struct CanvasUniforms {
   float canvas[2];
   float pad0[2]{};
+};
+static_assert(sizeof(CanvasUniforms) == 16, "must match MSL layout");
+
+struct InstanceGpu {
   float rect[4];
   float color[4];
   float line_end[2];
@@ -29,8 +35,11 @@ struct PrimitiveUniforms {
   float stroke_width = 0;
   std::uint32_t kind = 0;
   std::uint32_t pad1 = 0;
+  float pad2[2]{};
 };
-static_assert(sizeof(PrimitiveUniforms) == 72, "must match MSL layout");
+static_assert(sizeof(InstanceGpu) == 64, "must match MSL InstanceData stride");
+static_assert(sizeof(InstanceGpu) % 16 == 0,
+              "instance stride must be 16-byte aligned");
 
 [[nodiscard]] const char *ns_error_message(NS::Error *error) {
   if (error == nullptr || error->localizedDescription() == nullptr) {
@@ -120,25 +129,22 @@ compile_primitives_pipeline(MTL::Device *device) {
   return pipeline;
 }
 
-[[nodiscard]] PrimitiveUniforms make_uniforms(const render_core::DrawOp &op,
-                                              std::uint32_t width,
-                                              std::uint32_t height) {
-  PrimitiveUniforms u{};
-  u.canvas[0] = static_cast<float>(width);
-  u.canvas[1] = static_cast<float>(height);
-  u.rect[0] = op.rect.x;
-  u.rect[1] = op.rect.y;
-  u.rect[2] = op.rect.width;
-  u.rect[3] = op.rect.height;
-  u.color[0] = static_cast<float>(op.color.r) / 255.0f;
-  u.color[1] = static_cast<float>(op.color.g) / 255.0f;
-  u.color[2] = static_cast<float>(op.color.b) / 255.0f;
-  u.color[3] = static_cast<float>(op.color.a) / 255.0f;
-  u.line_end[0] = op.x1;
-  u.line_end[1] = op.y1;
-  u.corner_radius = op.corner_radius;
-  u.stroke_width = op.stroke_width;
-  u.kind = static_cast<std::uint32_t>(op.kind);
+[[nodiscard]] InstanceGpu
+make_instance(const render_core::InstanceAttrib &inst) {
+  InstanceGpu u{};
+  u.rect[0] = inst.rect.x;
+  u.rect[1] = inst.rect.y;
+  u.rect[2] = inst.rect.width;
+  u.rect[3] = inst.rect.height;
+  u.color[0] = static_cast<float>(inst.color.r) / 255.0f;
+  u.color[1] = static_cast<float>(inst.color.g) / 255.0f;
+  u.color[2] = static_cast<float>(inst.color.b) / 255.0f;
+  u.color[3] = static_cast<float>(inst.color.a) / 255.0f;
+  u.line_end[0] = inst.x1;
+  u.line_end[1] = inst.y1;
+  u.corner_radius = inst.corner_radius;
+  u.stroke_width = inst.stroke_width;
+  u.kind = static_cast<std::uint32_t>(inst.kind);
   return u;
 }
 
@@ -210,9 +216,9 @@ PrimitiveRenderer::create(Device &device,
 
 std::expected<Rgba8Frame, Error>
 PrimitiveRenderer::render(const render_core::PassDesc &pass) {
-  auto valid = render_core::validate_pass(pass);
-  if (!valid) {
-    return std::unexpected(valid.error());
+  auto batched = render_core::batch_pass(pass);
+  if (!batched) {
+    return std::unexpected(batched.error());
   }
   if (!impl_ || impl_->device == nullptr || impl_->queue == nullptr ||
       !impl_->pipeline) {
@@ -274,13 +280,9 @@ PrimitiveRenderer::render(const render_core::PassDesc &pass) {
   detail::MetalOwner<MTL::CommandBuffer> command =
       detail::retain_owner(raw_command);
 
-  render_core::Rgba8 clear_color{0, 0, 0, 255};
-  for (const render_core::DrawOp &op : pass.ops) {
-    if (op.kind == render_core::DrawOpKind::clear) {
-      clear_color = op.color;
-      break;
-    }
-  }
+  const render_core::Rgba8 clear_color = batched->has_clear
+                                             ? batched->clear_color
+                                             : render_core::Rgba8{0, 0, 0, 255};
 
   detail::MetalOwner<MTL::RenderPassDescriptor> rpd{
       MTL::RenderPassDescriptor::alloc()->init()};
@@ -304,16 +306,39 @@ PrimitiveRenderer::render(const render_core::PassDesc &pass) {
                                  "Cannot create a render command encoder"});
   }
   encoder->setRenderPipelineState(impl_->pipeline.get());
-  for (const render_core::DrawOp &op : pass.ops) {
-    if (op.kind == render_core::DrawOpKind::clear) {
+
+  CanvasUniforms canvas{};
+  canvas.canvas[0] = static_cast<float>(pass.width_px);
+  canvas.canvas[1] = static_cast<float>(pass.height_px);
+  encoder->setFragmentBytes(&canvas, sizeof(canvas), 0);
+
+  // Keep instance buffers alive until the command buffer completes.
+  std::vector<detail::MetalOwner<MTL::Buffer>> instance_buffers;
+  instance_buffers.reserve(batched->batches.size());
+
+  for (const render_core::DrawBatch &batch : batched->batches) {
+    if (batch.instances.empty()) {
       continue;
     }
-    const PrimitiveUniforms uniforms =
-        make_uniforms(op, pass.width_px, pass.height_px);
-    encoder->setVertexBytes(&uniforms, sizeof(uniforms), 0);
-    encoder->setFragmentBytes(&uniforms, sizeof(uniforms), 0);
+    std::vector<InstanceGpu> gpu_instances;
+    gpu_instances.reserve(batch.instances.size());
+    for (const auto &inst : batch.instances) {
+      gpu_instances.push_back(make_instance(inst));
+    }
+    const std::size_t bytes = gpu_instances.size() * sizeof(InstanceGpu);
+    detail::MetalOwner<MTL::Buffer> buffer{impl_->device->newBuffer(
+        gpu_instances.data(), bytes, MTL::ResourceStorageModeShared)};
+    if (!buffer) {
+      encoder->endEncoding();
+      return std::unexpected(Error{ExitCode::gpu_failure,
+                                   "instance_buffer_failed", "metal",
+                                   "Cannot allocate instance buffer"});
+    }
+    encoder->setFragmentBuffer(buffer.get(), 0, 1);
     encoder->drawPrimitives(MTL::PrimitiveTypeTriangle, NS::UInteger{0},
-                            NS::UInteger{3});
+                            NS::UInteger{3},
+                            NS::UInteger{gpu_instances.size()});
+    instance_buffers.push_back(std::move(buffer));
   }
   encoder->endEncoding();
 

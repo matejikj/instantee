@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T09:44:09Z",
+  "updated_at_utc": "2026-11-17T10:16:54Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4011,14 +4011,24 @@
       "notes": "Added production geometry module with path flatten, private libtess2 fill tessellation, in-tree stroke expand and a compile-once PathGeometryCache. Pin is v1.0.2 (SGI-B-2.0). Unit goldens cover holes, winding rules, degenerates, budgets and cache hit/miss so static geometry is not re-tessellated per frame."
     },
     "P3-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Multiple identical objects use fewer draw calls without changing pixels.",
-        "met": null
+        "criterion": "Více shodných objektů používá méně draw calls bez změny pixelů.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-011/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C",
+      "verification": "Batching benchmark + golden",
+      "completed_at_utc": "2026-11-17T10:16:54Z",
+      "notes": "Added instance batching in render-core: consecutive shape ops that share texture_binding coalesce into one DrawBatch/instance buffer while preserving source order. Metal primitives upload a 64-byte-stride instance buffer and issue one drawPrimitives per batch. CPU goldens keep pixels identical; instance-batch-bench reports draw-call reduction (non_certified_dev_baseline)."
     },
     "P3-012": {
       "status": "todo",

@@ -104,7 +104,7 @@
       "include_prefix": "instantee/render_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache and 2D primitive raster/lowering; no Apple/Metal headers; no FrameLease."
+      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching and 2D primitive raster/lowering; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",

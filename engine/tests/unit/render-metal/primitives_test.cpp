@@ -1,4 +1,5 @@
 #include <instantee/render_core/draw_ops.hpp>
+#include <instantee/render_core/instance_batch.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/primitive_renderer.hpp>
 
@@ -78,6 +79,31 @@ int main() {
   expect(at(*frame, 9, 21).b == 255, "gpu rounded");
   expect(at(*frame, 16, 28).r == 255 && at(*frame, 16, 28).g == 255,
          "gpu line");
+
+  // Instanced batch: many identical rects, one draw call on the GPU path.
+  PassDesc instanced;
+  instanced.width_px = 64;
+  instanced.height_px = 64;
+  instanced.color_target = 1;
+  instanced.ops.push_back(
+      DrawOp{.kind = DrawOpKind::clear, .color = {0, 0, 0, 255}});
+  for (int i = 0; i < 16; ++i) {
+    instanced.ops.push_back(DrawOp{
+        .kind = DrawOpKind::fill_rect,
+        .rect = {static_cast<float>(2 + i * 3), 8, 2, 2},
+        .color = {0, 0, 255, 255},
+    });
+  }
+  auto batched = batch_pass(instanced);
+  expect(batched.has_value() && batched->stats.draw_calls == 1,
+         "gpu batch one draw");
+  auto many = renderer->render(instanced);
+  expect(many.has_value(), "gpu instanced render");
+  if (many) {
+    expect(at(*many, 2, 8).b == 255, "first instance gpu");
+    expect(at(*many, 2 + 15 * 3, 8).b == 255, "last instance gpu");
+    expect(at(*many, 0, 0).b == 0, "clear outside instances");
+  }
 
   if (failures != 0) {
     std::cerr << failures << " assertion(s) failed\n";

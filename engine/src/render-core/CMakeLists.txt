@@ -7,7 +7,8 @@ add_library(instantee_render_core STATIC
   src/shader_features.cpp
   src/pipeline_cache.cpp
   src/primitives.cpp
-  src/frame_primitives.cpp)
+  src/frame_primitives.cpp
+  src/instance_batch.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)
 target_include_directories(instantee_render_core
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

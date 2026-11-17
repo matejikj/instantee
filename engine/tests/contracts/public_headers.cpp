@@ -18,6 +18,7 @@
 #include <instantee/geometry/path_cache.hpp>
 #include <instantee/render_core/draw_ops.hpp>
 #include <instantee/render_core/frame_primitives.hpp>
+#include <instantee/render_core/instance_batch.hpp>
 #include <instantee/render_core/pipeline_cache.hpp>
 #include <instantee/render_core/primitives.hpp>
 #include <instantee/render_core/render_graph.hpp>

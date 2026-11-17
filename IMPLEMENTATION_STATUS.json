@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T18:31:02Z",
+  "updated_at_utc": "2026-11-17T18:46:52Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2989,7 +2989,7 @@
     "P1-007": {
       "status": "done",
       "acceptance": {
-        "criterion": "Neplatn\u00fd JSON nebo typ vede na korektn\u00ed CLI/Error cestu v\u010detn\u011b JSON path; fuzz skeleton reprodukovateln\u011b b\u011b\u017e\u00ed s limity.",
+        "criterion": "Neplatný JSON nebo typ vede na korektní CLI/Error cestu včetně JSON path; fuzz skeleton reprodukovatelně běží s limity.",
         "met": true
       },
       "evidence": [
@@ -3008,7 +3008,7 @@
     "P1-008": {
       "status": "done",
       "acceptance": {
-        "criterion": "Cyklick\u00fd parent graph a dangling asset reference jsou odm\u00edtnuty deterministicky.",
+        "criterion": "Cyklický parent graph a dangling asset reference jsou odmítnuty deterministicky.",
         "met": true
       },
       "evidence": [
@@ -3027,7 +3027,7 @@
     "P1-009": {
       "status": "done",
       "acceptance": {
-        "criterion": "Path traversal, extern\u00ed cesta mimo sandbox a p\u0159ehnan\u00e1 velikost vstupu se bezpe\u010dn\u011b odm\u00edtnou.",
+        "criterion": "Path traversal, externí cesta mimo sandbox a přehnaná velikost vstupu se bezpečně odmítnou.",
         "met": true
       },
       "evidence": [
@@ -3065,7 +3065,7 @@
     "P1-011": {
       "status": "done",
       "acceptance": {
-        "criterion": "SDK vytvo\u0159\u00ed minim\u00e1ln\u00ed film bez runtime GPU/Node z\u00e1vislosti v IR.",
+        "criterion": "SDK vytvoří minimální film bez runtime GPU/Node závislosti v IR.",
         "met": true
       },
       "evidence": [
@@ -3084,7 +3084,7 @@
     "P1-012": {
       "status": "done",
       "acceptance": {
-        "criterion": "Stejn\u00fd vstup generuje stejn\u00e9 integer frames na v\u0161ech platform\u00e1ch; chyb\u011bj\u00edc\u00ed policy nelze obej\u00edt tich\u00fdm float castem.",
+        "criterion": "Stejný vstup generuje stejné integer frames na všech platformách; chybějící policy nelze obejít tichým float castem.",
         "met": true
       },
       "evidence": [
@@ -3098,12 +3098,12 @@
       "measurement": "none",
       "evidence_tier_min": "A",
       "verification": "Time conversion property tests",
-      "notes": "Shared seconds\u2192frames nearest/half-away policy with sub-frame loss"
+      "notes": "Shared seconds→frames nearest/half-away policy with sub-frame loss"
     },
     "P1-013": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ekvivalentn\u00ed vstupy maj\u00ed stejn\u00fd canonical hash; TS/C++ roundtrip neztr\u00e1c\u00ed \u010d\u00edselnou p\u0159esnost.",
+        "criterion": "Ekvivalentní vstupy mají stejný canonical hash; TS/C++ roundtrip neztrácí číselnou přesnost.",
         "met": true
       },
       "evidence": [
@@ -3122,7 +3122,7 @@
     "P1-014": {
       "status": "done",
       "acceptance": {
-        "criterion": "Zm\u011bna obsahu assetu vede na zm\u011bnu lockfile a spr\u00e1vnou invalidaci.",
+        "criterion": "Změna obsahu assetu vede na změnu lockfile a správnou invalidaci.",
         "met": true
       },
       "evidence": [
@@ -3141,7 +3141,7 @@
     "P1-015": {
       "status": "done",
       "acceptance": {
-        "criterion": "Vstup star\u0161\u00ed podporovan\u00e9 verze se p\u0159evede bez zm\u011bny origin\u00e1lu a bez s\u00edt\u011b.",
+        "criterion": "Vstup starší podporované verze se převede bez změny originálu a bez sítě.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3171,12 +3171,12 @@
       "measurement": "none",
       "evidence_tier_min": "A",
       "verification": "Migration golden tests",
-      "notes": "Pure 0.9.0\u21921.0.0 authoring migration; unsupported majors rejected"
+      "notes": "Pure 0.9.0→1.0.0 authoring migration; unsupported majors rejected"
     },
     "P1-016": {
       "status": "done",
       "acceptance": {
-        "criterion": "Tent\u00fd\u017e authoring manifest d\u00e1v\u00e1 stejn\u00e9 Scene IR a ov\u011b\u0159enou d\u00e9lku; nezn\u00e1m\u00fd/unimplemented intent je rejected s diagn\u00f3zou.",
+        "criterion": "Tentýž authoring manifest dává stejné Scene IR a ověřenou délku; neznámý/unimplemented intent je rejected s diagnózou.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3213,7 +3213,7 @@
     "P1-017": {
       "status": "done",
       "acceptance": {
-        "criterion": "CLI odm\u00edt\u00e1 chyby p\u0159ed GPU inicializac\u00ed a vypisuje p\u0159esn\u00e9 ID/path vadn\u00e9ho uzlu se stabiln\u00edmi k\u00f3dy.",
+        "criterion": "CLI odmítá chyby před GPU inicializací a vypisuje přesné ID/path vadného uzlu se stabilními kódy.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3245,11 +3245,11 @@
     "P1-018": {
       "status": "done",
       "acceptance": {
-        "criterion": "Contract CI prob\u011bhne z \u010dist\u00e9ho klonu bez GPU a pokr\u00fdv\u00e1 povinn\u00e9 invarianty SAS \u00a76; design-pack draft u\u017e nen\u00ed jedin\u00fd zdroj pravdy.",
+        "criterion": "Contract CI proběhne z čistého klonu bez GPU a pokrývá povinné invarianty SAS §6; design-pack draft už není jediný zdroj pravdy.",
         "met": true,
         "criteria_evidence": [
           {
-            "criterion": "Contract CI without GPU covers SAS \u00a76 invariants; contracts/ is source of truth",
+            "criterion": "Contract CI without GPU covers SAS §6 invariants; contracts/ is source of truth",
             "met": true,
             "evidence": [
               "contracts/invariants-sas6.json",
@@ -3276,7 +3276,7 @@
       "measurement": "none",
       "evidence_tier_min": "A",
       "verification": "CI contract gate + clean-clone contracts presence",
-      "notes": "Versioned contracts fixtures + SAS \u00a76 coverage map; GPU-free contracts:check"
+      "notes": "Versioned contracts fixtures + SAS §6 coverage map; GPU-free contracts:check"
     },
     "P1-019": {
       "status": "done",
@@ -3327,7 +3327,7 @@
     "P1-021": {
       "status": "done",
       "acceptance": {
-        "criterion": "Report m\u00e1 per-stage medi\u00e1n/p95, velikost IR a RSS pro v\u0161echny t\u0159i t\u0159\u00eddy; ADR-0002 zaznamen\u00e1 rozhodnut\u00ed; ADR-0014 obsahuje draft rozpo\u010dtu parse+compile.",
+        "criterion": "Report má per-stage medián/p95, velikost IR a RSS pro všechny tři třídy; ADR-0002 zaznamená rozhodnutí; ADR-0014 obsahuje draft rozpočtu parse+compile.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3368,7 +3368,7 @@
     "P1-020": {
       "status": "done",
       "acceptance": {
-        "criterion": "Architektonick\u00fd gate potvrzuje validaci cross-language, povolen\u00fd sm\u011br z\u00e1vislost\u00ed, verzovan\u00e9 contracts/ a \u017e\u00e1dn\u00fd tich\u00fd unsupported-intent drop.",
+        "criterion": "Architektonický gate potvrzuje validaci cross-language, povolený směr závislostí, verzované contracts/ a žádný tichý unsupported-intent drop.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3401,7 +3401,7 @@
     "P2-001": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159esuny uzl\u016f m\u011bn\u00ed strukturu bez ztr\u00e1ty identit a bez cykl\u016f; nevznik\u00e1 UI z\u00e1vislost v engine.",
+        "criterion": "Přesuny uzlů mění strukturu bez ztráty identit a bez cyklů; nevzniká UI závislost v engine.",
         "met": true
       },
       "evidence": [
@@ -3441,7 +3441,7 @@
     "P2-003": {
       "status": "done",
       "acceptance": {
-        "criterion": "Hierarchick\u00e9 transformace odpov\u00eddaj\u00ed referen\u010dn\u00edm matric\u00edm a konvenc\u00edm SAS \u00a78.",
+        "criterion": "Hierarchické transformace odpovídají referenčním matricím a konvencím SAS §8.",
         "met": true
       },
       "evidence": [
@@ -3461,7 +3461,7 @@
     "P2-004": {
       "status": "done",
       "acceptance": {
-        "criterion": "Poloha textu a grafiky odpov\u00edd\u00e1 o\u010dek\u00e1van\u00e9mu pixelov\u00e9mu layoutu.",
+        "criterion": "Poloha textu a grafiky odpovídá očekávanému pixelovému layoutu.",
         "met": true
       },
       "evidence": [
@@ -3481,7 +3481,7 @@
     "P2-005": {
       "status": "done",
       "acceptance": {
-        "criterion": "Vrstvy v r\u016fzn\u00e9 depth maj\u00ed definovan\u00fd parallax a nedoch\u00e1z\u00ed k invertovan\u00fdm os\u00e1m.",
+        "criterion": "Vrstvy v různé depth mají definovaný parallax a nedochází k invertovaným osám.",
         "met": true
       },
       "evidence": [
@@ -3501,7 +3501,7 @@
     "P2-006": {
       "status": "done",
       "acceptance": {
-        "criterion": "Shodn\u00e9 scene state vykresl\u00ed shodn\u00e9 stabiln\u00ed po\u0159ad\u00ed draw ops.",
+        "criterion": "Shodné scene state vykreslí shodné stabilní pořadí draw ops.",
         "met": true
       },
       "evidence": [
@@ -3521,7 +3521,7 @@
     "P2-007": {
       "status": "done",
       "acceptance": {
-        "criterion": "Nepodporovan\u00fd target-property p\u00e1r sel\u017ee p\u0159i kompilaci, ne p\u0159i renderu; nov\u00e1 property se p\u0159id\u00e1 registrac\u00ed, ne \u00fapravou nesouvisej\u00edc\u00edch modul\u016f.",
+        "criterion": "Nepodporovaný target-property pár selže při kompilaci, ne při renderu; nová property se přidá registrací, ne úpravou nesouvisejících modulů.",
         "met": true
       },
       "evidence": [
@@ -3541,7 +3541,7 @@
     "P2-008": {
       "status": "done",
       "acceptance": {
-        "criterion": "N\u00e1hodn\u00fd p\u0159\u00edstup vr\u00e1t\u00ed o\u010dek\u00e1vanou hodnotu v po\u010d\u00e1tku/konci/intervalu.",
+        "criterion": "Náhodný přístup vrátí očekávanou hodnotu v počátku/konci/intervalu.",
         "met": true
       },
       "evidence": [
@@ -3561,7 +3561,7 @@
     "P2-009": {
       "status": "done",
       "acceptance": {
-        "criterion": "V\u00fdsledky jsou spojit\u00e9 tam, kde maj\u00ed b\u00fdt, bez NaN na hranic\u00edch a s dokumentovanou extrapolation.",
+        "criterion": "Výsledky jsou spojité tam, kde mají být, bez NaN na hranicích a s dokumentovanou extrapolation.",
         "met": true
       },
       "evidence": [
@@ -3581,7 +3581,7 @@
     "P2-010": {
       "status": "done",
       "acceptance": {
-        "criterion": "Sn\u00edmek N je stejn\u00fd p\u0159i libovoln\u00e9m po\u0159ad\u00ed vyhodnocen\u00ed.",
+        "criterion": "Snímek N je stejný při libovolném pořadí vyhodnocení.",
         "met": true
       },
       "evidence": [
@@ -3601,7 +3601,7 @@
     "P2-011": {
       "status": "done",
       "acceptance": {
-        "criterion": "Testy \u00fahlu p\u0159es \u00b1\u03c0 a barevn\u00e9 p\u0159echody souhlas\u00ed s kontraktem.",
+        "criterion": "Testy úhlu přes ±π a barevné přechody souhlasí s kontraktem.",
         "met": true
       },
       "evidence": [
@@ -3621,7 +3621,7 @@
     "P2-012": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159id\u00e1n\u00ed nesouvisej\u00edc\u00edho uzlu neovlivn\u00ed ostatn\u00ed animace.",
+        "criterion": "Přidání nesouvisejícího uzlu neovlivní ostatní animace.",
         "met": true
       },
       "evidence": [
@@ -3641,7 +3641,7 @@
     "P2-013": {
       "status": "done",
       "acceptance": {
-        "criterion": "R\u016fzn\u00e9 po\u0159ad\u00ed sn\u00edmk\u016f d\u00e1v\u00e1 stejn\u00fd logick\u00fd stav; chyb\u011bj\u00edc\u00ed interpolace nelze nahradit ad hoc float lerp v evaluatoru.",
+        "criterion": "Různé pořadí snímků dává stejný logický stav; chybějící interpolace nelze nahradit ad hoc float lerp v evaluatoru.",
         "met": true
       },
       "evidence": [
@@ -3661,7 +3661,7 @@
     "P2-014": {
       "status": "done",
       "acceptance": {
-        "criterion": "Na hranic\u00edch shot\u016f nevznik\u00e1 chyb\u011bj\u00edc\u00ed ani nadbyte\u010dn\u00fd sn\u00edmek.",
+        "criterion": "Na hranicích shotů nevzniká chybějící ani nadbytečný snímek.",
         "met": true
       },
       "evidence": [
@@ -3676,12 +3676,12 @@
       "evidence_tier_min": "A",
       "verification": "Boundary-frame fixtures",
       "completed_at_utc": "2026-11-17T04:49:11Z",
-      "notes": "Contiguous half-open ShotTimeline; global\u2194local with boundary coverage checks."
+      "notes": "Contiguous half-open ShotTimeline; global↔local with boundary coverage checks."
     },
     "P2-015": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159echod udr\u017euje monot\u00f3nn\u00ed PTS a spr\u00e1vnou celkovou d\u00e9lku.",
+        "criterion": "Přechod udržuje monotónní PTS a správnou celkovou délku.",
         "met": true
       },
       "evidence": [
@@ -3701,7 +3701,7 @@
     "P2-016": {
       "status": "done",
       "acceptance": {
-        "criterion": "Masky se spr\u00e1vn\u011b d\u011bd\u00ed a neplatn\u00e9 reference se odm\u00edtnou.",
+        "criterion": "Masky se správně dědí a neplatné reference se odmítnou.",
         "met": true
       },
       "evidence": [
@@ -3721,7 +3721,7 @@
     "P2-017": {
       "status": "done",
       "acceptance": {
-        "criterion": "Frame N nepot\u0159ebuje postupn\u00e9 p\u0159ehr\u00e1n\u00ed 0..N-1.",
+        "criterion": "Frame N nepotřebuje postupné přehrání 0..N-1.",
         "met": true
       },
       "evidence": [
@@ -3741,7 +3741,7 @@
     "P2-018": {
       "status": "done",
       "acceptance": {
-        "criterion": "Capacity 1, delayed oldest frame a cancel na pln\u00e9/pr\u00e1zdn\u00e9 front\u011b jsou bez deadlocku; po\u010det leases\u2264K a output po\u0159ad\u00ed se nem\u011bn\u00ed; produk\u010dn\u00ed k\u00f3d pou\u017e\u00edv\u00e1 runtime modul z P0/P1 promotion.",
+        "criterion": "Capacity 1, delayed oldest frame a cancel na plné/prázdné frontě jsou bez deadlocku; počet leases≤K a output pořadí se nemění; produkční kód používá runtime modul z P0/P1 promotion.",
         "met": true
       },
       "evidence": [
@@ -3761,7 +3761,7 @@
     "P2-019": {
       "status": "done",
       "acceptance": {
-        "criterion": "Report identifikuje bottlenecks a neobsahuje neomezen\u00fd per-frame growth.",
+        "criterion": "Report identifikuje bottlenecks a neobsahuje neomezený per-frame growth.",
         "met": true
       },
       "evidence": [
@@ -3781,7 +3781,7 @@
     "P2-020": {
       "status": "done",
       "acceptance": {
-        "criterion": "P2 gate potvrzuje bitov\u011b shodn\u00fd logick\u00fd state pro stejn\u00e9 inputs na stejn\u00e9 build konfiguraci.",
+        "criterion": "P2 gate potvrzuje bitově shodný logický state pro stejné inputs na stejné build konfiguraci.",
         "met": true,
         "criteria_evidence": [
           {
@@ -3813,7 +3813,7 @@
     "P3-001": {
       "status": "done",
       "acceptance": {
-        "criterion": "render-core nem\u00e1 Apple/Metal headery; fake sink pokr\u00fdv\u00e1 ownership/error paths; produk\u010dn\u00ed k\u00f3d nepou\u017e\u00edv\u00e1 spike namespace.",
+        "criterion": "render-core nemá Apple/Metal headery; fake sink pokrývá ownership/error paths; produkční kód nepoužívá spike namespace.",
         "met": true
       },
       "evidence": [
@@ -3833,7 +3833,7 @@
     "P3-002": {
       "status": "done",
       "acceptance": {
-        "criterion": "GPU absence, unsupported feature a device loss vedou na strukturovan\u00e9 chyby; chov\u00e1n\u00ed je zp\u011btn\u011b srovnateln\u00e9 se spike smoke.",
+        "criterion": "GPU absence, unsupported feature a device loss vedou na strukturované chyby; chování je zpětně srovnatelné se spike smoke.",
         "met": true
       },
       "evidence": [
@@ -3853,7 +3853,7 @@
     "P3-003": {
       "status": "done",
       "acceptance": {
-        "criterion": "Neplatn\u00fd graph se odm\u00edtne p\u0159ed GPU submit, platn\u00fd vykresl\u00ed o\u010dek\u00e1van\u00fd obraz.",
+        "criterion": "Neplatný graph se odmítne před GPU submit, platný vykreslí očekávaný obraz.",
         "met": true
       },
       "evidence": [
@@ -3873,7 +3873,7 @@
     "P3-004": {
       "status": "done",
       "acceptance": {
-        "criterion": "Stale handle se odm\u00edtne; partial init, delayed completion a cancel jsou bez UAF/leak/double-release.",
+        "criterion": "Stale handle se odmítne; partial init, delayed completion a cancel jsou bez UAF/leak/double-release.",
         "met": true
       },
       "evidence": [
@@ -3893,7 +3893,7 @@
     "P3-005": {
       "status": "done",
       "acceptance": {
-        "criterion": "Pooling neodhaluje obsah p\u0159edchoz\u00edho frame a nealokuje st\u00e1le nov\u00e9 targety.",
+        "criterion": "Pooling neodhaluje obsah předchozího frame a nealokuje stále nové targety.",
         "met": true
       },
       "evidence": [
@@ -3913,7 +3913,7 @@
     "P3-006": {
       "status": "done",
       "acceptance": {
-        "criterion": "Delayed GPU/sink callback a cancel nep\u0159ep\u00ed\u0161\u00ed busy data; allocation threshold nelze obej\u00edt fallback alokac\u00ed.",
+        "criterion": "Delayed GPU/sink callback a cancel nepřepíší busy data; allocation threshold nelze obejít fallback alokací.",
         "met": true
       },
       "evidence": [
@@ -3933,7 +3933,7 @@
     "P3-007": {
       "status": "done",
       "acceptance": {
-        "criterion": "V\u0161echny shadery projdou validac\u00ed; registry odm\u00edtne nezn\u00e1mou feature a dok\u00e1\u017ee empty-pass invariant.",
+        "criterion": "Všechny shadery projdou validací; registry odmítne neznámou feature a dokáže empty-pass invariant.",
         "met": true
       },
       "evidence": [
@@ -3953,7 +3953,7 @@
     "P3-008": {
       "status": "done",
       "acceptance": {
-        "criterion": "Opakovan\u00fd shot neprov\u00e1d\u00ed opakovan\u00fd pipeline compile; po\u0161kozen\u00e1/nekompatibiln\u00ed cache nesel\u017ee ti\u0161e.",
+        "criterion": "Opakovaný shot neprovádí opakovaný pipeline compile; poškozená/nekompatibilní cache neselže tiše.",
         "met": true
       },
       "evidence": [
@@ -3973,7 +3973,7 @@
     "P3-009": {
       "status": "done",
       "acceptance": {
-        "criterion": "Pixel/alpha golden ukazuje spr\u00e1vn\u00e9 sou\u0159adnice a blending; skeleton exportuje kr\u00e1tk\u00e9 MP4/PNG bez TS hot-path.",
+        "criterion": "Pixel/alpha golden ukazuje správné souřadnice a blending; skeleton exportuje krátké MP4/PNG bez TS hot-path.",
         "met": true
       },
       "evidence": [
@@ -3993,7 +3993,7 @@
     "P3-010": {
       "status": "done",
       "acceptance": {
-        "criterion": "Golden fixtures pokr\u00fdvaj\u00ed slo\u017eit\u00e9 cesty a hrani\u010dn\u00ed geometrii; statick\u00e1 geometrie se neteseluje per-frame.",
+        "criterion": "Golden fixtures pokrývají složité cesty a hraniční geometrii; statická geometrie se neteseluje per-frame.",
         "met": true
       },
       "evidence": [
@@ -4013,7 +4013,7 @@
     "P3-011": {
       "status": "done",
       "acceptance": {
-        "criterion": "V\u00edce shodn\u00fdch objekt\u016f pou\u017e\u00edv\u00e1 m\u00e9n\u011b draw calls bez zm\u011bny pixel\u016f.",
+        "criterion": "Více shodných objektů používá méně draw calls bez změny pixelů.",
         "met": true
       },
       "evidence": [
@@ -4033,7 +4033,7 @@
     "P3-012": {
       "status": "done",
       "acceptance": {
-        "criterion": "Chybn\u00fd soubor a ob\u0159\u00ed bitmapa se odm\u00edtnou bez GPU crash.",
+        "criterion": "Chybný soubor a obří bitmapa se odmítnou bez GPU crash.",
         "met": true
       },
       "evidence": [
@@ -4053,7 +4053,7 @@
     "P3-013": {
       "status": "done",
       "acceptance": {
-        "criterion": "Statick\u00e9 SVG importy jsou reprodukovateln\u00e9 a extern\u00ed odkazy se nena\u010dtou.",
+        "criterion": "Statické SVG importy jsou reprodukovatelné a externí odkazy se nenačtou.",
         "met": true
       },
       "evidence": [
@@ -4073,7 +4073,7 @@
     "P3-014": {
       "status": "done",
       "acceptance": {
-        "criterion": "Zm\u011bna bitmapy invaliduje jen relevantn\u00ed komponenty; po\u0161kozen\u00e1/nekompatibiln\u00ed cache se bezpe\u010dn\u011b odm\u00edtne nebo p\u0159ebuduje.",
+        "criterion": "Změna bitmapy invaliduje jen relevantní komponenty; poškozená/nekompatibilní cache se bezpečně odmítne nebo přebuduje.",
         "met": true
       },
       "evidence": [
@@ -4093,7 +4093,7 @@
     "P3-015": {
       "status": "done",
       "acceptance": {
-        "criterion": "Atlas hit rate a staging bytes jsou reportovan\u00e9; v\u00fdsledek bez pixel bleeding.",
+        "criterion": "Atlas hit rate a staging bytes jsou reportované; výsledek bez pixel bleeding.",
         "met": true
       },
       "evidence": [
@@ -4113,7 +4113,7 @@
     "P3-016": {
       "status": "done",
       "acceptance": {
-        "criterion": "\u010ce\u0161tina, ligatury a combining marks maj\u00ed spr\u00e1vn\u00e9 rozlo\u017een\u00ed v referen\u010dn\u00edch fixtures.",
+        "criterion": "Čeština, ligatury a combining marks mají správné rozložení v referenčních fixtures.",
         "met": true
       },
       "evidence": [
@@ -4153,7 +4153,7 @@
     "P3-018": {
       "status": "done",
       "acceptance": {
-        "criterion": "Vno\u0159en\u00e9 clips a masky funguj\u00ed i p\u0159es n\u011bkolik vrstev.",
+        "criterion": "Vnořené clips a masky fungují i přes několik vrstev.",
         "met": true
       },
       "evidence": [
@@ -4173,7 +4173,7 @@
     "P3-019": {
       "status": "done",
       "acceptance": {
-        "criterion": "St\u00edny nezp\u016fsob\u00ed zm\u011bnu blending po\u0159ad\u00ed; vynechan\u00fd efekt nep\u0159id\u00e1 pass; probe je registrovan\u00e1 feature.",
+        "criterion": "Stíny nezpůsobí změnu blending pořadí; vynechaný efekt nepřidá pass; probe je registrovaná feature.",
         "met": true
       },
       "evidence": [
@@ -4193,7 +4193,7 @@
     "P3-020": {
       "status": "done",
       "acceptance": {
-        "criterion": "Test patterns odpov\u00eddaj\u00ed toleranc\u00edm i p\u0159i polopr\u016fhledn\u00e9m p\u0159ekryvu.",
+        "criterion": "Test patterns odpovídají tolerancím i při poloprůhledném překryvu.",
         "met": true
       },
       "evidence": [
@@ -4212,7 +4212,7 @@
     "P3-021": {
       "status": "done",
       "acceptance": {
-        "criterion": "Offscreen uzly nevytv\u00e1\u0159ej\u00ed draw op; porovn\u00e1n\u00ed s unculled referenc\u00ed souhlas\u00ed.",
+        "criterion": "Offscreen uzly nevytvářejí draw op; porovnání s unculled referencí souhlasí.",
         "met": true
       },
       "evidence": [
@@ -4231,7 +4231,7 @@
     "P3-022": {
       "status": "done",
       "acceptance": {
-        "criterion": "Zn\u00e1m\u00e9 synthetic workloads ov\u011b\u0159\u00ed p99/CPU/memory formule; GPU host notification nen\u00ed vyd\u00e1v\u00e1na za device execution time.",
+        "criterion": "Známé synthetic workloads ověří p99/CPU/memory formule; GPU host notification není vydávána za device execution time.",
         "met": true
       },
       "evidence": [
@@ -4250,7 +4250,7 @@
     "P3-023": {
       "status": "done",
       "acceptance": {
-        "criterion": "motion frame --at 450 funguje bez renderov\u00e1n\u00ed p\u0159edchoz\u00edch sn\u00edmk\u016f.",
+        "criterion": "motion frame --at 450 funguje bez renderování předchozích snímků.",
         "met": true
       },
       "evidence": [
@@ -4269,7 +4269,7 @@
     "P3-024": {
       "status": "done",
       "acceptance": {
-        "criterion": "Validn\u00ed IR \u2192 korektn\u00ed H.264 MP4 bez TS runtime v hot path; failure p\u0159ed/po publication m\u00e1 pravdiv\u00e9 stavy; cancel a budget exceed jsou \u0159\u00edzen\u00e9.",
+        "criterion": "Validní IR → korektní H.264 MP4 bez TS runtime v hot path; failure před/po publication má pravdivé stavy; cancel a budget exceed jsou řízené.",
         "met": true
       },
       "evidence": [
@@ -4283,12 +4283,12 @@
       "delivery_slice": null,
       "measurement": "none",
       "evidence_tier_min": "A",
-      "notes": "Promoted export orchestration: RenderJob phase machine with publish/cancel/budget enforcement, AppleVideoSink VideoSink adapter, and Scene IR \u2192 preview Rec.709 raster \u2192 H.264 MP4 via OutputTransaction."
+      "notes": "Promoted export orchestration: RenderJob phase machine with publish/cancel/budget enforcement, AppleVideoSink VideoSink adapter, and Scene IR → preview Rec.709 raster → H.264 MP4 via OutputTransaction."
     },
     "P3-025": {
       "status": "done",
       "acceptance": {
-        "criterion": "Spr\u00e1vn\u00fd render a stabiln\u00ed working set, dolo\u017een\u00e9 K/E/CPU/p99 a retirement stress; thresholds ADR existuje a nezn\u00e1m\u00fd budget nen\u00ed PASS; \u017e\u00e1dn\u00e9 zak\u00e1zan\u00e9 dependencies.",
+        "criterion": "Správný render a stabilní working set, doložené K/E/CPU/p99 a retirement stress; thresholds ADR existuje a neznámý budget není PASS; žádné zakázané dependencies.",
         "met": true,
         "criteria_evidence": [
           {
@@ -4332,7 +4332,7 @@
     "P4-001": {
       "status": "done",
       "acceptance": {
-        "criterion": "Dva r\u016fzn\u00e9 style manifests validuj\u00ed bez zm\u011bny core-model.",
+        "criterion": "Dva různé style manifests validují bez změny core-model.",
         "met": true
       },
       "evidence": [
@@ -4350,7 +4350,7 @@
     "P4-002": {
       "status": "done",
       "acceptance": {
-        "criterion": "Nezn\u00e1m\u00fd/star\u00e1 verze stylu vr\u00e1t\u00ed diagnostiku p\u0159ed renderem; test p\u0159id\u00e1n\u00ed \u010dtvrt\u00e9ho synthetic style package vyu\u017eije existuj\u00edc\u00ed capabilities bez zm\u011bny dom\u00e9nov\u00e9ho j\u00e1dra.",
+        "criterion": "Neznámý/stará verze stylu vrátí diagnostiku před renderem; test přidání čtvrtého synthetic style package využije existující capabilities bez změny doménového jádra.",
         "met": true
       },
       "evidence": [
@@ -4368,7 +4368,7 @@
     "P4-003": {
       "status": "done",
       "acceptance": {
-        "criterion": "Chybn\u00e9 intent parametry a nezn\u00e1m\u00e9 target ID se odm\u00edtnou na vstupu.",
+        "criterion": "Chybné intent parametry a neznámé target ID se odmítnou na vstupu.",
         "met": true
       },
       "evidence": [
@@ -4386,7 +4386,7 @@
     "P4-004": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ve fin\u00e1ln\u00edm IR nez\u016fstane nevy\u0159e\u0161en\u00fd intent; unsupported direction je error, ne identity drop.",
+        "criterion": "Ve finálním IR nezůstane nevyřešený intent; unsupported direction je error, ne identity drop.",
         "met": true
       },
       "evidence": [
@@ -4404,7 +4404,7 @@
     "P4-005": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ru\u010dn\u00ed animace nen\u00ed nikdy ti\u0161e p\u0159eps\u00e1na; hard conflict vytvo\u0159\u00ed compile error.",
+        "criterion": "Ruční animace není nikdy tiše přepsána; hard conflict vytvoří compile error.",
         "met": true
       },
       "evidence": [
@@ -4422,7 +4422,7 @@
     "P4-006": {
       "status": "done",
       "acceptance": {
-        "criterion": "Stejn\u00fd intent d\u00e1 r\u016fznou, ale deterministickou animaci dle stylu.",
+        "criterion": "Stejný intent dá různou, ale deterministickou animaci dle stylu.",
         "met": true
       },
       "evidence": [
@@ -4440,7 +4440,7 @@
     "P4-007": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ne\u0159e\u0161iteln\u00fd hard constraint skon\u010d\u00ed error s diagnostikou; soft konflikt warning; v\u00fdsledek je deterministick\u00fd p\u0159i stejn\u00e9m vstupu.",
+        "criterion": "Neřešitelný hard constraint skončí error s diagnostikou; soft konflikt warning; výsledek je deterministický při stejném vstupu.",
         "met": true
       },
       "evidence": [
@@ -4458,7 +4458,7 @@
     "P4-008": {
       "status": "done",
       "acceptance": {
-        "criterion": "Nov\u00fd token lze zm\u011bnit bez rekompilace engine a d\u016fle\u017eit\u00fd obsah nep\u0159ekryje safe area.",
+        "criterion": "Nový token lze změnit bez rekompilace engine a důležitý obsah nepřekryje safe area.",
         "met": true
       },
       "evidence": [
@@ -4476,7 +4476,7 @@
     "P4-009": {
       "status": "done",
       "acceptance": {
-        "criterion": "V\u00fdstup m\u00e1 stejn\u00fd po\u010det sn\u00edmk\u016f jako vstup p\u0159i v\u0161ech povolen\u00fdch intents.",
+        "criterion": "Výstup má stejný počet snímků jako vstup při všech povolených intents.",
         "met": true
       },
       "evidence": [
@@ -4494,7 +4494,7 @@
     "P4-010": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ka\u017ed\u00fd director vol\u00ed kameru jen z deklarovan\u00fdch capabilities.",
+        "criterion": "Každý director volí kameru jen z deklarovaných capabilities.",
         "met": true
       },
       "evidence": [
@@ -4512,7 +4512,7 @@
     "P4-011": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159echod nezp\u016fsob\u00ed dvoj\u00ed zapo\u010dten\u00ed sn\u00edmk\u016f ani \u0161patn\u00fd layer order.",
+        "criterion": "Přechod nezpůsobí dvojí započtení snímků ani špatný layer order.",
         "met": true
       },
       "evidence": [
@@ -4530,7 +4530,7 @@
     "P4-012": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159id\u00e1n\u00ed nesouvisej\u00edc\u00edho shotu nezm\u011bn\u00ed ji\u017e existuj\u00edc\u00ed variace.",
+        "criterion": "Přidání nesouvisejícího shotu nezmění již existující variace.",
         "met": true
       },
       "evidence": [
@@ -4548,7 +4548,7 @@
     "P4-013": {
       "status": "done",
       "acceptance": {
-        "criterion": "Z logu lze vysv\u011btlit fin\u00e1ln\u00ed re\u017eijn\u00ed volbu pro objekt a frame.",
+        "criterion": "Z logu lze vysvětlit finální režijní volbu pro objekt a frame.",
         "met": true
       },
       "evidence": [
@@ -4566,7 +4566,7 @@
     "P4-014": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ka\u017ed\u00e9 varov\u00e1n\u00ed m\u00e1 stabiln\u00ed code, severity a cestu k prvku.",
+        "criterion": "Každé varování má stabilní code, severity a cestu k prvku.",
         "met": true
       },
       "evidence": [
@@ -4584,7 +4584,7 @@
     "P4-015": {
       "status": "done",
       "acceptance": {
-        "criterion": "Kolize d\u016fle\u017eit\u00fdch prvk\u016f je nalezena bez false guarantees o estetice.",
+        "criterion": "Kolize důležitých prvků je nalezena bez false guarantees o estetice.",
         "met": true
       },
       "evidence": [
@@ -4602,7 +4602,7 @@
     "P4-016": {
       "status": "done",
       "acceptance": {
-        "criterion": "V\u00fdstup m\u00e1 error/warning/info; pravidla lze verzovat se Style Bible.",
+        "criterion": "Výstup má error/warning/info; pravidla lze verzovat se Style Bible.",
         "met": true
       },
       "evidence": [
@@ -4620,7 +4620,7 @@
     "P4-017": {
       "status": "done",
       "acceptance": {
-        "criterion": "Release build odm\u00edtne severity error; schv\u00e1len\u00fd waiver je auditovateln\u00fd.",
+        "criterion": "Release build odmítne severity error; schválený waiver je auditovatelný.",
         "met": true
       },
       "evidence": [
@@ -4638,7 +4638,7 @@
     "P4-018": {
       "status": "done",
       "acceptance": {
-        "criterion": "Stejn\u00e1 sc\u00e9na m\u00e1 t\u0159i validn\u00ed direction outputs a extension-style test je zelen\u00fd bez zm\u011bny dom\u00e9nov\u00e9ho j\u00e1dra.",
+        "criterion": "Stejná scéna má tři validní direction outputs a extension-style test je zelený bez změny doménového jádra.",
         "met": true
       },
       "evidence": [
@@ -4656,7 +4656,7 @@
     "P4-019": {
       "status": "done",
       "acceptance": {
-        "criterion": "SDK authoring s intenty projde do validn\u00edho Scene IR a lze z n\u011bj vytvo\u0159it MP4.",
+        "criterion": "SDK authoring s intenty projde do validního Scene IR a lze z něj vytvořit MP4.",
         "met": true
       },
       "evidence": [
@@ -4674,7 +4674,7 @@
     "P4-021": {
       "status": "done",
       "acceptance": {
-        "criterion": "Report odd\u011bluje CDS od parse/compile; cold-start p\u0159\u00edprava (parse+CDS+compile) m\u00e1 zapsan\u00fd pod\u00edl na rozpo\u010dtu NFR-PERF-03; p\u0159ekro\u010den\u00ed draft rozpo\u010dtu je zapsan\u00e9 riziko, ne tich\u00fd PASS.",
+        "criterion": "Report odděluje CDS od parse/compile; cold-start příprava (parse+CDS+compile) má zapsaný podíl na rozpočtu NFR-PERF-03; překročení draft rozpočtu je zapsané riziko, ne tichý PASS.",
         "met": true
       },
       "evidence": [
@@ -4692,7 +4692,7 @@
     "P4-020": {
       "status": "done",
       "acceptance": {
-        "criterion": "\u017d\u00e1dn\u00e1 CDS operace neb\u011b\u017e\u00ed pro ka\u017ed\u00fd sn\u00edmek; v\u0161echny compiles jsou auditovateln\u00e9.",
+        "criterion": "Žádná CDS operace neběží pro každý snímek; všechny compiles jsou auditovatelné.",
         "met": true
       },
       "evidence": [
@@ -4711,7 +4711,7 @@
     "P5-001": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u011bt reprezentativn\u00edch layouts respektuje stylov\u00e9 tokeny a safe areas.",
+        "criterion": "Pět reprezentativních layouts respektuje stylové tokeny a safe areas.",
         "met": true
       },
       "evidence": [
@@ -4729,7 +4729,7 @@
     "P5-002": {
       "status": "done",
       "acceptance": {
-        "criterion": "\u010ce\u0161tina, ligatury a font fallback se p\u0159i animaci nerozpadnou.",
+        "criterion": "Čeština, ligatury a font fallback se při animaci nerozpadnou.",
         "met": true
       },
       "evidence": [
@@ -4747,7 +4747,7 @@
     "P5-003": {
       "status": "done",
       "acceptance": {
-        "criterion": "P\u0159edvolby podporuj\u00ed intensity/duration a nevy\u017eaduj\u00ed JS ve frame loop.",
+        "criterion": "Předvolby podporují intensity/duration a nevyžadují JS ve frame loop.",
         "met": true
       },
       "evidence": [
@@ -4765,7 +4765,7 @@
     "P5-004": {
       "status": "done",
       "acceptance": {
-        "criterion": "Text b\u011bhem transformac\u00ed nep\u0159esko\u010d\u00ed nespr\u00e1vn\u00fdm pivotem.",
+        "criterion": "Text během transformací nepřeskočí nesprávným pivotem.",
         "met": true
       },
       "evidence": [
@@ -4783,7 +4783,7 @@
     "P5-005": {
       "status": "done",
       "acceptance": {
-        "criterion": "Layout dr\u017e\u00ed \u010diteln\u00fd focal point ve 3 testovan\u00fdch po\u010dtech prvk\u016f.",
+        "criterion": "Layout drží čitelný focal point ve 3 testovaných počtech prvků.",
         "met": true
       },
       "evidence": [
@@ -4801,7 +4801,7 @@
     "P5-006": {
       "status": "done",
       "acceptance": {
-        "criterion": "Fotografie se spr\u00e1vn\u011b \u0161k\u00e1luje a clipping nep\u0159et\u00e9k\u00e1.",
+        "criterion": "Fotografie se správně škáluje a clipping nepřetéká.",
         "met": true
       },
       "evidence": [
@@ -4817,14 +4817,22 @@
       "evidence_tier_min": "A"
     },
     "P5-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Halftone applies to photographs and masks without per-frame CPU rasterization.",
-        "met": null
+        "criterion": "Halftone lze použít na fotografie i masky bez per-frame CPU rasteru. Render-core neobsahuje editorial-specific větvení.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-007/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Shader golden + profiling",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P5-008": {
       "status": "todo",
@@ -4929,7 +4937,7 @@
     "P5-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -5149,7 +5157,7 @@
     "P6-020": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -5209,7 +5217,7 @@
     "P7-005": {
       "status": "todo",
       "acceptance": {
-        "criterion": "10\u201320 layers respond to camera movement with correct parallax.",
+        "criterion": "10–20 layers respond to camera movement with correct parallax.",
         "met": null
       },
       "evidence": [],
@@ -5399,7 +5407,7 @@
     "P7-024": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -5619,7 +5627,7 @@
     "P8-021": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
+        "criterion": "Every valid certification cold run has wall≤1800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
         "met": null
       },
       "evidence": [],
@@ -5639,7 +5647,7 @@
     "P8-023": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s takes \u2264360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
+        "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
         "met": null
       },
       "evidence": [],
@@ -5759,7 +5767,7 @@
     "P8-035": {
       "status": "todo",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080\u00d71920/30fps, no audio track and content matching the three Style Bibles.",
+        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
         "met": null
       },
       "evidence": [],

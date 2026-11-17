@@ -30,12 +30,19 @@ int main() {
   }
 
   const auto modules = builtin_shader_modules();
-  expect(modules.size() == 2, "two builtin modules");
+  expect(modules.size() == 3, "three builtin modules");
 
+  bool saw_halftone = false;
   for (const ShaderModuleDesc &module : modules) {
     expect(!module.metallib_bytes.empty(), "module has metallib bytes");
     expect(!module.entry_points.empty(), "module declares entry points");
-    expect(module.feature_id == "test_pattern", "modules map to feature id");
+    if (module.id == "halftone") {
+      saw_halftone = true;
+      expect(module.feature_id == "halftone", "halftone feature id");
+      expect(module.entry_points.size() == 2, "halftone entries");
+    } else {
+      expect(module.feature_id == "test_pattern", "pattern feature id");
+    }
 
     auto report = validate_shader_module(*device, module);
     expect(report.has_value(), "metallib validates");
@@ -51,6 +58,7 @@ int main() {
     expect(report->resolved_entry_points == module.entry_points,
            "entry points resolved");
   }
+  expect(saw_halftone, "halftone module present");
 
   // Corrupt bytes must fail closed without crashing the process.
   ShaderModuleDesc bogus = test_pattern_shader_module();

@@ -34,6 +34,17 @@
       ],
       "feature_id": "solid-fill",
       "source_sha256": "c8b9ea515ee528a0f8019d19ea0d9d98d829f85f166ef5d63484568fc8d49880"
+    },
+    {
+      "id": "halftone",
+      "version": 1,
+      "source": "../spike/halftone.metal",
+      "entry_points": [
+        "vs_halftone_main",
+        "fs_halftone_main"
+      ],
+      "feature_id": "halftone",
+      "source_sha256": "bd5c0a4eee216125512c03e1ff25fce10abb612a7dc6cf7f48e723d55a469100"
     }
   ]
 }

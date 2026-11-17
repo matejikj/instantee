@@ -38,6 +38,7 @@ validate_shader_module(Device &device, const ShaderModuleDesc &module);
 // Built-in offline modules compiled from engine/shaders into metallib.
 [[nodiscard]] ShaderModuleDesc test_pattern_shader_module();
 [[nodiscard]] ShaderModuleDesc shared_surface_shader_module();
+[[nodiscard]] ShaderModuleDesc halftone_shader_module();
 
 [[nodiscard]] std::vector<ShaderModuleDesc> builtin_shader_modules();
 

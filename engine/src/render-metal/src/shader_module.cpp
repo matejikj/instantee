@@ -1,6 +1,7 @@
 #include <instantee/render_metal/shader_module.hpp>
 
 #include "device_native.hpp"
+#include "halftone_metallib.hpp"
 #include "metal_owner.hpp"
 #include "shared_surface_pattern_metallib.hpp"
 #include "test_pattern_metallib.hpp"
@@ -116,8 +117,21 @@ ShaderModuleDesc shared_surface_shader_module() {
   };
 }
 
+ShaderModuleDesc halftone_shader_module() {
+  return ShaderModuleDesc{
+      .id = "halftone",
+      .version = 1,
+      .feature_id = "halftone",
+      .entry_points = {"vs_halftone_main", "fs_halftone_main"},
+      .metallib_bytes =
+          std::span<const std::uint8_t>{detail::kHalftoneMetallib,
+                                        detail::kHalftoneMetallib_size},
+  };
+}
+
 std::vector<ShaderModuleDesc> builtin_shader_modules() {
-  return {test_pattern_shader_module(), shared_surface_shader_module()};
+  return {test_pattern_shader_module(), shared_surface_shader_module(),
+          halftone_shader_module()};
 }
 
 } // namespace instantee::render_metal

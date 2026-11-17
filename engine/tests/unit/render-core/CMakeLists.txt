@@ -76,6 +76,13 @@ add_test(NAME spike_photo_crop
 set_tests_properties(spike_photo_crop PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_halftone_test halftone_test.cpp)
+target_link_libraries(spike_halftone_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_halftone
+  COMMAND spike_halftone_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_halftone PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")
+
 add_executable(spike_shadow_test shadow_test.cpp)
 target_link_libraries(spike_shadow_test PRIVATE
   instantee::render_core instantee_build_options)

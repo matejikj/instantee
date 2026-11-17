@@ -1,0 +1,51 @@
+{
+  "schema_version": "layout-lint/1",
+  "id": "overlap-and-gutter",
+  "limits": {
+    "canvas_width_px": 1080,
+    "canvas_height_px": 1920,
+    "important_threshold": 0.7,
+    "safe_area": {
+      "mode": "reels_overlay",
+      "top_px": 120,
+      "bottom_px": 220,
+      "left_px": 32,
+      "right_px": 32
+    }
+  },
+  "frames": [
+    {
+      "frame": 12,
+      "elements": [
+        {
+          "id": "title",
+          "path": "/shots/0/nodes/title",
+          "bounds": { "x_px": 48, "y_px": 40, "width_px": 400, "height_px": 80 },
+          "importance": 0.95,
+          "keep_visible": true
+        },
+        {
+          "id": "cta",
+          "path": "/shots/0/nodes/cta",
+          "bounds": { "x_px": 100, "y_px": 60, "width_px": 360, "height_px": 70 },
+          "importance": 0.9,
+          "keep_visible": false
+        },
+        {
+          "id": "badge",
+          "path": "/shots/0/nodes/badge",
+          "bounds": { "x_px": 1000, "y_px": 2000, "width_px": 120, "height_px": 40 },
+          "importance": 0.85,
+          "keep_visible": true
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "codes": [
+      "hard_overlap",
+      "important_outside_canvas",
+      "important_outside_safe_area"
+    ]
+  }
+}

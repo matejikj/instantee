@@ -117,3 +117,11 @@ add_test(NAME spike_direction_typography_lint
   COMMAND spike_direction_typography_lint_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_typography_lint PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_direction_layout_lint_test layout_lint_test.cpp)
+target_link_libraries(spike_direction_layout_lint_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_layout_lint
+  COMMAND spike_direction_layout_lint_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_layout_lint PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

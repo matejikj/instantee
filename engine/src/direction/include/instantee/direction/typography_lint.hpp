@@ -3,6 +3,7 @@
 #include <instantee/core_model/color.hpp>
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/direction/composition_constraints.hpp>
+#include <instantee/direction/lint_types.hpp>
 
 #include <cstdint>
 #include <expected>
@@ -13,21 +14,6 @@
 #include <vector>
 
 namespace instantee::direction {
-
-// Creative linter severities (SAS §9.5). Aesthetic quality is never asserted as
-// absolute truth — findings are measurable policy signals only.
-enum class LintSeverity : std::uint8_t {
-  info = 1,
-  warning,
-  error,
-};
-
-struct LintRect {
-  double x_px = 0;
-  double y_px = 0;
-  double width_px = 0;
-  double height_px = 0;
-};
 
 // One text-bearing layout sample for contrast/typography checks. Metrics are
 // injected (typography adapter or fixture); the linter does not link HarfBuzz.
@@ -57,14 +43,6 @@ struct TypographyLintLimits {
   double canvas_height_px = 1920.0;
 };
 
-struct LintFinding {
-  std::string code;
-  LintSeverity severity = LintSeverity::warning;
-  std::string path;
-  std::string element_id;
-  std::string message;
-};
-
 // Run contrast/typography policy checks. Findings are sorted by
 // (path, code, element_id) for deterministic fixtures.
 [[nodiscard]] std::expected<std::vector<LintFinding>, diagnostics::Error>
@@ -77,18 +55,5 @@ lint_typography(std::span<const TypographyLintElement> elements,
 // Contrast ratio of two linear-light colors, always >= 1.
 [[nodiscard]] double contrast_ratio(core::LinearRgba a,
                                     core::LinearRgba b) noexcept;
-
-[[nodiscard]] constexpr std::string_view
-lint_severity_id(LintSeverity severity) noexcept {
-  switch (severity) {
-  case LintSeverity::info:
-    return "info";
-  case LintSeverity::warning:
-    return "warning";
-  case LintSeverity::error:
-    return "error";
-  }
-  return "unknown";
-}
 
 } // namespace instantee::direction

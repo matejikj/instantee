@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:27:18Z",
+  "updated_at_utc": "2026-11-17T16:33:56Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4582,14 +4582,22 @@
       "evidence_tier_min": "A"
     },
     "P4-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Collisions between important elements are detected without false aesthetic guarantees.",
-        "met": null
+        "criterion": "Kolize důležitých prvků je nalezena bez false guarantees o estetice.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-015/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Layout lint fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-016": {
       "status": "todo",

@@ -1,0 +1,40 @@
+{
+  "schema_version": "layout-lint/1",
+  "id": "clear-safe-layout",
+  "limits": {
+    "canvas_width_px": 1080,
+    "canvas_height_px": 1920,
+    "important_threshold": 0.7,
+    "safe_area": {
+      "mode": "reels_overlay",
+      "top_px": 120,
+      "bottom_px": 220,
+      "left_px": 32,
+      "right_px": 32
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "elements": [
+        {
+          "id": "headline",
+          "path": "/shots/0/nodes/headline",
+          "bounds": { "x_px": 64, "y_px": 200, "width_px": 800, "height_px": 80 },
+          "importance": 0.95,
+          "keep_visible": true
+        },
+        {
+          "id": "deco",
+          "path": "/shots/0/nodes/deco",
+          "bounds": { "x_px": 0, "y_px": 0, "width_px": 80, "height_px": 40 },
+          "importance": 0.2,
+          "keep_visible": false
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "finding_count": 0
+  }
+}

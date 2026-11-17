@@ -12,7 +12,8 @@ add_library(instantee_direction STATIC
   src/transition_planner.cpp
   src/creative_variation.cpp
   src/direction_report.cpp
-  src/typography_lint.cpp)
+  src/typography_lint.cpp
+  src/layout_lint.cpp)
 add_library(instantee::direction ALIAS instantee_direction)
 target_include_directories(instantee_direction
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

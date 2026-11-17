@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T22:47:08Z",
+  "updated_at_utc": "2026-11-17T23:22:02Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5001,14 +5001,23 @@
       "completed_at_utc": "2026-11-17T22:47:08Z"
     },
     "P5-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Reference images are approved and updates require an explicit change record.",
-        "met": null
+        "criterion": "Referenční obrázky schváleny a update vyžaduje explicitní změnový záznam. Vizuální akceptace má checklist, reference frames a tolerance; subjektivní dojem nestačí.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-017/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-017/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Editorial golden + signed visual review record",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T23:22:02Z"
     },
     "P5-018": {
       "status": "todo",

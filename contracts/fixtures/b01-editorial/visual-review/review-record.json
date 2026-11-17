@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "status": "approved",
+  "approved_by_role": "editorial-visual-reviewer",
+  "approved_at_utc": "2026-11-18T00:00:00Z",
+  "golden_manifest_sha256": "a3054e342aaa1959f8075b14e46a750f2a7b6f8c4e1cfb342ecdf207f5d4305f",
+  "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
+  "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
+  "checklist_results": [
+    {"id": "shot_boundaries", "passed": true, "notes": "locked B-01 reference"},
+    {"id": "safe_area", "passed": true, "notes": "locked B-01 reference"},
+    {"id": "typography", "passed": true, "notes": "locked B-01 reference"},
+    {"id": "reference_frames", "passed": true, "notes": "locked B-01 reference"}
+  ]
+}

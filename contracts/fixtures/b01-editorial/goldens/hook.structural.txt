@@ -1,0 +1,5 @@
+shot=hook start=0 duration=240 sample=12
+safe x=32 y=120 w=1016 h=1580
+typography_count=2
+text node=hook_headline run=txt_hook_h role=headline size=64 cps=27
+text node=hook_support run=txt_hook_s role=body size=32 cps=9

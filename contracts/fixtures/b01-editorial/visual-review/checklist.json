@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {"id": "shot_boundaries", "description": "Each news shot boundary frame is pinned and identifiable", "required": true},
+    {"id": "safe_area", "description": "Protected content stays inside the Style Bible safe-area rect", "required": true},
+    {"id": "typography", "description": "Headline/body roles and sizes match the typography golden", "required": true},
+    {"id": "reference_frames", "description": "PNG reference frames compare within the locked tolerance", "required": true}
+  ]
+}

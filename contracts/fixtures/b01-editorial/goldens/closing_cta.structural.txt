@@ -1,0 +1,5 @@
+shot=closing_cta start=1500 duration=300 sample=1512
+safe x=32 y=120 w=1016 h=1580
+typography_count=2
+text node=closing_cta_headline run=txt_closing_cta_h role=headline size=56 cps=15
+text node=closing_cta_support run=txt_closing_cta_s role=body size=32 cps=22

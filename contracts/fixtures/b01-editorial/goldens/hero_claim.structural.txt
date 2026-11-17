@@ -1,0 +1,5 @@
+shot=hero_claim start=240 duration=360 sample=252
+safe x=32 y=120 w=1016 h=1580
+typography_count=2
+text node=hero_claim_headline run=txt_hero_claim_h role=headline size=64 cps=23
+text node=hero_claim_support run=txt_hero_claim_s role=body size=32 cps=14

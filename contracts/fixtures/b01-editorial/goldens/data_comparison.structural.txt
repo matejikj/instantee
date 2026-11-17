@@ -1,0 +1,5 @@
+shot=data_comparison start=600 duration=480 sample=612
+safe x=32 y=120 w=1016 h=1580
+typography_count=2
+text node=data_comparison_headline run=txt_data_comparison_h role=headline size=64 cps=18
+text node=data_comparison_support run=txt_data_comparison_s role=body size=32 cps=12

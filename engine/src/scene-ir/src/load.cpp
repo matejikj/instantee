@@ -596,6 +596,31 @@ decode_scene(yyjson_val *root, const LoadOptions &options) {
     } else {
       run.font_size_px = *size;
     }
+    if (yyjson_val *max_width = yyjson_obj_get(text_val, "max_width_px")) {
+      if (!yyjson_is_num(max_width)) {
+        return std::unexpected(err("type_mismatch", "Expected number",
+                                   path_join(tpath, "max_width_px")));
+      }
+      const double width = yyjson_get_num(max_width);
+      if (!(width > 0.0)) {
+        return std::unexpected(err("out_of_range", "max_width_px must be > 0",
+                                   path_join(tpath, "max_width_px")));
+      }
+      run.max_width_px = width;
+    }
+    if (yyjson_val *role = yyjson_obj_get(text_val, "text_role")) {
+      if (!yyjson_is_str(role)) {
+        return std::unexpected(err("type_mismatch", "Expected string",
+                                   path_join(tpath, "text_role")));
+      }
+      const char *role_text = yyjson_get_str(role);
+      const auto role_len = yyjson_get_len(role);
+      if (role_text == nullptr || role_len == 0 || role_len > 128) {
+        return std::unexpected(err("invalid_string", "text_role is invalid",
+                                   path_join(tpath, "text_role")));
+      }
+      run.text_role = std::string(role_text, role_len);
+    }
     doc.text_runs.push_back(std::move(run));
   }
 

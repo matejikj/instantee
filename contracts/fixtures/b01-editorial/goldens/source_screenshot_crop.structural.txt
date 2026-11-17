@@ -1,0 +1,5 @@
+shot=source_screenshot_crop start=1080 duration=420 sample=1092
+safe x=32 y=120 w=1016 h=1580
+typography_count=2
+text node=source_screenshot_crop_headline run=txt_source_screenshot_crop_h role=headline size=64 cps=14
+text node=source_screenshot_crop_support run=txt_source_screenshot_crop_s role=body size=32 cps=14

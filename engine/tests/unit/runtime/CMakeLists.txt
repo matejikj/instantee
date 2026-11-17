@@ -16,3 +16,11 @@ add_executable(spike_frame_samples_test frame_samples_test.cpp)
 target_link_libraries(spike_frame_samples_test PRIVATE instantee::runtime instantee_build_options)
 add_test(NAME spike_frame_samples COMMAND spike_frame_samples_test)
 set_tests_properties(spike_frame_samples PROPERTIES TIMEOUT 10 LABELS cpu)
+
+add_executable(spike_runtime_compiled_scene_test compiled_scene_test.cpp)
+target_link_libraries(spike_runtime_compiled_scene_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_compiled_scene
+  COMMAND spike_runtime_compiled_scene_test)
+set_tests_properties(spike_runtime_compiled_scene PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

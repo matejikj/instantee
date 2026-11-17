@@ -6,6 +6,7 @@
 #include <instantee/scene_ir/load.hpp>
 
 #include <chrono>
+#include <optional>
 #include <sstream>
 #include <string_view>
 
@@ -42,6 +43,7 @@ bool intent_supported(std::string_view type) {
 }
 
 void append_nodes(const scene_ir::AuthoringNode &node, std::int32_t layer,
+                  std::optional<std::string> parent_id,
                   std::vector<scene_ir::Node> &nodes,
                   std::vector<scene_ir::TextRun> &text_runs,
                   std::vector<std::string> &shot_node_ids,
@@ -49,6 +51,7 @@ void append_nodes(const scene_ir::AuthoringNode &node, std::int32_t layer,
                   std::string_view material_id) {
   scene_ir::Node out;
   out.id = node.id;
+  out.parent_id = std::move(parent_id);
   out.layer_order = layer;
   out.visible = node.visible;
   scene_ir::Transform transform;
@@ -78,11 +81,12 @@ void append_nodes(const scene_ir::AuthoringNode &node, std::int32_t layer,
   } else {
     out.kind = scene_ir::NodeKind::group;
   }
+  const std::string self_id = out.id;
   shot_node_ids.push_back(out.id);
   nodes.push_back(std::move(out));
   std::int32_t child_layer = layer + 1;
   for (const auto &child : node.children) {
-    append_nodes(child, child_layer++, nodes, text_runs, shot_node_ids,
+    append_nodes(child, child_layer++, self_id, nodes, text_runs, shot_node_ids,
                  font_asset_id, material_id);
   }
 }
@@ -169,8 +173,8 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
     out_shot.camera_node_id = "main_cam";
     out_shot.node_ids.push_back("main_cam");
     for (const auto &node : shot.nodes) {
-      append_nodes(node, layer++, doc.nodes, doc.text_runs, out_shot.node_ids,
-                   "font0", "mat0");
+      append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
+                   out_shot.node_ids, "font0", "mat0");
     }
     cursor += shot.duration_frames;
     doc.shots.push_back(std::move(out_shot));

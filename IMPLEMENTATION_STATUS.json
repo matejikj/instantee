@@ -3419,14 +3419,24 @@
       "notes": "Hierarchical reparent on authoring tree and Scene IR parent_id; cycles rejected; SDK + C++ tests."
     },
     "P2-002": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The runtime representation contains no JS callbacks or mutable authoring objects.",
-        "met": null
+        "criterion": "Runtime reprezentace neobsahuje JS callbacky ani mutable authoring objekty.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-002/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-002/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Runtime compile tests",
+      "completed_at_utc": "2026-11-17T02:14:59Z",
+      "notes": "Immutable CompiledScene + RenderJob ownership; Scene IR lowering; parent_id wired in identity compile."
     },
     "P2-003": {
       "status": "todo",

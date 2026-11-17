@@ -26,7 +26,8 @@
       "target": "instantee_runtime",
       "include_prefix": "instantee/runtime/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics"]
+      "allowed_dependencies": ["diagnostics", "core-model"],
+      "notes": "Owns CompiledScene/RenderJob value types; no Scene IR or GPU backends."
     },
     "export-core": {
       "role": "production",
@@ -78,7 +79,7 @@
       "target": "instantee_compiler",
       "include_prefix": "instantee/compiler/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics", "core-model", "scene-ir"]
+      "allowed_dependencies": ["diagnostics", "core-model", "scene-ir", "runtime"]
     },
     "scene-ir": {
       "role": "production",

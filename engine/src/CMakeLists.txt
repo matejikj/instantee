@@ -1,7 +1,7 @@
 add_subdirectory(diagnostics)
 add_subdirectory(core-model)
 add_subdirectory(scene-ir)
-add_subdirectory(compiler)
 add_subdirectory(runtime)
+add_subdirectory(compiler)
 add_subdirectory(export-core)
 add_subdirectory(render-metal)

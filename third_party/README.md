@@ -11,6 +11,8 @@ an immutable archive identity.
 | `stb/` | nothings/stb `stb_image.h` commit `9600522` | MIT OR Unlicense |
 | `libwebp/` | webmproject/libwebp tag `v1.5.0` (decode subset) | BSD-3-Clause |
 | `nanosvg/` | memononen/nanosvg commit `239e102` (`nanosvg.h`) | Zlib |
+| `fonts/` | Noto Sans Regular + DejaVu Sans (pinned TTFs) | OFL-1.1 / DejaVu |
+| `typography-deps/` | HarfBuzz / FreeType / ICU via pkg-config (not vendored) | see PIN.json |
 
 Each pin directory contains `PIN.json` with the tag, commit and archive SHA-256
 used to verify the snapshot. Prefer replacing a pin as a whole. Document any

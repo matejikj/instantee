@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "name": "pinned-fallback-fonts",
+  "notes": "Explicit font files for typography fixtures. No implicit system font fallback.",
+  "fonts": [
+    {
+      "file": "NotoSans-Regular.ttf",
+      "family": "Noto Sans",
+      "role": "primary",
+      "license": "OFL-1.1",
+      "license_file": "OFL-Noto-Sans.txt",
+      "source": "notofonts/notofonts.github.io",
+      "commit": "28b15b4b43b7bed62b5cf6e6b0b5ff5846270535",
+      "archive_url": "https://raw.githubusercontent.com/notofonts/notofonts.github.io/28b15b4b43b7bed62b5cf6e6b0b5ff5846270535/fonts/NotoSans/full/ttf/NotoSans-Regular.ttf",
+      "archive_sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5"
+    },
+    {
+      "file": "DejaVuSans.ttf",
+      "family": "DejaVu Sans",
+      "role": "fallback",
+      "license": "Bitstream Vera + Arev (see LICENSE-DejaVu.txt)",
+      "license_file": "LICENSE-DejaVu.txt",
+      "source": "dejavu-fonts/dejavu-fonts",
+      "tag": "version_2_37",
+      "archive_url": "https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_2_37/dejavu-fonts-ttf-2.37.zip",
+      "archive_sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "archive_sha256_notes": "SHA-256 of the extracted ttf/DejaVuSans.ttf member, not the zip."
+    }
+  ]
+}

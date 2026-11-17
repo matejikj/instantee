@@ -23,6 +23,7 @@ src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
 src/geometry/          Path flatten, fill tessellation port, stroke expand, mesh cache
 src/asset-pipeline/    Bounded PNG/WebP/SVG import, asset cache, and padded texture atlas uploads
+src/typography/        HarfBuzz shaping, FreeType raster, ICU segmentation (pinned fonts)
 src/render-core/       GPU-neutral DrawOp/PassDesc, primitives, instance batching, graph, registry, pools, features, cache
 src/render-metal/      Production Metal device/submit owner, SDF primitives, offline metallib modules
 shaders/               Pinned MSL sources and module manifest; metallibs compiled offline

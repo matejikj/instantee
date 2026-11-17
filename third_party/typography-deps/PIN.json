@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "name": "typography-native-deps",
+  "notes": "Not vendored in-tree. Resolved at configure time via pkg-config. Versions below are the locked development/reference set on the M1 Air Homebrew prefix; configure fails closed on missing or older packages.",
+  "dependencies": [
+    {
+      "name": "harfbuzz",
+      "pkg_config": "harfbuzz",
+      "min_version": "15.0.0",
+      "reference_version": "15.1.0",
+      "license": "MIT-old-style (see upstream COPYING)",
+      "role": "text shaping"
+    },
+    {
+      "name": "freetype",
+      "pkg_config": "freetype2",
+      "min_version": "24.0.0",
+      "reference_version": "26.7.20",
+      "reference_version_notes": "pkg-config libtool version corresponding to FreeType 2.15.x",
+      "license": "FTL OR GPL-2.0-or-later",
+      "role": "font face load and glyph raster"
+    },
+    {
+      "name": "icu4c",
+      "pkg_config": "icu-uc",
+      "min_version": "74.0",
+      "reference_version": "79.1",
+      "license": "Unicode-3.0 / ICU",
+      "role": "grapheme segmentation and bidi analysis",
+      "keg_only_hint": "Homebrew icu4c is keg-only; add $(brew --prefix icu4c@79)/lib/pkgconfig to PKG_CONFIG_PATH"
+    }
+  ]
+}

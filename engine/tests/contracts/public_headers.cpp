@@ -52,6 +52,7 @@
 #include <instantee/scene_ir/lockfile.hpp>
 #include <instantee/scene_ir/migrate.hpp>
 #include <instantee/scene_ir/uri_sandbox.hpp>
+#include <instantee/typography/text_shape.hpp>
 
 #include <instantee/runtime/frame_samples.hpp>
 #include <instantee/telemetry_apple/process_sampler.hpp>

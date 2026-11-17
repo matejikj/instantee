@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T10:55:49Z",
+  "updated_at_utc": "2026-11-17T11:05:53Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4111,14 +4111,24 @@
       "notes": "Added CPU texture atlas in asset-pipeline: shelf packing with mandatory padding gutter (anti-bleed), content-key hit stats, optional box-filter mips, and batched dirty-region staging uploads that stay zero once sprites are marked resident. texture-atlas-bench reports hit_rate/staging_bytes as non_certified_dev_baseline."
     },
     "P3-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Czech text, ligatures and combining marks have correct layout in reference fixtures.",
-        "met": null
+        "criterion": "\u010ce\u0161tina, ligatury a combining marks maj\u00ed spr\u00e1vn\u00e9 rozlo\u017een\u00ed v referen\u010dn\u00edch fixtures.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-016/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-016/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Typography shaping fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T11:05:53Z",
+      "notes": "Added typography module with RAII FreeType/HarfBuzz/ICU adapters, pinned Noto Sans + DejaVu Sans fallback fonts, and shaping fixtures for Czech diacritics, combining marks, and fi ligatures. External deps resolved via pkg-config with version pins; no implicit system font catalog."
     },
     "P3-017": {
       "status": "todo",

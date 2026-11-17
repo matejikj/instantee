@@ -106,6 +106,14 @@
       "allowed_dependencies": ["diagnostics", "geometry"],
       "notes": "Bounded PNG/WebP decode, safe SVG subset import to Path2f, content-hash disk/GPU asset cache, and CPU texture atlas with padded packing plus upload batching. stb_image, libwebp and nanosvg are private; Security.framework is private for SHA-256. Public headers expose no decoder/GPU types; atlas upload plans are CPU staging bytes only."
     },
+    "typography": {
+      "role": "production",
+      "target": "instantee_typography",
+      "include_prefix": "instantee/typography/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"],
+      "notes": "CPU text shaping with HarfBuzz, FreeType glyph raster and ICU grapheme/bidi adapters. External deps resolved via pkg-config (see third_party/typography-deps/PIN.json). Font faces come from explicit pinned paths (third_party/fonts); no implicit system font catalog. HarfBuzz/FreeType/ICU headers stay private."
+    },
     "render-core": {
       "role": "production",
       "target": "instantee_render_core",
@@ -163,6 +171,7 @@
     "engine/src/export-core/",
     "engine/src/geometry/",
     "engine/src/asset-pipeline/",
+    "engine/src/typography/",
     "engine/src/render-core/",
     "engine/src/render-metal/",
     "engine/native/telemetry-apple/"

@@ -1,0 +1,8 @@
+count=5 elements=5 primary_w=610.08 secondary_w=373.92 overhang_headline_w=732
+focal x=470.943 y=431.474 readable=1
+band x=214.88 y=199 w=426.72 h=711
+headline x=32 y=120 w=732 h=160 imp=0.98
+accent_bar x=32 y=296 w=160 h=12 imp=0.4
+body x=32 y=324 w=610.08 h=200 imp=0.82
+callout x=674.08 y=176 w=373.92 h=120 imp=0.7
+photo x=32 y=783.6 w=1016 h=420 imp=0.75

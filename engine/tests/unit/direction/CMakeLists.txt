@@ -160,6 +160,15 @@ add_test(NAME spike_direction_headline_reveal
 set_tests_properties(spike_direction_headline_reveal PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
 
+add_executable(spike_direction_editorial_asym_layout_test
+  editorial_asym_layout_test.cpp)
+target_link_libraries(spike_direction_editorial_asym_layout_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_editorial_asym_layout
+  COMMAND spike_direction_editorial_asym_layout_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_editorial_asym_layout PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")
+
 # CLI contract: release-mode strict rejection and waived audit path via the
 # production `instantee lint` entrypoint (binary built by the release preset).
 add_test(

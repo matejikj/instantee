@@ -6,6 +6,7 @@ add_library(instantee_direction STATIC
   src/track_precedence.cpp
   src/motion_grammar.cpp
   src/headline_reveal.cpp
+  src/editorial_asym_layout.cpp
   src/composition_constraints.cpp
   src/safe_area.cpp
   src/shot_planner.cpp

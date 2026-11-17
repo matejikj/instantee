@@ -1,0 +1,5 @@
+count=2 elements=2 primary_w=610.08 secondary_w=373.92 overhang_headline_w=732
+focal x=315.101 y=229.565 readable=1
+band x=214.88 y=199 w=426.72 h=711
+headline x=32 y=120 w=732 h=160 imp=0.98
+accent_bar x=32 y=296 w=160 h=12 imp=0.4

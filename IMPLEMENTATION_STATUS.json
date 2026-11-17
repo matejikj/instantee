@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T18:18:43Z",
+  "updated_at_utc": "2026-11-17T18:24:52Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4781,14 +4781,22 @@
       "evidence_tier_min": "A"
     },
     "P5-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The layout maintains a readable focal point for the 3 tested element counts.",
-        "met": null
+        "criterion": "Layout dr\u017e\u00ed \u010diteln\u00fd focal point ve 3 testovan\u00fdch po\u010dtech prvk\u016f.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-005/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Composition goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P5-006": {
       "status": "todo",

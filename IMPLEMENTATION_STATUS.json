@@ -3479,14 +3479,24 @@
       "notes": "Ortho camera world/view/clip/viewport; Y-down pixel layout; aspect contain/stretch."
     },
     "P2-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Layers at different depths have defined parallax without inverted axes.",
-        "met": null
+        "criterion": "Vrstvy v r\u016fzn\u00e9 depth maj\u00ed definovan\u00fd parallax a nedoch\u00e1z\u00ed k invertovan\u00fdm os\u00e1m.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-005/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Depth/camera math tests",
+      "completed_at_utc": "2026-11-17T02:50:49Z",
+      "notes": "Perspective projection, parallax_factor, depth clipping; axes preserved."
     },
     "P2-006": {
       "status": "todo",

@@ -8,6 +8,12 @@ export {
   type IntentType,
 } from "./film.js";
 export {
+  collectNodeIds,
+  parentIdOf,
+  reparentNode,
+  type ReparentOptions,
+} from "./scene_graph.js";
+export {
   secondsToFrame,
   secondsIntervalToFrames,
   durationSecondsToFrames,

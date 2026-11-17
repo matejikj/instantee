@@ -9,7 +9,14 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createFilm, filmToJson, secondsToFrame } from "../../build/authoring/sdk/index.js";
+import {
+  collectNodeIds,
+  createFilm,
+  filmToJson,
+  parentIdOf,
+  reparentNode,
+  secondsToFrame,
+} from "../../build/authoring/sdk/index.js";
 
 const require = createRequire(import.meta.url);
 const Ajv2020 = require("ajv/dist/2020.js");
@@ -95,6 +102,50 @@ if (cpp) {
   const result = spawnSync(cpp, { encoding: "utf8" });
   if (result.status !== 0) {
     fail(`C++ time convert test failed: ${result.stderr}`);
+  }
+}
+
+// Hierarchical scene graph: reparent preserves ids, rejects cycles, no UI APIs.
+{
+  /** @type {import("../../build/authoring/sdk/index.js").AuthoringNode[]} */
+  const roots = [
+    {
+      id: "group_a",
+      type: "group",
+      children: [
+        { id: "child_a", type: "text", text: "A" },
+        { id: "child_b", type: "text", text: "B" },
+      ],
+    },
+    { id: "root_b", type: "text", text: "R" },
+  ];
+  const before = collectNodeIds(roots).slice().sort();
+  const moved = reparentNode(roots, "child_a", "root_b");
+  if (parentIdOf(moved, "child_a") !== "root_b") {
+    fail(`expected child_a under root_b, got ${parentIdOf(moved, "child_a")}`);
+  }
+  if (parentIdOf(moved, "child_b") !== "group_a") {
+    fail("child_b parent must stay group_a");
+  }
+  const after = collectNodeIds(moved).slice().sort();
+  if (JSON.stringify(before) !== JSON.stringify(after)) {
+    fail("reparent must preserve node identities");
+  }
+  let cyclic = false;
+  try {
+    reparentNode(roots, "group_a", "child_a");
+  } catch (error) {
+    cyclic = String(error).includes("cyclic_parent");
+  }
+  if (!cyclic) {
+    fail("reparent under descendant must throw cyclic_parent");
+  }
+  const toRoot = reparentNode(roots, "child_b", null, { siblingIndex: 0 });
+  if (parentIdOf(toRoot, "child_b") !== null) {
+    fail("child_b should become a shot root");
+  }
+  if (toRoot[0]?.id !== "child_b") {
+    fail("child_b should be inserted at sibling index 0");
   }
 }
 

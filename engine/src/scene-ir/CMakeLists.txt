@@ -4,6 +4,7 @@ add_library(instantee_scene_ir STATIC
   src/migrate.cpp
   src/uri_sandbox.cpp
   src/graph_validate.cpp
+  src/graph_edit.cpp
   src/canonicalize.cpp
   src/lockfile.cpp)
 add_library(instantee::scene_ir ALIAS instantee_scene_ir)

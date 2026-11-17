@@ -16,6 +16,13 @@ add_test(NAME spike_scene_ir_graph COMMAND spike_scene_ir_graph_test)
 set_tests_properties(spike_scene_ir_graph PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_scene_ir_graph_edit_test graph_edit_test.cpp)
+target_link_libraries(spike_scene_ir_graph_edit_test PRIVATE instantee::scene_ir
+  instantee_build_options)
+add_test(NAME spike_scene_ir_graph_edit COMMAND spike_scene_ir_graph_edit_test)
+set_tests_properties(spike_scene_ir_graph_edit PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_scene_ir_security_test security_test.cpp)
 target_link_libraries(spike_scene_ir_security_test PRIVATE instantee::scene_ir
   instantee_build_options)

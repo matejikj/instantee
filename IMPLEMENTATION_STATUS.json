@@ -3399,14 +3399,24 @@
       "notes": "P1 architecture gate PASS; contract baseline locked; check.py --gate passed"
     },
     "P2-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Moving nodes changes structure without losing identities or introducing cycles.",
-        "met": null
+        "criterion": "P\u0159esuny uzl\u016f m\u011bn\u00ed strukturu bez ztr\u00e1ty identit a bez cykl\u016f; nevznik\u00e1 UI z\u00e1vislost v engine.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-001/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-001/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Scene graph tests",
+      "completed_at_utc": "2026-11-17T01:58:15Z",
+      "notes": "Hierarchical reparent on authoring tree and Scene IR parent_id; cycles rejected; SDK + C++ tests."
     },
     "P2-002": {
       "status": "todo",

@@ -75,3 +75,12 @@ add_test(NAME spike_runtime_shot_timeline
   COMMAND spike_runtime_shot_timeline_test)
 set_tests_properties(spike_runtime_shot_timeline PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_runtime_transition_schedule_test
+  transition_schedule_test.cpp)
+target_link_libraries(spike_runtime_transition_schedule_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_transition_schedule
+  COMMAND spike_runtime_transition_schedule_test)
+set_tests_properties(spike_runtime_transition_schedule PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

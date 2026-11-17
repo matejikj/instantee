@@ -3679,14 +3679,24 @@
       "notes": "Contiguous half-open ShotTimeline; global\u2194local with boundary coverage checks."
     },
     "P2-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A transition preserves monotonic PTS and the correct total duration.",
-        "met": null
+        "criterion": "P\u0159echod udr\u017euje monot\u00f3nn\u00ed PTS a spr\u00e1vnou celkovou d\u00e9lku.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-015/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Transition schedule tests",
+      "completed_at_utc": "2026-11-17T05:02:49Z",
+      "notes": "Cut/dissolve/wipe spans on packed ShotTimeline; no duration doubling; monotone PTS."
     },
     "P2-016": {
       "status": "todo",

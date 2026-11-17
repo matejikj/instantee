@@ -21,6 +21,10 @@ ErrorKind Error::kind_for(ExitCode exit_code) noexcept {
   switch (exit_code) {
   case ExitCode::invalid_input:
     return ErrorKind::invalid_input;
+  case ExitCode::missing_or_corrupt_asset:
+    return ErrorKind::missing_or_corrupt_asset;
+  case ExitCode::incompatible_schema:
+    return ErrorKind::incompatible_schema;
   case ExitCode::gpu_failure:
     return ErrorKind::gpu_failure;
   case ExitCode::export_failure:
@@ -53,6 +57,10 @@ ExitCode Error::exit_code_for(ErrorKind kind) noexcept {
   switch (kind) {
   case ErrorKind::invalid_input:
     return ExitCode::invalid_input;
+  case ErrorKind::missing_or_corrupt_asset:
+    return ExitCode::missing_or_corrupt_asset;
+  case ErrorKind::incompatible_schema:
+    return ExitCode::incompatible_schema;
   case ErrorKind::cancelled:
     return ExitCode::cancelled;
   case ErrorKind::closed:
@@ -115,6 +123,13 @@ ErrorKind Error::kind_for_code(std::string_view code) noexcept {
   if (code == "report_failure" || code == "stdout_failed") {
     return ErrorKind::report_failure;
   }
+  if (code == "missing_asset" || code == "corrupt_asset" ||
+      code == "missing_or_corrupt_asset") {
+    return ErrorKind::missing_or_corrupt_asset;
+  }
+  if (code == "unsupported_schema" || code == "incompatible_schema") {
+    return ErrorKind::incompatible_schema;
+  }
   return ErrorKind::invalid_input;
 }
 
@@ -128,7 +143,9 @@ Error::Error(ExitCode exit_code_in, std::string_view code_in,
       kind == ErrorKind::would_block ||
       kind == ErrorKind::resource_budget_exceeded ||
       kind == ErrorKind::out_of_memory ||
-      kind == ErrorKind::unexpected_exception) {
+      kind == ErrorKind::unexpected_exception ||
+      kind == ErrorKind::missing_or_corrupt_asset ||
+      kind == ErrorKind::incompatible_schema) {
     exit_code = exit_code_for(kind);
   }
 }

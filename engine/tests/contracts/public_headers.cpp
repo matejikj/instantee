@@ -1,3 +1,4 @@
+#include <instantee/compiler/compile.hpp>
 #include <instantee/core_model/ids.hpp>
 #include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/core_model/time.hpp>
@@ -20,6 +21,7 @@
 #include <instantee/runtime/pipeline_metrics.hpp>
 #include <instantee/runtime/reorder_buffer.hpp>
 #include <instantee/runtime/stop_signals.hpp>
+#include <instantee/scene_ir/authoring.hpp>
 #include <instantee/scene_ir/canonicalize.hpp>
 #include <instantee/scene_ir/document.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>

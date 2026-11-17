@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T00:22:51.541530+00:00",
+  "updated_at_utc": "2026-11-17T00:24:24.440624+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2989,7 +2989,7 @@
     "P1-007": {
       "status": "done",
       "acceptance": {
-        "criterion": "Neplatný JSON nebo typ vede na korektní CLI/Error cestu včetně JSON path; fuzz skeleton reprodukovatelně běží s limity.",
+        "criterion": "Neplatn\u00fd JSON nebo typ vede na korektn\u00ed CLI/Error cestu v\u010detn\u011b JSON path; fuzz skeleton reprodukovateln\u011b b\u011b\u017e\u00ed s limity.",
         "met": true
       },
       "evidence": [
@@ -3008,7 +3008,7 @@
     "P1-008": {
       "status": "done",
       "acceptance": {
-        "criterion": "Cyklický parent graph a dangling asset reference jsou odmítnuty deterministicky.",
+        "criterion": "Cyklick\u00fd parent graph a dangling asset reference jsou odm\u00edtnuty deterministicky.",
         "met": true
       },
       "evidence": [
@@ -3027,7 +3027,7 @@
     "P1-009": {
       "status": "done",
       "acceptance": {
-        "criterion": "Path traversal, externí cesta mimo sandbox a přehnaná velikost vstupu se bezpečně odmítnou.",
+        "criterion": "Path traversal, extern\u00ed cesta mimo sandbox a p\u0159ehnan\u00e1 velikost vstupu se bezpe\u010dn\u011b odm\u00edtnou.",
         "met": true
       },
       "evidence": [
@@ -3065,7 +3065,7 @@
     "P1-011": {
       "status": "done",
       "acceptance": {
-        "criterion": "SDK vytvoří minimální film bez runtime GPU/Node závislosti v IR.",
+        "criterion": "SDK vytvo\u0159\u00ed minim\u00e1ln\u00ed film bez runtime GPU/Node z\u00e1vislosti v IR.",
         "met": true
       },
       "evidence": [
@@ -3084,7 +3084,7 @@
     "P1-012": {
       "status": "done",
       "acceptance": {
-        "criterion": "Stejný vstup generuje stejné integer frames na všech platformách; chybějící policy nelze obejít tichým float castem.",
+        "criterion": "Stejn\u00fd vstup generuje stejn\u00e9 integer frames na v\u0161ech platform\u00e1ch; chyb\u011bj\u00edc\u00ed policy nelze obej\u00edt tich\u00fdm float castem.",
         "met": true
       },
       "evidence": [
@@ -3098,12 +3098,12 @@
       "measurement": "none",
       "evidence_tier_min": "A",
       "verification": "Time conversion property tests",
-      "notes": "Shared seconds→frames nearest/half-away policy with sub-frame loss"
+      "notes": "Shared seconds\u2192frames nearest/half-away policy with sub-frame loss"
     },
     "P1-013": {
       "status": "done",
       "acceptance": {
-        "criterion": "Ekvivalentní vstupy mají stejný canonical hash; TS/C++ roundtrip neztrácí číselnou přesnost.",
+        "criterion": "Ekvivalentn\u00ed vstupy maj\u00ed stejn\u00fd canonical hash; TS/C++ roundtrip neztr\u00e1c\u00ed \u010d\u00edselnou p\u0159esnost.",
         "met": true
       },
       "evidence": [
@@ -3122,7 +3122,7 @@
     "P1-014": {
       "status": "done",
       "acceptance": {
-        "criterion": "Změna obsahu assetu vede na změnu lockfile a správnou invalidaci.",
+        "criterion": "Zm\u011bna obsahu assetu vede na zm\u011bnu lockfile a spr\u00e1vnou invalidaci.",
         "met": true
       },
       "evidence": [
@@ -3149,24 +3149,73 @@
       "blockers": []
     },
     "P1-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The same authoring manifest produces identical Scene IR and a verified duration.",
-        "met": null
+        "criterion": "Tent\u00fd\u017e authoring manifest d\u00e1v\u00e1 stejn\u00e9 Scene IR a ov\u011b\u0159enou d\u00e9lku; nezn\u00e1m\u00fd/unimplemented intent je rejected s diagn\u00f3zou.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Same authoring yields same Scene IR and verified duration",
+            "met": true,
+            "evidence": "engine/tests/unit/compiler/identity_test.cpp"
+          },
+          {
+            "criterion": "Unknown/unimplemented intent rejected with diagnosis",
+            "met": true,
+            "evidence": [
+              "engine/src/compiler/src/compile.cpp",
+              "contracts/fixtures/authoring/negative/unknown-intent.authoring.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-016/",
+        "implementation-evidence/P1-016/NOTES.md",
+        "engine/src/compiler/src/compile.cpp",
+        "engine/tests/unit/compiler/identity_test.cpp"
+      ],
+      "checks": [
+        "implementation-evidence/P1-016/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S6",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Compiler snapshot + unsupported-intent negative tests",
+      "notes": "Identity compiler with unsupported-intent rejection; deterministic IR snapshot"
     },
     "P1-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The CLI rejects errors before GPU initialization and reports the exact ID of the invalid node.",
-        "met": null
+        "criterion": "CLI odm\u00edt\u00e1 chyby p\u0159ed GPU inicializac\u00ed a vypisuje p\u0159esn\u00e9 ID/path vadn\u00e9ho uzlu se stabiln\u00edmi k\u00f3dy.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Errors rejected before GPU init with path/codes",
+            "met": true,
+            "evidence": [
+              "engine/apps/instantee/main.cpp",
+              "engine/tests/integration/cli_validate_compile_test.cpp"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-017/",
+        "implementation-evidence/P1-017/NOTES.md",
+        "engine/apps/instantee/main.cpp",
+        "engine/tests/integration/cli_validate_compile_test.cpp"
+      ],
+      "checks": [
+        "implementation-evidence/P1-017/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S6",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "CLI integration tests",
+      "notes": "GPU-free validate/compile CLI with stable exit codes 2/4 and JSON diagnostics"
     },
     "P1-018": {
       "status": "todo",
@@ -3225,14 +3274,45 @@
       ]
     },
     "P1-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The report gives per-stage median/p95, IR size and RSS for all three size classes; ADR-0002 records the decision (keep JSON V1 or plan an internal binary cache); ADR-0014 contains a draft parse+compile budget within NFR-PERF-03.",
-        "met": null
+        "criterion": "Report m\u00e1 per-stage medi\u00e1n/p95, velikost IR a RSS pro v\u0161echny t\u0159i t\u0159\u00eddy; ADR-0002 zaznamen\u00e1 rozhodnut\u00ed; ADR-0014 obsahuje draft rozpo\u010dtu parse+compile.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Per-stage median/p95, IR size, RSS for three classes",
+            "met": true,
+            "evidence": "implementation-evidence/P1-021/parse_compile_report.json"
+          },
+          {
+            "criterion": "ADR-0002 records keep-JSON decision",
+            "met": true,
+            "evidence": "motion_framework_sas/adrs/0002-scene-ir-versioning.md"
+          },
+          {
+            "criterion": "ADR-0014 draft parse+compile budget",
+            "met": true,
+            "evidence": "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-021/",
+        "implementation-evidence/P1-021/NOTES.md",
+        "implementation-evidence/P1-021/parse_compile_report.json",
+        "tools/benchmark/parse_compile_bench.py",
+        "motion_framework_sas/adrs/0002-scene-ir-versioning.md",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+      ],
+      "checks": [
+        "implementation-evidence/P1-021/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S6",
+      "measurement": "benchmark",
+      "evidence_tier_min": "C",
+      "verification": "Parse/compile benchmark report + ADR-0002 baseline",
+      "notes": "Non-certified parse/compile baseline; keep JSON IR; draft cold-start budgets in ADR-0014"
     },
     "P1-020": {
       "status": "todo",
@@ -3347,7 +3427,7 @@
     "P2-011": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Angle tests across ±π and color transitions match the contract.",
+        "criterion": "Angle tests across \u00b1\u03c0 and color transitions match the contract.",
         "met": null
       },
       "evidence": [],
@@ -3417,7 +3497,7 @@
     "P2-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays ≤K and output order is unchanged.",
+        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays \u2264K and output order is unchanged.",
         "met": null
       },
       "evidence": [],
@@ -4077,7 +4157,7 @@
     "P5-018": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4297,7 +4377,7 @@
     "P6-020": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4357,7 +4437,7 @@
     "P7-005": {
       "status": "todo",
       "acceptance": {
-        "criterion": "10–20 layers respond to camera movement with correct parallax.",
+        "criterion": "10\u201320 layers respond to camera movement with correct parallax.",
         "met": null
       },
       "evidence": [],
@@ -4547,7 +4627,7 @@
     "P7-024": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
+        "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
         "met": null
       },
       "evidence": [],
@@ -4767,7 +4847,7 @@
     "P8-021": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run has wall≤1800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
+        "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
         "met": null
       },
       "evidence": [],
@@ -4787,7 +4867,7 @@
     "P8-023": {
       "status": "todo",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
+        "criterion": "Every valid certification cold run of 60 s takes \u2264360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
         "met": null
       },
       "evidence": [],
@@ -4907,7 +4987,7 @@
     "P8-035": {
       "status": "todo",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
+        "criterion": "All 3 MP4 files have 1080\u00d71920/30fps, no audio track and content matching the three Style Bibles.",
         "met": null
       },
       "evidence": [],

@@ -20,3 +20,13 @@ add_test(NAME spike_measurement COMMAND "${Python3_EXECUTABLE}"
   "${PROJECT_SOURCE_DIR}/tools/benchmark/test_measure.py"
   "$<TARGET_FILE:spike-export-metrics>")
 set_tests_properties(spike_measurement PROPERTIES TIMEOUT 120 LABELS "cpu;smoke")
+
+add_executable(instantee_cli_validate_compile_test cli_validate_compile_test.cpp)
+target_link_libraries(instantee_cli_validate_compile_test PRIVATE
+  instantee_build_options)
+add_dependencies(instantee_cli_validate_compile_test instantee)
+add_test(NAME instantee_cli_validate_compile
+  COMMAND instantee_cli_validate_compile_test
+  "${PROJECT_SOURCE_DIR}" "$<TARGET_FILE:instantee>")
+set_tests_properties(instantee_cli_validate_compile PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")

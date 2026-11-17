@@ -1,4 +1,5 @@
 add_subdirectory(cli)
+add_subdirectory(instantee)
 add_subdirectory(contract-seed-check)
 add_subdirectory(fuzz-scene-ir)
 add_subdirectory(metrics)

@@ -2,6 +2,7 @@
 import copy
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -14,7 +15,19 @@ from baseline import B00_FRAMES, B00_WORKLOAD_ID, trial_pass
 from endurance import (B00_300_FRAMES, B00_300_WORKLOAD_ID, analyze_resource_series,
                        endurance_pass, oldest_slow_frame)
 
-BINARY = sys.argv.pop(1) if len(sys.argv) > 1 and not sys.argv[1].startswith('-') else None
+
+def _optional_binary() -> str | None:
+    # ctest passes the metrics binary as argv[1]. unittest discover must not
+    # treat its own subcommand name as that executable path.
+    if len(sys.argv) < 2 or sys.argv[1].startswith("-"):
+        return None
+    candidate = Path(sys.argv[1])
+    if candidate.is_file() and os.access(candidate, os.X_OK):
+        return sys.argv.pop(1)
+    return None
+
+
+BINARY = _optional_binary()
 ROOT = Path(__file__).resolve().parents[2]
 
 

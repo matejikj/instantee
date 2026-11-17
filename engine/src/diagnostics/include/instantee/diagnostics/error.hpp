@@ -11,6 +11,8 @@ namespace instantee::diagnostics {
 // ErrorKind; ExitCode remains the stable numeric boundary for the process.
 enum class ExitCode : int {
   invalid_input = 2,
+  missing_or_corrupt_asset = 3,
+  incompatible_schema = 4,
   gpu_failure = 5,
   export_failure = 6,
   publication_conflict = 9,
@@ -40,7 +42,9 @@ enum class ErrorKind : std::uint16_t {
   published_durability_unknown,
   report_failure,
   out_of_memory,
-  unexpected_exception
+  unexpected_exception,
+  missing_or_corrupt_asset,
+  incompatible_schema
 };
 
 // Owned dynamic context. Strings are owned by Error so views into caller

@@ -74,10 +74,10 @@
       "allowed_dependencies": ["diagnostics", "core-model"]
     },
     "compiler": {
-      "role": "planned",
-      "target": null,
+      "role": "production",
+      "target": "instantee_compiler",
       "include_prefix": "instantee/compiler/",
-      "decision": "planned",
+      "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model", "scene-ir"]
     },
     "scene-ir": {
@@ -140,6 +140,7 @@
     "engine/src/diagnostics/",
     "engine/src/core-model/",
     "engine/src/scene-ir/",
+    "engine/src/compiler/",
     "engine/src/runtime/",
     "engine/src/export-core/",
     "engine/native/telemetry-apple/"

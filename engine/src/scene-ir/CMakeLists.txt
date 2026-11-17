@@ -1,5 +1,6 @@
 add_library(instantee_scene_ir STATIC
   src/load.cpp
+  src/authoring_load.cpp
   src/uri_sandbox.cpp
   src/graph_validate.cpp
   src/canonicalize.cpp

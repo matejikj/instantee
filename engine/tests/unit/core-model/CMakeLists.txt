@@ -34,3 +34,10 @@ target_link_libraries(spike_core_model_transform_test PRIVATE
 add_test(NAME spike_core_model_transform COMMAND spike_core_model_transform_test)
 set_tests_properties(spike_core_model_transform PROPERTIES TIMEOUT 10 LABELS
   "cpu;smoke")
+
+add_executable(spike_core_model_camera_test camera_test.cpp)
+target_link_libraries(spike_core_model_camera_test PRIVATE
+  instantee::core_model instantee_build_options)
+add_test(NAME spike_core_model_camera COMMAND spike_core_model_camera_test)
+set_tests_properties(spike_core_model_camera PROPERTIES TIMEOUT 10 LABELS
+  "cpu;smoke")

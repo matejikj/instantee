@@ -3459,14 +3459,24 @@
       "notes": "Mat3/Mat4 column-major; local T*P*R*S*InvP; world=parent*local; hierarchy tests."
     },
     "P2-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Text and graphics positions match the expected pixel layout.",
-        "met": null
+        "criterion": "Poloha textu a grafiky odpov\u00edd\u00e1 o\u010dek\u00e1van\u00e9mu pixelov\u00e9mu layoutu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-004/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-004/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Camera golden math test",
+      "completed_at_utc": "2026-11-17T02:42:55Z",
+      "notes": "Ortho camera world/view/clip/viewport; Y-down pixel layout; aspect contain/stretch."
     },
     "P2-005": {
       "status": "todo",

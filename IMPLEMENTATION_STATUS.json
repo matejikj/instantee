@@ -3639,14 +3639,24 @@
       "notes": "SplitMix64+FNV channel hash; unit noise; -fno-fast-math -ffp-contract=off."
     },
     "P2-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Different frame evaluation orders produce the same logical state.",
-        "met": null
+        "criterion": "R\u016fzn\u00e9 po\u0159ad\u00ed sn\u00edmk\u016f d\u00e1v\u00e1 stejn\u00fd logick\u00fd stav; chyb\u011bj\u00edc\u00ed interpolace nelze nahradit ad hoc float lerp v evaluatoru.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-013/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Random-access property tests",
+      "completed_at_utc": "2026-11-17T04:36:56Z",
+      "notes": "FrameState via typed track/spring/color/short-arc bindings; random-access stable."
     },
     "P2-014": {
       "status": "todo",

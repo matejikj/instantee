@@ -50,11 +50,10 @@ bool opaque_less(const DrawItem &a, const DrawItem &b) noexcept {
 } // namespace
 
 std::expected<DrawOrder, diagnostics::Error>
-build_draw_order(const CompiledScene &scene,
+build_draw_order(std::span<const RuntimeNode> nodes,
+                 std::span<const std::string> node_ids,
                  std::span<const double> depth_z_per_node) {
-  const auto nodes = scene.nodes();
-  const auto ids = scene.node_ids();
-  if (nodes.size() != ids.size()) {
+  if (nodes.size() != node_ids.size()) {
     return std::unexpected(
         err("length_mismatch", "node_ids and nodes must match"));
   }
@@ -78,7 +77,7 @@ build_draw_order(const CompiledScene &scene,
     item.opacity = node.transform.opacity;
     item.layer_order = node.layer_order;
     item.depth_z = depth_z_per_node[index];
-    item.node_id = ids[index];
+    item.node_id = node_ids[index];
     if (is_transparent_draw(item.blend, item.opacity)) {
       order.transparent_paint.push_back(item);
     } else {
@@ -91,6 +90,12 @@ build_draw_order(const CompiledScene &scene,
   std::stable_sort(order.transparent_paint.begin(),
                    order.transparent_paint.end(), transparent_less);
   return order;
+}
+
+std::expected<DrawOrder, diagnostics::Error>
+build_draw_order(const CompiledScene &scene,
+                 std::span<const double> depth_z_per_node) {
+  return build_draw_order(scene.nodes(), scene.node_ids(), depth_z_per_node);
 }
 
 std::expected<DrawOrder, diagnostics::Error>

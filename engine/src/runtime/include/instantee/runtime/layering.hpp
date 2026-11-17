@@ -39,8 +39,13 @@ struct DrawOrder {
   return opacity < 1.0 - 1e-12;
 }
 
-// depth_z_per_node must align with scene.nodes(). Invisible nodes and
-// non-drawable kinds (group, camera) are omitted.
+// depth_z_per_node must align with nodes. Invisible nodes and non-drawable
+// kinds (group, camera) are omitted. node_ids must match nodes.size().
+[[nodiscard]] std::expected<DrawOrder, diagnostics::Error>
+build_draw_order(std::span<const RuntimeNode> nodes,
+                 std::span<const std::string> node_ids,
+                 std::span<const double> depth_z_per_node);
+
 [[nodiscard]] std::expected<DrawOrder, diagnostics::Error>
 build_draw_order(const CompiledScene &scene,
                  std::span<const double> depth_z_per_node);

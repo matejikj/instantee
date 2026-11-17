@@ -3,6 +3,7 @@
 #include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/diagnostics/exception_boundary.hpp>
+#include <instantee/direction/lint_policy.hpp>
 #include <instantee/preview/frame_png.hpp>
 #include <instantee/runtime/frame_preview.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
@@ -10,6 +11,7 @@
 
 #include <cstdio>
 #include <expected>
+#include <filesystem>
 #include <fstream>
 #include <optional>
 #include <span>
@@ -68,13 +70,19 @@ int fail(const Error &error) {
 }
 
 void usage() {
-  std::fputs("usage:\n"
-             "  instantee validate <authoring.json>\n"
-             "  instantee compile <authoring.json> --out <scene.json>\n"
-             "  instantee frame <scene.json> --at <N> [--out "
-             "<report.json|preview.png>]\n"
-             "  instantee help\n",
-             stdout);
+  std::fputs(
+      "usage:\n"
+      "  instantee validate <authoring.json>\n"
+      "  instantee compile <authoring.json> --out <scene.json>\n"
+      "  instantee frame <scene.json> --at <N> [--out "
+      "<report.json|preview.png>]\n"
+      "  instantee lint <findings.json> [--policy off|warn|strict] "
+      "[--waivers <waivers.json>] [--report <report.json>]\n"
+      "  instantee help\n"
+      "\n"
+      "Lint policy defaults to strict in release builds and warn otherwise. "
+      "Strict rejects unwaived severity=error findings.\n",
+      stdout);
 }
 
 std::expected<std::string, Error> read_file(const std::string &path) {
@@ -296,6 +304,69 @@ int cmd_frame(const FrameArgs &args) {
   return 0;
 }
 
+int cmd_lint(std::span<const std::string_view> args) {
+  using instantee::direction::evaluate_lint_policy;
+  using instantee::direction::lint_policy_exit_code;
+  using instantee::direction::lint_policy_report_json;
+  using instantee::direction::lint_release_build_default;
+  using instantee::direction::load_lint_findings_file;
+  using instantee::direction::load_lint_waivers_file;
+  using instantee::direction::parse_lint_cli_options;
+
+  if (args.empty()) {
+    usage();
+    return static_cast<int>(ExitCode::invalid_input);
+  }
+  const std::filesystem::path findings_path{std::string{args.front()}};
+  auto options =
+      parse_lint_cli_options(args.subspan(1), lint_release_build_default());
+  if (!options) {
+    return fail(options.error());
+  }
+
+  auto findings = load_lint_findings_file(findings_path);
+  if (!findings) {
+    return fail(findings.error());
+  }
+
+  std::vector<instantee::direction::LintWaiver> waivers;
+  if (options->waivers_path) {
+    auto loaded = load_lint_waivers_file(*options->waivers_path);
+    if (!loaded) {
+      return fail(loaded.error());
+    }
+    waivers = std::move(*loaded);
+  }
+
+  auto report = evaluate_lint_policy(*findings, options->policy, waivers,
+                                     lint_release_build_default());
+  if (!report) {
+    return fail(report.error());
+  }
+
+  const std::string body = lint_policy_report_json(*report);
+  if (options->report_path) {
+    std::ofstream output(*options->report_path,
+                         std::ios::binary | std::ios::trunc);
+    if (!output) {
+      return fail(Error{ExitCode::invalid_input, "io_error", "cli",
+                        "Cannot open lint report output"});
+    }
+    output << body << '\n';
+    if (!output) {
+      return fail(Error{ExitCode::report_failure, "io_error", "cli",
+                        "Cannot write lint report output"});
+    }
+  }
+
+  if (std::fputs(body.c_str(), stdout) == EOF ||
+      std::fputc('\n', stdout) == EOF || std::fflush(stdout) != 0) {
+    return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
+                      "Cannot write CLI output"});
+  }
+  return lint_policy_exit_code(*report);
+}
+
 int run(int argc, char **argv) {
   if (argc < 2) {
     usage();
@@ -331,6 +402,14 @@ int run(int argc, char **argv) {
       return fail(parsed.error());
     }
     return cmd_frame(*parsed);
+  }
+  if (cmd == "lint") {
+    std::vector<std::string_view> args;
+    args.reserve(static_cast<std::size_t>(argc >= 2 ? argc - 2 : 0));
+    for (int index = 2; index < argc; ++index) {
+      args.emplace_back(argv[index]);
+    }
+    return cmd_lint(args);
   }
   usage();
   return static_cast<int>(ExitCode::invalid_input);

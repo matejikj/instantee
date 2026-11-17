@@ -14,7 +14,8 @@ add_library(instantee_direction STATIC
   src/direction_report.cpp
   src/typography_lint.cpp
   src/layout_lint.cpp
-  src/motion_palette_lint.cpp)
+  src/motion_palette_lint.cpp
+  src/lint_policy.cpp)
 add_library(instantee::direction ALIAS instantee_direction)
 target_include_directories(instantee_direction
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

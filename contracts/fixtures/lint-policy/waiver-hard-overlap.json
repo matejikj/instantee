@@ -1,0 +1,12 @@
+{
+  "schema_version": "lint-waivers/1",
+  "waivers": [
+    {
+      "code": "hard_overlap",
+      "path": "/shots/0/nodes/title",
+      "element_id": "title",
+      "reason": "Intentional stacked kinetic type for the opener hold",
+      "approval_id": "waiver-fixture-001"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "lint-findings/1",
+  "findings": [
+    {
+      "code": "hard_overlap",
+      "severity": "error",
+      "path": "/shots/0/nodes/title",
+      "element_id": "title",
+      "message": "Important elements overlap: title and cta"
+    },
+    {
+      "code": "excessive_cuts",
+      "severity": "warning",
+      "path": "/timeline/cuts",
+      "element_id": "timeline",
+      "message": "Cut density exceeds the Style Bible limit"
+    },
+    {
+      "code": "repeated_preset",
+      "severity": "info",
+      "path": "/shots/1/motion/0",
+      "element_id": "p1",
+      "message": "Motion preset approaching reuse limit"
+    }
+  ]
+}

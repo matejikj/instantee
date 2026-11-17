@@ -134,3 +134,33 @@ add_test(NAME spike_direction_motion_palette_lint
   COMMAND spike_direction_motion_palette_lint_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_motion_palette_lint PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_direction_lint_policy_test lint_policy_test.cpp)
+target_link_libraries(spike_direction_lint_policy_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_lint_policy
+  COMMAND spike_direction_lint_policy_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_lint_policy PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
+# CLI contract: release-mode strict rejection and waived audit path via the
+# production `instantee lint` entrypoint (binary built by the release preset).
+add_test(
+  NAME instantee_lint_policy_cli_reject
+  COMMAND
+    "${PROJECT_BINARY_DIR}/instantee" lint
+    "${PROJECT_SOURCE_DIR}/contracts/fixtures/lint-policy/findings-with-error.json"
+    --policy strict)
+set_tests_properties(instantee_lint_policy_cli_reject PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke" WILL_FAIL TRUE)
+
+add_test(
+  NAME instantee_lint_policy_cli_waiver
+  COMMAND
+    "${PROJECT_BINARY_DIR}/instantee" lint
+    "${PROJECT_SOURCE_DIR}/contracts/fixtures/lint-policy/findings-with-error.json"
+    --policy strict
+    --waivers
+    "${PROJECT_SOURCE_DIR}/contracts/fixtures/lint-policy/waiver-hard-overlap.json")
+set_tests_properties(instantee_lint_policy_cli_waiver PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

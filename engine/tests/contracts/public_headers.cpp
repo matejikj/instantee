@@ -1,3 +1,4 @@
+#include <instantee/asset_pipeline/asset_cache.hpp>
 #include <instantee/asset_pipeline/bitmap_decode.hpp>
 #include <instantee/asset_pipeline/svg_import.hpp>
 #include <instantee/compiler/compile.hpp>

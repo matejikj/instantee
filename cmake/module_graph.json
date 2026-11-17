@@ -104,7 +104,7 @@
       "include_prefix": "instantee/asset_pipeline/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "geometry"],
-      "notes": "Bounded PNG/WebP decode and safe SVG subset import to Path2f. stb_image, libwebp and nanosvg are private dependencies and must not leak into public headers; scripts/external URLs are rejected before parse; no GPU types."
+      "notes": "Bounded PNG/WebP decode, safe SVG subset import to Path2f, and content-hash disk/GPU asset cache layers. stb_image, libwebp and nanosvg are private; Security.framework is private for SHA-256. Public headers expose no decoder/GPU types; GPU cache slots are process-local and never serialized."
     },
     "render-core": {
       "role": "production",

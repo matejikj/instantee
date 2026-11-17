@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T10:36:29Z",
+  "updated_at_utc": "2026-11-17T10:48:21Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4071,14 +4071,24 @@
       "notes": "Added asset-pipeline SVG security pre-scan and static subset import to Path2f. Scripts, handlers, and external URL references are rejected before NanoSVG parse; image/filter/mask/use fail closed. NanoSVG is a private dependency (pinned commit)."
     },
     "P3-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Changing a bitmap invalidates only relevant asset/scene components.",
-        "met": null
+        "criterion": "Zm\u011bna bitmapy invaliduje jen relevantn\u00ed komponenty; po\u0161kozen\u00e1/nekompatibiln\u00ed cache se bezpe\u010dn\u011b odm\u00edtne nebo p\u0159ebuduje.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-014/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Cache invalidation + corruption tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-17T10:48:21Z",
+      "notes": "Added content-hash asset cache with separate disk (normalized RGBA blobs, IAC1 + format version) and process-local GPU slots that are never serialized. SHA-256 covers source bytes and compile flags; changing one asset invalidates only its GPU binding unless another id still shares the hash; corrupt or version-skewed blobs fail closed for rebuild."
     },
     "P3-015": {
       "status": "todo",

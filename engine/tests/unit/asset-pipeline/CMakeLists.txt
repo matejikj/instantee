@@ -11,3 +11,10 @@ target_link_libraries(spike_svg_import_test PRIVATE
 add_test(NAME spike_svg_import COMMAND spike_svg_import_test)
 set_tests_properties(spike_svg_import PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_asset_cache_test asset_cache_test.cpp)
+target_link_libraries(spike_asset_cache_test PRIVATE
+  instantee::asset_pipeline instantee_build_options)
+add_test(NAME spike_asset_cache COMMAND spike_asset_cache_test)
+set_tests_properties(spike_asset_cache PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

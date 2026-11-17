@@ -30,3 +30,12 @@ add_test(NAME instantee_cli_validate_compile
   "${PROJECT_SOURCE_DIR}" "$<TARGET_FILE:instantee>")
 set_tests_properties(instantee_cli_validate_compile PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
+
+add_executable(instantee_frame_seek_test frame_seek_test.cpp)
+target_link_libraries(instantee_frame_seek_test PRIVATE instantee_build_options)
+add_dependencies(instantee_frame_seek_test instantee)
+add_test(NAME instantee_frame_seek
+  COMMAND instantee_frame_seek_test
+  "${PROJECT_SOURCE_DIR}" "$<TARGET_FILE:instantee>")
+set_tests_properties(instantee_frame_seek PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

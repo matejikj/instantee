@@ -10,6 +10,7 @@ add_library(instantee_runtime STATIC
   src/spring.cpp
   src/frame_evaluator.cpp
   src/clip_mask.cpp
+  src/frame_preview.cpp
   src/shot_timeline.cpp
   src/transition_schedule.cpp)
 add_library(instantee::runtime ALIAS instantee_runtime)

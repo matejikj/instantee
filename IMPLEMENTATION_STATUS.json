@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T05:18:25.798704+00:00",
+  "updated_at_utc": "2026-11-17T05:33:51.531883+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3719,14 +3719,24 @@
       "notes": "Parent-chain clip AABB intersection and nearest mask inheritance into FrameState; dangling mask/node refs rejected."
     },
     "P2-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Frame N does not require sequential playback of 0..N-1.",
-        "met": null
+        "criterion": "Frame N nepot\u0159ebuje postupn\u00e9 p\u0159ehr\u00e1n\u00ed 0..N-1.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-017/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-017/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Frame seek integration",
+      "completed_at_utc": "2026-11-17T05:33:51Z",
+      "notes": "preview_frame_at single-eval seek; instantee frame --at N logical JSON; PNG out deferred."
     },
     "P2-018": {
       "status": "todo",

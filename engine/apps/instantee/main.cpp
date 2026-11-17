@@ -1,14 +1,22 @@
 #include <instantee/compiler/compile.hpp>
+#include <instantee/compiler/compile_runtime.hpp>
+#include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/diagnostics/exception_boundary.hpp>
+#include <instantee/runtime/frame_preview.hpp>
+#include <instantee/scene_ir/graph_validate.hpp>
+#include <instantee/scene_ir/load.hpp>
 
 #include <cstdio>
 #include <expected>
 #include <fstream>
+#include <optional>
 #include <span>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 namespace {
 
@@ -42,6 +50,10 @@ int fail(const Error &error) {
     std::fprintf(stderr, ",\"json_path\":\"%s\"",
                  json_escape(*error.context.json_path).c_str());
   }
+  if (error.context.frame) {
+    std::fprintf(stderr, ",\"frame\":%llu",
+                 static_cast<unsigned long long>(*error.context.frame));
+  }
   if (error.context.shot) {
     std::fprintf(stderr, ",\"shot\":\"%s\"",
                  json_escape(*error.context.shot).c_str());
@@ -58,6 +70,7 @@ void usage() {
   std::fputs("usage:\n"
              "  instantee validate <authoring.json>\n"
              "  instantee compile <authoring.json> --out <scene.json>\n"
+             "  instantee frame <scene.json> --at <N> [--out <report.json>]\n"
              "  instantee help\n",
              stdout);
 }
@@ -139,6 +152,145 @@ int cmd_compile(const std::string &path, const std::string &out_path) {
   return 0;
 }
 
+struct FrameArgs {
+  std::string scene_path;
+  std::uint64_t at = 0;
+  std::optional<std::string> out_path;
+};
+
+std::expected<FrameArgs, Error>
+parse_frame_args(std::span<const std::string_view> args) {
+  if (args.empty()) {
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments",
+                                 "frame requires <scene.json> --at <N>"});
+  }
+  FrameArgs out;
+  out.scene_path = std::string(args.front());
+  bool have_at = false;
+  for (std::size_t index = 1; index < args.size();) {
+    const std::string_view flag = args[index];
+    if (flag == "--at") {
+      if (have_at) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --at"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--at requires a frame index"});
+      }
+      auto parsed =
+          instantee::core::Uint64Encoding::parse_decimal(args[index + 1]);
+      if (!parsed) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Invalid --at frame index"});
+      }
+      out.at = *parsed;
+      have_at = true;
+      index += 2;
+      continue;
+    }
+    if (flag == "--out") {
+      if (out.out_path.has_value()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --out"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--out requires a path"});
+      }
+      out.out_path = std::string(args[index + 1]);
+      index += 2;
+      continue;
+    }
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments", "Unknown frame option"});
+  }
+  if (!have_at) {
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments", "frame requires --at <N>"});
+  }
+  return out;
+}
+
+[[nodiscard]] bool ends_with_png(std::string_view path) noexcept {
+  if (path.size() < 4) {
+    return false;
+  }
+  const std::string_view suffix = path.substr(path.size() - 4);
+  return suffix == ".png" || suffix == ".PNG";
+}
+
+int cmd_frame(const FrameArgs &args) {
+  if (args.out_path && ends_with_png(*args.out_path)) {
+    return fail(Error{ExitCode::invalid_input, "preview_raster_unavailable",
+                      "frame",
+                      "Raster PNG preview is not available in this phase; "
+                      "write a JSON logical report with --out <file.json>"});
+  }
+
+  instantee::scene_ir::LoadOptions load_options;
+  auto document =
+      instantee::scene_ir::load_scene_file(args.scene_path, load_options);
+  if (!document) {
+    return fail(document.error());
+  }
+  if (auto graph = instantee::scene_ir::validate_graph(*document); !graph) {
+    return fail(graph.error());
+  }
+  auto scene = instantee::compiler::compile_runtime_scene(*document);
+  if (!scene) {
+    return fail(scene.error());
+  }
+
+  instantee::runtime::AnimationProgram program;
+  auto preview = instantee::runtime::preview_frame_at(
+      **scene, program, instantee::core::FrameIndex{args.at});
+  if (!preview) {
+    return fail(preview.error());
+  }
+
+  char body[512];
+  const int written = std::snprintf(
+      body, sizeof(body),
+      "{\"ok\":true,\"command\":\"frame\",\"at\":%llu,\"duration_frames\":%llu,"
+      "\"seed\":%llu,\"nodes\":%llu,\"evaluations\":%llu,\"published\":false}",
+      static_cast<unsigned long long>(args.at),
+      static_cast<unsigned long long>((*scene)->duration_frames().value()),
+      static_cast<unsigned long long>((*scene)->seed()),
+      static_cast<unsigned long long>(preview->state.nodes.size()),
+      static_cast<unsigned long long>(preview->evaluations));
+  if (written < 0 || static_cast<std::size_t>(written) >= sizeof(body)) {
+    return fail(Error{ExitCode::report_failure, "report_failure", "frame",
+                      "Cannot format frame preview report"});
+  }
+
+  if (args.out_path) {
+    std::ofstream output(*args.out_path, std::ios::binary | std::ios::trunc);
+    if (!output) {
+      return fail(Error{ExitCode::invalid_input, "io_error", "cli",
+                        "Cannot open output file"});
+    }
+    output << body << '\n';
+    if (!output) {
+      return fail(Error{ExitCode::report_failure, "io_error", "cli",
+                        "Cannot write output file"});
+    }
+  }
+
+  if (std::fputs(body, stdout) == EOF || std::fputc('\n', stdout) == EOF ||
+      std::fflush(stdout) != 0) {
+    return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
+                      "Cannot write CLI output"});
+  }
+  return 0;
+}
+
 int run(int argc, char **argv) {
   if (argc < 2) {
     usage();
@@ -162,6 +314,18 @@ int run(int argc, char **argv) {
       return static_cast<int>(ExitCode::invalid_input);
     }
     return cmd_compile(argv[2], argv[4]);
+  }
+  if (cmd == "frame") {
+    std::vector<std::string_view> args;
+    args.reserve(static_cast<std::size_t>(argc >= 2 ? argc - 2 : 0));
+    for (int index = 2; index < argc; ++index) {
+      args.emplace_back(argv[index]);
+    }
+    auto parsed = parse_frame_args(args);
+    if (!parsed) {
+      return fail(parsed.error());
+    }
+    return cmd_frame(*parsed);
   }
   usage();
   return static_cast<int>(ExitCode::invalid_input);

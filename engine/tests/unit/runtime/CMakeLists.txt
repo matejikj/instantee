@@ -91,3 +91,11 @@ target_link_libraries(spike_runtime_clip_mask_test PRIVATE
 add_test(NAME spike_runtime_clip_mask COMMAND spike_runtime_clip_mask_test)
 set_tests_properties(spike_runtime_clip_mask PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_runtime_frame_preview_test frame_preview_test.cpp)
+target_link_libraries(spike_runtime_frame_preview_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_frame_preview
+  COMMAND spike_runtime_frame_preview_test)
+set_tests_properties(spike_runtime_frame_preview PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

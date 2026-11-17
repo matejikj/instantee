@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:11:00Z",
+  "updated_at_utc": "2026-11-17T15:19:52Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4384,14 +4384,22 @@
       "evidence_tier_min": "A"
     },
     "P4-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "No unresolved intent remains in the final IR.",
-        "met": null
+        "criterion": "Ve finálním IR nezůstane nevyřešený intent; unsupported direction je error, ne identity drop.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-004/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-004/checks.json"
+      ],
+      "blockers": [],
+      "verification": "CDS compiler snapshot + negative unsupported tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-005": {
       "status": "todo",

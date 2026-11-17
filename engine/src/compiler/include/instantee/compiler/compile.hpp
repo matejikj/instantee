@@ -29,9 +29,9 @@ struct CompileStageTiming {
   std::uint64_t ir_bytes = 0;
 };
 
-// Identity direction: resolve frame ranges and node IDs without CDS lowering.
-// Known schema intents are acknowledged but not creatively applied. Any intent
-// type outside the identity allowlist fails with a stable diagnostic.
+// CDS compile: validate the Style Package, lower shot intents into concrete
+// animation tracks, and emit Scene IR with no unresolved semantic intent.
+// Unsupported or unimplemented direction fails closed (never identity-dropped).
 [[nodiscard]] std::expected<scene_ir::SceneDocument, diagnostics::Error>
 compile_authoring(const scene_ir::AuthoringDocument &authoring,
                   const CompileOptions &options);

@@ -26,10 +26,16 @@ instantee::scene_ir::AuthoringDocument sample_authoring() {
   document.canvas_width = 1080;
   document.canvas_height = 1920;
   document.seed = 11;
-  document.style = "notebook@1";
+  document.style = "editorial@1";
   AuthoringShot shot;
   shot.id = "intro";
   shot.duration_frames = 30;
+  AuthoringIntent intent;
+  intent.type = "reveal";
+  intent.intensity = 0.8;
+  intent.importance = 0.9;
+  intent.target_ids = {"headline"};
+  shot.intent = intent;
   AuthoringNode group;
   group.id = "group_a";
   group.type = "group";

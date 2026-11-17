@@ -73,7 +73,7 @@
       "target": "instantee_direction",
       "include_prefix": "instantee/direction/",
       "decision": "promote",
-      "notes": "Style Bible tokens, Style Package registry, typed semantic intents; later CDS lowering. Depends only on diagnostics and core-model value types; never on render-metal or export-apple.",
+      "notes": "Style Bible tokens, Style Package registry, typed semantic intents, DirectedFilm lowering helpers. Depends only on diagnostics and core-model value types; never on render-metal or export-apple.",
       "allowed_dependencies": ["diagnostics", "core-model"]
     },
     "compiler": {
@@ -81,7 +81,8 @@
       "target": "instantee_compiler",
       "include_prefix": "instantee/compiler/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics", "core-model", "scene-ir", "runtime"]
+      "notes": "Authoring → CDS lowering (direction) → Scene IR. Must not depend on export-apple or render-metal.",
+      "allowed_dependencies": ["diagnostics", "core-model", "scene-ir", "runtime", "direction"]
     },
     "scene-ir": {
       "role": "production",

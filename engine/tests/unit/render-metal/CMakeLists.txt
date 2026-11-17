@@ -34,3 +34,10 @@ add_test(NAME spike_metal_readback_lifetime
   COMMAND spike_metal_readback_lifetime_test)
 set_tests_properties(spike_metal_readback_lifetime PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
+
+add_executable(spike_shader_module_test shader_module_test.cpp)
+target_link_libraries(spike_shader_module_test PRIVATE instantee::render_metal
+  instantee_build_options)
+add_test(NAME spike_shader_module COMMAND spike_shader_module_test)
+set_tests_properties(spike_shader_module PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

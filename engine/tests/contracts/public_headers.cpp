@@ -19,11 +19,13 @@
 #include <instantee/render_core/render_target_pool.hpp>
 #include <instantee/render_core/renderer.hpp>
 #include <instantee/render_core/resource_registry.hpp>
+#include <instantee/render_core/shader_features.hpp>
 #include <instantee/render_core/staging_pool.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/frame.hpp>
 #include <instantee/render_metal/metal_backend.hpp>
 #include <instantee/render_metal/readback.hpp>
+#include <instantee/render_metal/shader_module.hpp>
 #include <instantee/render_metal/test_pattern.hpp>
 #include <instantee/runtime/bounded_queue.hpp>
 #include <instantee/runtime/frame_credits.hpp>

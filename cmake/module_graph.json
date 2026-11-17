@@ -49,7 +49,7 @@
       "target": "instantee_render_metal",
       "include_prefix": "instantee/render_metal/",
       "decision": "promote",
-      "notes": "Production Metal backend over render-core Renderer; metal-cpp/ObjC++ stay private. Test-pattern helpers remain for smoke parity.",
+      "notes": "Production Metal backend over render-core Renderer; metal-cpp/ObjC++ stay private. Offline-pinned metallib modules feed smoke helpers and validation.",
       "allowed_dependencies": ["diagnostics", "render-core"]
     },
     "export-apple": {
@@ -96,7 +96,7 @@
       "include_prefix": "instantee/render_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, render-target and staging pools; no Apple/Metal headers; no FrameLease."
+      "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools and shader-feature registry; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",

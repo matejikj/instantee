@@ -25,7 +25,7 @@ public:
   TestPatternRenderer(const TestPatternRenderer &) = delete;
   TestPatternRenderer &operator=(const TestPatternRenderer &) = delete;
 
-  // Compiles the spike test-pattern library once and allocates the 1080x1920
+  // Loads the offline-pinned test-pattern metallib and allocates the 1080x1920
   // RGBA8 target. device must outlive this renderer.
   [[nodiscard]] static std::expected<TestPatternRenderer, Error>
   create(Device &device);

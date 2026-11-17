@@ -21,9 +21,9 @@ src/core-model/        Platform-neutral frame clock and rational time types
 src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
-src/render-core/       GPU-neutral DrawOp/PassDesc, Renderer, graph, registry, target/staging pools
-src/render-metal/      Production Metal device/submit owner, test-pattern smoke helpers
-shaders/spike/         Spike MSL sources embedded into render-metal/transfer
+src/render-core/       GPU-neutral DrawOp/PassDesc, Renderer, graph, registry, pools, shader features
+src/render-metal/      Production Metal device/submit owner, offline metallib modules, smoke helpers
+shaders/               Pinned MSL sources and module manifest; metallibs compiled offline
 native/                Objective-C++ adapters; export/transfer remain spike
 tests/                 Native unit, isolated public-header and subprocess tests
 ```

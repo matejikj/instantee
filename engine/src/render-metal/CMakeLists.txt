@@ -22,16 +22,70 @@ if(NOT INSTANTEE_METAL_CPP_SHA STREQUAL
   message(FATAL_ERROR "Unexpected metal-cpp archive hash '${INSTANTEE_METAL_CPP_SHA}'")
 endif()
 
-include("${PROJECT_SOURCE_DIR}/cmake/EmbedTextAsHeader.cmake")
+include("${PROJECT_SOURCE_DIR}/cmake/CompileMetallib.cmake")
+
+set(INSTANTEE_SHADER_MODULES_PIN
+  "${PROJECT_SOURCE_DIR}/engine/shaders/modules/PIN.json")
+if(NOT EXISTS "${INSTANTEE_SHADER_MODULES_PIN}")
+  message(FATAL_ERROR
+          "Pinned shader module manifest is missing: ${INSTANTEE_SHADER_MODULES_PIN}")
+endif()
+file(READ "${INSTANTEE_SHADER_MODULES_PIN}" INSTANTEE_SHADER_MODULES_PIN_JSON)
+string(JSON INSTANTEE_SHADER_MODULE_COUNT LENGTH
+       "${INSTANTEE_SHADER_MODULES_PIN_JSON}" modules)
+math(EXPR INSTANTEE_SHADER_MODULE_LAST "${INSTANTEE_SHADER_MODULE_COUNT} - 1")
+foreach(INSTANTEE_SHADER_MODULE_I RANGE 0 ${INSTANTEE_SHADER_MODULE_LAST})
+  string(JSON INSTANTEE_SHADER_MODULE_ID GET
+         "${INSTANTEE_SHADER_MODULES_PIN_JSON}" modules
+         ${INSTANTEE_SHADER_MODULE_I} id)
+  string(JSON INSTANTEE_SHADER_MODULE_SOURCE_REL GET
+         "${INSTANTEE_SHADER_MODULES_PIN_JSON}" modules
+         ${INSTANTEE_SHADER_MODULE_I} source)
+  string(JSON INSTANTEE_SHADER_MODULE_SHA GET
+         "${INSTANTEE_SHADER_MODULES_PIN_JSON}" modules
+         ${INSTANTEE_SHADER_MODULE_I} source_sha256)
+  get_filename_component(INSTANTEE_SHADER_MODULE_SOURCE
+    "${PROJECT_SOURCE_DIR}/engine/shaders/modules/${INSTANTEE_SHADER_MODULE_SOURCE_REL}"
+    ABSOLUTE)
+  if(NOT EXISTS "${INSTANTEE_SHADER_MODULE_SOURCE}")
+    message(FATAL_ERROR
+            "Pinned shader source missing for '${INSTANTEE_SHADER_MODULE_ID}': "
+            "${INSTANTEE_SHADER_MODULE_SOURCE}")
+  endif()
+  file(SHA256 "${INSTANTEE_SHADER_MODULE_SOURCE}" INSTANTEE_SHADER_MODULE_ACTUAL_SHA)
+  if(NOT INSTANTEE_SHADER_MODULE_ACTUAL_SHA STREQUAL INSTANTEE_SHADER_MODULE_SHA)
+    message(FATAL_ERROR
+            "Shader source hash mismatch for '${INSTANTEE_SHADER_MODULE_ID}': "
+            "expected ${INSTANTEE_SHADER_MODULE_SHA}, "
+            "got ${INSTANTEE_SHADER_MODULE_ACTUAL_SHA}")
+  endif()
+endforeach()
+
 set(INSTANTEE_TEST_PATTERN_SHADER
   "${PROJECT_SOURCE_DIR}/engine/shaders/spike/test_pattern.metal")
-set(INSTANTEE_TEST_PATTERN_SOURCE_HEADER
-  "${CMAKE_CURRENT_BINARY_DIR}/generated/test_pattern_source.hpp")
-instantee_embed_text_as_header(
-  "${INSTANTEE_TEST_PATTERN_SHADER}"
-  "${INSTANTEE_TEST_PATTERN_SOURCE_HEADER}"
-  "instantee::render_metal::detail"
-  "kTestPatternSource")
+set(INSTANTEE_TEST_PATTERN_METALLIB
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/test_pattern.metallib")
+set(INSTANTEE_TEST_PATTERN_METALLIB_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/test_pattern_metallib.hpp")
+instantee_compile_metallib(
+  SOURCES "${INSTANTEE_TEST_PATTERN_SHADER}"
+  OUTPUT_METALLIB "${INSTANTEE_TEST_PATTERN_METALLIB}"
+  OUTPUT_HEADER "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
+  SYMBOL_NAMESPACE "instantee::render_metal::detail"
+  SYMBOL_NAME "kTestPatternMetallib")
+
+set(INSTANTEE_SHARED_SURFACE_SHADER
+  "${PROJECT_SOURCE_DIR}/engine/shaders/spike/shared_surface_pattern.metal")
+set(INSTANTEE_SHARED_SURFACE_METALLIB
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/shared_surface_pattern.metallib")
+set(INSTANTEE_SHARED_SURFACE_METALLIB_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/shared_surface_pattern_metallib.hpp")
+instantee_compile_metallib(
+  SOURCES "${INSTANTEE_SHARED_SURFACE_SHADER}"
+  OUTPUT_METALLIB "${INSTANTEE_SHARED_SURFACE_METALLIB}"
+  OUTPUT_HEADER "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}"
+  SYMBOL_NAMESPACE "instantee::render_metal::detail"
+  SYMBOL_NAME "kSharedSurfacePatternMetallib")
 
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
 find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
@@ -41,7 +95,10 @@ add_library(instantee_render_metal STATIC
   src/device.cpp
   src/metal_backend.cpp
   src/readback.cpp
-  src/test_pattern.cpp)
+  src/shader_module.cpp
+  src/test_pattern.cpp
+  "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
+  "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}")
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"

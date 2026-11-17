@@ -40,7 +40,7 @@ under UndefinedBehaviorSanitizer.
 
 The Metal backend can also render a deterministic 1080×1920 RGBA8 test pattern
 with non-opaque alpha for frames 0 and 1. The spike compiles the MSL source once
-at renderer creation (offline metallib pinning arrives later), draws to a private
+at renderer creation from an offline-pinned metallib, draws to a private
 offscreen texture, then synchronously blits into a shared staging buffer for CPU
 verification. Native tests compare every pixel to a CPU oracle, require distinct
 frame checksums, and write reference PNGs plus SHA-256 digests.

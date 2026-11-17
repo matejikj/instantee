@@ -3,7 +3,7 @@
 #include "device_native.hpp"
 #include "metal_owner.hpp"
 #include "readback_impl.hpp"
-#include "test_pattern_source.hpp"
+#include "test_pattern_metallib.hpp"
 
 #include <Metal/Metal.hpp>
 
@@ -63,21 +63,24 @@ TestPatternRenderer::create(Device &device) {
   }
 
   NS::Error *error = nullptr;
-  // string() returns an autoreleased object kept alive by the local pool.
-  NS::String *source = NS::String::string(
-      detail::kTestPatternSource, NS::StringEncoding::UTF8StringEncoding);
-  if (source == nullptr) {
-    return std::unexpected(Error{ExitCode::gpu_failure, "shader_source_failed",
-                                 "metal",
-                                 "Cannot allocate shader source string"});
+  dispatch_data_t metallib_data = dispatch_data_create(
+      detail::kTestPatternMetallib, detail::kTestPatternMetallib_size, nullptr,
+      DISPATCH_DATA_DESTRUCTOR_DEFAULT);
+  if (metallib_data == nullptr) {
+    return std::unexpected(Error{ExitCode::gpu_failure,
+                                 "metallib_dispatch_failed", "metal",
+                                 "Cannot wrap offline test-pattern metallib"});
   }
-  // newLibrary returns +1 on success.
+  // newLibrary returns +1 on success; release our dispatch_data reference
+  // after.
   detail::MetalOwner<MTL::Library> library{
-      native.device->newLibrary(source, nullptr, &error)};
+      native.device->newLibrary(metallib_data, &error)};
+  dispatch_release(metallib_data);
   if (!library) {
     static_cast<void>(ns_error_message(error));
-    return std::unexpected(Error{ExitCode::gpu_failure, "shader_compile_failed",
-                                 "metal", "Cannot compile test-pattern MSL"});
+    return std::unexpected(Error{ExitCode::gpu_failure, "metallib_load_failed",
+                                 "metal",
+                                 "Cannot load offline test-pattern metallib"});
   }
 
   detail::MetalOwner<MTL::Function> vertex{library->newFunction(

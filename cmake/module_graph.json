@@ -73,7 +73,7 @@
       "target": "instantee_direction",
       "include_prefix": "instantee/direction/",
       "decision": "promote",
-      "notes": "Style Bible tokens, Style Package registry, typed semantic intents, DirectedFilm lowering, author-vs-preset track precedence. Depends only on diagnostics and core-model value types; never on render-metal or export-apple.",
+      "notes": "Style Bible, Style Package registry, intents, DirectedFilm, track precedence, Motion Grammar. Depends only on diagnostics and core-model; never on render-metal or export-apple.",
       "allowed_dependencies": ["diagnostics", "core-model"]
     },
     "compiler": {

@@ -2,6 +2,7 @@
 
 #include <instantee/core_model/ids.hpp>
 #include <instantee/diagnostics/error.hpp>
+#include <instantee/direction/motion_grammar.hpp>
 #include <instantee/direction/semantic_intent.hpp>
 
 #include <cstdint>
@@ -48,11 +49,13 @@ struct DirectedFilm {
   std::vector<DirectedTrack> animation_tracks;
 };
 
-// Lower a validated semantic intent into deterministic tracks for one shot.
-// Unsupported kinds must not be called — callers fail closed before this.
+// Lower a validated semantic intent using the Motion Grammar binding for
+// `package_id`. Same intent + different package → different deterministic
+// tracks; unsupported package/intent bindings fail closed.
 [[nodiscard]] std::expected<std::vector<DirectedTrack>, diagnostics::Error>
 lower_semantic_intent(const SemanticIntent &intent,
                       std::uint64_t shot_duration_frames,
-                      std::string_view shot_id);
+                      std::string_view shot_id, std::string_view package_id,
+                      const MotionGrammarRegistry &grammar);
 
 } // namespace instantee::direction

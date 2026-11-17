@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:27:13Z",
+  "updated_at_utc": "2026-11-17T15:33:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4420,14 +4420,22 @@
       "evidence_tier_min": "A"
     },
     "P4-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The same intent produces different but deterministic animation for each style.",
-        "met": null
+        "criterion": "Stejný intent dá různou, ale deterministickou animaci dle stylu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-006/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Grammar golden tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-007": {
       "status": "todo",

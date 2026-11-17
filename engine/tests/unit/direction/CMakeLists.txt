@@ -30,3 +30,11 @@ add_test(NAME spike_direction_track_precedence
   COMMAND spike_direction_track_precedence_test)
 set_tests_properties(spike_direction_track_precedence PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_direction_motion_grammar_test motion_grammar_test.cpp)
+target_link_libraries(spike_direction_motion_grammar_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_motion_grammar
+  COMMAND spike_direction_motion_grammar_test)
+set_tests_properties(spike_direction_motion_grammar PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

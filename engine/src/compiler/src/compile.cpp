@@ -4,6 +4,7 @@
 #include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/core_model/properties.hpp>
 #include <instantee/direction/directed_film.hpp>
+#include <instantee/direction/motion_grammar.hpp>
 #include <instantee/direction/semantic_intent.hpp>
 #include <instantee/direction/style_package_registry.hpp>
 #include <instantee/direction/track_precedence.hpp>
@@ -150,7 +151,7 @@ void collect_author_claims(const scene_ir::AuthoringNode &node,
 
 std::expected<void, diagnostics::Error>
 resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
-                    std::uint64_t start_frame,
+                    std::uint64_t start_frame, std::string_view package_id,
                     std::vector<scene_ir::AnimationTrack> &tracks) {
   std::vector<direction::TrackClaim> claims;
   for (const auto &node : shot.nodes) {
@@ -192,8 +193,13 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
       return std::unexpected(std::move(error).with_shot(shot.id));
     }
 
+    // Grammar is resolved against the film Style Package; shot style_override
+    // only changes precedence tagging, not the package binding (override
+    // packages arrive in a later delivery).
+    static const auto grammar =
+        direction::make_builtin_motion_grammar_registry();
     auto lowered = direction::lower_semantic_intent(
-        *semantic, shot.duration_frames, shot.id);
+        *semantic, shot.duration_frames, shot.id, package_id, grammar);
     if (!lowered) {
       return std::unexpected(lowered.error().with_shot(shot.id));
     }
@@ -311,8 +317,8 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
                    out_shot.node_ids, "font0", "mat0");
     }
-    if (auto lowered =
-            resolve_shot_tracks(shot, index, cursor, doc.animation_tracks);
+    if (auto lowered = resolve_shot_tracks(shot, index, cursor, package_name,
+                                           doc.animation_tracks);
         !lowered) {
       return std::unexpected(lowered.error());
     }

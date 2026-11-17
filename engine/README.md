@@ -21,7 +21,7 @@ src/core-model/        Platform-neutral frame clock and rational time types
 src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, VideoSink/FrameBridge ports, publish
-src/render-core/       GPU-neutral DrawOp/PassDesc, Renderer, render-graph, resource registry
+src/render-core/       GPU-neutral DrawOp/PassDesc, Renderer, graph, registry, target pool
 src/render-metal/      Production Metal device/submit owner, test-pattern smoke helpers
 shaders/spike/         Spike MSL sources embedded into render-metal/transfer
 native/                Objective-C++ adapters; export/transfer remain spike

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T08:24:02.607487+00:00",
+  "updated_at_utc": "2026-11-17T08:29:59.997327+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3891,14 +3891,24 @@
       "notes": "Added fixed-capacity generational GpuResourceRegistry with type-erased payloads, SubmissionContext retain/complete/cancel holds, retiring until last hold drains, stale-handle rejection, and single-destroy guarantees."
     },
     "P3-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Pooling neither exposes previous frame contents nor continually allocates new targets.",
-        "met": null
+        "criterion": "Pooling neodhaluje obsah předchozího frame a nealokuje stále nové targety.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-005/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Pool recycling tests",
+      "completed_at_utc": "2026-11-17T08:29:59Z",
+      "notes": "Added RenderTargetPool over GpuResourceRegistry: exact-size reuse, clear-on-recycle/acquire policies, byte-budget preflight without silent downscale, move-only leases, and allocation/reuse counters."
     },
     "P3-006": {
       "status": "todo",

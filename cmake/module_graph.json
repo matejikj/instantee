@@ -113,8 +113,8 @@
       "target": "instantee_typography",
       "include_prefix": "instantee/typography/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics", "asset-pipeline"],
-      "notes": "CPU text shaping with HarfBuzz, FreeType glyph raster and ICU grapheme/bidi adapters, plus a CPU glyph atlas over TextureAtlas with in-flight eviction. External deps resolved via pkg-config (see third_party/typography-deps/PIN.json). Font faces come from explicit pinned paths (third_party/fonts); no implicit system font catalog. HarfBuzz/FreeType/ICU headers stay private."
+      "allowed_dependencies": ["diagnostics", "asset-pipeline", "core-model"],
+      "notes": "CPU text shaping with HarfBuzz, FreeType glyph raster and ICU grapheme/bidi adapters, plus a CPU glyph atlas over TextureAtlas with in-flight eviction. Glyph transforms reuse core-model Mat4/pivot math. External deps resolved via pkg-config (see third_party/typography-deps/PIN.json). Font faces come from explicit pinned paths (third_party/fonts); no implicit system font catalog. HarfBuzz/FreeType/ICU headers stay private."
     },
     "render-core": {
       "role": "production",

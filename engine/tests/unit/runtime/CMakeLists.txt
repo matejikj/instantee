@@ -99,3 +99,12 @@ add_test(NAME spike_runtime_frame_preview
   COMMAND spike_runtime_frame_preview_test)
 set_tests_properties(spike_runtime_frame_preview PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_runtime_frame_eval_scheduler_test
+  frame_eval_scheduler_test.cpp)
+target_link_libraries(spike_runtime_frame_eval_scheduler_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_frame_eval_scheduler
+  COMMAND spike_runtime_frame_eval_scheduler_test)
+set_tests_properties(spike_runtime_frame_eval_scheduler PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")

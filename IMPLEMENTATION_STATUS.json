@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T05:33:51.531883+00:00",
+  "updated_at_utc": "2026-11-17T05:57:55.650654+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3739,14 +3739,24 @@
       "notes": "preview_frame_at single-eval seek; instantee frame --at N logical JSON; PNG out deferred."
     },
     "P2-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Capacity 1, a delayed oldest frame and cancellation on full/empty queues cause no deadlock; lease count stays \u2264K and output order is unchanged.",
-        "met": null
+        "criterion": "Capacity 1, delayed oldest frame a cancel na pln\u00e9/pr\u00e1zdn\u00e9 front\u011b jsou bez deadlocku; po\u010det leases\u2264K a output po\u0159ad\u00ed se nem\u011bn\u00ed; produk\u010dn\u00ed k\u00f3d pou\u017e\u00edv\u00e1 runtime modul z P0/P1 promotion.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-018/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Scheduler stress + TSan fake-GPU/sink tests",
+      "completed_at_utc": "2026-11-17T05:57:55Z",
+      "notes": "FrameEvalScheduler over credits/queue/reorder; jthread pool; close drains, abort cancels; failed push keeps lease."
     },
     "P2-019": {
       "status": "todo",

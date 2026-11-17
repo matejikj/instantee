@@ -3,6 +3,7 @@
 #include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/diagnostics/exception_boundary.hpp>
+#include <instantee/preview/frame_png.hpp>
 #include <instantee/runtime/frame_preview.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
@@ -70,7 +71,8 @@ void usage() {
   std::fputs("usage:\n"
              "  instantee validate <authoring.json>\n"
              "  instantee compile <authoring.json> --out <scene.json>\n"
-             "  instantee frame <scene.json> --at <N> [--out <report.json>]\n"
+             "  instantee frame <scene.json> --at <N> [--out "
+             "<report.json|preview.png>]\n"
              "  instantee help\n",
              stdout);
 }
@@ -227,13 +229,6 @@ parse_frame_args(std::span<const std::string_view> args) {
 }
 
 int cmd_frame(const FrameArgs &args) {
-  if (args.out_path && ends_with_png(*args.out_path)) {
-    return fail(Error{ExitCode::invalid_input, "preview_raster_unavailable",
-                      "frame",
-                      "Raster PNG preview is not available in this phase; "
-                      "write a JSON logical report with --out <file.json>"});
-  }
-
   instantee::scene_ir::LoadOptions load_options;
   auto document =
       instantee::scene_ir::load_scene_file(args.scene_path, load_options);
@@ -249,28 +244,38 @@ int cmd_frame(const FrameArgs &args) {
   }
 
   instantee::runtime::AnimationProgram program;
-  auto preview = instantee::runtime::preview_frame_at(
-      **scene, program, instantee::core::FrameIndex{args.at});
+  const bool png_out = args.out_path && ends_with_png(*args.out_path);
+  std::expected<instantee::runtime::FramePreview, Error> preview;
+  if (png_out) {
+    preview = instantee::preview::export_preview_png(
+        **scene, program, instantee::core::FrameIndex{args.at}, *args.out_path);
+  } else {
+    preview = instantee::runtime::preview_frame_at(
+        **scene, program, instantee::core::FrameIndex{args.at});
+  }
   if (!preview) {
     return fail(preview.error());
   }
 
-  char body[512];
+  char body[640];
   const int written = std::snprintf(
       body, sizeof(body),
       "{\"ok\":true,\"command\":\"frame\",\"at\":%llu,\"duration_frames\":%llu,"
-      "\"seed\":%llu,\"nodes\":%llu,\"evaluations\":%llu,\"published\":false}",
+      "\"seed\":%llu,\"nodes\":%llu,\"evaluations\":%llu,\"color_space\":\"%"
+      "s\","
+      "\"out_kind\":\"%s\",\"published\":false}",
       static_cast<unsigned long long>(args.at),
       static_cast<unsigned long long>((*scene)->duration_frames().value()),
       static_cast<unsigned long long>((*scene)->seed()),
       static_cast<unsigned long long>(preview->state.nodes.size()),
-      static_cast<unsigned long long>(preview->evaluations));
+      static_cast<unsigned long long>(preview->evaluations),
+      png_out ? "rec709-sdr" : "logical", png_out ? "png" : "json");
   if (written < 0 || static_cast<std::size_t>(written) >= sizeof(body)) {
     return fail(Error{ExitCode::report_failure, "report_failure", "frame",
                       "Cannot format frame preview report"});
   }
 
-  if (args.out_path) {
+  if (args.out_path && !png_out) {
     std::ofstream output(*args.out_path, std::ios::binary | std::ios::trunc);
     if (!output) {
       return fail(Error{ExitCode::invalid_input, "io_error", "cli",

@@ -32,6 +32,7 @@ foreach(module_target IN ITEMS
     instantee_asset_pipeline
     instantee_typography
     instantee_render_core
+    instantee_preview
     instantee_telemetry_apple
     instantee_render_metal
     instantee_export_apple

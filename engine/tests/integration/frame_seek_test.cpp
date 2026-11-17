@@ -1,3 +1,4 @@
+#include <array>
 #include <cstdio>
 #include <cstdlib>
 #include <filesystem>
@@ -117,9 +118,29 @@ int main(int argc, char **argv) {
   expect(run_exit("\"" + bin.string() + "\" frame \"" + scene.string() +
                   "\" >/dev/null 2>/dev/null") == 2,
          "missing --at exit 2");
-  expect(run_exit("\"" + bin.string() + "\" frame \"" + scene.string() +
-                  "\" --at 450 --out preview.png >/dev/null 2>/dev/null") == 2,
-         "png out unavailable exit 2");
+  const auto png_path =
+      std::filesystem::temp_directory_path() / "instantee-frame-seek-450.png";
+  std::error_code ec;
+  std::filesystem::remove(png_path, ec);
+  expect(run_capture("\"" + bin.string() + "\" frame \"" + scene.string() +
+                         "\" --at 450 --out \"" + png_path.string() + "\"",
+                     stdout_text) == 0,
+         "frame --at 450 png exit 0");
+  expect(contains(stdout_text, "\"evaluations\":1"), "png seek evaluations 1");
+  expect(contains(stdout_text, "\"out_kind\":\"png\""), "png out kind");
+  expect(contains(stdout_text, "\"color_space\":\"rec709-sdr\""),
+         "png color space");
+  expect(std::filesystem::exists(png_path), "png written");
+  if (std::filesystem::exists(png_path)) {
+    std::ifstream input(png_path, std::ios::binary);
+    std::array<unsigned char, 8> sig{};
+    input.read(reinterpret_cast<char *>(sig.data()),
+               static_cast<std::streamsize>(sig.size()));
+    expect(input.gcount() == 8 && sig[0] == 137 && sig[1] == 80 &&
+               sig[2] == 78 && sig[3] == 71,
+           "png signature");
+    std::filesystem::remove(png_path, ec);
+  }
 
   if (failures != 0) {
     std::cerr << failures << " assertion(s) failed\n";

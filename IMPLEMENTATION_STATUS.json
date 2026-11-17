@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T13:01:48Z",
+  "updated_at_utc": "2026-11-17T13:10:51Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4248,14 +4248,23 @@
       "notes": "Added hot-path telemetry in runtime: FrameSamples-backed instrument with exact nearest-rank admission/frame/GPU-host summaries, BENCHMARK_PROTOCOL CPU totals, memory peak aggregation that keeps missing metrics null, and explicit separation of host-observed GPU completion from device counters."
     },
     "P3-023": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "motion frame --at 450 works without rendering preceding frames.",
-        "met": null
+        "criterion": "motion frame --at 450 funguje bez renderov\u00e1n\u00ed p\u0159edchoz\u00edch sn\u00edmk\u016f.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-023/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-023/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Preview PNG integration",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Added preview module that random-access evaluates FrameState, rasterizes Rec.709/sRGB proxy fills via the linear compositor, and writes PNG with an sRGB chunk. CLI frame --at N --out *.png reports evaluations=1."
     },
     "P3-024": {
       "status": "todo",

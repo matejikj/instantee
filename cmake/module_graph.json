@@ -122,6 +122,19 @@
       "allowed_dependencies": ["diagnostics", "core-model"],
       "notes": "GPU-neutral DrawOp/PassDesc, Renderer, render-graph, registry, pools, shader features, pipeline cache, instance batching, 2D primitive raster/lowering, nested scissor/shape-mask clip compositor, screen-space hard/soft shadow passes with quality-tier separable blur plus a Paper depth-shadow capability probe, linear-light premultiplied compositor with Rec.709/sRGB-transfer encode, and viewport visibility/culling with opaque-then-transparent draw sorting plus counters; no Apple/Metal headers; no FrameLease."
     },
+    "preview": {
+      "role": "production",
+      "target": "instantee_preview",
+      "include_prefix": "instantee/preview/",
+      "decision": "promote",
+      "allowed_dependencies": [
+        "diagnostics",
+        "core-model",
+        "runtime",
+        "render-core"
+      ],
+      "notes": "Random-access frame preview: FrameState → Rec.709/sRGB RGBA8 via linear compositor proxies, PNG encode with sRGB chunk; Compression.framework private. No Metal/AVFoundation."
+    },
     "export": {
       "role": "planned",
       "target": null,

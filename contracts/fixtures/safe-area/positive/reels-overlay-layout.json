@@ -1,0 +1,49 @@
+{
+  "schema_version": "safe-area-layout/1",
+  "id": "reels-overlay-layout",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "elements": [
+    {
+      "id": "title",
+      "x_px": 48,
+      "y_px": 24,
+      "width_px": 640,
+      "height_px": 72,
+      "importance": 0.95,
+      "keep_visible": true
+    },
+    {
+      "id": "cta",
+      "x_px": 80,
+      "y_px": 1780,
+      "width_px": 420,
+      "height_px": 96,
+      "importance": 0.9,
+      "keep_visible": false
+    },
+    {
+      "id": "edge_decor",
+      "x_px": 0,
+      "y_px": 0,
+      "width_px": 120,
+      "height_px": 64,
+      "importance": 0.2,
+      "keep_visible": false
+    }
+  ],
+  "expect": {
+    "mode": "reels_overlay",
+    "content_rect": {
+      "x_px": 32,
+      "y_px": 120,
+      "width_px": 1016,
+      "height_px": 1580
+    },
+    "protected_ids": ["title", "cta"],
+    "unprotected_ids": ["edge_decor"]
+  }
+}

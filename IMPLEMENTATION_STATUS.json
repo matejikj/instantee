@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:38:57Z",
+  "updated_at_utc": "2026-11-17T15:49:01Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4456,14 +4456,22 @@
       "evidence_tier_min": "A"
     },
     "P4-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A new token can be changed without recompiling the engine, and important content does not overlap the safe area.",
-        "met": null
+        "criterion": "Nový token lze změnit bez rekompilace engine a důležitý obsah nepřekryje safe area.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-008/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Safe-area layout fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-009": {
       "status": "todo",

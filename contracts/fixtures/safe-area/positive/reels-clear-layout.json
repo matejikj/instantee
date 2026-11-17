@@ -1,0 +1,40 @@
+{
+  "schema_version": "safe-area-layout/1",
+  "id": "reels-clear-layout",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "style_bible": "contracts/fixtures/style-bible/positive/paper-cinema.style.json",
+  "elements": [
+    {
+      "id": "headline",
+      "x_px": 20,
+      "y_px": 40,
+      "width_px": 500,
+      "height_px": 80,
+      "importance": 0.4,
+      "keep_visible": false
+    },
+    {
+      "id": "footer_note",
+      "x_px": 60,
+      "y_px": 1850,
+      "width_px": 300,
+      "height_px": 48,
+      "importance": 0.3,
+      "keep_visible": false
+    }
+  ],
+  "expect": {
+    "mode": "reels_clear",
+    "content_rect": {
+      "x_px": 40,
+      "y_px": 96,
+      "width_px": 1000,
+      "height_px": 1644
+    },
+    "protected_ids": ["headline", "footer_note"],
+    "unprotected_ids": []
+  }
+}

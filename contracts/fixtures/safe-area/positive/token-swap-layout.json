@@ -1,0 +1,35 @@
+{
+  "schema_version": "safe-area-layout/1",
+  "id": "token-swap-layout",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "style_bible_baseline": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "style_bible_swapped": "contracts/fixtures/safe-area/positive/token-swap-tight.style.json",
+  "elements": [
+    {
+      "id": "title",
+      "x_px": 48,
+      "y_px": 24,
+      "width_px": 640,
+      "height_px": 72,
+      "importance": 0.95,
+      "keep_visible": true
+    }
+  ],
+  "expect": {
+    "baseline_content_rect": {
+      "x_px": 32,
+      "y_px": 120,
+      "width_px": 1016,
+      "height_px": 1580
+    },
+    "swapped_content_rect": {
+      "x_px": 48,
+      "y_px": 160,
+      "width_px": 984,
+      "height_px": 1480
+    }
+  }
+}

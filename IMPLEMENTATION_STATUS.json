@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T10:16:54Z",
+  "updated_at_utc": "2026-11-17T10:25:47Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4031,14 +4031,24 @@
       "notes": "Added instance batching in render-core: consecutive shape ops that share texture_binding coalesce into one DrawBatch/instance buffer while preserving source order. Metal primitives upload a 64-byte-stride instance buffer and issue one drawPrimitives per batch. CPU goldens keep pixels identical; instance-batch-bench reports draw-call reduction (non_certified_dev_baseline)."
     },
     "P3-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Invalid files and oversized bitmaps are rejected without a GPU crash.",
-        "met": null
+        "criterion": "Chybný soubor a obří bitmapa se odmítnou bez GPU crash.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-012/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Asset fuzz/fixture tests",
+      "completed_at_utc": "2026-11-17T10:25:47Z",
+      "notes": "Added asset-pipeline bitmap decode for PNG (stb_image) and WebP (libwebp decode subset) with input/dimension/pixel budgets, straight or premultiplied alpha, and assume-sRGB/ignore-ICC import policy. Probe rejects oversized headers before allocation; corrupt and unknown inputs fail closed without GPU."
     },
     "P3-013": {
       "status": "todo",

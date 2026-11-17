@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "libwebp",
+  "vendor": "Google Inc. / WebM Project",
+  "license": "BSD-3-Clause",
+  "tag": "v1.5.0",
+  "commit": "a4d7a715337ded4451fec90ff8ce79728e04126c",
+  "archive_url": "https://github.com/webmproject/libwebp/archive/refs/tags/v1.5.0.tar.gz",
+  "archive_sha256": "668c9aba45565e24c27e17f7aaf7060a399f7f31dba6c97a044e1feacb930f37",
+  "include_root": "third_party/libwebp/src",
+  "notes": "Vendored decode subset (src/webp, src/dec, decode-capable src/dsp and src/utils) plus src/enc/*.h headers required by lossless decode includes. Encoding .c sources are excluded. Linked privately by asset-pipeline."
+}

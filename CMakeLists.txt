@@ -14,6 +14,8 @@ include(cmake/ToolchainProbes.cmake)
 
 add_subdirectory(third_party/yyjson)
 add_subdirectory(third_party/libtess2)
+add_subdirectory(third_party/stb)
+add_subdirectory(third_party/libwebp)
 
 # Pinned Google Benchmark for CPU micrometrics. Never enable its test suite or
 # install rules inside the product tree.

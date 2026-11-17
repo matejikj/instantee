@@ -98,6 +98,14 @@
       "allowed_dependencies": ["diagnostics"],
       "notes": "Path flatten/tessellate/stroke and compile-once mesh cache. libtess2 is a private fill dependency and must not leak into public headers; stroking is local."
     },
+    "asset-pipeline": {
+      "role": "production",
+      "target": "instantee_asset_pipeline",
+      "include_prefix": "instantee/asset_pipeline/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"],
+      "notes": "Bounded PNG/WebP decode with dimension/pixel budgets and sRGB/ignore-ICC import policy. stb_image and libwebp are private decode dependencies and must not leak into public headers; no GPU types."
+    },
     "render-core": {
       "role": "production",
       "target": "instantee_render_core",
@@ -154,6 +162,7 @@
     "engine/src/runtime/",
     "engine/src/export-core/",
     "engine/src/geometry/",
+    "engine/src/asset-pipeline/",
     "engine/src/render-core/",
     "engine/src/render-metal/",
     "engine/native/telemetry-apple/"

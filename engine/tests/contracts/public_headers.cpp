@@ -1,3 +1,4 @@
+#include <instantee/asset_pipeline/bitmap_decode.hpp>
 #include <instantee/compiler/compile.hpp>
 #include <instantee/core_model/ids.hpp>
 #include <instantee/core_model/integer_encoding.hpp>

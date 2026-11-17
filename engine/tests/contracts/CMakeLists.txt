@@ -6,6 +6,7 @@ target_include_directories(spike_public_headers_test PRIVATE
   "$<TARGET_PROPERTY:instantee_runtime,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_export_core,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_geometry,INTERFACE_INCLUDE_DIRECTORIES>"
+  "$<TARGET_PROPERTY:instantee_asset_pipeline,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_render_core,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_telemetry_apple,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_transfer_apple,INTERFACE_INCLUDE_DIRECTORIES>"
@@ -13,7 +14,7 @@ target_include_directories(spike_public_headers_test PRIVATE
   "$<TARGET_PROPERTY:instantee_compiler,INTERFACE_INCLUDE_DIRECTORIES>")
 target_link_libraries(spike_public_headers_test PRIVATE instantee::diagnostics
   instantee::core_model instantee::scene_ir instantee::compiler
-  instantee::geometry instantee_build_options)
+  instantee::geometry instantee::asset_pipeline instantee_build_options)
 add_test(NAME spike_public_headers COMMAND spike_public_headers_test)
 set_tests_properties(spike_public_headers PROPERTIES TIMEOUT 10 LABELS cpu)
 
@@ -26,6 +27,7 @@ foreach(module_target IN ITEMS
     instantee_runtime
     instantee_export_core
     instantee_geometry
+    instantee_asset_pipeline
     instantee_render_core
     instantee_telemetry_apple
     instantee_render_metal

@@ -3659,14 +3659,24 @@
       "notes": "FrameState via typed track/spring/color/short-arc bindings; random-access stable."
     },
     "P2-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Shot boundaries produce no missing or extra frames.",
-        "met": null
+        "criterion": "Na hranic\u00edch shot\u016f nevznik\u00e1 chyb\u011bj\u00edc\u00ed ani nadbyte\u010dn\u00fd sn\u00edmek.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-014/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Boundary-frame fixtures",
+      "completed_at_utc": "2026-11-17T04:49:11Z",
+      "notes": "Contiguous half-open ShotTimeline; global\u2194local with boundary coverage checks."
     },
     "P2-015": {
       "status": "todo",

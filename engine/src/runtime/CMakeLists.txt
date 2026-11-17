@@ -8,7 +8,8 @@ add_library(instantee_runtime STATIC
   src/timeline.cpp
   src/easing.cpp
   src/spring.cpp
-  src/frame_evaluator.cpp)
+  src/frame_evaluator.cpp
+  src/shot_timeline.cpp)
 add_library(instantee::runtime ALIAS instantee_runtime)
 target_include_directories(instantee_runtime
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

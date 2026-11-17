@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:33:56Z",
+  "updated_at_utc": "2026-11-17T16:40:56Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4600,14 +4600,22 @@
       "evidence_tier_min": "A"
     },
     "P4-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Output includes error/warning/info levels; rules can be versioned with the Style Bible.",
-        "met": null
+        "criterion": "Výstup má error/warning/info; pravidla lze verzovat se Style Bible.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-016/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-016/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Motion/palette lint fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-017": {
       "status": "todo",

@@ -1,0 +1,57 @@
+{
+  "schema_version": "motion-palette-lint/1",
+  "id": "calm-editorial-timeline",
+  "style": {
+    "package_id": "editorial",
+    "version": "1.0.0",
+    "fixture": "contracts/fixtures/style-bible/positive/editorial.style.json"
+  },
+  "rules": {
+    "frame_rate": 30,
+    "duration_frames": 1800,
+    "max_cuts_per_minute": 24,
+    "min_frames_between_cuts": 6,
+    "max_translation_delta_px": 160,
+    "max_palette_delta": 0.18,
+    "max_identical_preset_uses": 4
+  },
+  "input": {
+    "cuts": [
+      { "id": "t0", "path": "/transitions/0", "at_frame": 300 },
+      { "id": "t1", "path": "/transitions/1", "at_frame": 900 }
+    ],
+    "motion_samples": [
+      {
+        "element_id": "headline",
+        "path": "/shots/0/nodes/headline",
+        "frame": 0,
+        "x_px": 64,
+        "y_px": 200
+      },
+      {
+        "element_id": "headline",
+        "path": "/shots/0/nodes/headline",
+        "frame": 18,
+        "x_px": 64,
+        "y_px": 180
+      }
+    ],
+    "colors": [
+      {
+        "id": "ink_fill",
+        "path": "/shots/0/nodes/headline/fill",
+        "color": { "r": 0.02, "g": 0.02, "b": 0.03, "a": 1 }
+      }
+    ],
+    "presets": [
+      {
+        "preset_id": "headline_reveal",
+        "id": "use0",
+        "path": "/shots/0/motion/0"
+      }
+    ]
+  },
+  "expect": {
+    "finding_count": 0
+  }
+}

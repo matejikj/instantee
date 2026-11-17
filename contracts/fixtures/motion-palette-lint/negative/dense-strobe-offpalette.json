@@ -1,0 +1,94 @@
+{
+  "schema_version": "motion-palette-lint/1",
+  "id": "dense-strobe-offpalette",
+  "style": {
+    "package_id": "editorial",
+    "version": "1.0.0",
+    "fixture": "contracts/fixtures/style-bible/positive/editorial.style.json"
+  },
+  "rules": {
+    "frame_rate": 30,
+    "duration_frames": 1800,
+    "max_cuts_per_minute": 24,
+    "min_frames_between_cuts": 6,
+    "max_translation_delta_px": 160,
+    "max_palette_delta": 0.18,
+    "max_identical_preset_uses": 4
+  },
+  "input": {
+    "note": "25 spaced cuts (~25/min warning) plus one tight pair (spacing error); strobe jump; off-palette cyan; two identical presets (info).",
+    "cuts": [
+      { "id": "c00", "path": "/transitions/00", "at_frame": 0 },
+      { "id": "c01", "path": "/transitions/01", "at_frame": 72 },
+      { "id": "c02", "path": "/transitions/02", "at_frame": 144 },
+      { "id": "c03", "path": "/transitions/03", "at_frame": 216 },
+      { "id": "c04", "path": "/transitions/04", "at_frame": 288 },
+      { "id": "c05", "path": "/transitions/05", "at_frame": 360 },
+      { "id": "c06", "path": "/transitions/06", "at_frame": 432 },
+      { "id": "c07", "path": "/transitions/07", "at_frame": 504 },
+      { "id": "c08", "path": "/transitions/08", "at_frame": 576 },
+      { "id": "c09", "path": "/transitions/09", "at_frame": 648 },
+      { "id": "c10", "path": "/transitions/10", "at_frame": 720 },
+      { "id": "c11", "path": "/transitions/11", "at_frame": 792 },
+      { "id": "c12", "path": "/transitions/12", "at_frame": 864 },
+      { "id": "c13", "path": "/transitions/13", "at_frame": 936 },
+      { "id": "c14", "path": "/transitions/14", "at_frame": 1008 },
+      { "id": "c15", "path": "/transitions/15", "at_frame": 1080 },
+      { "id": "c16", "path": "/transitions/16", "at_frame": 1152 },
+      { "id": "c17", "path": "/transitions/17", "at_frame": 1224 },
+      { "id": "c18", "path": "/transitions/18", "at_frame": 1296 },
+      { "id": "c19", "path": "/transitions/19", "at_frame": 1368 },
+      { "id": "c20", "path": "/transitions/20", "at_frame": 1440 },
+      { "id": "c21", "path": "/transitions/21", "at_frame": 1512 },
+      { "id": "c22", "path": "/transitions/22", "at_frame": 1584 },
+      { "id": "c23", "path": "/transitions/23", "at_frame": 1656 },
+      { "id": "c24", "path": "/transitions/24", "at_frame": 1728 },
+      { "id": "c_tight", "path": "/transitions/tight", "at_frame": 1730 }
+    ],
+    "motion_samples": [
+      {
+        "element_id": "badge",
+        "path": "/shots/1/nodes/badge",
+        "frame": 10,
+        "x_px": 100,
+        "y_px": 400
+      },
+      {
+        "element_id": "badge",
+        "path": "/shots/1/nodes/badge",
+        "frame": 11,
+        "x_px": 420,
+        "y_px": 400
+      }
+    ],
+    "colors": [
+      {
+        "id": "neon",
+        "path": "/shots/1/nodes/badge/fill",
+        "color": { "r": 0.0, "g": 0.95, "b": 0.9, "a": 1 }
+      }
+    ],
+    "presets": [
+      {
+        "preset_id": "headline_reveal",
+        "id": "p0",
+        "path": "/shots/0/motion/0"
+      },
+      {
+        "preset_id": "headline_reveal",
+        "id": "p1",
+        "path": "/shots/1/motion/0"
+      }
+    ]
+  },
+  "expect": {
+    "codes": [
+      "excessive_cuts",
+      "cut_spacing",
+      "stroboscopic_motion",
+      "palette_mismatch",
+      "repeated_preset"
+    ],
+    "severities": ["error", "warning", "info"]
+  }
+}

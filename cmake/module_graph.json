@@ -96,7 +96,7 @@
       "include_prefix": "instantee/render_core/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics", "core-model"],
-      "notes": "GPU-neutral DrawOp/PassDesc and Renderer port; no Apple/Metal headers; no FrameLease."
+      "notes": "GPU-neutral DrawOp/PassDesc, Renderer port, and render-graph DAG compile/execute; no Apple/Metal headers; no FrameLease."
     },
     "export": {
       "role": "planned",

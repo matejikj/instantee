@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T08:02:11.318894+00:00",
+  "updated_at_utc": "2026-11-17T08:11:13.520279+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3851,14 +3851,24 @@
       "notes": "Promoted render-metal to production over render-core Renderer; capability negotiation and structured GPU absence/unsupported/device-loss errors; single MetalSubmitOwner with autorelease retain handshake; namespace render_metal; smoke parity preserved."
     },
     "P3-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Invalid graphs are rejected before GPU submission; valid graphs render the expected image.",
-        "met": null
+        "criterion": "Neplatný graph se odmítne před GPU submit, platný vykreslí očekávaný obraz.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-003/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-003/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Graph property tests",
+      "completed_at_utc": "2026-11-17T08:11:13Z",
+      "notes": "Added render-graph DAG in render-core: sample/color-write edges, cycle and WAW rejection, dead-pass elimination, topo order with write-to-sample barriers, execute before GPU only after compile, CPU RGBA8 rasterize for expected-image checks."
     },
     "P3-004": {
       "status": "todo",

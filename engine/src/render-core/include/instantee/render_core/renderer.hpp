@@ -3,8 +3,11 @@
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/render_core/draw_ops.hpp>
 
+#include <cstdint>
 #include <expected>
 #include <optional>
+#include <span>
+#include <vector>
 
 namespace instantee::render_core {
 
@@ -47,6 +50,9 @@ public:
   [[nodiscard]] std::uint64_t submit_count() const noexcept {
     return submit_count_;
   }
+  [[nodiscard]] std::span<const PassDesc> submitted_passes() const noexcept {
+    return submitted_passes_;
+  }
 
   // Next submit fails with the provided error after validation succeeds.
   void fail_next(diagnostics::Error error) { fail_next_ = std::move(error); }
@@ -55,6 +61,7 @@ private:
   bool submitted_ = false;
   std::uint64_t submit_count_ = 0;
   PassDesc last_{};
+  std::vector<PassDesc> submitted_passes_{};
   std::optional<diagnostics::Error> fail_next_{};
 };
 

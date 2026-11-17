@@ -1,4 +1,6 @@
-add_library(instantee_render_core STATIC src/renderer.cpp)
+add_library(instantee_render_core STATIC
+  src/renderer.cpp
+  src/render_graph.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)
 target_include_directories(instantee_render_core
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

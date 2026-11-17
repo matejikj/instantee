@@ -69,6 +69,7 @@ FakeRenderer::submit(const PassDesc &pass) {
     return std::unexpected(std::move(error));
   }
   last_ = pass;
+  submitted_passes_.push_back(pass);
   submitted_ = true;
   if (submit_count_ < std::numeric_limits<std::uint64_t>::max()) {
     ++submit_count_;

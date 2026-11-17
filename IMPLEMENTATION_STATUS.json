@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T10:48:21Z",
+  "updated_at_utc": "2026-11-17T10:55:49Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4091,14 +4091,24 @@
       "notes": "Added content-hash asset cache with separate disk (normalized RGBA blobs, IAC1 + format version) and process-local GPU slots that are never serialized. SHA-256 covers source bytes and compile flags; changing one asset invalidates only its GPU binding unless another id still shares the hash; corrupt or version-skewed blobs fail closed for rebuild."
     },
     "P3-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Atlas hit rate and staging bytes are reported; output has no pixel bleeding.",
-        "met": null
+        "criterion": "Atlas hit rate a staging bytes jsou reportovan\u00e9; v\u00fdsledek bez pixel bleeding.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-015/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Atlas golden/benchmarks",
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-17T10:55:49Z",
+      "notes": "Added CPU texture atlas in asset-pipeline: shelf packing with mandatory padding gutter (anti-bleed), content-key hit stats, optional box-filter mips, and batched dirty-region staging uploads that stay zero once sprites are marked resident. texture-atlas-bench reports hit_rate/staging_bytes as non_certified_dev_baseline."
     },
     "P3-016": {
       "status": "todo",

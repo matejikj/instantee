@@ -4,7 +4,8 @@ add_library(instantee_asset_pipeline STATIC
   src/svg_security.cpp
   src/svg_import.cpp
   src/nanosvg_impl.cpp
-  src/asset_cache.cpp)
+  src/asset_cache.cpp
+  src/texture_atlas.cpp)
 add_library(instantee::asset_pipeline ALIAS instantee_asset_pipeline)
 target_include_directories(instantee_asset_pipeline
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

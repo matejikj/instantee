@@ -1,6 +1,7 @@
 #include <instantee/asset_pipeline/asset_cache.hpp>
 #include <instantee/asset_pipeline/bitmap_decode.hpp>
 #include <instantee/asset_pipeline/svg_import.hpp>
+#include <instantee/asset_pipeline/texture_atlas.hpp>
 #include <instantee/compiler/compile.hpp>
 #include <instantee/core_model/ids.hpp>
 #include <instantee/core_model/integer_encoding.hpp>

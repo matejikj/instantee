@@ -10,6 +10,7 @@ an immutable archive identity.
 | `libtess2/` | memononen/libtess2 tag `v1.0.2` | SGI-B-2.0 |
 | `stb/` | nothings/stb `stb_image.h` commit `9600522` | MIT OR Unlicense |
 | `libwebp/` | webmproject/libwebp tag `v1.5.0` (decode subset) | BSD-3-Clause |
+| `nanosvg/` | memononen/nanosvg commit `239e102` (`nanosvg.h`) | Zlib |
 
 Each pin directory contains `PIN.json` with the tag, commit and archive SHA-256
 used to verify the snapshot. Prefer replacing a pin as a whole. Document any

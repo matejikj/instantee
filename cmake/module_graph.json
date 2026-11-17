@@ -103,8 +103,8 @@
       "target": "instantee_asset_pipeline",
       "include_prefix": "instantee/asset_pipeline/",
       "decision": "promote",
-      "allowed_dependencies": ["diagnostics"],
-      "notes": "Bounded PNG/WebP decode with dimension/pixel budgets and sRGB/ignore-ICC import policy. stb_image and libwebp are private decode dependencies and must not leak into public headers; no GPU types."
+      "allowed_dependencies": ["diagnostics", "geometry"],
+      "notes": "Bounded PNG/WebP decode and safe SVG subset import to Path2f. stb_image, libwebp and nanosvg are private dependencies and must not leak into public headers; scripts/external URLs are rejected before parse; no GPU types."
     },
     "render-core": {
       "role": "production",

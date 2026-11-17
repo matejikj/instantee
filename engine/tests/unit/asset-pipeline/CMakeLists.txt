@@ -4,3 +4,10 @@ target_link_libraries(spike_bitmap_decode_test PRIVATE
 add_test(NAME spike_bitmap_decode COMMAND spike_bitmap_decode_test)
 set_tests_properties(spike_bitmap_decode PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_svg_import_test svg_import_test.cpp)
+target_link_libraries(spike_svg_import_test PRIVATE
+  instantee::asset_pipeline instantee_build_options)
+add_test(NAME spike_svg_import COMMAND spike_svg_import_test)
+set_tests_properties(spike_svg_import PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

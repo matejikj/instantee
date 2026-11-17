@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "nanosvg",
+  "vendor": "Mikko Mononen",
+  "license": "Zlib",
+  "tag": null,
+  "commit": "239e102ec2c691f2902e20ace2ed36ee4a35cfe6",
+  "archive_url": "https://raw.githubusercontent.com/memononen/nanosvg/239e102ec2c691f2902e20ace2ed36ee4a35cfe6/src/nanosvg.h",
+  "archive_sha256": "e34fd5d084be106cea972d19ce5d27fd96d17ba89f8d06bdceee058420c8b2b0",
+  "include_root": "third_party/nanosvg",
+  "notes": "Vendored nanosvg.h only. Used privately by asset-pipeline after a security pre-scan that rejects scripts and external URL references. Public headers must not include nanosvg.h."
+}

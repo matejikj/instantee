@@ -15,6 +15,7 @@
 #include <instantee/export_core/video_sink.hpp>
 #include <instantee/export_core/write_all.hpp>
 #include <instantee/render_core/draw_ops.hpp>
+#include <instantee/render_core/pipeline_cache.hpp>
 #include <instantee/render_core/render_graph.hpp>
 #include <instantee/render_core/render_target_pool.hpp>
 #include <instantee/render_core/renderer.hpp>

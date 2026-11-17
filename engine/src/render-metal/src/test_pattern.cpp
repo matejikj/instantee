@@ -2,6 +2,7 @@
 
 #include "device_native.hpp"
 #include "metal_owner.hpp"
+#include "metal_pipeline_payload.hpp"
 #include "readback_impl.hpp"
 #include "test_pattern_metallib.hpp"
 
@@ -9,6 +10,7 @@
 
 #include <algorithm>
 #include <new>
+#include <span>
 #include <utility>
 
 namespace instantee::render_metal {
@@ -26,42 +28,8 @@ namespace {
   return utf8 == nullptr ? "unknown Metal error" : utf8;
 }
 
-} // namespace
-
-struct TestPatternRenderer::Impl {
-  MTL::Device *device = nullptr;
-  MTL::CommandQueue *queue = nullptr;
-  detail::MetalOwner<MTL::RenderPipelineState> pipeline;
-  detail::MetalOwner<MTL::Texture> target;
-  std::size_t bytes_per_row = 0;
-};
-
-TestPatternRenderer::TestPatternRenderer(std::unique_ptr<Impl> impl) noexcept
-    : impl_(std::move(impl)) {}
-
-TestPatternRenderer::TestPatternRenderer(TestPatternRenderer &&) noexcept =
-    default;
-TestPatternRenderer &
-TestPatternRenderer::operator=(TestPatternRenderer &&) noexcept = default;
-TestPatternRenderer::~TestPatternRenderer() = default;
-
-std::expected<TestPatternRenderer, Error>
-TestPatternRenderer::create(Device &device) {
-  detail::MetalOwner<NS::AutoreleasePool> pool{
-      NS::AutoreleasePool::alloc()->init()};
-  if (!pool) {
-    return std::unexpected(Error{ExitCode::gpu_failure,
-                                 "autorelease_pool_failed", "metal",
-                                 "Cannot create Metal autorelease pool"});
-  }
-
-  const detail::DeviceNative native = detail::native_handles(device);
-  if (native.device == nullptr || native.queue == nullptr) {
-    return std::unexpected(Error{ExitCode::gpu_failure,
-                                 "metal_device_unavailable", "metal",
-                                 "Metal device handles are unavailable"});
-  }
-
+[[nodiscard]] std::expected<detail::MetalOwner<MTL::RenderPipelineState>, Error>
+compile_test_pattern_pipeline(MTL::Device *device) {
   NS::Error *error = nullptr;
   dispatch_data_t metallib_data = dispatch_data_create(
       detail::kTestPatternMetallib, detail::kTestPatternMetallib_size, nullptr,
@@ -71,10 +39,8 @@ TestPatternRenderer::create(Device &device) {
                                  "metallib_dispatch_failed", "metal",
                                  "Cannot wrap offline test-pattern metallib"});
   }
-  // newLibrary returns +1 on success; release our dispatch_data reference
-  // after.
   detail::MetalOwner<MTL::Library> library{
-      native.device->newLibrary(metallib_data, &error)};
+      device->newLibrary(metallib_data, &error)};
   dispatch_release(metallib_data);
   if (!library) {
     static_cast<void>(ns_error_message(error));
@@ -108,13 +74,94 @@ TestPatternRenderer::create(Device &device) {
 
   error = nullptr;
   detail::MetalOwner<MTL::RenderPipelineState> pipeline{
-      native.device->newRenderPipelineState(pipeline_desc.get(), &error)};
+      device->newRenderPipelineState(pipeline_desc.get(), &error)};
   if (!pipeline) {
     static_cast<void>(ns_error_message(error));
     return std::unexpected(Error{ExitCode::gpu_failure,
                                  "pipeline_create_failed", "metal",
                                  "Cannot create test-pattern render pipeline"});
   }
+  return pipeline;
+}
+
+[[nodiscard]] render_core::PipelineVariantKey test_pattern_pipeline_key() {
+  const auto bytes = std::span<const std::uint8_t>{
+      detail::kTestPatternMetallib, detail::kTestPatternMetallib_size};
+  return render_core::PipelineVariantKey{
+      .feature_name = "test_pattern",
+      .feature_version = 1,
+      .pass_key = "main_color",
+      .module_id = "test_pattern",
+      .module_version = 1,
+      .metallib_fingerprint = render_core::fingerprint_metallib_bytes(bytes),
+      .color_pixel_format =
+          static_cast<std::uint32_t>(MTL::PixelFormatRGBA8Unorm),
+      .blending_enabled = false,
+  };
+}
+
+} // namespace
+
+struct TestPatternRenderer::Impl {
+  MTL::Device *device = nullptr;
+  MTL::CommandQueue *queue = nullptr;
+  detail::MetalOwner<MTL::RenderPipelineState> pipeline;
+  detail::MetalOwner<MTL::Texture> target;
+  std::size_t bytes_per_row = 0;
+};
+
+TestPatternRenderer::TestPatternRenderer(std::unique_ptr<Impl> impl) noexcept
+    : impl_(std::move(impl)) {}
+
+TestPatternRenderer::TestPatternRenderer(TestPatternRenderer &&) noexcept =
+    default;
+TestPatternRenderer &
+TestPatternRenderer::operator=(TestPatternRenderer &&) noexcept = default;
+TestPatternRenderer::~TestPatternRenderer() = default;
+
+std::expected<TestPatternRenderer, Error>
+TestPatternRenderer::create(Device &device,
+                            render_core::PipelineCache *pipeline_cache) {
+  detail::MetalOwner<NS::AutoreleasePool> pool{
+      NS::AutoreleasePool::alloc()->init()};
+  if (!pool) {
+    return std::unexpected(Error{ExitCode::gpu_failure,
+                                 "autorelease_pool_failed", "metal",
+                                 "Cannot create Metal autorelease pool"});
+  }
+
+  const detail::DeviceNative native = detail::native_handles(device);
+  if (native.device == nullptr || native.queue == nullptr) {
+    return std::unexpected(Error{ExitCode::gpu_failure,
+                                 "metal_device_unavailable", "metal",
+                                 "Metal device handles are unavailable"});
+  }
+
+  render_core::PipelineCache local_cache;
+  render_core::PipelineCache &cache =
+      pipeline_cache != nullptr ? *pipeline_cache : local_cache;
+  const render_core::PipelineVariantKey key = test_pattern_pipeline_key();
+  auto cached = cache.get_or_compile(key, [&]() {
+    auto compiled = compile_test_pattern_pipeline(native.device);
+    if (!compiled) {
+      return std::expected<std::unique_ptr<render_core::PipelinePayload>,
+                           Error>{std::unexpected(compiled.error())};
+    }
+    return std::expected<std::unique_ptr<render_core::PipelinePayload>, Error>{
+        std::make_unique<detail::MetalPipelinePayload>(std::move(*compiled))};
+  });
+  if (!cached) {
+    return std::unexpected(cached.error());
+  }
+  auto *payload = dynamic_cast<detail::MetalPipelinePayload *>(*cached);
+  if (payload == nullptr || !payload->pipeline) {
+    return std::unexpected(Error{ExitCode::gpu_failure,
+                                 "pipeline_payload_invalid", "metal",
+                                 "Cached pipeline payload is not a Metal PSO"});
+  }
+  // Retain into the renderer so lifetime does not depend on the cache entry.
+  detail::MetalOwner<MTL::RenderPipelineState> pipeline =
+      detail::retain_owner(payload->pipeline.get());
 
   detail::MetalOwner<MTL::TextureDescriptor> texture_desc{
       MTL::TextureDescriptor::alloc()->init()};

@@ -4,7 +4,8 @@ add_library(instantee_render_core STATIC
   src/resource_registry.cpp
   src/render_target_pool.cpp
   src/staging_pool.cpp
-  src/shader_features.cpp)
+  src/shader_features.cpp
+  src/pipeline_cache.cpp)
 add_library(instantee::render_core ALIAS instantee_render_core)
 target_include_directories(instantee_render_core
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

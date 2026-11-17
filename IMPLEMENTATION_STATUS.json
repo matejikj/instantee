@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T09:05:39Z",
+  "updated_at_utc": "2026-11-17T09:23:23Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3951,14 +3951,24 @@
       "notes": "Added ShaderFeatureRegistry with versioned ids, typed params, pass contributions and empty-pass planning in render-core. Metal modules compile offline into PIN-hashed metallibs embedded at build time; validation loads them on-device and rejects missing entries or corrupt bytes. Test-pattern renderer now loads the offline metallib instead of runtime MSL."
     },
     "P3-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Repeating a shot does not repeat pipeline compilation.",
-        "met": null
+        "criterion": "Opakovaný shot neprovádí opakovaný pipeline compile; poškozená/nekompatibilní cache neselže tiše.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-008/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Pipeline cache counter + corruption tests",
+      "completed_at_utc": "2026-11-17T09:23:23Z",
+      "notes": "Added PipelineCache with canonical variant keys, hit/miss/compile counters, and a durable key-index blob that rejects bad magic, truncation, format skew and metallib fingerprint mismatch. Test-pattern create reuses a shared cache without a second PSO compile; GPU handles are never serialized."
     },
     "P3-009": {
       "status": "todo",

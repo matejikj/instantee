@@ -21,6 +21,17 @@ struct AuthoringIntent {
   std::vector<std::string> target_ids;
 };
 
+struct AuthoringKeyframe {
+  std::uint64_t frame = 0;
+  double value = 0;
+};
+
+// Explicit author animation on a node. Wins over CDS/Style Bible presets.
+struct AuthoringAnimation {
+  std::string property;
+  std::vector<AuthoringKeyframe> keyframes;
+};
+
 struct AuthoringNode {
   std::string id;
   std::string type; // text, group, ...
@@ -30,12 +41,14 @@ struct AuthoringNode {
   std::optional<double> translate_y;
   std::optional<double> opacity;
   bool visible = true;
+  std::vector<AuthoringAnimation> animations;
   std::vector<AuthoringNode> children;
 };
 
 struct AuthoringShot {
   std::string id;
   std::uint64_t duration_frames = 0;
+  std::optional<std::string> style_override;
   std::optional<AuthoringIntent> intent;
   std::vector<AuthoringNode> nodes;
 };

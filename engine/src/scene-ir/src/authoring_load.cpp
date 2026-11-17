@@ -110,6 +110,66 @@ parse_node(yyjson_val *obj, std::string_view path) {
       node.opacity = yyjson_get_num(opacity);
     }
   }
+  if (yyjson_val *animations = yyjson_obj_get(obj, "animations");
+      animations && yyjson_is_arr(animations)) {
+    yyjson_arr_iter iter;
+    yyjson_arr_iter_init(animations, &iter);
+    yyjson_val *anim;
+    std::size_t index = 0;
+    while ((anim = yyjson_arr_iter_next(&iter)) != nullptr) {
+      if (!yyjson_is_obj(anim)) {
+        return std::unexpected(
+            err("type_mismatch", "Expected animation object",
+                join(path, "animations/" + std::to_string(index))));
+      }
+      const std::string anim_path =
+          join(path, "animations/" + std::to_string(index));
+      AuthoringAnimation animation;
+      if (auto property = req_str(anim, "property", anim_path); !property) {
+        return std::unexpected(property.error());
+      } else {
+        animation.property = *property;
+      }
+      yyjson_val *keyframes = yyjson_obj_get(anim, "keyframes");
+      if (keyframes == nullptr || !yyjson_is_arr(keyframes) ||
+          yyjson_arr_size(keyframes) == 0) {
+        return std::unexpected(err("missing_field",
+                                   "Animation keyframes are required",
+                                   join(anim_path, "keyframes")));
+      }
+      yyjson_arr_iter kf_iter;
+      yyjson_arr_iter_init(keyframes, &kf_iter);
+      yyjson_val *kf;
+      std::size_t kf_index = 0;
+      while ((kf = yyjson_arr_iter_next(&kf_iter)) != nullptr) {
+        if (!yyjson_is_obj(kf)) {
+          return std::unexpected(
+              err("type_mismatch", "Expected keyframe object",
+                  join(anim_path, "keyframes/" + std::to_string(kf_index))));
+        }
+        const std::string kf_path =
+            join(anim_path, "keyframes/" + std::to_string(kf_index));
+        AuthoringKeyframe keyframe;
+        if (auto frame = req_uint(kf, "frame", kf_path, 0, 1000000); !frame) {
+          return std::unexpected(frame.error());
+        } else {
+          keyframe.frame = *frame;
+        }
+        yyjson_val *value = yyjson_obj_get(kf, "value");
+        if (value == nullptr || !yyjson_is_num(value) ||
+            !std::isfinite(yyjson_get_num(value))) {
+          return std::unexpected(err("type_mismatch",
+                                     "Keyframe value must be a finite number",
+                                     join(kf_path, "value")));
+        }
+        keyframe.value = yyjson_get_num(value);
+        animation.keyframes.push_back(keyframe);
+        ++kf_index;
+      }
+      node.animations.push_back(std::move(animation));
+      ++index;
+    }
+  }
   if (yyjson_val *children = yyjson_obj_get(obj, "children");
       children && yyjson_is_arr(children)) {
     yyjson_arr_iter iter;
@@ -252,6 +312,11 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
       return std::unexpected(duration.error());
     } else {
       shot.duration_frames = *duration;
+    }
+    if (yyjson_val *style_override = yyjson_obj_get(shot_val, "style_override");
+        style_override && yyjson_is_str(style_override)) {
+      shot.style_override = std::string(yyjson_get_str(style_override),
+                                        yyjson_get_len(style_override));
     }
     if (yyjson_val *intent = yyjson_obj_get(shot_val, "intent");
         intent && yyjson_is_obj(intent)) {

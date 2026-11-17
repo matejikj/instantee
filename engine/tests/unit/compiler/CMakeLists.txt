@@ -16,6 +16,14 @@ add_test(NAME spike_compiler_cds_compile COMMAND spike_compiler_cds_compile_test
 set_tests_properties(spike_compiler_cds_compile PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_compiler_track_conflict_test track_conflict_test.cpp)
+target_link_libraries(spike_compiler_track_conflict_test PRIVATE
+  instantee::compiler instantee_build_options)
+add_test(NAME spike_compiler_track_conflict
+  COMMAND spike_compiler_track_conflict_test)
+set_tests_properties(spike_compiler_track_conflict PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_compiler_runtime_scene_test runtime_scene_test.cpp)
 target_link_libraries(spike_compiler_runtime_scene_test PRIVATE
   instantee::compiler instantee_build_options)

@@ -6,6 +6,7 @@
 #include <instantee/direction/directed_film.hpp>
 #include <instantee/direction/semantic_intent.hpp>
 #include <instantee/direction/style_package_registry.hpp>
+#include <instantee/direction/track_precedence.hpp>
 #include <instantee/scene_ir/canonicalize.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
@@ -13,6 +14,7 @@
 #include <chrono>
 #include <optional>
 #include <sstream>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -114,61 +116,119 @@ std::string style_version(std::string_view style) {
   return std::string(major) + ".0.0";
 }
 
+std::string map_authoring_property(std::string_view property) {
+  if (property == "rotation_z") {
+    return "rotation_z_rad";
+  }
+  return std::string(property);
+}
+
+void collect_author_claims(const scene_ir::AuthoringNode &node,
+                           std::string_view shot_id,
+                           std::vector<direction::TrackClaim> &claims) {
+  std::size_t ordinal = 0;
+  for (const auto &animation : node.animations) {
+    direction::DirectedTrack track;
+    track.id = std::string(shot_id) + "_author_" + node.id + "_" +
+               animation.property + "_" + std::to_string(ordinal++);
+    track.target_id = node.id;
+    track.property = map_authoring_property(animation.property);
+    track.keyframes.reserve(animation.keyframes.size());
+    for (const auto &kf : animation.keyframes) {
+      track.keyframes.push_back(
+          direction::DirectedKeyframe{.frame = kf.frame, .value = kf.value});
+    }
+    claims.push_back(direction::TrackClaim{
+        .track = std::move(track),
+        .source = direction::TrackSource::explicit_author,
+    });
+  }
+  for (const auto &child : node.children) {
+    collect_author_claims(child, shot_id, claims);
+  }
+}
+
 std::expected<void, diagnostics::Error>
-lower_shot_intent(const scene_ir::AuthoringShot &shot, std::size_t index,
-                  std::uint64_t start_frame,
-                  std::vector<scene_ir::AnimationTrack> &tracks) {
-  if (!shot.intent.has_value()) {
+resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
+                    std::uint64_t start_frame,
+                    std::vector<scene_ir::AnimationTrack> &tracks) {
+  std::vector<direction::TrackClaim> claims;
+  for (const auto &node : shot.nodes) {
+    collect_author_claims(node, shot.id, claims);
+  }
+
+  if (shot.intent.has_value()) {
+    auto kind = direction::parse_intent_kind(shot.intent->type);
+    if (!kind) {
+      return std::unexpected(
+          err("unsupported_intent",
+              "Creative intent is not implemented by the CDS compiler",
+              "/shots/" + std::to_string(index) + "/intent/type")
+              .with_shot(shot.id));
+    }
+
+    std::vector<std::string_view> known;
+    known.reserve(32);
+    for (const auto &node : shot.nodes) {
+      collect_node_ids(node, known);
+    }
+
+    std::vector<std::string_view> targets;
+    targets.reserve(shot.intent->target_ids.size());
+    for (const auto &id : shot.intent->target_ids) {
+      targets.push_back(id);
+    }
+
+    const double importance = shot.intent->importance.value_or(0.5);
+    auto semantic =
+        direction::make_semantic_intent(*kind, targets, shot.intent->intensity,
+                                        importance, std::nullopt, known);
+    if (!semantic) {
+      auto error = semantic.error();
+      if (!error.context.json_path) {
+        error = std::move(error).with_json_path(
+            "/shots/" + std::to_string(index) + "/intent");
+      }
+      return std::unexpected(std::move(error).with_shot(shot.id));
+    }
+
+    auto lowered = direction::lower_semantic_intent(
+        *semantic, shot.duration_frames, shot.id);
+    if (!lowered) {
+      return std::unexpected(lowered.error().with_shot(shot.id));
+    }
+    if (lowered->empty()) {
+      return std::unexpected(
+          err("unsupported_intent",
+              "CDS lowering produced no tracks for a declared intent",
+              "/shots/" + std::to_string(index) + "/intent")
+              .with_shot(shot.id));
+    }
+
+    const direction::TrackSource cds_source =
+        shot.style_override.has_value() ? direction::TrackSource::shot_override
+                                        : direction::TrackSource::style_bible;
+    for (auto &directed : *lowered) {
+      claims.push_back(direction::TrackClaim{
+          .track = std::move(directed),
+          .source = cds_source,
+      });
+    }
+  }
+
+  if (claims.empty()) {
     return {};
   }
 
-  auto kind = direction::parse_intent_kind(shot.intent->type);
-  if (!kind) {
+  auto resolved = direction::resolve_track_precedence(claims);
+  if (!resolved) {
     return std::unexpected(
-        err("unsupported_intent",
-            "Creative intent is not implemented by the CDS compiler",
-            "/shots/" + std::to_string(index) + "/intent/type")
-            .with_shot(shot.id));
+        std::move(resolved.error())
+            .with_shot(shot.id)
+            .with_json_path("/shots/" + std::to_string(index)));
   }
 
-  std::vector<std::string_view> known;
-  known.reserve(32);
-  for (const auto &node : shot.nodes) {
-    collect_node_ids(node, known);
-  }
-
-  std::vector<std::string_view> targets;
-  targets.reserve(shot.intent->target_ids.size());
-  for (const auto &id : shot.intent->target_ids) {
-    targets.push_back(id);
-  }
-
-  const double importance = shot.intent->importance.value_or(0.5);
-  auto semantic = direction::make_semantic_intent(
-      *kind, targets, shot.intent->intensity, importance, std::nullopt, known);
-  if (!semantic) {
-    auto error = semantic.error();
-    if (!error.context.json_path) {
-      error = std::move(error).with_json_path(
-          "/shots/" + std::to_string(index) + "/intent");
-    }
-    return std::unexpected(std::move(error).with_shot(shot.id));
-  }
-
-  auto lowered = direction::lower_semantic_intent(
-      *semantic, shot.duration_frames, shot.id);
-  if (!lowered) {
-    return std::unexpected(lowered.error().with_shot(shot.id));
-  }
-  if (lowered->empty()) {
-    return std::unexpected(
-        err("unsupported_intent",
-            "CDS lowering produced no tracks for a declared intent",
-            "/shots/" + std::to_string(index) + "/intent")
-            .with_shot(shot.id));
-  }
-
-  for (auto &directed : *lowered) {
+  for (auto &directed : *resolved) {
     scene_ir::AnimationTrack track;
     track.id = std::move(directed.id);
     track.target_id = std::move(directed.target_id);
@@ -252,7 +312,7 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
                    out_shot.node_ids, "font0", "mat0");
     }
     if (auto lowered =
-            lower_shot_intent(shot, index, cursor, doc.animation_tracks);
+            resolve_shot_tracks(shot, index, cursor, doc.animation_tracks);
         !lowered) {
       return std::unexpected(lowered.error());
     }

@@ -2,7 +2,8 @@ add_library(instantee_direction STATIC
   src/style_bible.cpp
   src/style_package_registry.cpp
   src/semantic_intent.cpp
-  src/directed_film.cpp)
+  src/directed_film.cpp
+  src/track_precedence.cpp)
 add_library(instantee::direction ALIAS instantee_direction)
 target_include_directories(instantee_direction
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T08:11:13.520279+00:00",
+  "updated_at_utc": "2026-11-17T08:24:02.607487+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3871,14 +3871,24 @@
       "notes": "Added render-graph DAG in render-core: sample/color-write edges, cycle and WAW rejection, dead-pass elimination, topo order with write-to-sample barriers, execute before GPU only after compile, CPU RGBA8 rasterize for expected-image checks."
     },
     "P3-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Stale handles are rejected; partial initialization, delayed completion and cancellation cause no use-after-free, leaks or double release.",
-        "met": null
+        "criterion": "Stale handle se odmítne; partial init, delayed completion a cancel jsou bez UAF/leak/double-release.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-004/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-004/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "RAII fault injection + GPU retirement stress",
+      "completed_at_utc": "2026-11-17T08:24:02Z",
+      "notes": "Added fixed-capacity generational GpuResourceRegistry with type-erased payloads, SubmissionContext retain/complete/cancel holds, retiring until last hold drains, stale-handle rejection, and single-destroy guarantees."
     },
     "P3-005": {
       "status": "todo",

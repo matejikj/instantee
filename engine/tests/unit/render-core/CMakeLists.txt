@@ -11,3 +11,10 @@ target_link_libraries(spike_render_graph_test PRIVATE
 add_test(NAME spike_render_graph COMMAND spike_render_graph_test)
 set_tests_properties(spike_render_graph PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_resource_registry_test resource_registry_test.cpp)
+target_link_libraries(spike_resource_registry_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_resource_registry COMMAND spike_resource_registry_test)
+set_tests_properties(spike_resource_registry PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

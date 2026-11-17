@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:09:28Z",
+  "updated_at_utc": "2026-11-17T16:15:05Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4528,14 +4528,22 @@
       "evidence_tier_min": "A"
     },
     "P4-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Adding an unrelated shot does not change existing variations.",
-        "met": null
+        "criterion": "Přidání nesouvisejícího shotu nezmění již existující variace.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-012/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Determinism variation tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-013": {
       "status": "todo",

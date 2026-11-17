@@ -14,3 +14,11 @@ add_test(NAME spike_direction_style_package_registry
   COMMAND spike_direction_style_package_registry_test)
 set_tests_properties(spike_direction_style_package_registry PROPERTIES
   TIMEOUT 30 LABELS "cpu;smoke")
+
+add_executable(spike_direction_semantic_intent_test semantic_intent_test.cpp)
+target_link_libraries(spike_direction_semantic_intent_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_semantic_intent
+  COMMAND spike_direction_semantic_intent_test)
+set_tests_properties(spike_direction_semantic_intent PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

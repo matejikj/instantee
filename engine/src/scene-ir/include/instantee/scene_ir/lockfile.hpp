@@ -4,6 +4,7 @@
 #include <instantee/scene_ir/document.hpp>
 
 #include <expected>
+#include <filesystem>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -46,5 +47,25 @@ lockfile_to_canonical_json(const AssetLockfile &lockfile,
 lockfile_invalidated_by_asset_change(const AssetLockfile &baseline,
                                      std::string_view asset_id,
                                      std::string_view new_sha256);
+
+// Parse a schema-shaped asset lockfile document (JSON text).
+[[nodiscard]] std::expected<AssetLockfile, diagnostics::Error>
+parse_asset_lockfile(std::string_view json_text);
+
+[[nodiscard]] std::expected<AssetLockfile, diagnostics::Error>
+load_asset_lockfile_file(const std::filesystem::path &path);
+
+struct AssetLockVerification {
+  std::size_t assets_checked = 0;
+  bool content_digest_ok = false;
+  bool offline = true; // verification never opens a network channel
+};
+
+// Resolve each lockfile URI under `project_root`, hash file bytes, and confirm
+// they match the locked digests. Also re-finalizes the lockfile body and
+// compares `content_sha256`. Fails closed on missing files or digest drift.
+[[nodiscard]] std::expected<AssetLockVerification, diagnostics::Error>
+verify_asset_lockfile(const AssetLockfile &lockfile,
+                      const std::filesystem::path &project_root);
 
 } // namespace instantee::scene_ir

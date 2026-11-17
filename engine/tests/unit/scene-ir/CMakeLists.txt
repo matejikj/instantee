@@ -50,6 +50,15 @@ add_test(NAME spike_scene_ir_lockfile COMMAND spike_scene_ir_lockfile_test)
 set_tests_properties(spike_scene_ir_lockfile PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_scene_ir_editorial_asset_lock_test
+  editorial_asset_lock_test.cpp)
+target_link_libraries(spike_scene_ir_editorial_asset_lock_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+add_test(NAME spike_scene_ir_editorial_asset_lock
+  COMMAND spike_scene_ir_editorial_asset_lock_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_scene_ir_editorial_asset_lock PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")
+
 add_executable(spike_scene_ir_migrate_test migrate_test.cpp)
 target_link_libraries(spike_scene_ir_migrate_test PRIVATE instantee::scene_ir
   instantee_build_options)

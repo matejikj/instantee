@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "editorial-demo-assets",
+  "notes": "Offline editorial demo fonts, paper texture, and synthetic photographs. Lockfile digests bind these bytes; no network fetch at build/verify time.",
+  "assets": [
+    {
+      "id": "editorial-font-display",
+      "file": "assets/editorial/fonts/NotoSans-Regular.ttf",
+      "uri": "assets/editorial/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "role": "font",
+      "license": "OFL-1.1",
+      "license_file": "assets/editorial/fonts/OFL-Noto-Sans.txt"
+    },
+    {
+      "id": "editorial-font-fallback",
+      "file": "assets/editorial/fonts/DejaVuSans.ttf",
+      "uri": "assets/editorial/fonts/DejaVuSans.ttf",
+      "sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "media_type": "font/ttf",
+      "role": "font",
+      "license": "Bitstream Vera + Arev",
+      "license_file": "assets/editorial/fonts/LICENSE-DejaVu.txt"
+    },
+    {
+      "id": "editorial-texture-paper-grain",
+      "file": "assets/editorial/textures/paper-grain.png",
+      "uri": "assets/editorial/textures/paper-grain.png",
+      "sha256": "a4ca70e36821b4007a480b1bcf7009ed2a0dd4b091bf2c23f5a1335673522dfa",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/editorial/SYNTHETIC_MEDIA_LICENSE.txt"
+    },
+    {
+      "id": "editorial-photo-board-still",
+      "file": "assets/editorial/photos/demo-board-still.png",
+      "uri": "assets/editorial/photos/demo-board-still.png",
+      "sha256": "a52104045badad802a3bbfc58af1e3be97c5cad0f3d5d0747b1861d7e2f868f7",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/editorial/SYNTHETIC_MEDIA_LICENSE.txt"
+    },
+    {
+      "id": "editorial-photo-radar-still",
+      "file": "assets/editorial/photos/demo-radar-still.png",
+      "uri": "assets/editorial/photos/demo-radar-still.png",
+      "sha256": "350870865db03989936befa653226b549ca75717cca2af6a0a59b1a4ffcd68eb",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/editorial/SYNTHETIC_MEDIA_LICENSE.txt"
+    }
+  ]
+}

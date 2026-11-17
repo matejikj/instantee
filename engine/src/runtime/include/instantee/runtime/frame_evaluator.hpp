@@ -4,6 +4,7 @@
 #include <instantee/core_model/time.hpp>
 #include <instantee/core_model/transform.hpp>
 #include <instantee/diagnostics/error.hpp>
+#include <instantee/runtime/clip_mask.hpp>
 #include <instantee/runtime/compiled_scene.hpp>
 #include <instantee/runtime/layering.hpp>
 #include <instantee/runtime/spring.hpp>
@@ -75,6 +76,13 @@ struct NodeFrameState {
   RuntimeTransform local{};
   core::Mat4 world = core::Mat4::identity();
   bool visible = true;
+  // Hierarchy AND of local visibility flags (self + ancestors).
+  bool inherited_visible = true;
+  // World-space clip from ancestor chain; nullopt when unconstrained.
+  std::optional<ClipRect> world_clip;
+  bool clip_empty = false;
+  // Nearest inherited visibility-mask node index, if any.
+  std::optional<std::uint32_t> mask_node_index;
   core::LinearRgba material_color{1.0, 1.0, 1.0, 1.0};
 };
 
@@ -98,9 +106,17 @@ evaluate_color_track(const ColorTrack &track, core::FrameIndex frame);
 
 // Evaluate CompiledScene + AnimationProgram at `frame`. Uses typed samplers
 // only (scalar track / short-arc rotation / spring / linear-RGBA); never an
-// ad hoc float lerp for missing interpolation kinds.
+// ad hoc float lerp for missing interpolation kinds. Without a clip program,
+// inherited_visible still reflects the parent visibility chain; clip/mask
+// fields stay empty.
 [[nodiscard]] std::expected<FrameState, diagnostics::Error>
 evaluate_frame(const CompiledScene &scene, const AnimationProgram &program,
                core::FrameIndex frame);
+
+// Same as evaluate_frame, then resolves hierarchical clip regions and
+// visibility-mask references into each NodeFrameState.
+[[nodiscard]] std::expected<FrameState, diagnostics::Error>
+evaluate_frame(const CompiledScene &scene, const AnimationProgram &program,
+               const ClipMaskProgram &clips, core::FrameIndex frame);
 
 } // namespace instantee::runtime

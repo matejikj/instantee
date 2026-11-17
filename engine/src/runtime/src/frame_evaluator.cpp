@@ -1,6 +1,7 @@
 #include <instantee/runtime/frame_evaluator.hpp>
 
 #include <instantee/core_model/orientation.hpp>
+#include <instantee/runtime/clip_mask.hpp>
 #include <instantee/runtime/easing.hpp>
 #include <instantee/runtime/transforms.hpp>
 
@@ -295,9 +296,46 @@ evaluate_frame(const CompiledScene &scene, const AnimationProgram &program,
     node.local = locals[index].transform;
     node.world = (*worlds)[index];
     node.visible = locals[index].visible;
+
+    bool inherited = locals[index].visible;
+    std::optional<std::uint32_t> cursor = locals[index].parent_index;
+    while (inherited && cursor.has_value()) {
+      inherited = inherited && locals[*cursor].visible;
+      cursor = locals[*cursor].parent_index;
+    }
+    node.inherited_visible = inherited;
     node.material_color = colors[index];
   }
   state.draw_order = std::move(*order);
+  return state;
+}
+
+std::expected<FrameState, diagnostics::Error>
+evaluate_frame(const CompiledScene &scene, const AnimationProgram &program,
+               const ClipMaskProgram &clips, core::FrameIndex frame) {
+  auto state = evaluate_frame(scene, program, frame);
+  if (!state) {
+    return state;
+  }
+
+  std::vector<core::Mat4> worlds;
+  worlds.reserve(state->nodes.size());
+  for (const NodeFrameState &node : state->nodes) {
+    worlds.push_back(node.world);
+  }
+
+  auto resolved = resolve_clip_masks(scene, clips, worlds);
+  if (!resolved) {
+    return std::unexpected(resolved.error());
+  }
+  for (std::size_t index = 0; index < state->nodes.size(); ++index) {
+    NodeFrameState &node = state->nodes[index];
+    const EffectiveClipMask &effective = (*resolved)[index];
+    node.inherited_visible = effective.inherited_visible;
+    node.world_clip = effective.world_clip;
+    node.clip_empty = effective.clip_empty;
+    node.mask_node_index = effective.mask_node_index;
+  }
   return state;
 }
 

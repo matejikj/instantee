@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T00:24:24.440624+00:00",
+  "updated_at_utc": "2026-11-17T05:18:25.798704+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3699,14 +3699,24 @@
       "notes": "Cut/dissolve/wipe spans on packed ShotTimeline; no duration doubling; monotone PTS."
     },
     "P2-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Masks inherit correctly and invalid references are rejected.",
-        "met": null
+        "criterion": "Masky se spr\u00e1vn\u011b d\u011bd\u00ed a neplatn\u00e9 reference se odm\u00edtnou.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-016/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-016/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Clip semantics tests",
+      "completed_at_utc": "2026-11-17T05:18:25Z",
+      "notes": "Parent-chain clip AABB intersection and nearest mask inheritance into FrameState; dangling mask/node refs rejected."
     },
     "P2-017": {
       "status": "todo",

@@ -84,3 +84,10 @@ add_test(NAME spike_runtime_transition_schedule
   COMMAND spike_runtime_transition_schedule_test)
 set_tests_properties(spike_runtime_transition_schedule PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_runtime_clip_mask_test clip_mask_test.cpp)
+target_link_libraries(spike_runtime_clip_mask_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_clip_mask COMMAND spike_runtime_clip_mask_test)
+set_tests_properties(spike_runtime_clip_mask PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

@@ -27,3 +27,10 @@ add_test(NAME spike_core_model_time_convert
   COMMAND spike_core_model_time_convert_test)
 set_tests_properties(spike_core_model_time_convert PROPERTIES TIMEOUT 10
   LABELS "cpu;smoke")
+
+add_executable(spike_core_model_transform_test transform_test.cpp)
+target_link_libraries(spike_core_model_transform_test PRIVATE
+  instantee::core_model instantee_build_options)
+add_test(NAME spike_core_model_transform COMMAND spike_core_model_transform_test)
+set_tests_properties(spike_core_model_transform PROPERTIES TIMEOUT 10 LABELS
+  "cpu;smoke")

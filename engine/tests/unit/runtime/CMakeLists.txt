@@ -24,3 +24,10 @@ add_test(NAME spike_runtime_compiled_scene
   COMMAND spike_runtime_compiled_scene_test)
 set_tests_properties(spike_runtime_compiled_scene PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_runtime_transforms_test transforms_test.cpp)
+target_link_libraries(spike_runtime_transforms_test PRIVATE
+  instantee::runtime instantee_build_options)
+add_test(NAME spike_runtime_transforms COMMAND spike_runtime_transforms_test)
+set_tests_properties(spike_runtime_transforms PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

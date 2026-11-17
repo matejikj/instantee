@@ -3439,14 +3439,24 @@
       "notes": "Immutable CompiledScene + RenderJob ownership; Scene IR lowering; parent_id wired in identity compile."
     },
     "P2-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Hierarchical transforms match reference matrices and the conventions in SAS section 8.",
-        "met": null
+        "criterion": "Hierarchick\u00e9 transformace odpov\u00eddaj\u00ed referen\u010dn\u00edm matric\u00edm a konvenc\u00edm SAS \u00a78.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-003/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-003/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Matrix property tests",
+      "completed_at_utc": "2026-11-17T02:29:50Z",
+      "notes": "Mat3/Mat4 column-major; local T*P*R*S*InvP; world=parent*local; hierarchy tests."
     },
     "P2-004": {
       "status": "todo",

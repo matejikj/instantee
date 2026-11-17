@@ -25,6 +25,10 @@ enum class RuntimeNodeKind : std::uint8_t {
   camera
 };
 
+// Material/compositor blend. Opaque items may be batched; alpha items keep a
+// strict paint order (SAS §8.2).
+enum class BlendMode : std::uint8_t { opaque = 0, premultiplied_alpha };
+
 struct RuntimeTransform {
   double translate_x = 0;
   double translate_y = 0;
@@ -46,6 +50,7 @@ struct RuntimeNode {
   RuntimeNodeKind kind = RuntimeNodeKind::group;
   std::int32_t layer_order = 0;
   RuntimeTransform transform{};
+  BlendMode blend = BlendMode::opaque;
   bool visible = true;
   std::optional<std::uint32_t> text_run_index;
   std::optional<std::uint32_t> camera_index;

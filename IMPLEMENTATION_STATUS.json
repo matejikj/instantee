@@ -3499,14 +3499,24 @@
       "notes": "Perspective projection, parallax_factor, depth clipping; axes preserved."
     },
     "P2-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Identical scene states produce the same stable draw-operation order.",
-        "met": null
+        "criterion": "Shodn\u00e9 scene state vykresl\u00ed shodn\u00e9 stabiln\u00ed po\u0159ad\u00ed draw ops.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-006/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Sort golden tests",
+      "completed_at_utc": "2026-11-17T03:03:30Z",
+      "notes": "BlendMode + draw order: opaque batch vs transparent layer/z/id sort."
     },
     "P2-007": {
       "status": "todo",

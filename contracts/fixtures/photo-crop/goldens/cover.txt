@@ -1,0 +1,9 @@
+name=cover fit=cover cutout=none scale=0.32
+image_dest x=0 y=8 w=64 h=32
+visible x=16 y=8 w=32 h=32
+overflow=0
+p0,0=10,10,10,255
+p16,16=200,40,40,255
+p32,24=200,40,40,255
+p48,40=10,10,10,255
+p63,47=10,10,10,255

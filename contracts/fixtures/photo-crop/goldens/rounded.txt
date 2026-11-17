@@ -1,0 +1,9 @@
+name=rounded fit=cover cutout=rounded_rect scale=0.8
+image_dest x=0 y=8 w=64 h=32
+visible x=8 y=8 w=48 h=32
+overflow=0
+p0,0=0,0,0,255
+p16,16=180,120,20,255
+p32,24=180,120,20,255
+p48,40=0,0,0,255
+p63,47=0,0,0,255

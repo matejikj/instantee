@@ -1,0 +1,9 @@
+name=ellipse-edge fit=cover cutout=ellipse scale=0.625
+image_dest x=12 y=4 w=40 h=40
+visible x=12 y=8 w=40 h=32
+overflow=0
+p0,0=240,240,240,255
+p16,16=40,40,200,255
+p32,24=40,40,200,255
+p48,40=240,240,240,255
+p63,47=240,240,240,255

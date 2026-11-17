@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T09:23:23Z",
+  "updated_at_utc": "2026-11-17T09:44:09Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -3971,14 +3971,24 @@
       "notes": "Added PipelineCache with canonical variant keys, hit/miss/compile counters, and a durable key-index blob that rejects bad magic, truncation, format skew and metallib fingerprint mismatch. Test-pattern create reuses a shared cache without a second PSO compile; GPU handles are never serialized."
     },
     "P3-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Pixel/alpha goldens show correct coordinates and blending.",
-        "met": null
+        "criterion": "Pixel/alpha golden ukazuje správné souřadnice a blending; skeleton exportuje krátké MP4/PNG bez TS hot-path.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P3-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P3-009/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Primitive goldens + walking-skeleton smoke",
+      "completed_at_utc": "2026-11-17T09:44:09Z",
+      "notes": "Extended DrawOp with ellipse/rounded-rect/line, CPU src-over goldens, FrameState-oriented WorldPrimitive lowering, Metal SDF PrimitiveRenderer, and a native walking-skeleton smoke that evaluates frames, stages RGBA and publishes via VideoSink plus PNG."
     },
     "P3-010": {
       "status": "todo",

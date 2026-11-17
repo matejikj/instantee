@@ -39,14 +39,31 @@ std::expected<void, diagnostics::Error> validate_pass(const PassDesc &pass) {
     case DrawOpKind::clear:
       break;
     case DrawOpKind::fill_rect:
+    case DrawOpKind::fill_ellipse:
+    case DrawOpKind::fill_rounded_rect:
       if (!is_finite_float(op.rect.x) || !is_finite_float(op.rect.y) ||
           !is_finite_float(op.rect.width) || !is_finite_float(op.rect.height)) {
         return std::unexpected(make_invalid(
-            "non_finite_rect", "fill_rect requires finite coords"));
+            "non_finite_rect", "shape fill requires finite rect coords"));
       }
       if (!is_valid_rect(op.rect)) {
         return std::unexpected(make_invalid(
-            "invalid_rect", "fill_rect requires positive width and height"));
+            "invalid_rect", "shape fill requires positive width and height"));
+      }
+      if (op.kind == DrawOpKind::fill_rounded_rect &&
+          (!is_finite_float(op.corner_radius) || op.corner_radius < 0.0f)) {
+        return std::unexpected(make_invalid(
+            "invalid_corner_radius",
+            "fill_rounded_rect corner_radius must be finite and >= 0"));
+      }
+      break;
+    case DrawOpKind::stroke_line:
+      if (!is_finite_float(op.rect.x) || !is_finite_float(op.rect.y) ||
+          !is_finite_float(op.x1) || !is_finite_float(op.y1) ||
+          !is_finite_float(op.stroke_width) || !(op.stroke_width > 0.0f)) {
+        return std::unexpected(make_invalid(
+            "invalid_line",
+            "stroke_line requires finite endpoints and stroke_width > 0"));
       }
       break;
     default:

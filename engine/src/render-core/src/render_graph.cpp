@@ -1,7 +1,8 @@
 #include <instantee/render_core/render_graph.hpp>
 
+#include <instantee/render_core/primitives.hpp>
+
 #include <algorithm>
-#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <queue>
@@ -239,73 +240,9 @@ emit_barriers(const std::vector<PassAccess> &access,
   return barriers;
 }
 
-void fill_rect(Rgba8Image &image, const Rect2f &rect, Rgba8 color) {
-  if (image.width_px == 0 || image.height_px == 0 || image.rgba.empty()) {
-    return;
-  }
-  const float x0f = std::floor(rect.x);
-  const float y0f = std::floor(rect.y);
-  const float x1f = std::ceil(rect.x + rect.width);
-  const float y1f = std::ceil(rect.y + rect.height);
-  const std::int64_t x0 =
-      std::max<std::int64_t>(0, static_cast<std::int64_t>(x0f));
-  const std::int64_t y0 =
-      std::max<std::int64_t>(0, static_cast<std::int64_t>(y0f));
-  const std::int64_t x1 =
-      std::min<std::int64_t>(static_cast<std::int64_t>(image.width_px),
-                             static_cast<std::int64_t>(x1f));
-  const std::int64_t y1 =
-      std::min<std::int64_t>(static_cast<std::int64_t>(image.height_px),
-                             static_cast<std::int64_t>(y1f));
-  for (std::int64_t y = y0; y < y1; ++y) {
-    for (std::int64_t x = x0; x < x1; ++x) {
-      const std::size_t idx = (static_cast<std::size_t>(y) * image.width_px +
-                               static_cast<std::size_t>(x)) *
-                              4U;
-      image.rgba[idx] = color.r;
-      image.rgba[idx + 1] = color.g;
-      image.rgba[idx + 2] = color.b;
-      image.rgba[idx + 3] = color.a;
-    }
-  }
-}
-
 [[nodiscard]] std::expected<void, diagnostics::Error>
 apply_pass_cpu(Rgba8Image &image, const PassDesc &pass) {
-  auto valid = validate_pass(pass);
-  if (!valid) {
-    return valid;
-  }
-  if (image.width_px != pass.width_px || image.height_px != pass.height_px) {
-    image.width_px = pass.width_px;
-    image.height_px = pass.height_px;
-    const std::size_t bytes = static_cast<std::size_t>(pass.width_px) *
-                              static_cast<std::size_t>(pass.height_px) * 4U;
-    if (bytes / 4U / pass.width_px != pass.height_px) {
-      return std::unexpected(
-          make_invalid("image_size_overflow", "pass extent overflows buffer"));
-    }
-    image.rgba.assign(bytes, 0);
-  }
-  for (const DrawOp &op : pass.ops) {
-    switch (op.kind) {
-    case DrawOpKind::clear:
-      for (std::size_t i = 0; i + 3 < image.rgba.size(); i += 4) {
-        image.rgba[i] = op.color.r;
-        image.rgba[i + 1] = op.color.g;
-        image.rgba[i + 2] = op.color.b;
-        image.rgba[i + 3] = op.color.a;
-      }
-      break;
-    case DrawOpKind::fill_rect:
-      fill_rect(image, op.rect, op.color);
-      break;
-    default:
-      return std::unexpected(
-          make_invalid("unsupported_draw_op", "unknown DrawOpKind"));
-    }
-  }
-  return {};
+  return rasterize_pass(image, pass);
 }
 
 } // namespace

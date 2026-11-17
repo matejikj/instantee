@@ -23,6 +23,17 @@
       ],
       "feature_id": "test_pattern",
       "source_sha256": "7e658fe05543afd8c53e4df14b2a595a0d220f86731443e8df820795ce7e6332"
+    },
+    {
+      "id": "primitives",
+      "version": 1,
+      "source": "../spike/primitives.metal",
+      "entry_points": [
+        "vs_prim_main",
+        "fs_prim_main"
+      ],
+      "feature_id": "solid-fill",
+      "source_sha256": "f7a920a0ef50e706231a14d65daf98abf73809daea64050128ca981b7838bdca"
     }
   ]
 }

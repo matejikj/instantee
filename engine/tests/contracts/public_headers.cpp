@@ -15,7 +15,9 @@
 #include <instantee/export_core/video_sink.hpp>
 #include <instantee/export_core/write_all.hpp>
 #include <instantee/render_core/draw_ops.hpp>
+#include <instantee/render_core/frame_primitives.hpp>
 #include <instantee/render_core/pipeline_cache.hpp>
+#include <instantee/render_core/primitives.hpp>
 #include <instantee/render_core/render_graph.hpp>
 #include <instantee/render_core/render_target_pool.hpp>
 #include <instantee/render_core/renderer.hpp>
@@ -25,6 +27,7 @@
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/frame.hpp>
 #include <instantee/render_metal/metal_backend.hpp>
+#include <instantee/render_metal/primitive_renderer.hpp>
 #include <instantee/render_metal/readback.hpp>
 #include <instantee/render_metal/shader_module.hpp>
 #include <instantee/render_metal/test_pattern.hpp>

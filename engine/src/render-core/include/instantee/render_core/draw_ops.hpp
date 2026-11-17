@@ -11,6 +11,9 @@ namespace instantee::render_core {
 enum class DrawOpKind : std::uint8_t {
   clear = 1,
   fill_rect = 2,
+  fill_ellipse = 3,
+  fill_rounded_rect = 4,
+  stroke_line = 5,
 };
 
 // Axis-aligned rect in pass pixel space (origin top-left, y down).
@@ -30,8 +33,16 @@ struct Rgba8 {
 
 struct DrawOp {
   DrawOpKind kind = DrawOpKind::clear;
+  // fill_rect / fill_ellipse / fill_rounded_rect: axis-aligned bounds.
+  // stroke_line: (x, y) is the start point; (x1, y1) is the end point.
   Rect2f rect{};
+  float x1 = 0;
+  float y1 = 0;
   Rgba8 color{};
+  // Clamped to min(width,height)/2 during rasterization.
+  float corner_radius = 0;
+  // stroke_line half-extent is stroke_width/2 in pixel space.
+  float stroke_width = 1;
 };
 
 // One render pass description. Resource handles stay opaque indices so

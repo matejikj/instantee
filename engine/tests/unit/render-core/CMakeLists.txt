@@ -46,3 +46,10 @@ target_link_libraries(spike_pipeline_cache_test PRIVATE
 add_test(NAME spike_pipeline_cache COMMAND spike_pipeline_cache_test)
 set_tests_properties(spike_pipeline_cache PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_primitives_test primitives_test.cpp)
+target_link_libraries(spike_primitives_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_primitives COMMAND spike_primitives_test)
+set_tests_properties(spike_primitives PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

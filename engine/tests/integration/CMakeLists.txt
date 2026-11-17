@@ -39,3 +39,14 @@ add_test(NAME instantee_frame_seek
   "${PROJECT_SOURCE_DIR}" "$<TARGET_FILE:instantee>")
 set_tests_properties(instantee_frame_seek PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
+
+find_library(INSTANTEE_COMPRESSION_FRAMEWORK Compression REQUIRED)
+add_executable(instantee_walking_skeleton_test walking_skeleton_test.cpp)
+target_link_libraries(instantee_walking_skeleton_test PRIVATE
+  instantee::runtime instantee::render_core instantee::export_core
+  instantee_build_options "${INSTANTEE_COMPRESSION_FRAMEWORK}")
+add_test(NAME instantee_walking_skeleton
+  COMMAND instantee_walking_skeleton_test
+  "${CMAKE_BINARY_DIR}/walking-skeleton-out")
+set_tests_properties(instantee_walking_skeleton PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke")

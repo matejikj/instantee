@@ -87,6 +87,19 @@ instantee_compile_metallib(
   SYMBOL_NAMESPACE "instantee::render_metal::detail"
   SYMBOL_NAME "kSharedSurfacePatternMetallib")
 
+set(INSTANTEE_PRIMITIVES_SHADER
+  "${PROJECT_SOURCE_DIR}/engine/shaders/spike/primitives.metal")
+set(INSTANTEE_PRIMITIVES_METALLIB
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/primitives.metallib")
+set(INSTANTEE_PRIMITIVES_METALLIB_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/primitives_metallib.hpp")
+instantee_compile_metallib(
+  SOURCES "${INSTANTEE_PRIMITIVES_SHADER}"
+  OUTPUT_METALLIB "${INSTANTEE_PRIMITIVES_METALLIB}"
+  OUTPUT_HEADER "${INSTANTEE_PRIMITIVES_METALLIB_HEADER}"
+  SYMBOL_NAMESPACE "instantee::render_metal::detail"
+  SYMBOL_NAME "kPrimitivesMetallib")
+
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
 find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 
@@ -97,8 +110,10 @@ add_library(instantee_render_metal STATIC
   src/readback.cpp
   src/shader_module.cpp
   src/test_pattern.cpp
+  src/primitive_renderer.cpp
   "${INSTANTEE_TEST_PATTERN_METALLIB_HEADER}"
-  "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}")
+  "${INSTANTEE_SHARED_SURFACE_METALLIB_HEADER}"
+  "${INSTANTEE_PRIMITIVES_METALLIB_HEADER}")
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"

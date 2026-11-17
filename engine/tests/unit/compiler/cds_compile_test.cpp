@@ -35,8 +35,12 @@ int main() {
       root / "contracts/fixtures/authoring/positive/minimal.authoring.json");
   instantee::compiler::CompileOptions options;
   const auto *bytes = reinterpret_cast<const std::byte *>(text.data());
+  instantee::compiler::CompileStageTiming timing;
+  options.style_bible_path =
+      (root / "contracts/fixtures/style-bible/positive/editorial.style.json")
+          .string();
   auto first = instantee::compiler::compile_authoring_json(
-      std::span<const std::byte>(bytes, text.size()), options);
+      std::span<const std::byte>(bytes, text.size()), options, &timing);
   auto second = instantee::compiler::compile_authoring_json(
       std::span<const std::byte>(bytes, text.size()), options);
   expect(first.has_value() && second.has_value(), "CDS compile twice");
@@ -48,12 +52,20 @@ int main() {
            "target headline");
     expect(first->animation_tracks.front().keyframes.size() >= 2U,
            "keyframes present");
+    expect(timing.cds_total_ms > 0.0, "CDS total timing measured");
+    expect(timing.cds_style_resolve_ms > 0.0, "style resolve timed");
+    expect(timing.cds_shot_planning_ms >= 0.0, "shot planning timed");
+    expect(timing.cds_lint_ms > 0.0, "lint stage timed");
+    expect(timing.cds_direction_report_ms >= 0.0, "direction report timed");
+    expect(timing.cds_total_ms <= timing.compile_ms + 1.0,
+           "CDS breakdown fits inside compile");
     auto a = instantee::compiler::scene_document_to_json(*first);
     auto b = instantee::compiler::scene_document_to_json(*second);
     expect(a && b && *a == *b, "deterministic CDS IR snapshot");
     expect(a->find("\"intent\"") == std::string::npos,
            "no unresolved intent in IR JSON");
   }
+  options.style_bible_path.clear();
 
   // Unsupported direction must fail closed — never compile as empty tracks.
   instantee::scene_ir::AuthoringDocument doc;

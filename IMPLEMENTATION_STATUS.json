@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T17:06:04Z",
+  "updated_at_utc": "2026-11-17T17:06:57Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4672,14 +4672,22 @@
       "evidence_tier_min": "A"
     },
     "P4-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The report separates CDS from parse/compile; cold-start preparation (parse+CDS+compile) has a recorded share of the NFR-PERF-03 budget; exceeding the draft budget is a recorded risk, not a silent PASS.",
-        "met": null
+        "criterion": "Report odděluje CDS od parse/compile; cold-start příprava (parse+CDS+compile) má zapsaný podíl na rozpočtu NFR-PERF-03; překročení draft rozpočtu je zapsané riziko, ne tichý PASS.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-021/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-021/checks.json"
+      ],
+      "blockers": [],
+      "verification": "CDS compile benchmark report + ADR-0014 update",
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C"
     },
     "P4-020": {
       "status": "todo",

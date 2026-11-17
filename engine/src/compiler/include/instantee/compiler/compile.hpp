@@ -16,10 +16,14 @@ namespace instantee::compiler {
 struct CompileOptions {
   std::string compiler_version = "0.1.0";
   std::string target_feature_profile = "metal-apple-baseline";
+  // Optional Style Bible JSON path. When set, CDS style resolve loads the
+  // bible and the timed lint stage runs motion/palette policy against it.
+  std::string style_bible_path;
 };
 
 // Wall times in milliseconds for the named stages. Zero when a stage is
-// skipped.
+// skipped. CDS fields are a breakdown inside compile_ms (not additive with
+// parse/canonicalize/write).
 struct CompileStageTiming {
   double parse_ms = 0;
   double structural_ms = 0;
@@ -27,6 +31,13 @@ struct CompileStageTiming {
   double graph_ms = 0;
   double canonicalize_ms = 0;
   double write_ms = 0;
+  // CDS sub-stages measured inside compile_authoring when timing is requested.
+  double cds_style_resolve_ms = 0;
+  double cds_shot_planning_ms = 0;
+  double cds_transition_planning_ms = 0;
+  double cds_lint_ms = 0;
+  double cds_direction_report_ms = 0;
+  double cds_total_ms = 0;
   std::uint64_t ir_bytes = 0;
 };
 
@@ -42,7 +53,8 @@ struct CompileAuthoringResult {
 [[nodiscard]] std::expected<scene_ir::SceneDocument, diagnostics::Error>
 compile_authoring(const scene_ir::AuthoringDocument &authoring,
                   const CompileOptions &options,
-                  direction::DirectionReport *direction_report = nullptr);
+                  direction::DirectionReport *direction_report = nullptr,
+                  CompileStageTiming *cds_timing = nullptr);
 
 [[nodiscard]] std::expected<CompileAuthoringResult, diagnostics::Error>
 compile_authoring_with_report(const scene_ir::AuthoringDocument &authoring,

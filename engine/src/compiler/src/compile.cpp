@@ -5,8 +5,11 @@
 #include <instantee/core_model/properties.hpp>
 #include <instantee/direction/directed_film.hpp>
 #include <instantee/direction/direction_report.hpp>
+#include <instantee/direction/lint_policy.hpp>
 #include <instantee/direction/motion_grammar.hpp>
+#include <instantee/direction/motion_palette_lint.hpp>
 #include <instantee/direction/semantic_intent.hpp>
+#include <instantee/direction/style_bible.hpp>
 #include <instantee/direction/style_package_registry.hpp>
 #include <instantee/direction/track_precedence.hpp>
 #include <instantee/direction/transition_planner.hpp>
@@ -15,6 +18,7 @@
 #include <instantee/scene_ir/load.hpp>
 
 #include <chrono>
+#include <filesystem>
 #include <optional>
 #include <sstream>
 #include <string>
@@ -274,9 +278,18 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
 std::expected<scene_ir::SceneDocument, diagnostics::Error>
 compile_authoring(const scene_ir::AuthoringDocument &authoring,
                   const CompileOptions &options,
-                  direction::DirectionReport *direction_report) {
+                  direction::DirectionReport *direction_report,
+                  CompileStageTiming *cds_timing) {
+  direction::DirectionReport owned_report;
+  direction::DirectionReport *report =
+      direction_report != nullptr
+          ? direction_report
+          : (cds_timing != nullptr ? &owned_report : nullptr);
+
   const auto package_name = style_id(authoring.style);
   const auto package_ver = style_version(authoring.style);
+
+  const auto t_style = clock::now();
   auto registry = direction::make_builtin_style_package_registry();
   const auto engine = direction::make_default_engine_capabilities();
   auto package =
@@ -284,9 +297,26 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
   if (!package) {
     return std::unexpected(package.error());
   }
+  std::optional<direction::StyleBible> style_bible;
+  if (!options.style_bible_path.empty()) {
+    auto loaded = direction::load_style_bible_file(
+        std::filesystem::path{options.style_bible_path});
+    if (!loaded) {
+      return std::unexpected(loaded.error());
+    }
+    if (loaded->package_id() != package_name ||
+        loaded->version() != package_ver) {
+      return std::unexpected(
+          err("style_bible_package_mismatch",
+              "Style Bible package_id@version must match authoring style",
+              "/style"));
+    }
+    style_bible = std::move(*loaded);
+  }
+  const double style_resolve_ms = ms_since(t_style);
 
-  if (direction_report != nullptr) {
-    *direction_report = direction::DirectionReport{};
+  if (report != nullptr) {
+    *report = direction::DirectionReport{};
   }
 
   scene_ir::SceneDocument doc;
@@ -326,6 +356,7 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
   camera_node.visible = true;
   doc.nodes.push_back(camera_node);
 
+  const auto t_shots = clock::now();
   std::uint64_t cursor = 0;
   // Per-shot layer bases keep incoming transition content above outgoing
   // content without rewriting packed duration.
@@ -344,9 +375,8 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
                    out_shot.node_ids, "font0", "mat0");
     }
-    if (auto lowered =
-            resolve_shot_tracks(shot, index, cursor, package_name,
-                                doc.animation_tracks, direction_report);
+    if (auto lowered = resolve_shot_tracks(shot, index, cursor, package_name,
+                                           doc.animation_tracks, report);
         !lowered) {
       return std::unexpected(lowered.error());
     }
@@ -354,7 +384,9 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
     doc.shots.push_back(std::move(out_shot));
   }
   doc.duration_frames = core::FrameIndex{cursor};
+  const double shot_planning_ms = ms_since(t_shots);
 
+  const auto t_transitions = clock::now();
   if (!authoring.transitions.empty()) {
     std::vector<direction::ShotTiming> timings;
     timings.reserve(doc.shots.size());
@@ -399,9 +431,8 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
                 "Incoming transition shot must paint above the outgoing shot",
                 "/transitions"));
       }
-      if (direction_report != nullptr) {
-        direction_report->add_transition(
-            direction::make_transition_decision(span));
+      if (report != nullptr) {
+        report->add_transition(direction::make_transition_decision(span));
       }
       scene_ir::TransitionSpan out;
       out.id = span.id;
@@ -412,6 +443,61 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       out.blend = span.blend;
       doc.transition_spans.push_back(std::move(out));
     }
+  }
+  const double transition_planning_ms = ms_since(t_transitions);
+
+  const auto t_report = clock::now();
+  if (report != nullptr) {
+    // Materialize the auditable snapshot so report cost is measured even when
+    // the caller only retains the structured object.
+    (void)report->to_snapshot();
+  }
+  const double direction_report_ms = ms_since(t_report);
+
+  // Motion/palette lint needs Style Bible colors; without a bible path the
+  // timed lint stage is skipped (cds_lint_ms stays 0) so plain validate/compile
+  // keep working.
+  const auto t_lint = clock::now();
+  double lint_ms = 0;
+  if (cds_timing != nullptr && style_bible) {
+    const double fps = static_cast<double>(authoring.frame_rate.numerator()) /
+                       static_cast<double>(authoring.frame_rate.denominator());
+    const auto rules = direction::motion_palette_lint_rules_from_style_bible(
+        *style_bible, fps, cursor);
+    direction::MotionPaletteLintInput lint_input;
+    lint_input.cuts.reserve(doc.transition_spans.size());
+    for (const auto &span : doc.transition_spans) {
+      lint_input.cuts.push_back(direction::MotionLintCut{
+          .at_frame = span.start_frame,
+          .id = span.id,
+          .path = "/transition_spans/" + span.id,
+      });
+    }
+    lint_input.presets.reserve(doc.animation_tracks.size());
+    for (const auto &track : doc.animation_tracks) {
+      lint_input.presets.push_back(direction::MotionLintPresetUse{
+          .preset_id = track.property,
+          .id = track.id,
+          .path = "/animation_tracks/" + track.id,
+      });
+    }
+    for (const auto &[color_id, token] : style_bible->colors()) {
+      lint_input.colors.push_back(direction::MotionLintColorUse{
+          .id = color_id,
+          .path = "/style_bible/colors/" + color_id,
+          .color = token.value,
+      });
+    }
+    auto findings = direction::lint_motion_palette(lint_input, rules);
+    if (!findings) {
+      return std::unexpected(findings.error());
+    }
+    auto policy = direction::evaluate_lint_policy(
+        *findings, direction::LintEnforcementMode::warn, {});
+    if (!policy) {
+      return std::unexpected(policy.error());
+    }
+    lint_ms = ms_since(t_lint);
   }
 
   doc.provenance.project_sha256 =
@@ -428,6 +514,17 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
   }
   if (auto graph = scene_ir::validate_graph(doc); !graph) {
     return std::unexpected(graph.error());
+  }
+
+  if (cds_timing != nullptr) {
+    cds_timing->cds_style_resolve_ms = style_resolve_ms;
+    cds_timing->cds_shot_planning_ms = shot_planning_ms;
+    cds_timing->cds_transition_planning_ms = transition_planning_ms;
+    cds_timing->cds_lint_ms = lint_ms;
+    cds_timing->cds_direction_report_ms = direction_report_ms;
+    cds_timing->cds_total_ms = style_resolve_ms + shot_planning_ms +
+                               transition_planning_ms + lint_ms +
+                               direction_report_ms;
   }
   return doc;
 }
@@ -650,10 +747,20 @@ compile_authoring_json(std::span<const std::byte> bytes,
     return std::unexpected(authoring.error());
   }
 
+  CompileStageTiming cds{};
   const auto t1 = clock::now();
-  auto compiled = compile_authoring(*authoring, options, direction_report);
+  auto compiled = compile_authoring(*authoring, options, direction_report,
+                                    timing != nullptr ? &cds : nullptr);
   local.compile_ms = ms_since(t1);
   local.graph_ms = local.compile_ms;
+  if (timing != nullptr) {
+    local.cds_style_resolve_ms = cds.cds_style_resolve_ms;
+    local.cds_shot_planning_ms = cds.cds_shot_planning_ms;
+    local.cds_transition_planning_ms = cds.cds_transition_planning_ms;
+    local.cds_lint_ms = cds.cds_lint_ms;
+    local.cds_direction_report_ms = cds.cds_direction_report_ms;
+    local.cds_total_ms = cds.cds_total_ms;
+  }
   if (!compiled) {
     if (timing) {
       *timing = local;

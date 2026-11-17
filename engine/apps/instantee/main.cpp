@@ -72,9 +72,9 @@ int fail(const Error &error) {
 void usage() {
   std::fputs(
       "usage:\n"
-      "  instantee validate <authoring.json>\n"
+      "  instantee validate <authoring.json> [--style-bible <bible.json>]\n"
       "  instantee compile <authoring.json> --out <scene.json> "
-      "[--direction-report <report.txt>]\n"
+      "[--direction-report <report.txt>] [--style-bible <bible.json>]\n"
       "  instantee direction-report <authoring.json> [--out <report.txt>]\n"
       "  instantee frame <scene.json> --at <N> [--out "
       "<report.json|preview.png>]\n"
@@ -83,7 +83,8 @@ void usage() {
       "  instantee help\n"
       "\n"
       "Lint policy defaults to strict in release builds and warn otherwise. "
-      "Strict rejects unwaived severity=error findings.\n",
+      "Strict rejects unwaived severity=error findings. Optional Style Bible "
+      "path loads tokens during CDS style resolve and timed lint.\n",
       stdout);
 }
 
@@ -108,21 +109,27 @@ void print_ok(std::string_view command,
   std::printf(
       ",\"duration_frames\":%llu,\"stages_ms\":{\"parse\":%.3f,\"structural\":%"
       ".3f,"
-      "\"compile\":%.3f,\"graph\":%.3f,\"canonicalize\":%.3f,\"write\":%.3f},"
-      "\"ir_bytes\":%llu}\n",
+      "\"compile\":%.3f,\"graph\":%.3f,\"canonicalize\":%.3f,\"write\":%.3f,"
+      "\"cds\":{\"style_resolve\":%.3f,\"shot_planning\":%.3f,"
+      "\"transition_planning\":%.3f,\"lint\":%.3f,\"direction_report\":%.3f,"
+      "\"total\":%.3f}},\"ir_bytes\":%llu}\n",
       static_cast<unsigned long long>(duration_frames), timing.parse_ms,
       timing.structural_ms, timing.compile_ms, timing.graph_ms,
-      timing.canonicalize_ms, timing.write_ms,
+      timing.canonicalize_ms, timing.write_ms, timing.cds_style_resolve_ms,
+      timing.cds_shot_planning_ms, timing.cds_transition_planning_ms,
+      timing.cds_lint_ms, timing.cds_direction_report_ms, timing.cds_total_ms,
       static_cast<unsigned long long>(timing.ir_bytes));
 }
 
-int cmd_validate(const std::string &path) {
+int cmd_validate(const std::string &path,
+                 const std::string &style_bible_path = {}) {
   auto text = read_file(path);
   if (!text) {
     return fail(text.error());
   }
   const auto *bytes = reinterpret_cast<const std::byte *>(text->data());
   instantee::compiler::CompileOptions options;
+  options.style_bible_path = style_bible_path;
   instantee::compiler::CompileStageTiming timing;
   auto compiled = instantee::compiler::compile_authoring_json(
       std::span<const std::byte>(bytes, text->size()), options, &timing);
@@ -148,13 +155,15 @@ int write_text_file(const std::string &path, std::string_view body) {
 }
 
 int cmd_compile(const std::string &path, const std::string &out_path,
-                const std::optional<std::string> &direction_report_path) {
+                const std::optional<std::string> &direction_report_path,
+                const std::string &style_bible_path = {}) {
   auto text = read_file(path);
   if (!text) {
     return fail(text.error());
   }
   const auto *bytes = reinterpret_cast<const std::byte *>(text->data());
   instantee::compiler::CompileOptions options;
+  options.style_bible_path = style_bible_path;
   instantee::compiler::CompileStageTiming timing;
   instantee::direction::DirectionReport report;
   auto compiled = instantee::compiler::compile_authoring_json(
@@ -426,11 +435,22 @@ int run(int argc, char **argv) {
     return 0;
   }
   if (cmd == "validate") {
-    if (argc != 3) {
+    if (argc < 3) {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_validate(argv[2]);
+    std::string style_bible;
+    if (argc == 5) {
+      if (std::string_view(argv[3]) != "--style-bible") {
+        usage();
+        return static_cast<int>(ExitCode::invalid_input);
+      }
+      style_bible = argv[4];
+    } else if (argc != 3) {
+      usage();
+      return static_cast<int>(ExitCode::invalid_input);
+    }
+    return cmd_validate(argv[2], style_bible);
   }
   if (cmd == "compile") {
     if (argc < 5 || std::string_view(argv[3]) != "--out") {
@@ -438,17 +458,31 @@ int run(int argc, char **argv) {
       return static_cast<int>(ExitCode::invalid_input);
     }
     std::optional<std::string> direction_report;
-    if (argc == 7) {
-      if (std::string_view(argv[5]) != "--direction-report") {
-        usage();
-        return static_cast<int>(ExitCode::invalid_input);
+    std::string style_bible;
+    for (int index = 5; index < argc;) {
+      const std::string_view flag = argv[index];
+      if (flag == "--direction-report") {
+        if (direction_report.has_value() || index + 1 >= argc) {
+          usage();
+          return static_cast<int>(ExitCode::invalid_input);
+        }
+        direction_report = argv[index + 1];
+        index += 2;
+        continue;
       }
-      direction_report = argv[6];
-    } else if (argc != 5) {
+      if (flag == "--style-bible") {
+        if (!style_bible.empty() || index + 1 >= argc) {
+          usage();
+          return static_cast<int>(ExitCode::invalid_input);
+        }
+        style_bible = argv[index + 1];
+        index += 2;
+        continue;
+      }
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_compile(argv[2], argv[4], direction_report);
+    return cmd_compile(argv[2], argv[4], direction_report, style_bible);
   }
   if (cmd == "direction-report") {
     if (argc < 3) {

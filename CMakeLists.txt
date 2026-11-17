@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.3)
-project(Instantee VERSION 0.0.0 LANGUAGES CXX OBJCXX)
+project(Instantee VERSION 0.0.0 LANGUAGES C CXX OBJCXX)
 
 foreach(language IN ITEMS CXX OBJCXX)
   set(CMAKE_${language}_STANDARD 23)
@@ -12,5 +12,6 @@ include(cmake/ModuleBoundaries.cmake)
 enable_testing()
 include(cmake/ToolchainProbes.cmake)
 
+add_subdirectory(third_party/yyjson)
 add_subdirectory(engine)
 add_subdirectory(benchmarks)

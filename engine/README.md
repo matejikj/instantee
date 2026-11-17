@@ -18,6 +18,7 @@ apps/cli/              Application entry points and private argument parser
 apps/transfer-compare/ Isolated staging vs shared-surface timing harness
 src/diagnostics/       Production Error/ExitCode value types
 src/core-model/        Platform-neutral frame clock and rational time types
+src/scene-ir/          Scene IR load, security limits and graph validation
 src/runtime/           Frame credits, bounded queues and reorder slots
 src/export-core/       Output transactions, write_all and publish results
 src/render-metal/      Spike Metal device, queue, test-pattern and readback leases

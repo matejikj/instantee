@@ -6,9 +6,10 @@ target_include_directories(spike_public_headers_test PRIVATE
   "$<TARGET_PROPERTY:instantee_runtime,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_export_core,INTERFACE_INCLUDE_DIRECTORIES>"
   "$<TARGET_PROPERTY:instantee_telemetry_apple,INTERFACE_INCLUDE_DIRECTORIES>"
-  "$<TARGET_PROPERTY:instantee_transfer_apple,INTERFACE_INCLUDE_DIRECTORIES>")
+  "$<TARGET_PROPERTY:instantee_transfer_apple,INTERFACE_INCLUDE_DIRECTORIES>"
+  "$<TARGET_PROPERTY:instantee_scene_ir,INTERFACE_INCLUDE_DIRECTORIES>")
 target_link_libraries(spike_public_headers_test PRIVATE instantee::diagnostics
-  instantee::core_model instantee_build_options)
+  instantee::core_model instantee::scene_ir instantee_build_options)
 add_test(NAME spike_public_headers COMMAND spike_public_headers_test)
 set_tests_properties(spike_public_headers PROPERTIES TIMEOUT 10 LABELS cpu)
 
@@ -16,6 +17,7 @@ set_tests_properties(spike_public_headers PROPERTIES TIMEOUT 10 LABELS cpu)
 foreach(module_target IN ITEMS
     instantee_diagnostics
     instantee_core_model
+    instantee_scene_ir
     instantee_runtime
     instantee_export_core
     instantee_telemetry_apple

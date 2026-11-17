@@ -1,6 +1,7 @@
 add_subdirectory(cli)
 add_subdirectory(diagnostics)
 add_subdirectory(core-model)
+add_subdirectory(scene-ir)
 add_subdirectory(runtime)
 add_subdirectory(export-core)
 add_subdirectory(export-apple)

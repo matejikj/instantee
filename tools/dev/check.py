@@ -120,7 +120,10 @@ def plan_steps(
         Step("whitespace", ("git", "diff", "--check", "HEAD")),
         Step("tracker-sync", ("python3", "tools/dev/sync_tracker.py"), skip_exit_code=EXIT_SKIPPED),
     ]
-    format_paths = sorted(p for p in paths if Path(p).suffix in FORMAT_SUFFIXES)
+    format_paths = sorted(
+        p for p in paths
+        if Path(p).suffix in FORMAT_SUFFIXES and not p.startswith("third_party/")
+    )
     if format_paths:
         steps.append(Step(
             "clang-format",

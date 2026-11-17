@@ -38,6 +38,7 @@ def module_by_target(graph: dict) -> dict[str, str]:
         {
             "instantee::diagnostics": "diagnostics",
             "instantee::core_model": "core-model",
+            "instantee::scene_ir": "scene-ir",
             "instantee::runtime": "runtime",
             "instantee::export_core": "export-core",
             "instantee::render_metal": "render-metal",

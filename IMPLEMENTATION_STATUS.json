@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T00:01:42.145374+00:00",
+  "updated_at_utc": "2026-11-17T00:12:51.866619+00:00",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -2987,34 +2987,61 @@
       "notes": "Scene IR camera/transition/rig schema + published evolution ADR"
     },
     "P1-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Invalid JSON or types produce the correct CLI error including the JSON path.",
-        "met": null
+        "criterion": "Neplatný JSON nebo typ vede na korektní CLI/Error cestu včetně JSON path; fuzz skeleton reprodukovatelně běží s limity.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-007/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S4",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Parser tests + initial fuzz smoke",
+      "notes": "yyjson-backed Scene IR loader with structural validation, JSON path errors, fuzz smoke"
     },
     "P1-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Cyclic parent graphs and dangling asset references are rejected deterministically.",
-        "met": null
+        "criterion": "Cyklický parent graph a dangling asset reference jsou odmítnuty deterministicky.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-008/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S4",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Graph/property tests",
+      "notes": "Deterministic graph validation: cycles, dangling refs, shot/keyframe bounds"
     },
     "P1-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Path traversal and excessive input sizes are rejected safely.",
-        "met": null
+        "criterion": "Path traversal, externí cesta mimo sandbox a přehnaná velikost vstupu se bezpečně odmítnou.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P1-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P1-009/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": "P1-S4",
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Malformed-input + path boundary suite",
+      "notes": "Input size/depth limits and asset URI sandbox; security decision note"
     },
     "P1-010": {
       "status": "done",

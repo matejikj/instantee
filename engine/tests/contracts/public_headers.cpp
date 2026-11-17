@@ -1,4 +1,5 @@
 #include <instantee/core_model/ids.hpp>
+#include <instantee/core_model/integer_encoding.hpp>
 #include <instantee/core_model/time.hpp>
 #include <instantee/core_model/units.hpp>
 #include <instantee/diagnostics/error.hpp>
@@ -18,6 +19,11 @@
 #include <instantee/runtime/pipeline_metrics.hpp>
 #include <instantee/runtime/reorder_buffer.hpp>
 #include <instantee/runtime/stop_signals.hpp>
+#include <instantee/scene_ir/document.hpp>
+#include <instantee/scene_ir/graph_validate.hpp>
+#include <instantee/scene_ir/limits.hpp>
+#include <instantee/scene_ir/load.hpp>
+#include <instantee/scene_ir/uri_sandbox.hpp>
 
 #include <instantee/runtime/frame_samples.hpp>
 #include <instantee/telemetry_apple/process_sampler.hpp>

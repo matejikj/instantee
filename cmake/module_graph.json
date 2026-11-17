@@ -81,11 +81,12 @@
       "allowed_dependencies": ["diagnostics", "core-model", "scene-ir"]
     },
     "scene-ir": {
-      "role": "planned",
-      "target": null,
+      "role": "production",
+      "target": "instantee_scene_ir",
       "include_prefix": "instantee/scene_ir/",
-      "decision": "planned",
-      "allowed_dependencies": ["diagnostics", "core-model"]
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics", "core-model"],
+      "notes": "yyjson is a private implementation dependency and must not leak into public headers."
     },
     "render-core": {
       "role": "planned",
@@ -138,6 +139,7 @@
   "production_source_roots": [
     "engine/src/diagnostics/",
     "engine/src/core-model/",
+    "engine/src/scene-ir/",
     "engine/src/runtime/",
     "engine/src/export-core/",
     "engine/native/telemetry-apple/"

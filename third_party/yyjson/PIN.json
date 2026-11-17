@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "yyjson",
+  "vendor": "ibireme",
+  "license": "MIT",
+  "tag": "0.13.0",
+  "commit": "6447536",
+  "archive_url": "https://github.com/ibireme/yyjson/archive/refs/tags/0.13.0.tar.gz",
+  "archive_sha256": "34e0f62a2bc11ab20d601e8ca1cc2b2079503aa45119a19133d89d19b94a0fae",
+  "include_root": "third_party/yyjson",
+  "notes": "Vendored yyjson.c/h only (no vcpkg bootstrap yet). Reader depth limited via YYJSON_READER_DEPTH_LIMIT. Future migration may use vcpkg manifest mode against the pinned baseline."
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T15:55:35Z",
+  "updated_at_utc": "2026-11-17T16:01:59Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4492,14 +4492,22 @@
       "evidence_tier_min": "A"
     },
     "P4-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Each director selects cameras only from declared capabilities.",
-        "met": null
+        "criterion": "Každý director volí kameru jen z deklarovaných capabilities.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-010/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Camera direction tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-011": {
       "status": "todo",

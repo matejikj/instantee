@@ -75,3 +75,11 @@ add_test(NAME spike_direction_shot_planner
   COMMAND spike_direction_shot_planner_test)
 set_tests_properties(spike_direction_shot_planner PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_direction_camera_language_test camera_language_test.cpp)
+target_link_libraries(spike_direction_camera_language_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_camera_language
+  COMMAND spike_direction_camera_language_test)
+set_tests_properties(spike_direction_camera_language PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

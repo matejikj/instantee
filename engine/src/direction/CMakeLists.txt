@@ -7,7 +7,8 @@ add_library(instantee_direction STATIC
   src/motion_grammar.cpp
   src/composition_constraints.cpp
   src/safe_area.cpp
-  src/shot_planner.cpp)
+  src/shot_planner.cpp
+  src/camera_language.cpp)
 add_library(instantee::direction ALIAS instantee_direction)
 target_include_directories(instantee_direction
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

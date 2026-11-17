@@ -1,5 +1,8 @@
 #include <instantee/compiler/compile_runtime.hpp>
 
+#include <instantee/compiler/validate_properties.hpp>
+#include <instantee/core_model/properties.hpp>
+
 #include <unordered_map>
 #include <utility>
 
@@ -65,6 +68,14 @@ runtime::RuntimeTransform map_transform(const scene_ir::Transform &transform) {
 
 std::expected<std::unique_ptr<const runtime::CompiledScene>, diagnostics::Error>
 compile_runtime_scene(const scene_ir::SceneDocument &document) {
+  // Unsupported animation bindings fail at compile, not during render.
+  const auto property_registry = core::make_builtin_property_registry();
+  if (auto properties =
+          validate_animation_properties(document, property_registry);
+      !properties) {
+    return std::unexpected(properties.error());
+  }
+
   std::unordered_map<std::string, std::uint32_t> node_index;
   node_index.reserve(document.nodes.size());
   for (std::uint32_t index = 0; index < document.nodes.size(); ++index) {

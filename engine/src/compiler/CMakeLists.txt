@@ -1,6 +1,7 @@
 add_library(instantee_compiler STATIC
   src/compile.cpp
-  src/compile_runtime.cpp)
+  src/compile_runtime.cpp
+  src/validate_properties.cpp)
 add_library(instantee::compiler ALIAS instantee_compiler)
 target_include_directories(instantee_compiler
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

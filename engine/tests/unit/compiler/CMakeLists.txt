@@ -14,3 +14,12 @@ add_test(NAME spike_compiler_runtime_scene
   COMMAND spike_compiler_runtime_scene_test)
 set_tests_properties(spike_compiler_runtime_scene PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_compiler_properties_validate_test
+  properties_validate_test.cpp)
+target_link_libraries(spike_compiler_properties_validate_test PRIVATE
+  instantee::compiler instantee_build_options)
+add_test(NAME spike_compiler_properties_validate
+  COMMAND spike_compiler_properties_validate_test)
+set_tests_properties(spike_compiler_properties_validate PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

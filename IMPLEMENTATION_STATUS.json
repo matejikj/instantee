@@ -3519,14 +3519,24 @@
       "notes": "BlendMode + draw order: opaque batch vs transparent layer/z/id sort."
     },
     "P2-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "An unsupported target-property pair fails during compilation, not rendering.",
-        "met": null
+        "criterion": "Nepodporovan\u00fd target-property p\u00e1r sel\u017ee p\u0159i kompilaci, ne p\u0159i renderu; nov\u00e1 property se p\u0159id\u00e1 registrac\u00ed, ne \u00fapravou nesouvisej\u00edc\u00edch modul\u016f.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P2-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P2-007/checks.json"
+      ],
+      "blockers": [],
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Property resolve tests",
+      "completed_at_utc": "2026-11-17T03:16:55Z",
+      "notes": "PropertyRegistry + compile-time target/property validation; custom properties via register_property."
     },
     "P2-008": {
       "status": "todo",

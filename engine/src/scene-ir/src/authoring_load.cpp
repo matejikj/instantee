@@ -286,6 +286,53 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
     doc.style = *style;
   }
 
+  if (yyjson_val *transitions = yyjson_obj_get(root, "transitions");
+      transitions != nullptr) {
+    if (!yyjson_is_arr(transitions)) {
+      return std::unexpected(
+          err("type_mismatch", "transitions must be an array", "/transitions"));
+    }
+    yyjson_arr_iter tr_iter;
+    yyjson_arr_iter_init(transitions, &tr_iter);
+    yyjson_val *tr_val;
+    std::size_t tr_index = 0;
+    while ((tr_val = yyjson_arr_iter_next(&tr_iter)) != nullptr) {
+      const std::string tpath = "/transitions/" + std::to_string(tr_index++);
+      if (!yyjson_is_obj(tr_val)) {
+        return std::unexpected(err("type_mismatch", "Expected object", tpath));
+      }
+      AuthoringTransition transition;
+      if (auto id = req_str(tr_val, "id", tpath); !id) {
+        return std::unexpected(id.error());
+      } else {
+        transition.id = *id;
+      }
+      if (auto from = req_str(tr_val, "from_shot_id", tpath); !from) {
+        return std::unexpected(from.error());
+      } else {
+        transition.from_shot_id = *from;
+      }
+      if (auto to = req_str(tr_val, "to_shot_id", tpath); !to) {
+        return std::unexpected(to.error());
+      } else {
+        transition.to_shot_id = *to;
+      }
+      if (auto overlap =
+              req_uint(tr_val, "overlap_frames", tpath, 0, 1000000ULL);
+          !overlap) {
+        return std::unexpected(overlap.error());
+      } else {
+        transition.overlap_frames = *overlap;
+      }
+      if (auto blend = req_str(tr_val, "blend", tpath); !blend) {
+        return std::unexpected(blend.error());
+      } else {
+        transition.blend = *blend;
+      }
+      doc.transitions.push_back(std::move(transition));
+    }
+  }
+
   yyjson_val *shots = yyjson_obj_get(root, "shots");
   if (shots == nullptr || !yyjson_is_arr(shots) || yyjson_arr_size(shots) < 1) {
     return std::unexpected(

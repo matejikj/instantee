@@ -40,3 +40,12 @@ add_test(NAME spike_compiler_properties_validate
   COMMAND spike_compiler_properties_validate_test)
 set_tests_properties(spike_compiler_properties_validate PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
+
+add_executable(spike_compiler_transition_compile_test
+  transition_compile_test.cpp)
+target_link_libraries(spike_compiler_transition_compile_test PRIVATE
+  instantee::compiler instantee::runtime instantee_build_options)
+add_test(NAME spike_compiler_transition_compile
+  COMMAND spike_compiler_transition_compile_test)
+set_tests_properties(spike_compiler_transition_compile PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

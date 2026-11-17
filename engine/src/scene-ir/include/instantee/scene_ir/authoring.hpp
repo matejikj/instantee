@@ -53,6 +53,16 @@ struct AuthoringShot {
   std::vector<AuthoringNode> nodes;
 };
 
+// Authoring transition request. CDS lowers blend + overlap into an explicit
+// Scene IR transition span without rewriting packed film duration.
+struct AuthoringTransition {
+  std::string id;
+  std::string from_shot_id;
+  std::string to_shot_id;
+  std::uint64_t overlap_frames = 0;
+  std::string blend = "cut"; // cut | dissolve | wipe
+};
+
 struct AuthoringDocument {
   std::string schema_version;
   std::string film_id;
@@ -62,6 +72,7 @@ struct AuthoringDocument {
   core::FrameRate frame_rate = core::FrameRate::media_30_1();
   std::uint64_t seed = 0;
   std::string style;
+  std::vector<AuthoringTransition> transitions;
   std::vector<AuthoringShot> shots;
 };
 

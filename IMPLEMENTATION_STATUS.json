@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T16:01:59Z",
+  "updated_at_utc": "2026-11-17T16:09:28Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -4510,14 +4510,22 @@
       "evidence_tier_min": "A"
     },
     "P4-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A transition causes neither double-counted frames nor incorrect layer order.",
-        "met": null
+        "criterion": "Přechod nezpůsobí dvojí započtení snímků ani špatný layer order.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P4-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P4-011/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Transition compiler tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A"
     },
     "P4-012": {
       "status": "todo",

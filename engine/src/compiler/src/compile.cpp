@@ -8,6 +8,7 @@
 #include <instantee/direction/semantic_intent.hpp>
 #include <instantee/direction/style_package_registry.hpp>
 #include <instantee/direction/track_precedence.hpp>
+#include <instantee/direction/transition_planner.hpp>
 #include <instantee/scene_ir/canonicalize.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
@@ -304,7 +305,9 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
   doc.nodes.push_back(camera_node);
 
   std::uint64_t cursor = 0;
-  std::int32_t layer = 1;
+  // Per-shot layer bases keep incoming transition content above outgoing
+  // content without rewriting packed duration.
+  constexpr std::int32_t kShotLayerStride = 1000;
   for (std::size_t index = 0; index < authoring.shots.size(); ++index) {
     const auto &shot = authoring.shots[index];
     scene_ir::Shot out_shot;
@@ -313,6 +316,8 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
     out_shot.duration_frames = shot.duration_frames;
     out_shot.camera_node_id = "main_cam";
     out_shot.node_ids.push_back("main_cam");
+    std::int32_t layer =
+        1 + static_cast<std::int32_t>(index) * kShotLayerStride;
     for (const auto &node : shot.nodes) {
       append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
                    out_shot.node_ids, "font0", "mat0");
@@ -326,6 +331,61 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
     doc.shots.push_back(std::move(out_shot));
   }
   doc.duration_frames = core::FrameIndex{cursor};
+
+  if (!authoring.transitions.empty()) {
+    std::vector<direction::ShotTiming> timings;
+    timings.reserve(doc.shots.size());
+    for (const auto &shot : doc.shots) {
+      timings.push_back(
+          direction::ShotTiming{.id = shot.id,
+                                .start_frame = shot.start_frame,
+                                .duration_frames = shot.duration_frames});
+    }
+    std::vector<direction::TransitionIntent> intents;
+    intents.reserve(authoring.transitions.size());
+    for (std::size_t ti = 0; ti < authoring.transitions.size(); ++ti) {
+      const auto &tr = authoring.transitions[ti];
+      auto kind = direction::transition_kind_from_authoring_blend(tr.blend);
+      if (!kind) {
+        return std::unexpected(kind.error().with_json_path(
+            "/transitions/" + std::to_string(ti) + "/blend"));
+      }
+      direction::TransitionIntent intent;
+      intent.id = tr.id;
+      intent.from_shot_id = tr.from_shot_id;
+      intent.to_shot_id = tr.to_shot_id;
+      intent.kind = *kind;
+      intent.overlap_frames = tr.overlap_frames;
+      intents.push_back(std::move(intent));
+    }
+    auto planned = direction::plan_transitions(timings, intents);
+    if (!planned) {
+      return std::unexpected(planned.error());
+    }
+    if (planned->film_duration_frames != cursor) {
+      return std::unexpected(
+          err("transition_duration_rewrite",
+              "Transition planning must preserve packed film duration",
+              "/transitions"));
+    }
+    doc.transition_spans.reserve(planned->spans.size());
+    for (const auto &span : planned->spans) {
+      if (!(span.to_layer_order > span.from_layer_order)) {
+        return std::unexpected(
+            err("invalid_transition_layer_order",
+                "Incoming transition shot must paint above the outgoing shot",
+                "/transitions"));
+      }
+      scene_ir::TransitionSpan out;
+      out.id = span.id;
+      out.from_shot_id = span.from_shot_id;
+      out.to_shot_id = span.to_shot_id;
+      out.start_frame = span.start_frame;
+      out.duration_frames = span.duration_frames;
+      out.blend = span.blend;
+      doc.transition_spans.push_back(std::move(out));
+    }
+  }
 
   doc.provenance.project_sha256 =
       "0000000000000000000000000000000000000000000000000000000000000000";
@@ -502,7 +562,19 @@ scene_document_to_json(const scene_ir::SceneDocument &document) {
     }
     json << '}';
   }
-  json << "],\"transition_spans\":[],\"provenance\":{\"project_sha256\":\""
+  json << "],\"transition_spans\":[";
+  for (std::size_t i = 0; i < document.transition_spans.size(); ++i) {
+    if (i) {
+      json << ',';
+    }
+    const auto &span = document.transition_spans[i];
+    json << "{\"id\":\"" << span.id << "\",\"from_shot_id\":\""
+         << span.from_shot_id << "\",\"to_shot_id\":\"" << span.to_shot_id
+         << "\",\"start_frame\":" << span.start_frame
+         << ",\"duration_frames\":" << span.duration_frames << ",\"blend\":\""
+         << span.blend << "\"}";
+  }
+  json << "],\"provenance\":{\"project_sha256\":\""
        << document.provenance.project_sha256 << "\",\"style_packages\":[";
   for (std::size_t i = 0; i < document.provenance.style_packages.size(); ++i) {
     if (i) {

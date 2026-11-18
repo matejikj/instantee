@@ -1,0 +1,11 @@
+{
+  "verification": "Stage depth scene test",
+  "tests": [
+    "spike_core_model_stage_depth_scene",
+    "header_instantee_core_model_instantee_core_model_depth_stage"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest and asan-ubsan.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

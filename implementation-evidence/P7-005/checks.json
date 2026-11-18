@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-18T12:28:32Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "69847a4",
+  "changed_paths": [
+    "engine/src/core-model/include/instantee/core_model/depth_stage.hpp",
+    "engine/tests/unit/core-model/CMakeLists.txt",
+    "engine/tests/unit/core-model/stage_depth_scene_test.cpp"
+  ],
+  "risks": [
+    "native",
+    "timing"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/core-model/include/instantee/core_model/depth_stage.hpp engine/tests/unit/core-model/stage_depth_scene_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 11.8
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/tests/unit/core-model/stage_depth_scene_test.cpp",
+      "status": "unavailable",
+      "reason": "clang-tidy not found"
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 107.2,
+      "tests": {
+        "total": 286,
+        "passed": 286,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 308.0,
+      "tests": {
+        "total": 286,
+        "passed": 286,
+        "failed": 0
+      }
+    }
+  ],
+  "result": "incomplete",
+  "certified_performance": false
+}

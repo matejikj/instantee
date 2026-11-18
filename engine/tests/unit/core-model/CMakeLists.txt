@@ -50,6 +50,15 @@ add_test(NAME spike_core_model_camera_depth
 set_tests_properties(spike_core_model_camera_depth PROPERTIES TIMEOUT 10 LABELS
   "cpu;smoke")
 
+add_executable(spike_core_model_stage_depth_scene_test
+  stage_depth_scene_test.cpp)
+target_link_libraries(spike_core_model_stage_depth_scene_test PRIVATE
+  instantee::core_model instantee_build_options)
+add_test(NAME spike_core_model_stage_depth_scene
+  COMMAND spike_core_model_stage_depth_scene_test)
+set_tests_properties(spike_core_model_stage_depth_scene PROPERTIES TIMEOUT 10
+  LABELS "cpu;smoke")
+
 add_executable(spike_core_model_properties_test properties_test.cpp)
 target_link_libraries(spike_core_model_properties_test PRIVATE
   instantee::core_model instantee_build_options)

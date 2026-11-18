@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T12:04:37Z",
+  "updated_at_utc": "2026-11-18T12:29:03Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5737,14 +5737,41 @@
       "notes": "Seeded irregular-cut silhouettes in geometry: safe-inset clamping, compile-once fill cache, shared outline for mask boundaries, edge geometry golden."
     },
     "P7-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "10–20 layers respond to camera movement with correct parallax.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "10–20 paper planes validate; nearer layers have larger screen motion under camera truck",
+            "met": true,
+            "evidence": "engine/tests/unit/core-model/stage_depth_scene_test.cpp"
+          },
+          {
+            "criterion": "Screen dx scales with parallax_factor; axes uninverted; stage anchors and layer clips fail-closed",
+            "met": true,
+            "evidence": "engine/src/core-model/include/instantee/core_model/depth_stage.hpp"
+          },
+          {
+            "criterion": "Stage depth scene test + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-005/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-005/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Stage depth scene test",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T12:29:03Z",
+      "notes": "Layered 2.5D depth stage in core-model: paper planes, stage anchors, layer clips, camera parallax sampling over existing perspective projection."
     },
     "P7-006": {
       "status": "todo",

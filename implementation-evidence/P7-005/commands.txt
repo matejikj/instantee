@@ -1,0 +1,6 @@
+xcrun clang-format -i \
+  engine/src/core-model/include/instantee/core_model/depth_stage.hpp \
+  engine/tests/unit/core-model/stage_depth_scene_test.cpp
+cmake --build --preset release --target spike_core_model_stage_depth_scene_test
+ctest --preset release -R spike_core_model_stage_depth_scene --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-005/checks.json

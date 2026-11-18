@@ -2,6 +2,7 @@
 
 #include <instantee/core_model/ids.hpp>
 #include <instantee/diagnostics/error.hpp>
+#include <instantee/direction/creative_variation.hpp>
 #include <instantee/direction/motion_grammar.hpp>
 #include <instantee/direction/semantic_intent.hpp>
 
@@ -49,6 +50,16 @@ struct DirectedFilm {
   std::vector<DirectedTrack> animation_tracks;
 };
 
+// Film-level seed identity for optional creative jitter. When provided, each
+// intent target draws a closed-interval variation of the grammar binding from
+// (film_seed, package_id@version, shot_id, object_id). Omitting the context
+// keeps the raw Style Package binding (useful for grammar unit tests).
+struct CreativeSeedContext {
+  std::uint64_t film_seed = 0;
+  std::string_view package_version{};
+  VariationSafeIntervals limits{};
+};
+
 // Lower a validated semantic intent using the Motion Grammar binding for
 // `package_id`. Same intent + different package → different deterministic
 // tracks; unsupported package/intent bindings fail closed.
@@ -56,6 +67,7 @@ struct DirectedFilm {
 lower_semantic_intent(const SemanticIntent &intent,
                       std::uint64_t shot_duration_frames,
                       std::string_view shot_id, std::string_view package_id,
-                      const MotionGrammarRegistry &grammar);
+                      const MotionGrammarRegistry &grammar,
+                      const std::optional<CreativeSeedContext> &seed = {});
 
 } // namespace instantee::direction

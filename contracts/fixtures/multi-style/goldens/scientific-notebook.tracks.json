@@ -6,7 +6,7 @@
     {
       "target_id": "title",
       "property": "opacity",
-      "keyframes": [{"frame":0,"value":0}, {"frame":29,"value":0.6}]
+      "keyframes": [{"frame":0,"value":0}, {"frame":27,"value":0.689733}]
     }
   ]
 }

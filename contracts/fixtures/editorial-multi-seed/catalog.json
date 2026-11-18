@@ -1,0 +1,31 @@
+{
+  "schema_version": "editorial-multi-seed/1",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "style_ref": "editorial@1",
+  "package_id": "editorial",
+  "package_version": "1.0.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "variants": [
+    {
+      "id": "markets",
+      "seed": 42,
+      "authoring": "variants/markets.authoring.json",
+      "headline": "Markets open under pressure"
+    },
+    {
+      "id": "rates",
+      "seed": 77,
+      "authoring": "variants/rates.authoring.json",
+      "headline": "Yields jumped overnight"
+    },
+    {
+      "id": "flows",
+      "seed": 101,
+      "authoring": "variants/flows.authoring.json",
+      "headline": "Liquidity dried up fast"
+    }
+  ]
+}

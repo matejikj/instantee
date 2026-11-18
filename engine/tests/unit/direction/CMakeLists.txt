@@ -216,6 +216,16 @@ add_test(NAME spike_direction_editorial_visual_acceptance
 set_tests_properties(spike_direction_editorial_visual_acceptance PROPERTIES
   TIMEOUT 120 LABELS "cpu;smoke")
 
+add_executable(spike_direction_editorial_multi_seed_test
+  editorial_multi_seed_test.cpp)
+target_link_libraries(spike_direction_editorial_multi_seed_test PRIVATE
+  instantee::direction instantee::compiler instantee::scene_ir
+  instantee_build_options)
+add_test(NAME spike_direction_editorial_multi_seed
+  COMMAND spike_direction_editorial_multi_seed_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_editorial_multi_seed PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")
+
 # CLI contract: release-mode strict rejection and waived audit path via the
 # production `instantee lint` entrypoint (binary built by the release preset).
 add_test(

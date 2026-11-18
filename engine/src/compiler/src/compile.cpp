@@ -158,6 +158,7 @@ void collect_author_claims(const scene_ir::AuthoringNode &node,
 std::expected<void, diagnostics::Error>
 resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
                     std::uint64_t start_frame, std::string_view package_id,
+                    std::string_view package_version, std::uint64_t film_seed,
                     std::vector<scene_ir::AnimationTrack> &tracks,
                     direction::DirectionReport *direction_report) {
   std::vector<direction::TrackClaim> claims;
@@ -209,8 +210,15 @@ resolve_shot_tracks(const scene_ir::AuthoringShot &shot, std::size_t index,
     if (!binding) {
       return std::unexpected(binding.error().with_shot(shot.id));
     }
+    // Seeded creative variation: film seed + Style Package version + stable
+    // shot/object ids. Adding an unrelated shot must not remix existing draws.
+    const direction::CreativeSeedContext seed_context{
+        .film_seed = film_seed,
+        .package_version = package_version,
+    };
     auto lowered = direction::lower_semantic_intent(
-        *semantic, shot.duration_frames, shot.id, package_id, grammar);
+        *semantic, shot.duration_frames, shot.id, package_id, grammar,
+        seed_context);
     if (!lowered) {
       return std::unexpected(lowered.error().with_shot(shot.id));
     }
@@ -375,8 +383,9 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
       append_nodes(node, layer++, std::nullopt, doc.nodes, doc.text_runs,
                    out_shot.node_ids, "font0", "mat0");
     }
-    if (auto lowered = resolve_shot_tracks(shot, index, cursor, package_name,
-                                           doc.animation_tracks, report);
+    if (auto lowered =
+            resolve_shot_tracks(shot, index, cursor, package_name, package_ver,
+                                authoring.seed, doc.animation_tracks, report);
         !lowered) {
       return std::unexpected(lowered.error());
     }

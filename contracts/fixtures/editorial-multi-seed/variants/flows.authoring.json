@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0.0",
+  "film_id": "editorial-multi-seed-flows",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 101,
+  "style": "editorial@1",
+  "assets": [],
+  "rigs": [],
+  "transitions": [],
+  "shots": [
+    {
+      "id": "hook",
+      "duration_frames": 90,
+      "intent": {
+        "type": "reveal",
+        "intensity": 0.85,
+        "importance": 0.95,
+        "target_ids": [
+          "headline"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "headline",
+          "type": "text",
+          "text": "Liquidity dried up fast",
+          "role": "headline",
+          "visible": true,
+          "transform": {
+            "translate": {
+              "x": 72,
+              "y": 220,
+              "z": 0
+            },
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim",
+      "duration_frames": 120,
+      "intent": {
+        "type": "focus",
+        "intensity": 0.75,
+        "importance": 0.9,
+        "target_ids": [
+          "subhead"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "subhead",
+          "type": "text",
+          "text": "Flow monitor",
+          "role": "subhead",
+          "visible": true,
+          "transform": {
+            "translate": {
+              "x": 72,
+              "y": 420,
+              "z": 0
+            },
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "duration_frames": 150,
+      "intent": {
+        "type": "compare",
+        "intensity": 0.7,
+        "importance": 0.8,
+        "target_ids": [
+          "left_label",
+          "right_label"
+        ]
+      },
+      "camera": {
+        "projection": "orthographic"
+      },
+      "nodes": [
+        {
+          "id": "left_label",
+          "type": "text",
+          "text": "Bid",
+          "role": "caption",
+          "visible": true,
+          "transform": {
+            "translate": {
+              "x": 72,
+              "y": 640,
+              "z": 0
+            },
+            "opacity": 1
+          }
+        },
+        {
+          "id": "right_label",
+          "type": "text",
+          "text": "Ask",
+          "role": "caption",
+          "visible": true,
+          "transform": {
+            "translate": {
+              "x": 560,
+              "y": 640,
+              "z": 0
+            },
+            "opacity": 1
+          }
+        }
+      ]
+    }
+  ]
+}

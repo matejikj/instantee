@@ -1,0 +1,15 @@
+{
+  "verification": "Secondary-motion deterministic tests",
+  "tests": [
+    "spike_scene_ir_puppet_secondary"
+  ],
+  "fixtures": [
+    "contracts/fixtures/puppet-secondary/paper-human-f0.txt",
+    "contracts/fixtures/puppet-secondary/paper-human-f60.txt",
+    "contracts/fixtures/puppet-secondary/paper-human-f181.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

@@ -1,0 +1,7 @@
+xcrun clang-format -i \
+  engine/src/scene-ir/include/instantee/scene_ir/puppet_secondary.hpp \
+  engine/src/scene-ir/src/puppet_secondary.cpp \
+  engine/tests/unit/scene-ir/puppet_secondary_test.cpp
+cmake --build --preset release --target spike_scene_ir_puppet_secondary_test
+ctest --preset release -R spike_scene_ir_puppet_secondary --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-016/checks.json

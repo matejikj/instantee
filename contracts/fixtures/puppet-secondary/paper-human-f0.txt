@@ -1,0 +1,8 @@
+puppet_secondary f0
+node=paper-human seed=12648430 frame=0 blink=0.000000
+j head rz=0.011463 tx=0.000000 ty=0.000000
+j spine rz=-0.032750 tx=0.000000 ty=0.000000
+p torso sx=1.003453 sy=1.009864 o=1.000000 tx=0.000000 ty=-0.591868
+p ear_l sx=1.000000 sy=1.000000 o=1.000000 tx=0.513957 ty=-0.179885
+p ear_r sx=1.000000 sy=1.000000 o=1.000000 tx=-0.513957 ty=-0.179885
+p cloth sx=1.000000 sy=1.000000 o=1.000000 tx=-1.088940 ty=-0.219253

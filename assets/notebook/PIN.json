@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "name": "notebook-demo-assets",
+  "notes": "Offline scientific-notebook demo fonts, paper textures, and hand-sketch patterns. Lockfile digests bind these bytes; no network fetch at build/verify time. DejaVu Sans supplies math/operator coverage for equation layout.",
+  "assets": [
+    {
+      "id": "notebook-font-display",
+      "file": "assets/notebook/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "role": "font",
+      "license": "OFL-1.1",
+      "license_file": "assets/notebook/fonts/OFL-Noto-Sans.txt",
+      "uri": "assets/notebook/fonts/NotoSans-Regular.ttf"
+    },
+    {
+      "id": "notebook-font-math",
+      "file": "assets/notebook/fonts/DejaVuSans.ttf",
+      "sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "media_type": "font/ttf",
+      "role": "font",
+      "license": "Bitstream Vera + Arev",
+      "license_file": "assets/notebook/fonts/LICENSE-DejaVu.txt",
+      "uri": "assets/notebook/fonts/DejaVuSans.ttf"
+    },
+    {
+      "id": "notebook-texture-paper-fiber",
+      "file": "assets/notebook/textures/paper-fiber.png",
+      "sha256": "df61a66ed37a77444b3895527bce67b42640690cc9da8719a4a151129bcb9169",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt",
+      "uri": "assets/notebook/textures/paper-fiber.png"
+    },
+    {
+      "id": "notebook-texture-paper-wash",
+      "file": "assets/notebook/textures/paper-wash.png",
+      "sha256": "7028212516df59928d855d66488fb6b23f78efdcbfb8b57d3175bfd3f02ab08e",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt",
+      "uri": "assets/notebook/textures/paper-wash.png"
+    },
+    {
+      "id": "notebook-pattern-sketch-hatch",
+      "file": "assets/notebook/patterns/sketch-hatch.png",
+      "sha256": "30c9d2165d3384b1a1f7c694cc796cf63ad482046b9ff3dc680ca05ed70fc50d",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt",
+      "uri": "assets/notebook/patterns/sketch-hatch.png"
+    },
+    {
+      "id": "notebook-pattern-sketch-scribble",
+      "file": "assets/notebook/patterns/sketch-scribble.png",
+      "sha256": "dbaf956d42361d240705ca335a7f59e7cb48faf2534eedd9401a284dc05cac34",
+      "media_type": "image/png",
+      "role": "image",
+      "license": "synthetic-in-repo",
+      "license_file": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt",
+      "uri": "assets/notebook/patterns/sketch-scribble.png"
+    }
+  ]
+}

@@ -7,6 +7,15 @@ add_test(NAME spike_typography_shape COMMAND spike_typography_shape_test)
 set_tests_properties(spike_typography_shape PROPERTIES TIMEOUT 60 LABELS
   "cpu;smoke")
 
+add_executable(spike_typography_notebook_demo_test
+  notebook_demo_typography_test.cpp)
+target_link_libraries(spike_typography_notebook_demo_test PRIVATE
+  instantee::typography instantee_build_options)
+add_test(NAME spike_typography_notebook_demo
+  COMMAND spike_typography_notebook_demo_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_typography_notebook_demo PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")
+
 add_executable(spike_typography_glyph_atlas_test glyph_atlas_test.cpp)
 target_link_libraries(spike_typography_glyph_atlas_test PRIVATE
   instantee::typography instantee_build_options)

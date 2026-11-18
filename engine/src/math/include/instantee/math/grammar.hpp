@@ -26,7 +26,7 @@ enum class MathCommandKind : std::uint8_t {
 struct MathCommandDesc {
   std::string_view name; // without leading '\'
   MathCommandKind kind = MathCommandKind::operator_symbol;
-  // Braced arguments the future parser expects after the command (0 = atom).
+  // Braced arguments the parser expects after the command (0 = atom).
   std::uint8_t arity = 0;
 };
 
@@ -49,7 +49,7 @@ find_supported_math_command(std::string_view name) noexcept;
 
 // Grammar pre-scan only: enforces size/depth budgets, rejects forbidden and
 // unsupported control sequences with precise diagnostics, and never invokes
-// an external TeX engine. Does not build an AST (that is a later task).
+// an external TeX engine. Prefer parse_math when an AST is required.
 [[nodiscard]] std::expected<void, diagnostics::Error>
 validate_math_grammar(std::string_view source,
                       const MathGrammarLimits &limits = {});

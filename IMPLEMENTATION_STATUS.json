@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T02:54:35Z",
+  "updated_at_utc": "2026-11-18T03:03:23Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5177,14 +5177,24 @@
       "notes": "ADR-0015 V1 TeX-like allowlist; validate_math_grammar rejects unsupported/forbidden commands without spawning TeX."
     },
     "P6-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The AST validates depth/range and rejects malicious or unbounded input.",
-        "met": null
+        "criterion": "AST validuje hloubku/rozsah a odmítá malicious/unbounded vstupy.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-003/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-003/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Parser property/fuzz tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T03:03:23Z",
+      "notes": "parse_math builds typed MathNode AST with depth/node/row budgets; property+fuzz tests reject malicious/unbounded input."
     },
     "P6-004": {
       "status": "todo",

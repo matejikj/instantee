@@ -1,0 +1,10 @@
+{
+  "verification": "Rig FK unit tests",
+  "tests": [
+    "spike_scene_ir_puppet_fk"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest and asan-ubsan.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

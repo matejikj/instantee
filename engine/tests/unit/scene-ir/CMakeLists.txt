@@ -94,3 +94,10 @@ add_test(NAME spike_scene_ir_puppet_rig
   COMMAND spike_scene_ir_puppet_rig_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_scene_ir_puppet_rig PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_scene_ir_puppet_fk_test puppet_fk_test.cpp)
+target_link_libraries(spike_scene_ir_puppet_fk_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+add_test(NAME spike_scene_ir_puppet_fk COMMAND spike_scene_ir_puppet_fk_test)
+set_tests_properties(spike_scene_ir_puppet_fk PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

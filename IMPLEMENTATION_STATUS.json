@@ -5922,14 +5922,41 @@
       "notes": "Puppet-rig-v1 interchange schema with Ajv fixtures and scene-ir CPU parse/validate for paper_2d_v1; Scene IR rig stubs stay opaque."
     },
     "P7-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Rotating the shoulder moves the elbow/hand without inconsistent rig state.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "FK skeleton orders parents before children; bind world positions match pivots",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/puppet_fk.hpp"
+          },
+          {
+            "criterion": "Shoulder rotation moves elbow/hand; world equals parent*local; hinges clamp; bad poses fail closed",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_fk_test.cpp"
+          },
+          {
+            "criterion": "Rig FK unit tests + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-010/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-010/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Rig FK unit tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T13:48:14Z",
+      "notes": "Skeletal FK in scene-ir: bind offsets from pivots, parent-before-child order, world=parent*local via core transform math; optional hinge clamps."
     },
     "P7-011": {
       "status": "todo",

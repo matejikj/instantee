@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T05:14:10Z",
+  "updated_at_utc": "2026-11-18T05:21:55Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5417,14 +5417,24 @@
       "notes": "Paper notes: sticky/index/photo-mount on shared DrawOps; paper-sheet feature shared with Paper Cinema; stick/uncover motion; note-card goldens."
     },
     "P6-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Effects layer correctly with linear compositing, explicit sRGB import and premultiplied alpha.",
-        "met": null
+        "criterion": "Efekty se správně vrství s lineárním compositingem, explicitním sRGB importem a premultiplied alpha.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-015/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Accessory layer goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T05:21:55Z",
+      "notes": "Notebook accessories: tape/pin/underline/ink-highlight/marker presets via linear premul compositor; reuse ink_stroke feature; accessory goldens."
     },
     "P6-016": {
       "status": "todo",

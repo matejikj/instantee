@@ -136,6 +136,14 @@ add_test(NAME spike_paper_notes
 set_tests_properties(spike_paper_notes PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_notebook_accessories_test notebook_accessories_test.cpp)
+target_link_libraries(spike_notebook_accessories_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_notebook_accessories
+  COMMAND spike_notebook_accessories_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_notebook_accessories PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_graphic_shapes_test graphic_shapes_test.cpp)
 target_link_libraries(spike_graphic_shapes_test PRIVATE
   instantee::render_core instantee_build_options)

@@ -17,6 +17,7 @@ add_library(instantee_render_core STATIC
   src/diagram.cpp
   src/diagram_animation.cpp
   src/paper_notes.cpp
+  src/notebook_accessories.cpp
   src/graphic_shapes.cpp
   src/editorial_charts.cpp
   src/shadow.cpp

@@ -1,0 +1,28 @@
+notebook-accessories catalog
+size 96x64 accessories=5 layers=8
+import=srgb_straight working=linear_premul encode=rec709_srgb
+kind=tape_strip
+  id=tape opacity=1.000
+kind=pin
+  id=pin opacity=1.000
+kind=underline
+  id=underline opacity=1.000
+kind=ink_highlight
+  id=highlight opacity=1.000
+kind=marker_stroke
+  id=marker opacity=1.000 preset=felt_tip progress=1.000 ink_feature=1
+layers
+  kind=4 opacity=1.000 a=255 rect=6.000,6.000,84.000x52.000
+  kind=4 opacity=1.000 a=150 rect=20.000,4.000,36.000x10.000
+  kind=3 opacity=1.000 a=255 rect=14.500,10.500,7.000x7.000
+  kind=5 opacity=1.000 a=255 line=18.000,14.000->18.000,23.000 w=1.500
+  kind=5 opacity=1.000 a=220 line=28.000,48.000->78.000,48.000 w=2.000
+  kind=4 opacity=1.000 a=96 rect=28.000,28.000,40.000x12.000
+  kind=5 opacity=1.000 a=230 line=30.000,20.000->50.000,18.000 w=3.000
+  kind=5 opacity=1.000 a=230 line=50.000,18.000->70.000,22.000 w=3.000
+p4,4=250,245,230,255
+p20,12=200,40,50,255
+p40,20=255,252,245,255
+p60,28=255,244,201,255
+p30,40=255,252,245,255
+p50,50=255,252,245,255

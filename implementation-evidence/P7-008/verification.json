@@ -1,0 +1,16 @@
+{
+  "verification": "Blueprint snapshot tests",
+  "tests": [
+    "spike_paper_prop_blueprint",
+    "header_instantee_render_core_instantee_render_core_paper_prop_blueprint"
+  ],
+  "goldens": [
+    "contracts/fixtures/paper-prop-blueprint/goldens/instrument.txt",
+    "contracts/fixtures/paper-prop-blueprint/goldens/building.txt",
+    "contracts/fixtures/paper-prop-blueprint/goldens/cloud.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest and asan-ubsan.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

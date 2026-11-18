@@ -1,0 +1,8 @@
+name=cloud model=1.0.0 blueprint=prop.cloud.v1 kind=cloud frame=140x70 scale=1 parts=3
+part id=puff_a shape=ellipse bounds=11.2,21,58.8,33.6 corner=0 palette=sky material=soft layer=0 depth=0
+part id=puff_b shape=ellipse bounds=42,8.4,64.4,36.4 corner=0 palette=body material=soft layer=1 depth=0.25
+part id=puff_c shape=ellipse bounds=77,19.6,53.2,32.2 corner=0 palette=sky material=soft layer=2 depth=0.15
+resolved frame=140x70
+resolved id=puff_a shape=ellipse bounds=11.2,21,58.8,33.6 rgba=214,228,236,255 material_seed=7 fiber=0.55 roughness=0.25
+resolved id=puff_b shape=ellipse bounds=42,8.4,64.4,36.4 rgba=232,220,198,255 material_seed=7 fiber=0.55 roughness=0.25
+resolved id=puff_c shape=ellipse bounds=77,19.6,53.2,32.2 rgba=214,228,236,255 material_seed=7 fiber=0.55 roughness=0.25

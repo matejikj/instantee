@@ -24,6 +24,7 @@ add_library(instantee_render_core STATIC
   src/editorial_charts.cpp
   src/shadow.cpp
   src/paper_layered_shadow.cpp
+  src/paper_prop_blueprint.cpp
   src/linear_compositor.cpp
   src/visibility.cpp
   src/frame_primitives.cpp

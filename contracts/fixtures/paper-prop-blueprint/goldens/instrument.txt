@@ -1,0 +1,8 @@
+name=instrument model=1.0.0 blueprint=prop.instrument.v1 kind=instrument frame=120x80 scale=1 parts=3
+part id=body shape=rounded_rect bounds=9.6,22.4,100.8,35.2 corner=6.4 palette=body material=stock layer=0 depth=0
+part id=dial shape=ellipse bounds=45.6,27.2,28.8,25.6 corner=0 palette=accent material=ink layer=1 depth=0.4
+part id=needle shape=rect bounds=57.6,14.4,4.8,22.4 corner=0 palette=ink material=ink layer=2 depth=0.8
+resolved frame=120x80
+resolved id=body shape=rounded_rect bounds=9.6,22.4,100.8,35.2 rgba=232,220,198,255 material_seed=1 fiber=0.4 roughness=0.35
+resolved id=dial shape=ellipse bounds=45.6,27.2,28.8,25.6 rgba=176,74,58,255 material_seed=3 fiber=0.2 roughness=0.55
+resolved id=needle shape=rect bounds=57.6,14.4,4.8,22.4 rgba=42,36,32,255 material_seed=3 fiber=0.2 roughness=0.55

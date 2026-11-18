@@ -1,0 +1,12 @@
+name=building model=1.0.0 blueprint=prop.building.v1 kind=building frame=100x140 scale=1 parts=5
+part id=facade shape=rect bounds=15,39.2,70,86.8 corner=0 palette=body material=stock layer=0 depth=0
+part id=roof shape=rect bounds=8,22.4,84,22.4 corner=0 palette=accent material=stock layer=1 depth=0.3
+part id=door shape=rounded_rect bounds=42,86.8,16,39.2 corner=2 palette=ink material=ink layer=2 depth=0.5
+part id=window_l shape=rect bounds=24,56,14,16.8 corner=0 palette=sky material=soft layer=3 depth=0.55
+part id=window_r shape=rect bounds=62,56,14,16.8 corner=0 palette=sky material=soft layer=3 depth=0.55
+resolved frame=100x140
+resolved id=facade shape=rect bounds=15,39.2,70,86.8 rgba=232,220,198,255 material_seed=1 fiber=0.4 roughness=0.35
+resolved id=roof shape=rect bounds=8,22.4,84,22.4 rgba=176,74,58,255 material_seed=1 fiber=0.4 roughness=0.35
+resolved id=door shape=rounded_rect bounds=42,86.8,16,39.2 rgba=42,36,32,255 material_seed=3 fiber=0.2 roughness=0.55
+resolved id=window_l shape=rect bounds=24,56,14,16.8 rgba=214,228,236,255 material_seed=7 fiber=0.55 roughness=0.25
+resolved id=window_r shape=rect bounds=62,56,14,16.8 rgba=214,228,236,255 material_seed=7 fiber=0.55 roughness=0.25

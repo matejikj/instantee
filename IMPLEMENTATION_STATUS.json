@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T03:35:14Z",
+  "updated_at_utc": "2026-11-18T03:43:46Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5257,14 +5257,24 @@
       "notes": "plan_math_morph builds structural correspondence with enter/exit fallbacks; sample_math_morph eases geometry/opacity without blending glyphs."
     },
     "P6-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Draw progress percentage reflects actual length rather than vertex index.",
-        "met": null
+        "criterion": "Procento draw progress odpovídá skutečné délce, ne indexu vertexu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-007/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Geometry numeric tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T03:43:46Z",
+      "notes": "ArcLengthTable + sample/prefix_at_progress in shared geometry; progress maps by length, not vertex index."
     },
     "P6-008": {
       "status": "todo",

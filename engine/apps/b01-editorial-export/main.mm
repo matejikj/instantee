@@ -184,7 +184,11 @@ int run(const std::filesystem::path &directory, std::uint32_t frames,
 
   auto clock = instantee::core::FrameClock::create(scene.frame_rate());
   require(clock.has_value());
-  instantee::runtime::AnimationProgram program;
+  // Scene IR tracks must drive preview evaluation; an empty program leaves
+  // authored opacity at 0 and measures an empty-canvas lie.
+  auto program =
+      instantee::compiler::compile_animation_program(*document, scene);
+  require(program.has_value());
   instantee::preview::FramePngRequest raster{};
   const std::uint64_t slot_bytes =
       static_cast<std::uint64_t>(scene.canvas_width()) *
@@ -209,7 +213,7 @@ int run(const std::filesystem::path &directory, std::uint32_t frames,
       sample.eval_start_ns = now_ns(epoch);
     }
     const instantee::core::FrameIndex at{index};
-    auto preview = instantee::runtime::preview_frame_at(scene, program, at);
+    auto preview = instantee::runtime::preview_frame_at(scene, *program, at);
     require(preview.has_value());
     if (telemetry) {
       sample.eval_done_ns = now_ns(epoch);

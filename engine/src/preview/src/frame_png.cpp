@@ -142,14 +142,22 @@ rasterize_preview_frame(const runtime::CompiledScene &scene,
         node_state.clip_empty) {
       return true;
     }
+    // Fold draw-item opacity into the authored alpha channel. Fully
+    // transparent proxies are skipped so fade-in frames do not pay for a
+    // full-resolution composite of invisible layers.
+    const double opacity = std::clamp(item.opacity, 0.0, 1.0);
+    if (opacity <= 0.0) {
+      return true;
+    }
     WorldPrimitive prim;
     prim.kind = DrawOpKind::fill_rect;
     prim.local_bounds = proxy_local_bounds(scene, node);
     prim.color = linear_to_srgb8(node_state.material_color);
-    // Fold draw-item opacity into the authored alpha channel.
-    const double opacity = std::clamp(item.opacity, 0.0, 1.0);
     prim.color.a = static_cast<std::uint8_t>(
         std::lround(static_cast<double>(prim.color.a) * opacity));
+    if (prim.color.a == 0) {
+      return true;
+    }
     prim.world_col_major = mat4_to_float(node_state.world);
     prims.push_back(prim);
     return true;

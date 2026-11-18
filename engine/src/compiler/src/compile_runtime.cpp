@@ -2,9 +2,14 @@
 
 #include <instantee/compiler/validate_properties.hpp>
 #include <instantee/core_model/properties.hpp>
+#include <instantee/core_model/time.hpp>
+#include <instantee/runtime/timeline.hpp>
 
+#include <optional>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 namespace instantee::compiler {
 namespace {
@@ -206,6 +211,91 @@ compile_runtime_scene(const scene_ir::SceneDocument &document) {
   }
 
   return runtime::make_compiled_scene(std::move(draft));
+}
+
+namespace {
+
+[[nodiscard]] std::optional<runtime::AnimatableChannel>
+channel_from_property(std::string_view property) noexcept {
+  using runtime::AnimatableChannel;
+  if (property == "opacity") {
+    return AnimatableChannel::opacity;
+  }
+  if (property == "translate_x") {
+    return AnimatableChannel::translate_x;
+  }
+  if (property == "translate_y") {
+    return AnimatableChannel::translate_y;
+  }
+  if (property == "translate_z") {
+    return AnimatableChannel::translate_z;
+  }
+  if (property == "scale_x") {
+    return AnimatableChannel::scale_x;
+  }
+  if (property == "scale_y") {
+    return AnimatableChannel::scale_y;
+  }
+  if (property == "scale_z") {
+    return AnimatableChannel::scale_z;
+  }
+  if (property == "rotation_z_rad") {
+    return AnimatableChannel::rotation_z_rad;
+  }
+  return std::nullopt;
+}
+
+} // namespace
+
+std::expected<runtime::AnimationProgram, diagnostics::Error>
+compile_animation_program(const scene_ir::SceneDocument &document,
+                          const runtime::CompiledScene &scene) {
+  std::unordered_map<std::string, std::uint32_t> index_by_id;
+  const auto ids = scene.node_ids();
+  index_by_id.reserve(ids.size());
+  for (std::uint32_t i = 0; i < static_cast<std::uint32_t>(ids.size()); ++i) {
+    index_by_id.emplace(ids[i], i);
+  }
+
+  runtime::AnimationProgram program;
+  program.scalar_bindings.reserve(document.animation_tracks.size());
+  for (std::size_t track_index = 0;
+       track_index < document.animation_tracks.size(); ++track_index) {
+    const auto &track = document.animation_tracks[track_index];
+    const auto channel = channel_from_property(track.property);
+    if (!channel) {
+      continue;
+    }
+    const auto node = index_by_id.find(track.target_id);
+    if (node == index_by_id.end()) {
+      return std::unexpected(
+          err("dangling_reference", "Unknown animation target id",
+              "/animation_tracks/" + std::to_string(track_index) + "/target_id")
+              .with_node(track.target_id));
+    }
+    if (track.keyframes.empty()) {
+      return std::unexpected(err(
+          "empty_keyframes", "Animation track requires at least one keyframe",
+          "/animation_tracks/" + std::to_string(track_index) + "/keyframes"));
+    }
+    std::vector<runtime::ScalarKeyframe> keys;
+    keys.reserve(track.keyframes.size());
+    for (const auto &key : track.keyframes) {
+      keys.push_back(
+          runtime::ScalarKeyframe{core::FrameIndex{key.frame}, key.value});
+    }
+    auto scalar = runtime::make_scalar_track(
+        std::move(keys), runtime::TrackInterpolation::linear);
+    if (!scalar) {
+      return std::unexpected(scalar.error());
+    }
+    program.scalar_bindings.push_back(runtime::ScalarPropertyBinding{
+        .node_index = node->second,
+        .channel = *channel,
+        .track = std::move(*scalar),
+    });
+  }
+  return program;
 }
 
 } // namespace instantee::compiler

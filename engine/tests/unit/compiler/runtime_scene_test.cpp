@@ -95,6 +95,47 @@ int main() {
     expect(run.text == "Hello", "text payload preserved");
   }
 
+  // Reveal intent should lower scalar tracks into an AnimationProgram that
+  // preview/export can evaluate without ad-hoc per-app converters.
+  expect(!ir->animation_tracks.empty(), "authoring emit animation tracks");
+  auto program = compile_animation_program(*ir, **scene);
+  expect(program.has_value(), "animation program from scene tracks");
+  if (program) {
+    expect(!program->scalar_bindings.empty(), "scalar bindings present");
+  }
+
+  {
+    auto dangling = *ir;
+    dangling.animation_tracks.push_back(instantee::scene_ir::AnimationTrack{
+        .id = "missing-target",
+        .target_id = "does-not-exist",
+        .property = "opacity",
+        .keyframes = {{.frame = 0, .value = 0.0}, {.frame = 10, .value = 1.0}},
+    });
+    const auto rejected = compile_animation_program(dangling, **scene);
+    expect(!rejected.has_value(), "dangling animation target rejected");
+    if (!rejected) {
+      expect(rejected.error().code == "dangling_reference",
+             "dangling target error code");
+    }
+  }
+
+  {
+    auto empty_keys = *ir;
+    empty_keys.animation_tracks.push_back(instantee::scene_ir::AnimationTrack{
+        .id = "empty-keys",
+        .target_id = "headline",
+        .property = "opacity",
+        .keyframes = {},
+    });
+    const auto rejected = compile_animation_program(empty_keys, **scene);
+    expect(!rejected.has_value(), "empty keyframes rejected");
+    if (!rejected) {
+      expect(rejected.error().code == "empty_keyframes",
+             "empty keyframes error code");
+    }
+  }
+
   // Runtime scene must not expose mutable authoring objects: accessors are
   // const and the owned pointer is const CompiledScene.
   RenderJob job(std::move(*scene));

@@ -3,9 +3,7 @@
 #include <instantee/direction/editorial_visual_acceptance.hpp>
 #include <instantee/direction/style_bible.hpp>
 #include <instantee/preview/frame_png.hpp>
-#include <instantee/runtime/frame_evaluator.hpp>
 #include <instantee/runtime/frame_preview.hpp>
-#include <instantee/runtime/timeline.hpp>
 #include <instantee/scene_ir/canonicalize.hpp>
 #include <instantee/scene_ir/load.hpp>
 
@@ -27,13 +25,7 @@ using namespace instantee::direction;
 using instantee::core::FrameIndex;
 using instantee::preview::export_preview_png;
 using instantee::preview::rasterize_preview_frame;
-using instantee::runtime::AnimatableChannel;
-using instantee::runtime::AnimationProgram;
-using instantee::runtime::make_scalar_track;
 using instantee::runtime::preview_frame_at;
-using instantee::runtime::ScalarKeyframe;
-using instantee::runtime::ScalarPropertyBinding;
-using instantee::runtime::TrackInterpolation;
 using instantee::scene_ir::sha256_hex;
 
 int failures = 0;
@@ -108,72 +100,6 @@ void expect(bool condition, const char *message) {
            "PNG reference frames compare within the locked tolerance",
        .required = true},
   };
-}
-
-[[nodiscard]] std::optional<AnimatableChannel>
-channel_from_property(std::string_view property) {
-  if (property == "opacity") {
-    return AnimatableChannel::opacity;
-  }
-  if (property == "translate_x") {
-    return AnimatableChannel::translate_x;
-  }
-  if (property == "translate_y") {
-    return AnimatableChannel::translate_y;
-  }
-  if (property == "translate_z") {
-    return AnimatableChannel::translate_z;
-  }
-  if (property == "scale_x") {
-    return AnimatableChannel::scale_x;
-  }
-  if (property == "scale_y") {
-    return AnimatableChannel::scale_y;
-  }
-  if (property == "scale_z") {
-    return AnimatableChannel::scale_z;
-  }
-  if (property == "rotation_z_rad") {
-    return AnimatableChannel::rotation_z_rad;
-  }
-  return std::nullopt;
-}
-
-// Scene IR stores tracks on the document; preview evaluation consumes an
-// AnimationProgram. Lower the authored scalar tracks so golden frames see the
-// same opacity/transform curves as the reel timeline.
-[[nodiscard]] std::optional<AnimationProgram>
-animation_program_from_scene(const instantee::scene_ir::SceneDocument &document,
-                             const instantee::runtime::CompiledScene &scene) {
-  std::unordered_map<std::string, std::uint32_t> index_by_id;
-  const auto ids = scene.node_ids();
-  for (std::uint32_t i = 0; i < ids.size(); ++i) {
-    index_by_id.emplace(std::string(ids[i]), i);
-  }
-  AnimationProgram program;
-  for (const auto &track : document.animation_tracks) {
-    const auto channel = channel_from_property(track.property);
-    const auto node = index_by_id.find(track.target_id);
-    if (!channel || node == index_by_id.end() || track.keyframes.empty()) {
-      continue;
-    }
-    std::vector<ScalarKeyframe> keys;
-    keys.reserve(track.keyframes.size());
-    for (const auto &key : track.keyframes) {
-      keys.push_back(ScalarKeyframe{FrameIndex{key.frame}, key.value});
-    }
-    auto scalar =
-        make_scalar_track(std::move(keys), TrackInterpolation::linear);
-    if (!scalar) {
-      return std::nullopt;
-    }
-    program.scalar_bindings.push_back(ScalarPropertyBinding{
-        .node_index = node->second,
-        .channel = *channel,
-        .track = std::move(*scalar),
-    });
-  }
-  return program;
 }
 
 [[nodiscard]] std::uint64_t
@@ -352,7 +278,8 @@ int main(int argc, char **argv) {
   if (!compiled || !*compiled) {
     return EXIT_FAILURE;
   }
-  auto program = animation_program_from_scene(*document, **compiled);
+  auto program =
+      instantee::compiler::compile_animation_program(*document, **compiled);
   expect(program.has_value() && !program->scalar_bindings.empty(),
          "animation program from scene tracks");
   if (!program) {

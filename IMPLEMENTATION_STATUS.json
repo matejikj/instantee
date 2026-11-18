@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-17T23:22:02Z",
+  "updated_at_utc": "2026-11-18T00:19:40Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5020,14 +5020,45 @@
       "completed_at_utc": "2026-11-17T23:22:02Z"
     },
     "P5-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every cold trial export_wall_ms ≤ 360000 with complete CPU evidence",
+            "met": true,
+            "evidence": "implementation-evidence/P5-018/baseline.json"
+          },
+          {
+            "criterion": "Pre-locked editorial-b01-v1 p99/RSS/CPU thresholds; null thresholds FAIL",
+            "met": true,
+            "evidence": "implementation-evidence/P5-018/measurement-profile.json"
+          },
+          {
+            "criterion": "Series threshold_gate true; run reports certified=false",
+            "met": true,
+            "evidence": "implementation-evidence/P5-018/decision.json"
+          },
+          {
+            "criterion": "check.py release/ASan/TSan/PTS-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P5-018/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P5-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P5-018/checks.json"
+      ],
+      "blockers": [],
+      "verification": "B-01 measured report",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-18T00:19:40Z"
     },
     "P5-019": {
       "status": "todo",

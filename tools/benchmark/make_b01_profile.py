@@ -176,6 +176,16 @@ def main() -> int:
             "quality_tier": workload_lock["quality_tier"],
             "encoder_profile": workload_lock["encoder_profile"],
         },
+        # Locked before the certification series. Null/absent values FAIL.
+        # Derivation: ADR-0014 editorial-b01-v1 from measured B-01 cold evidence
+        # with documented headroom (not copied from P3 Metal foundation).
+        "thresholds": {
+            "source_adr": "ADR-0014/editorial-b01-v1",
+            "export_wall_ms_max": 360000,
+            "frame_latency_p99_ns_max": 180000000,
+            "rss_peak_bytes_max": 268435456,
+            "cpu_seconds_per_verified_frame_max": 0.12,
+        },
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(profile, indent=2) + "\n", encoding="utf-8")

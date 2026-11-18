@@ -215,15 +215,35 @@ def wait_for_export(command, timeout=120, grace=5):
 PROFILE_KEYS = {
     "machine_profile": {"model", "os_build", "logical_cpu_count", "gpu_cores", "ram_bytes", "filesystem", "power_mode", "thermal_state_start", "thermal_state_end"},
     "build_profile": {"source_revision", "source_dirty", "source_diff_sha256", "binary_sha256", "toolchain_id", "compiler_flags", "dependency_lock_sha256", "shaders_sha256"},
-    "workload": {"id", "scene_sha256", "asset_lock_sha256", "duration_frames", "width", "height", "frame_rate", "seed_decimal", "quality_tier", "encoder_profile"}}
+    "workload": {"id", "scene_sha256", "asset_lock_sha256", "duration_frames", "width", "height", "frame_rate", "seed_decimal", "quality_tier", "encoder_profile"},
+    # Optional for B-00/P3; required by B-01 optimization/certification harness.
+    # validate_profile below accepts profiles with or without thresholds.
+}
+
+PROFILE_THRESHOLD_KEYS = {
+    "source_adr",
+    "export_wall_ms_max",
+    "frame_latency_p99_ns_max",
+    "rss_peak_bytes_max",
+    "cpu_seconds_per_verified_frame_max",
+}
 
 
 def validate_profile(profile):
-    if not isinstance(profile, dict) or set(profile) != set(PROFILE_KEYS):
+    if not isinstance(profile, dict):
+        raise ValueError("profile must be an object")
+    allowed = set(PROFILE_KEYS) | {"thresholds"}
+    if not set(PROFILE_KEYS).issubset(profile.keys()) or not set(profile).issubset(allowed):
         raise ValueError("profile must contain only allowlisted sections")
     for section, keys in PROFILE_KEYS.items():
         if not isinstance(profile[section], dict) or set(profile[section]) != keys:
             raise ValueError("profile fields differ from allowlist")
+    if "thresholds" in profile:
+        thresholds = profile["thresholds"]
+        if not isinstance(thresholds, dict) or set(thresholds) != PROFILE_THRESHOLD_KEYS:
+            raise ValueError("profile thresholds differ from allowlist")
+        if any(thresholds[key] is None for key in PROFILE_THRESHOLD_KEYS):
+            raise ValueError("profile thresholds must be non-null")
     workload = profile["workload"]
     if (workload["width"] != 1080 or workload["height"] != 1920 or
             workload["frame_rate"] != {"numerator": 30, "denominator": 1}):

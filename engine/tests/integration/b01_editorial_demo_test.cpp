@@ -111,8 +111,13 @@ int main(int argc, char **argv) {
   }
   const auto target = dir / "b01-demo-smoke.mp4";
 
+  auto program =
+      instantee::compiler::compile_animation_program(*document, **compiled);
+  expect(program.has_value(), "animation program");
+  if (!program) {
+    return EXIT_FAILURE;
+  }
   RenderJob job(std::move(*compiled));
-  AnimationProgram program;
   SceneVideoExportRequest request;
   request.target_path = target;
   // CI smoke: enough frames to prove native assembly without a full 60s run.
@@ -130,7 +135,7 @@ int main(int argc, char **argv) {
     return std::unique_ptr<instantee::export_core::VideoSink>(std::move(*sink));
   };
 
-  auto result = export_scene_video(job, program, request, factory);
+  auto result = export_scene_video(job, *program, request, factory);
   expect(result.has_value(), "framework scene video export");
   if (!result) {
     std::cerr << result.error().code << ": " << result.error().message << '\n';

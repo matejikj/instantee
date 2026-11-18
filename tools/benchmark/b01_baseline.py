@@ -97,7 +97,7 @@ def validate_report_structure(report, schema_path=None):
         raise ValueError("invalid cache_mode")
 
 
-def trial_pass(report, expected):
+def measurement_complete(report, expected):
     frames = report.get("frames") or {}
     metrics = report.get("metrics") or {}
     latency = metrics.get("frame_latency_ns") if isinstance(metrics, dict) else None
@@ -118,34 +118,85 @@ def trial_pass(report, expected):
         and metrics.get("effective_fps") is not None
         and metrics.get("cpu", {}).get("scope") == "renderer_process_all_threads"
         and metrics.get("memory", {}).get("rss_peak_bytes")
+        and metrics.get("cpu", {}).get("seconds_per_verified_frame") is not None
     )
 
 
-def summarize_run(name, cache_mode, report, outer, expected):
+def thresholds_pass(report, thresholds):
+    """Unknown/null thresholds are an automatic FAIL for certification claims."""
+    if not isinstance(thresholds, dict):
+        return False, "thresholds_missing"
+    required = (
+        "export_wall_ms_max",
+        "frame_latency_p99_ns_max",
+        "rss_peak_bytes_max",
+        "cpu_seconds_per_verified_frame_max",
+    )
+    if any(thresholds.get(key) is None for key in required):
+        return False, "threshold_null"
+    metrics = report.get("metrics") or {}
+    latency = metrics.get("frame_latency_ns") or {}
+    checks = {
+        "export_wall_ms": metrics.get("export_wall_ms"),
+        "frame_latency_p99_ns": latency.get("p99"),
+        "rss_peak_bytes": (metrics.get("memory") or {}).get("rss_peak_bytes"),
+        "cpu_seconds_per_verified_frame": (metrics.get("cpu") or {}).get(
+            "seconds_per_verified_frame"
+        ),
+    }
+    if any(value is None for value in checks.values()):
+        return False, "metric_incomplete"
+    if checks["export_wall_ms"] > thresholds["export_wall_ms_max"]:
+        return False, "export_wall_exceeded"
+    if checks["frame_latency_p99_ns"] > thresholds["frame_latency_p99_ns_max"]:
+        return False, "p99_exceeded"
+    if checks["rss_peak_bytes"] > thresholds["rss_peak_bytes_max"]:
+        return False, "rss_exceeded"
+    if (
+        checks["cpu_seconds_per_verified_frame"]
+        > thresholds["cpu_seconds_per_verified_frame_max"]
+    ):
+        return False, "cpu_exceeded"
+    return True, "within_thresholds"
+
+
+def trial_pass(report, expected, thresholds):
+    if not measurement_complete(report, expected):
+        return False
+    ok, _reason = thresholds_pass(report, thresholds)
+    return ok
+
+
+def summarize_run(name, cache_mode, report, outer, expected, thresholds):
     metrics = report.get("metrics") or {}
     latency = metrics.get("frame_latency_ns") if isinstance(metrics, dict) else None
-    passed = trial_pass(report, expected)
+    complete = measurement_complete(report, expected)
+    ok_thresholds, threshold_reason = thresholds_pass(report, thresholds)
+    passed = complete and ok_thresholds
     return {
         "run_id": name,
         "cache_mode": cache_mode,
         "pass": passed,
+        "measurement_complete": complete,
+        "thresholds_pass": ok_thresholds,
+        "threshold_reason": threshold_reason,
         "result": report.get("result"),
         "verified_frames": (report.get("frames") or {}).get("verified"),
         "expected_frames": expected,
-        "export_wall_ms": metrics.get("export_wall_ms") if passed else None,
-        "effective_fps": metrics.get("effective_fps") if passed else None,
-        "frame_latency_p50_ns": latency.get("p50") if passed and latency else None,
-        "frame_latency_p99_ns": latency.get("p99") if passed and latency else None,
+        "export_wall_ms": metrics.get("export_wall_ms") if complete else None,
+        "effective_fps": metrics.get("effective_fps") if complete else None,
+        "frame_latency_p50_ns": latency.get("p50") if complete and latency else None,
+        "frame_latency_p99_ns": latency.get("p99") if complete and latency else None,
         "cpu_seconds_per_verified_frame": (
-            metrics.get("cpu", {}).get("seconds_per_verified_frame") if passed else None
+            metrics.get("cpu", {}).get("seconds_per_verified_frame") if complete else None
         ),
         "rss_peak_bytes": metrics.get("memory", {}).get("rss_peak_bytes")
-        if passed
+        if complete
         else None,
         "physical_footprint_peak_bytes": metrics.get("memory", {}).get(
             "physical_footprint_peak_bytes"
         )
-        if passed
+        if complete
         else None,
         "outer_wall_ns": outer.get("wall_ns"),
         "report_uri": f"{name}/reports/report.json",
@@ -174,6 +225,9 @@ def run_baseline(
         raise ValueError("profile is not the locked B-01 60 s workload")
     if workload.get("quality_tier") != B01_QUALITY_TIER:
         raise ValueError("B-01 quality tier must be editorial-b01-v1")
+    thresholds = profile.get("thresholds")
+    if not isinstance(thresholds, dict):
+        raise ValueError("B-01 profile must lock non-null certification thresholds")
 
     directory = Path(directory)
     directory.mkdir()
@@ -193,7 +247,7 @@ def run_baseline(
             cache_mode="cold",
         )
         validate_report_structure(report, schema)
-        runs.append(summarize_run(name, "cold", report, outer, frames))
+        runs.append(summarize_run(name, "cold", report, outer, frames, thresholds))
 
     for index in range(warm_repeats):
         name = f"warm-{index:02d}"
@@ -208,16 +262,24 @@ def run_baseline(
             cache_mode="warm",
         )
         validate_report_structure(report, schema)
-        runs.append(summarize_run(name, "warm", report, outer, frames))
+        runs.append(summarize_run(name, "warm", report, outer, frames, thresholds))
 
     after = thermal_snapshot()
     cold = [run for run in runs if run["cache_mode"] == "cold"]
     warm = [run for run in runs if run["cache_mode"] == "warm"]
     series_pass = all(run["pass"] for run in runs)
+    cold_wall_ok = all(
+        run.get("export_wall_ms") is not None
+        and run["export_wall_ms"] <= thresholds["export_wall_ms_max"]
+        for run in cold
+        if run.get("measurement_complete")
+    ) and all(run.get("measurement_complete") for run in cold)
 
     def median_field(group, field):
         values = [
-            run[field] for run in group if run["pass"] and run[field] is not None
+            run[field]
+            for run in group
+            if run.get("measurement_complete") and run[field] is not None
         ]
         return statistics.median(values) if values else None
 
@@ -227,6 +289,7 @@ def run_baseline(
         "workload_id": B01_WORKLOAD_ID,
         "frames_per_trial": frames,
         "profile_sha256": digest(profile_path),
+        "thresholds": thresholds,
         "boundary": "parent_monotonic_before_spawn_to_after_wait4",
         "cpu_scope": "renderer_process_all_threads",
         "time_unit": "ns",
@@ -250,6 +313,7 @@ def run_baseline(
         "series_pass": series_pass,
         "cold_pass_count": sum(1 for run in cold if run["pass"]),
         "warm_pass_count": sum(1 for run in warm if run["pass"]),
+        "cold_wall_within_360s": cold_wall_ok,
         "runs": runs,
         "summary": {
             "cold_median_export_wall_ms": median_field(cold, "export_wall_ms"),
@@ -258,21 +322,28 @@ def run_baseline(
             "warm_median_p99_ns": median_field(warm, "frame_latency_p99_ns"),
             "cold_median_rss_peak_bytes": median_field(cold, "rss_peak_bytes"),
             "warm_median_rss_peak_bytes": median_field(warm, "rss_peak_bytes"),
+            "cold_median_cpu_seconds_per_verified_frame": median_field(
+                cold, "cpu_seconds_per_verified_frame"
+            ),
+            "warm_median_cpu_seconds_per_verified_frame": median_field(
+                warm, "cpu_seconds_per_verified_frame"
+            ),
         },
         "decision": {
             "demo_render": "framework-native Scene IR → preview raster → Apple VideoSink MP4",
             "external_video_assembly": False,
-            "throughput_certification": False,
+            "threshold_gate": series_pass and cold_wall_ok,
+            "throughput_claim": "editorial-b01-v1 draft ceilings from ADR-0014; run reports remain certified=false",
             "notes": [
-                "Series completeness is the pass/fail gate for this task",
-                "Wall ≤360 s product certification remains a later gate",
+                "Every cold trial must meet export_wall_ms ≤ 360000",
+                "Unknown/null thresholds FAIL",
                 "Machine identity fields are allowlisted model/OS facts only",
             ],
         },
         "notes": [
             "All trials retained; no best-run selection",
-            "Pass/fail is measurement completeness for the locked B-01 profile",
-            "Not a certified M1 Air product throughput claim",
+            "Pass/fail is measurement completeness plus locked ADR thresholds",
+            "Individual run reports stay certified=false per protocol",
         ],
     }
     atomic_json(directory / "baseline.json", result)

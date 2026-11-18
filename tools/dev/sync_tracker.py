@@ -69,7 +69,9 @@ def main(argv: list[str]) -> int:
     digest = hashlib.sha256(raw).hexdigest()
     if args.write_digest:
         tracker["current_backlog"]["sha256"] = digest
-        TRACKER.write_text(json.dumps(tracker, indent=2) + "\n", encoding="utf-8")
+        TRACKER.write_text(
+            json.dumps(tracker, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
     problems = find_drift(tracker, json.loads(raw)["tasks"], digest)
     for problem in problems:
         print(f"drift: {problem}")

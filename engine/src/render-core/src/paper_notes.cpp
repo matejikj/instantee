@@ -1,5 +1,6 @@
 #include <instantee/render_core/paper_notes.hpp>
 
+#include <instantee/render_core/paper_material.hpp>
 #include <instantee/render_core/primitives.hpp>
 #include <instantee/render_core/renderer.hpp>
 
@@ -303,31 +304,9 @@ ShaderFeatureRegistry make_paper_note_shader_feature_registry() {
   ShaderFeatureDesc sheet;
   sheet.id =
       ShaderFeatureId{.name = std::string{kPaperSheetFeature}, .version = 1};
-  sheet.params.push_back(ShaderParamDesc{
-      .name = "fiber",
-      .default_value = ShaderParamDefault{.kind = ShaderParamKind::scalar_f32,
-                                          .scalar_f32 = 0.35f},
-  });
-  sheet.params.push_back(ShaderParamDesc{
-      .name = "roughness",
-      .default_value = ShaderParamDefault{.kind = ShaderParamKind::scalar_f32,
-                                          .scalar_f32 = 0.25f},
-  });
-  sheet.params.push_back(ShaderParamDesc{
-      .name = "color_wash",
-      .default_value = ShaderParamDefault{.kind = ShaderParamKind::scalar_f32,
-                                          .scalar_f32 = 0.12f},
-  });
-  sheet.params.push_back(ShaderParamDesc{
-      .name = "edge_thickness_px",
-      .default_value = ShaderParamDefault{.kind = ShaderParamKind::scalar_f32,
-                                          .scalar_f32 = 1.25f},
-  });
-  sheet.params.push_back(ShaderParamDesc{
-      .name = "shadow_bias",
-      .default_value = ShaderParamDefault{.kind = ShaderParamKind::scalar_f32,
-                                          .scalar_f32 = 0.55f},
-  });
+  // Shared versioned paper-material defaults (Style Bible / Cinema). Note-card
+  // CPU fields keep their own PaperSheetParams validation path.
+  sheet.params = paper_material_shader_param_descs();
   sheet.pass_contributions.push_back(PassContribution{
       .pass_key = std::string{kPaperSheetPass}, .sort_key = 40});
   sheet.capabilities.require_apple7 = true;

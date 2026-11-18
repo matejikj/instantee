@@ -84,7 +84,12 @@ async function expectedGenerated(schemaFile) {
 }
 
 async function checkDrift() {
-  for (const name of ["authoring-v1.ts", "scene-ir-v1.ts", "style-bible-v1.ts"]) {
+  for (const name of [
+    "authoring-v1.ts",
+    "scene-ir-v1.ts",
+    "style-bible-v1.ts",
+    "paper-material-params-v1.ts",
+  ]) {
     const schemaName = name.replace(".ts", ".schema.json");
     const expected = await expectedGenerated(schemaName);
     const actual = await readFile(path.join(generatedDir, name), "utf8");
@@ -115,9 +120,16 @@ async function checkFixtures() {
   const styleBibleSchema = JSON.parse(
     await readFile(path.join(schemasDir, "style-bible-v1.schema.json"), "utf8"),
   );
+  const paperMaterialSchema = JSON.parse(
+    await readFile(
+      path.join(schemasDir, "paper-material-params-v1.schema.json"),
+      "utf8",
+    ),
+  );
   const validateAuthoring = ajv.compile(authoringSchema);
   const validateScene = ajv.compile(sceneSchema);
   const validateStyleBible = ajv.compile(styleBibleSchema);
+  const validatePaperMaterial = ajv.compile(paperMaterialSchema);
 
   const suites = [
     {
@@ -140,6 +152,13 @@ async function checkFixtures() {
       requireSeed: false,
       positive: path.join(fixturesRoot, "style-bible/positive"),
       negative: path.join(fixturesRoot, "style-bible/negative"),
+    },
+    {
+      kind: "paper-material",
+      validate: validatePaperMaterial,
+      requireSeed: false,
+      positive: path.join(fixturesRoot, "paper-material/positive"),
+      negative: path.join(fixturesRoot, "paper-material/negative"),
     },
   ];
 

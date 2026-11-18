@@ -1,0 +1,13 @@
+{
+  "model_version": "1.0.0",
+  "parameters": {},
+  "defaults": {
+    "fiber": 0.4,
+    "roughness": 0.35,
+    "color_wash": 0.12,
+    "edge_thickness": 0.04,
+    "shadow_bias": 0.06,
+    "normal_variation": 0.15,
+    "seed": 1
+  }
+}

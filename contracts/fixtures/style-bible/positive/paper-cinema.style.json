@@ -81,10 +81,12 @@
         "opacity": 1,
         "parameters": {
           "fiber": 0.4,
-          "fold": 0.15,
           "roughness": 0.35,
+          "color_wash": 0.12,
+          "edge_thickness": 0.04,
           "shadow_bias": 0.06,
-          "edge_thickness": 0.04
+          "normal_variation": 0.15,
+          "seed": 1
         }
       },
       "paper_fold": {
@@ -230,10 +232,12 @@
           "opacity": 1,
           "parameters": {
             "fiber": 0.62,
-            "fold": 0.28,
             "roughness": 0.48,
+            "color_wash": 0.18,
+            "edge_thickness": 0.06,
             "shadow_bias": 0.1,
-            "edge_thickness": 0.06
+            "normal_variation": 0.28,
+            "seed": 11
           }
         },
         "contact_shadow": {
@@ -328,10 +332,12 @@
           "opacity": 1,
           "parameters": {
             "fiber": 0.5,
-            "fold": 0.12,
             "roughness": 0.55,
+            "color_wash": 0.08,
+            "edge_thickness": 0.05,
             "shadow_bias": 0.09,
-            "edge_thickness": 0.05
+            "normal_variation": 0.22,
+            "seed": 17
           }
         },
         "paper_fold": {
@@ -434,10 +440,12 @@
           "opacity": 1,
           "parameters": {
             "fiber": 0.28,
-            "fold": 0.1,
             "roughness": 0.22,
+            "color_wash": 0.14,
+            "edge_thickness": 0.03,
             "shadow_bias": 0.04,
-            "edge_thickness": 0.03
+            "normal_variation": 0.12,
+            "seed": 23
           }
         },
         "cutout": {

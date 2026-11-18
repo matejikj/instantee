@@ -1,0 +1,6 @@
+{
+  "model_version": "1.0.0",
+  "parameters": {
+    "fold": 0.2
+  }
+}

@@ -133,6 +133,14 @@ target_link_libraries(spike_paper_notes_test PRIVATE
   instantee::render_core instantee_build_options)
 add_test(NAME spike_paper_notes
   COMMAND spike_paper_notes_test "${PROJECT_SOURCE_DIR}")
+
+add_executable(spike_paper_material_test paper_material_test.cpp)
+target_link_libraries(spike_paper_material_test PRIVATE
+  instantee::render_core instantee::direction instantee_build_options)
+add_test(NAME spike_paper_material
+  COMMAND spike_paper_material_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_material PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
 set_tests_properties(spike_paper_notes PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 

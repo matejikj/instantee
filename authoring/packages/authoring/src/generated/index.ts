@@ -12,3 +12,6 @@ export type {
 export type {
   InstanteeStyleBibleV1 as StyleBibleV1,
 } from "./style-bible-v1.js";
+export type {
+  InstanteePaperMaterialParamsV1 as PaperMaterialParamsV1,
+} from "./paper-material-params-v1.js";

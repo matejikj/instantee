@@ -1,0 +1,9 @@
+xcrun clang-format -i \
+  engine/src/render-core/include/instantee/render_core/paper_cinematic_lighting.hpp \
+  engine/src/render-core/src/paper_cinematic_lighting.cpp \
+  engine/src/direction/include/instantee/direction/paper_cinematic_templates.hpp \
+  engine/src/direction/src/paper_cinematic_templates.cpp \
+  engine/tests/unit/direction/paper_cinematic_templates_test.cpp
+cmake --build --preset release --target spike_direction_paper_cinematic_templates_test
+ctest --preset release -R '^spike_direction_paper_cinematic_templates$' --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-021/checks.json

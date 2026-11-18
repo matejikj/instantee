@@ -1,0 +1,31 @@
+paper_cinematic_graphs
+paper_cinematic_shot_graph
+recipe=paper_lighting_reveal_key_fill
+extent=320x180
+passes_desc=2 passes_live=2 barriers=1
+output=1
+dissolve=0
+paper_cinematic_shot_graph
+recipe=paper_lighting_closeup_rim
+extent=320x180
+passes_desc=2 passes_live=2 barriers=1
+output=1
+dissolve=0
+paper_cinematic_shot_graph
+recipe=paper_lighting_dialogue_soft
+extent=320x180
+passes_desc=2 passes_live=2 barriers=1
+output=1
+dissolve=0
+paper_cinematic_shot_graph
+recipe=paper_lighting_technical_flat
+extent=320x180
+passes_desc=2 passes_live=2 barriers=1
+output=1
+dissolve=0
+paper_cinematic_shot_graph
+recipe=paper_lighting_atmospheric_veil
+extent=320x180
+passes_desc=2 passes_live=2 barriers=1
+output=1
+dissolve=0.4

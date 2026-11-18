@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:37:00Z",
+  "updated_at_utc": "2026-11-18T19:50:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6377,14 +6377,45 @@
       "notes": "Licensed historical paper figure pack with validated rig, three expressions, curated gestures, and pose goldens; ASan/UBSan passed."
     },
     "P7-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The template uses the shared render graph without style-name conditions in core.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Five shot templates assemble camera, intent, and lighting feature ids",
+            "met": true,
+            "evidence": "engine/src/direction/include/instantee/direction/paper_cinematic_templates.hpp"
+          },
+          {
+            "criterion": "Lighting recipes build/compile a shared two-pass render graph without style package keys",
+            "met": true,
+            "evidence": "engine/src/render-core/include/instantee/render_core/paper_cinematic_lighting.hpp"
+          },
+          {
+            "criterion": "Automatic audit rejects style-name branches in core-model/render-core; sequence fixtures locked",
+            "met": true,
+            "evidence": "engine/tests/unit/direction/paper_cinematic_templates_test.cpp"
+          },
+          {
+            "criterion": "Paper sequence examples + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-021/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-021/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-021/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Paper sequence examples",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Five Paper Cinema shot templates lower to shared lighting recipes and a style-name-free render graph; ASan/UBSan passed."
     },
     "P7-022": {
       "status": "todo",

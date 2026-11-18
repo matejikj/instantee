@@ -1,0 +1,14 @@
+{
+  "verification": "Paper sequence examples",
+  "tests": [
+    "spike_direction_paper_cinematic_templates"
+  ],
+  "fixtures": [
+    "contracts/fixtures/paper-cinematic-sequence/sequence.txt",
+    "contracts/fixtures/paper-cinematic-sequence/graphs.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

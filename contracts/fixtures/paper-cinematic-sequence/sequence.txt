@@ -1,0 +1,11 @@
+paper_cinematic_sequence
+film_id=paper-sequence-v1
+total_frames=465
+shots=5
+shot reveal_stage start=0 dur=90 intent=reveal camera=dolly lighting=paper_lighting_reveal_key_fill
+shot object_closeup start=90 dur=75 intent=focus camera=slow_zoom lighting=paper_lighting_closeup_rim
+shot puppet_dialogue start=165 dur=120 intent=compare camera=truck lighting=paper_lighting_dialogue_soft
+shot technical_explanation start=285 dur=100 intent=explain camera=rack_depth lighting=paper_lighting_technical_flat
+shot atmospheric_dissolve start=385 dur=80 intent=build_suspense camera=crane_pan lighting=paper_lighting_atmospheric_veil
+transitions=1
+tr technical_explanation_to_atmospheric_dissolve_dissolve blend=dissolve start=379 dur=12

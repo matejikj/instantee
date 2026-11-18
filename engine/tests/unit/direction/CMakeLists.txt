@@ -92,6 +92,16 @@ add_test(NAME spike_direction_cinematic_camera
 set_tests_properties(spike_direction_cinematic_camera PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
 
+add_executable(spike_direction_paper_cinematic_templates_test
+  paper_cinematic_templates_test.cpp)
+target_link_libraries(spike_direction_paper_cinematic_templates_test PRIVATE
+  instantee::direction instantee::render_core instantee_build_options)
+add_test(NAME spike_direction_paper_cinematic_templates
+  COMMAND spike_direction_paper_cinematic_templates_test
+          "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_paper_cinematic_templates PROPERTIES
+  TIMEOUT 60 LABELS "cpu;smoke")
+
 add_executable(spike_direction_transition_planner_test
   transition_planner_test.cpp)
 target_link_libraries(spike_direction_transition_planner_test PRIVATE

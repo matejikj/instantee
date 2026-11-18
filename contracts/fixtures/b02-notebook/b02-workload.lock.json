@@ -1,7 +1,7 @@
 {
   "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
   "scene": "contracts/fixtures/b02-notebook/b02-pythagoras-explainer.scene.json",
-  "scene_sha256": "8114ab55a95f6571aa260111fd8d9d65473e505e6cdff1165f6af28faa73af6d",
+  "scene_sha256": "0016f7df602b11f02ca96cf6685bd4791ca17ba72616e164059d1531ef958abd",
   "asset_lock": "assets/notebook/notebook.lock.json",
   "asset_lock_sha256": "26ac08f54d839e5ac8ed25e8209f2fda127184e4305a55c54a21346691263a7c",
   "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
@@ -22,6 +22,7 @@
     "Locked before first B-02 reference-series measurement.",
     "Five notebook layouts: problem statement, construction, derivation, visual intuition, summary.",
     "Preview raster uses proxy fills for text/geometry/image; export is framework-native MP4 only.",
-    "No external video assembly."
+    "No external video assembly.",
+    "Post-shot opacity fade-out keeps inactive layout proxies off the composite."
   ]
 }

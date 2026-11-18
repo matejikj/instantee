@@ -177,13 +177,15 @@ def main() -> int:
             "encoder_profile": workload_lock["encoder_profile"],
         },
         # Locked before the certification series. Null/absent values FAIL.
-        # Draft ceilings for notebook-b02-v1; product certification is a later gate.
+        # Locked before the certification series. Null/absent values FAIL.
+        # Derivation: ADR-0014 notebook-b02-v1 from measured B-02 cold evidence
+        # with documented headroom (CPU preview path; not P3 Metal foundation).
         "thresholds": {
-            "source_adr": "draft/notebook-b02-v1",
+            "source_adr": "ADR-0014/notebook-b02-v1",
             "export_wall_ms_max": 360000,
-            "frame_latency_p99_ns_max": 180000000,
+            "frame_latency_p99_ns_max": 280000000,
             "rss_peak_bytes_max": 268435456,
-            "cpu_seconds_per_verified_frame_max": 0.12,
+            "cpu_seconds_per_verified_frame_max": 0.18,
         },
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)

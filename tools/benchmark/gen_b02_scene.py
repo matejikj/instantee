@@ -32,18 +32,37 @@ def rect(w: float, h: float) -> list[list[float]]:
     return [[0, 0], [w, 0], [w, h], [0, h]]
 
 
-def opacity_track(track_id: str, target: str, start: int, end: int, fade: int = 12):
+def opacity_track(
+    track_id: str,
+    target: str,
+    start: int,
+    end: int,
+    fade: int = 12,
+    *,
+    fade_out_frame: int | None = None,
+):
+    """Pin a readable mid-shot window, then drop to 0 after the shot.
+
+    Holding opacity at 1 past the shot end keeps prior layout proxies in the
+    composite and pays per-frame draw cost; fade-out lets the transparent-skip
+    path elide them for the rest of the reel.
+    """
     mid = min(start + fade, end)
+    keyframes = [
+        {"frame": start, "value": 0.0},
+        {"frame": mid, "value": 1.0},
+        {"frame": end, "value": 1.0},
+    ]
+    if fade_out_frame is not None:
+        if fade_out_frame <= end:
+            raise ValueError("fade_out_frame must be after the shot end")
+        keyframes.append({"frame": fade_out_frame, "value": 0.0})
     return {
         "id": track_id,
         "target_id": target,
         "property": "opacity",
         "interpolation": {"type": "linear"},
-        "keyframes": [
-            {"frame": start, "value": 0.0},
-            {"frame": mid, "value": 1.0},
-            {"frame": end, "value": 1.0},
-        ],
+        "keyframes": keyframes,
     }
 
 
@@ -476,6 +495,9 @@ def main() -> int:
 
     for name, start, duration in shots:
         end = start + duration - 1
+        # Drop prior layout proxies on the first frame of the next shot so the
+        # transparent-skip path avoids stacking inactive ink/math/note layers.
+        fade_out = end + 1 if end + 1 <= 1799 else None
         scene["shots"].append(
             {
                 "id": name,
@@ -489,7 +511,13 @@ def main() -> int:
             if node in ("main_cam", "paper_bg"):
                 continue
             scene["animation_tracks"].append(
-                opacity_track(f"{name}_{node}_fade", node, start, end)
+                opacity_track(
+                    f"{name}_{node}_fade",
+                    node,
+                    start,
+                    end,
+                    fade_out_frame=fade_out,
+                )
             )
 
     blends = [

@@ -333,7 +333,7 @@ def run_baseline(
             "demo_render": "framework-native Scene IR → preview raster → Apple VideoSink MP4",
             "external_video_assembly": False,
             "threshold_gate": series_pass and cold_wall_ok,
-            "throughput_claim": "notebook-b02-v1 draft ceilings; run reports remain certified=false",
+            "throughput_claim": "notebook-b02-v1 ceilings from ADR-0014; run reports remain certified=false",
             "notes": [
                 "Every cold trial must meet export_wall_ms ≤ 360000",
                 "Unknown/null thresholds FAIL",

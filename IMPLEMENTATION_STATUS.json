@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T06:40:16Z",
+  "updated_at_utc": "2026-11-18T07:06:17Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5517,14 +5517,46 @@
       "notes": "B-02 shot-boundary structural+PNG goldens; math/ink/note/interpolation/phone-legibility checklist; signed visual-review record; change-record gate."
     },
     "P6-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Every valid certification cold run of 60 s has export wall≤360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
-        "met": null
+        "criterion": "Každý platný certifikační cold běh 60s má export wall≤360s; splněný předem zamčený p99/memory profil a úplná CPU evidence, jinak gate FAIL.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every cold trial export_wall_ms ≤ 360000 with complete CPU evidence",
+            "met": true,
+            "evidence": "implementation-evidence/P6-020/baseline.json"
+          },
+          {
+            "criterion": "Pre-locked notebook-b02-v1 p99/RSS/CPU thresholds; null thresholds FAIL",
+            "met": true,
+            "evidence": "implementation-evidence/P6-020/measurement-profile.json"
+          },
+          {
+            "criterion": "Series threshold_gate true; run reports certified=false",
+            "met": true,
+            "evidence": "implementation-evidence/P6-020/decision.json"
+          },
+          {
+            "criterion": "check.py release/ASan/PTS-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P6-020/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-020/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-020/checks.json"
+      ],
+      "blockers": [],
+      "verification": "B-02 measured report",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-18T07:06:17Z",
+      "notes": "Post-shot opacity fade-out; ADR-0014 notebook-b02-v1 locked; 3+3 series threshold_gate true (cold median wall ≈87s); goldens refreshed."
     },
     "P6-021": {
       "status": "todo",

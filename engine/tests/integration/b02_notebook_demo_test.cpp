@@ -1,7 +1,9 @@
 #include <instantee/compiler/compile_runtime.hpp>
+#include <instantee/core_model/time.hpp>
 #include <instantee/export/scene_video_export.hpp>
 #include <instantee/export_apple/apple_video_sink.hpp>
 #include <instantee/export_apple/video_writer.hpp>
+#include <instantee/runtime/frame_preview.hpp>
 #include <instantee/runtime/render_job.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
@@ -118,6 +120,33 @@ int main(int argc, char **argv) {
   if (!program) {
     return EXIT_FAILURE;
   }
+
+  // Prior-layout proxies must fade out on the next shot's first frame so the
+  // transparent-skip path does not keep compositing inactive math/ink/note
+  // layers for the rest of the reel.
+  {
+    using instantee::core::FrameIndex;
+    using instantee::runtime::preview_frame_at;
+    const auto &scene = **compiled;
+    auto mid = preview_frame_at(scene, *program, FrameIndex{120});
+    auto next = preview_frame_at(scene, *program, FrameIndex{258});
+    expect(mid.has_value() && next.has_value(), "opacity lifecycle frames");
+    std::optional<std::uint32_t> title_index;
+    for (std::uint32_t i = 0; i < scene.node_ids().size(); ++i) {
+      if (scene.node_ids()[i] == "ps_title") {
+        title_index = i;
+        break;
+      }
+    }
+    expect(title_index.has_value(), "ps_title node");
+    if (title_index && mid && next) {
+      expect(mid->state.nodes[*title_index].local.opacity >= 0.99,
+             "title opaque mid problem shot");
+      expect(next->state.nodes[*title_index].local.opacity <= 0.01,
+             "title faded after problem shot");
+    }
+  }
+
   RenderJob job(std::move(*compiled));
   SceneVideoExportRequest request;
   request.target_path = target;

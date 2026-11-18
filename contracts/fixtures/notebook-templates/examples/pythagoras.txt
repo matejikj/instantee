@@ -1,0 +1,32 @@
+notebook-template pythagoras
+topic=pythagoras film=notebook-pythagoras style=scientific-notebook@1.0.0
+layouts=5 frames=900 audio=0
+layout problem_statement shot=problem_statement-pythagoras start=0 dur=129 beat=1 intent=reveal slots=3
+  slot title role=title xywh=0.0,0.0,1080.0x80.0 content=Pythagorean relation
+  slot prompt role=prompt xywh=0.0,96.0,1080.0x1824.0 content=Relate the sides of a right triangle.
+  slot pin role=accessory xywh=1044.0,8.0,28.0x28.0 content=pin
+layout construction shot=construction-pythagoras start=129 dur=193 beat=2 intent=focus slots=3
+  slot title role=title xywh=0.0,0.0,1080.0x56.0 content=Pythagorean relation
+  slot step-1 role=step xywh=0.0,72.0,1080.0x910.0 content=Draw right triangle ABC with right angle at C.
+  slot step-2 role=step xywh=0.0,1010.0,1080.0x910.0 content=Mark legs a, b and hypotenuse c.
+layout derivation shot=derivation-pythagoras start=322 dur=258 beat=3 intent=explain slots=4
+  slot title role=title xywh=0.0,0.0,1080.0x56.0 content=Pythagorean relation
+  slot eq-1 role=equation xywh=5.0,72.0,1070.0x914.0 content=a^2 + b^2 = c^2
+  slot eq-2 role=equation xywh=5.0,1006.0,1070.0x914.0 content=c = \sqrt{a^2 + b^2}
+  slot highlight role=accessory xywh=0.0,1892.0,594.0x20.0 content=ink_highlight
+layout visual_intuition shot=visual_intuition-pythagoras start=580 dur=192 beat=3 intent=compare slots=10
+  slot title role=title xywh=0.0,0.0,1080.0x48.0 content=Pythagorean relation
+  slot diagram role=diagram xywh=0.0,64.0,1080.0x1056.0 content=pythagoras:diagram
+  slot node-1 role=diagram xywh=12.0,80.0,64.0x28.0 content=A
+  slot node-2 role=diagram xywh=84.0,80.0,64.0x28.0 content=B
+  slot node-3 role=diagram xywh=156.0,80.0,64.0x28.0 content=C
+  slot edge-1 role=diagram xywh=20.0,116.0,70.0x18.0 content=a
+  slot edge-2 role=diagram xywh=100.0,116.0,70.0x18.0 content=b
+  slot edge-3 role=diagram xywh=180.0,116.0,70.0x18.0 content=c
+  slot note-1 role=note xywh=0.0,1136.0,1080.0x36.0 content=Squares on the legs fill the square on the hypotenuse.
+  slot tape role=accessory xywh=378.0,40.0,48.0x14.0 content=tape_strip
+layout summary shot=summary-pythagoras start=772 dur=128 beat=4 intent=focus slots=4
+  slot title role=title xywh=0.0,0.0,1080.0x56.0 content=Pythagorean relation
+  slot claim role=claim xywh=0.0,72.0,1080.0x72.0 content=In a right triangle, a^2 + b^2 = c^2.
+  slot bullet-1 role=bullet xywh=0.0,160.0,1080.0x40.0 content=Works in Euclidean plane geometry.
+  slot bullet-2 role=bullet xywh=0.0,214.0,1080.0x40.0 content=Foundation for distance in R^2.

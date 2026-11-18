@@ -224,6 +224,16 @@ add_test(NAME spike_direction_news_scene_templates
 set_tests_properties(spike_direction_news_scene_templates PROPERTIES
   TIMEOUT 30 LABELS "cpu;smoke")
 
+add_executable(spike_direction_notebook_composition_templates_test
+  notebook_composition_templates_test.cpp)
+target_link_libraries(spike_direction_notebook_composition_templates_test
+  PRIVATE instantee::direction instantee_build_options)
+add_test(NAME spike_direction_notebook_composition_templates
+  COMMAND spike_direction_notebook_composition_templates_test
+          "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_notebook_composition_templates PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")
+
 add_executable(spike_direction_editorial_visual_acceptance_test
   editorial_visual_acceptance_test.cpp)
 target_link_libraries(spike_direction_editorial_visual_acceptance_test PRIVATE

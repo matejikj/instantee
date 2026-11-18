@@ -9,6 +9,7 @@ add_library(instantee_direction STATIC
   src/editorial_asym_layout.cpp
   src/editorial_reels_composition.cpp
   src/news_scene_templates.cpp
+  src/notebook_composition_templates.cpp
   src/composition_constraints.cpp
   src/safe_area.cpp
   src/shot_planner.cpp

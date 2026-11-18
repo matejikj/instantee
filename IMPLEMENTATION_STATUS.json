@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T05:21:55Z",
+  "updated_at_utc": "2026-11-18T05:29:29Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5437,14 +5437,24 @@
       "notes": "Notebook accessories: tape/pin/underline/ink-highlight/marker presets via linear premul compositor; reuse ink_stroke feature; accessory goldens."
     },
     "P6-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A new mathematical topic can be expressed by combining a template and data.",
-        "met": null
+        "criterion": "Nové matematické téma lze vyjádřit kombinací template a dat.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-016/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-016/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Template examples",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T05:29:29Z",
+      "notes": "Notebook composition templates: five layouts bind topic data via Style Bible spacing/safe-area; pythagoras/quadratic examples prove template+data."
     },
     "P6-017": {
       "status": "todo",

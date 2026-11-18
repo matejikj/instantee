@@ -1,0 +1,26 @@
+{
+  "verification": "P7 release gate",
+  "tests": [
+    "instantee_b03_paper_demo",
+    "spike_direction_paper_cinema_visual_acceptance",
+    "spike_direction_paper_cinema_style_review",
+    "spike_direction_paper_cinematic_templates",
+    "spike_scene_ir_puppet_reference_pack",
+    "spike_scene_ir_puppet_fk",
+    "spike_paper_fold",
+    "spike_direction_layout_lint",
+    "spike_direction_lint_policy"
+  ],
+  "checks_result": "passed",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "gate_decision": "PASS",
+  "series": {
+    "source": "implementation-evidence/P7-024/",
+    "series_pass": true,
+    "threshold_gate": true,
+    "cold_wall_within_360s": true,
+    "certified": false
+  },
+  "thresholds_source": "ADR-0014/paper-b03-v1"
+}

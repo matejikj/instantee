@@ -1,0 +1,8 @@
+{
+  "decision": "accept_referenced_b03_threshold_gate",
+  "threshold_gate": true,
+  "series_pass": true,
+  "cold_wall_within_360s": true,
+  "certified_performance": false,
+  "source": "implementation-evidence/P7-024/"
+}

@@ -1,0 +1,8 @@
+export CLANG_TIDY=/opt/homebrew/opt/llvm/bin/clang-tidy
+python3 -m unittest discover -s tools/dev -p 'test_p7_phase_gate_report.py' -v
+tools/dev/check.py --gate --report implementation-evidence/P7-025/checks.json
+python3 tools/dev/p7_phase_gate_report.py \
+  --checks implementation-evidence/P7-025/checks.json \
+  --baseline implementation-evidence/P7-025/baseline.json \
+  --out implementation-evidence/P7-025/gate-report.json \
+  --decision-out implementation-evidence/P7-025/gate-decision.json

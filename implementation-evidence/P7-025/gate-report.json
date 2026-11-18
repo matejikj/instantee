@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "kind": "paper_cinema_phase_gate_report",
+  "phase": "P7",
+  "generated_at_utc": "2026-11-18T23:40:25Z",
+  "measurement": "reference-series",
+  "performance_evidence": "implementation-evidence/P7-024/ and copied baseline.json",
+  "certification": "phase_gate_uncertified_runs",
+  "checklist": {
+    "all_phase_prior_tasks_done_and_evidenced": true,
+    "previous_phase_gate_passed": true,
+    "framework_native_60s_reel_probe_passed": true,
+    "golden_visual_review_probe_passed": true,
+    "paper_style_review_probe_passed": true,
+    "cinematic_templates_probe_passed": true,
+    "puppet_limits_probe_passed": true,
+    "paper_fold_probe_passed": true,
+    "linter_gate_probe_passed": true,
+    "reference_series_threshold_gate": true,
+    "cold_wall_within_360s": true,
+    "gate_matrix_passed": true,
+    "no_unresolved_critical_architecture_risk": true,
+    "no_unapproved_design_defects": true,
+    "two_d_puppet_limits_declared": true,
+    "measurement": "reference-series",
+    "performance_evidence": "reference-series-from-prior-optimization"
+  },
+  "inventory": {
+    "phase_task_count_excluding_gate": 24,
+    "all_prior_done_and_evidenced": true,
+    "missing_or_incomplete": []
+  },
+  "components": [
+    {
+      "id": "style_bible",
+      "path": "contracts/fixtures/style-bible/positive/paper-cinema.style.json",
+      "role": "Paper-cinema visual/motion tokens (pulp, ink, fold, epochs, safe area)"
+    },
+    {
+      "id": "puppet_reference_pack",
+      "path": "contracts/fixtures/puppet-reference-pack/manifest.txt",
+      "role": "Licensed historical 2D paper figure reference poses"
+    },
+    {
+      "id": "paper_fold",
+      "path": "engine/src/render-core/include/instantee/render_core/paper_fold.hpp",
+      "role": "Deterministic letter-card fold/unfold geometry (linear premul)"
+    },
+    {
+      "id": "cinematic_templates",
+      "path": "engine/src/direction/include/instantee/direction/paper_cinematic_templates.hpp",
+      "role": "Five Paper Cinema shot templates with shared lighting graphs"
+    },
+    {
+      "id": "layered_shadow",
+      "path": "engine/src/render-core/include/instantee/render_core/paper_layered_shadow.hpp",
+      "role": "Contact/layered paper shadows without Metal-only style forks"
+    },
+    {
+      "id": "b03_locked_reel",
+      "path": "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+      "role": "Locked 1800-frame Scene IR \u2192 CPU preview \u2192 Apple VideoSink MP4"
+    }
+  ],
+  "known_limits": [
+    "B-03 export path is CPU preview raster + Apple VideoSink; P3 Metal p99 ceilings do not apply.",
+    "ADR-0014 paper-b03-v1 ceilings: wall \u2264360000 ms, p99 \u2264280 ms, RSS \u2264256 MiB, CPU \u22640.18 s/frame.",
+    "Individual measurement run reports stay certified=false; only the series threshold_gate records compliance.",
+    "V1 reel is silent (no audio track).",
+    "Puppets are declared 2D cutout/FK figures; full 3D skinned cloth simulation is out of scope.",
+    "Metal shadow/skin passes are outside the locked B-03 CPU preview export path.",
+    "Shot-local opacity fade-out keeps inactive figure/title proxies off the composite."
+  ],
+  "design_performance_review": {
+    "design": [
+      "Paper-cinema Style Bible epochs retint tokens without renderer forks.",
+      "Historical 2D puppet pack + FK stay within declared cutout limits; full 3D cloth is out of scope.",
+      "Visual acceptance requires checklist + goldens + tolerances; subjective impression is insufficient."
+    ],
+    "performance": [
+      "B-03 path optimized via shot-local opacity fade-out and transparent-proxy skip.",
+      "Locked ADR-0014 paper-b03-v1 thresholds; null thresholds FAIL.",
+      "Referenced series must keep every cold trial wall \u2264360 s on allowlisted machine facts."
+    ]
+  },
+  "probes": [
+    {
+      "id": "b03_demo_render",
+      "ctest": "instantee_b03_paper_demo",
+      "criterion": "Framework-native 60 s B-03 reel exports valid silent MP4",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^instantee_b03_paper_demo$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "visual_golden_acceptance",
+      "ctest": "spike_direction_paper_cinema_visual_acceptance",
+      "criterion": "Paper goldens + character/materials visual review pass",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_direction_paper_cinema_visual_acceptance$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "paper_cinema_style_review",
+      "ctest": "spike_direction_paper_cinema_style_review",
+      "criterion": "Paper Cinema Style Bible epochs/materials stay renderer-stable",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_direction_paper_cinema_style_review$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "cinematic_templates",
+      "ctest": "spike_direction_paper_cinematic_templates",
+      "criterion": "Shot templates share lighting graphs without style forks",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_direction_paper_cinematic_templates$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "puppet_reference_pack",
+      "ctest": "spike_scene_ir_puppet_reference_pack",
+      "criterion": "Historical 2D puppet pack poses stay within declared limits",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_scene_ir_puppet_reference_pack$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "puppet_fk",
+      "ctest": "spike_scene_ir_puppet_fk",
+      "criterion": "FK puppet motion stays deterministic and bounded",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_scene_ir_puppet_fk$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "paper_fold",
+      "ctest": "spike_paper_fold",
+      "criterion": "Paper fold/unfold reaches flat, mid-lift, and stacked poses",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_paper_fold$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "layout_lint",
+      "ctest": "spike_direction_layout_lint",
+      "criterion": "Layout lint enforces keep-visible and legibility bounds",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_direction_layout_lint$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    },
+    {
+      "id": "lint_policy",
+      "ctest": "spike_direction_lint_policy",
+      "criterion": "Strict lint rejects unwaived errors; waivers are auditable",
+      "result": {
+        "command": "ctest --test-dir /Volumes/DevSSD/git/instantee/build/release -R ^spike_direction_lint_policy$ --output-on-failure",
+        "exit_code": 0,
+        "found": true,
+        "passed": true
+      }
+    }
+  ],
+  "reference_series": {
+    "series_pass": true,
+    "threshold_gate": true,
+    "cold_wall_within_360s": true,
+    "certified_performance": false,
+    "thresholds": {
+      "source_adr": "ADR-0014/paper-b03-v1",
+      "export_wall_ms_max": 360000,
+      "frame_latency_p99_ns_max": 280000000,
+      "rss_peak_bytes_max": 268435456,
+      "cpu_seconds_per_verified_frame_max": 0.18
+    },
+    "summary": {
+      "cold_median_export_wall_ms": 105574.568417,
+      "cold_median_p99_ns": 65040250,
+      "cold_median_rss_peak_bytes": 119963648,
+      "cold_median_cpu_seconds_per_verified_frame": 0.059787123888888884
+    },
+    "fail_if_wall_over_360s": true,
+    "missing_baseline": false
+  },
+  "fail_conditions_checked": {
+    "b03_wall_over_360s": false,
+    "broken_reference_puppet_or_paper_scene": false,
+    "unapproved_design_defects": false,
+    "incomplete_phase_inventory": false,
+    "gate_matrix_incomplete_or_failed": false,
+    "series_threshold_gate_failed": false
+  },
+  "machine_profile": {
+    "certification": "phase_gate_uncertified_runs",
+    "notes": [
+      "Allowlisted technical verification only; no hostname, serial, or user path.",
+      "Run reports remain certified=false; series threshold_gate records compliance."
+    ]
+  },
+  "decision": "PASS",
+  "accepted": true
+}

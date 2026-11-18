@@ -1,0 +1,32 @@
+{
+  "phase": "P7",
+  "decision": "PASS",
+  "certification": "phase_gate_uncertified_runs",
+  "measurement": "reference-series",
+  "performance_evidence": "reference-series-from-prior-optimization",
+  "checklist": {
+    "all_phase_prior_tasks_done_and_evidenced": true,
+    "previous_phase_gate_passed": true,
+    "framework_native_60s_reel_probe_passed": true,
+    "golden_visual_review_probe_passed": true,
+    "paper_style_review_probe_passed": true,
+    "cinematic_templates_probe_passed": true,
+    "puppet_limits_probe_passed": true,
+    "paper_fold_probe_passed": true,
+    "linter_gate_probe_passed": true,
+    "reference_series_threshold_gate": true,
+    "cold_wall_within_360s": true,
+    "gate_matrix_passed": true,
+    "no_unresolved_critical_architecture_risk": true,
+    "no_unapproved_design_defects": true,
+    "two_d_puppet_limits_declared": true,
+    "measurement": "reference-series",
+    "performance_evidence": "reference-series-from-prior-optimization"
+  },
+  "notes": [
+    "All prior Paper Cinema tasks are done with evidence; Notebook gate PASS.",
+    "Framework-native 60 s B-03 reel, golden/character review, 2D puppet limits, and linter probes close the style surface.",
+    "Referenced series enforces paper-b03-v1 ceilings; wall >360 s is an automatic FAIL.",
+    "No unresolved critical architecture risk blocks starting P8 release hardening."
+  ]
+}

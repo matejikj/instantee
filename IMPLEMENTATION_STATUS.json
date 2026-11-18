@@ -6526,14 +6526,49 @@
       "notes": "ADR-0014 paper-b03-v1 locked; shot-local fade-out + transparent-skip; 3+3 series threshold_gate true (cold median wall \u2248106s); certified=false."
     },
     "P7-025": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A fully animated paper cinema demo passes B-03, art, stability and linter gates.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Framework-native 60s B-03 reel + green golden/linter/puppet probes",
+            "met": true,
+            "evidence": "implementation-evidence/P7-025/gate-report.json"
+          },
+          {
+            "criterion": "B-03 reference series threshold_gate; cold wall \u2264360s",
+            "met": true,
+            "evidence": "implementation-evidence/P7-025/baseline.json"
+          },
+          {
+            "criterion": "Full check.py --gate matrix passed",
+            "met": true,
+            "evidence": "implementation-evidence/P7-025/checks.json"
+          },
+          {
+            "criterion": "Phase decision PASS",
+            "met": true,
+            "evidence": "implementation-evidence/P7-025/gate-decision.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-025/",
+        "implementation-evidence/P7-025/baseline.json",
+        "implementation-evidence/P7-025/gate-decision.json",
+        "implementation-evidence/P7-025/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P7-025/checks.json"
+      ],
+      "blockers": [],
+      "verification": "P7 release gate",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-18T23:45:00Z",
+      "notes": "Paper Cinema phase gate PASS: inventory complete, B-03 series threshold_gate, 2D puppet limits declared, golden/lint probes, full --gate matrix; unlocks P8."
     },
     "P8-001": {
       "status": "todo",
@@ -7139,17 +7174,30 @@
     },
     "P7": {
       "gate_task_id": "P7-025",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
+        "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-025/",
+        "implementation-evidence/P7-025/baseline.json",
+        "implementation-evidence/P7-025/gate-decision.json",
+        "implementation-evidence/P7-025/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P7-025/checks.json"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Individual B-03 run reports remain certified=false; series threshold_gate records compliance.",
+        "B-03 path is CPU preview raster; P3 Metal ceilings are not interchangeable.",
+        "Puppets are declared 2D cutout/FK figures; full 3D skinned cloth is out of scope.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     },
     "P8": {
       "gate_task_id": "P8-037",

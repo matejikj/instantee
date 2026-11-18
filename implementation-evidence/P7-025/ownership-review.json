@@ -1,0 +1,37 @@
+{
+  "scope": "B-03 Paper Cinema phase gate",
+  "owners": [
+    {
+      "resource": "Scene IR opacity tracks (shot-local fade-out)",
+      "owner": "locked fixture bytes + generator",
+      "lifetime": "authored once; evaluated per frame via AnimationProgram"
+    },
+    {
+      "resource": "AnimationProgram + preview raster buffers",
+      "owner": "export child",
+      "lifetime": "compile once \u2192 per-frame evaluate/raster \u2192 sink publish"
+    },
+    {
+      "resource": "AppleVideoSink + PixelBufferPool E=8",
+      "owner": "export child",
+      "lifetime": "create \u2192 begin \u2192 finish \u2192 OutputTransaction commit"
+    },
+    {
+      "resource": "parent measure harness",
+      "owner": "b03_baseline.py / measure.py",
+      "lifetime": "spawn \u2192 wait4 \u2192 report; stop token + SIGTERM\u2192SIGKILL"
+    }
+  ],
+  "concurrency": [
+    "Sequential frame loop in export child.",
+    "Warm trials use a fresh measured process after an uncounted warmup process."
+  ],
+  "cancel_rules": [
+    "stop_requested aborts before the next frame acquire; unpublished outputs stay off the final path."
+  ],
+  "profiling": [
+    "Critical path is CPU Scene IR \u2192 preview proxy raster \u2192 Apple VideoSink.",
+    "Metal shadow passes and skinned-mesh GPU work are outside this export path.",
+    "Overdraw mitigated by shot-local fade-out + transparent-skip; stage/background layers remain intentional."
+  ]
+}

@@ -16,6 +16,7 @@ add_library(instantee_direction STATIC
   src/transition_planner.cpp
   src/editorial_transitions.cpp
   src/editorial_beats.cpp
+  src/handwriting.cpp
   src/editorial_visual_acceptance.cpp
   src/creative_variation.cpp
   src/direction_report.cpp

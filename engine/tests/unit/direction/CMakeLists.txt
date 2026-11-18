@@ -110,6 +110,15 @@ add_test(NAME spike_direction_editorial_beats
 set_tests_properties(spike_direction_editorial_beats PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
 
+add_executable(spike_direction_handwriting_timing_test
+  handwriting_timing_test.cpp)
+target_link_libraries(spike_direction_handwriting_timing_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_handwriting_timing
+  COMMAND spike_direction_handwriting_timing_test)
+set_tests_properties(spike_direction_handwriting_timing PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")
+
 add_executable(spike_direction_creative_variation_test
   creative_variation_test.cpp)
 target_link_libraries(spike_direction_creative_variation_test PRIVATE

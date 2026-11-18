@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T04:22:47Z",
+  "updated_at_utc": "2026-11-18T04:34:46Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5297,14 +5297,24 @@
       "notes": "Variable-width ink ribbon with arc-length attrs in geometry; GPU progress discard + procedural brush; render-core feature registry only."
     },
     "P6-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Drawing can be timed precisely to shot beat markers.",
-        "met": null
+        "criterion": "Kreslení se dá přesně časovat podle shot beat markers.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-009/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Handwriting timing tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T04:34:46Z",
+      "notes": "Handwriting presets (line/dash/scribble) pack ink_progress tracks into editorial beat windows with pauses; rescale follows markers."
     },
     "P6-010": {
       "status": "todo",

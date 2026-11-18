@@ -73,7 +73,7 @@
       "target": "instantee_direction",
       "include_prefix": "instantee/direction/",
       "decision": "promote",
-      "notes": "Style Bible, packages, intents, DirectedFilm, track precedence, Motion Grammar, composition constraints (text metrics injected as values). Depends only on diagnostics and core-model; never on render-metal/typography/export-apple.",
+      "notes": "Style Bible, packages, intents, DirectedFilm, track precedence, Motion Grammar, handwriting motion presets timed to shot beat markers, composition constraints (text metrics injected as values). Depends only on diagnostics and core-model; never on render-metal/typography/export-apple/geometry.",
       "allowed_dependencies": ["diagnostics", "core-model"]
     },
     "compiler": {

@@ -1,0 +1,10 @@
+shot=summary start=1544 duration=256 sample=1556
+safe x=0 y=0 w=1080 h=1920
+typography_count=4
+text node=su_b1 run=txt_su_b1 role=body size=28 cps=34
+text node=su_b2 run=txt_su_b2 role=body size=28 cps=31
+text node=su_claim run=txt_su_claim role=headline size=40 cps=37
+text node=su_title run=txt_su_title role=headline size=48 cps=20
+layers text=4 geometry=0 image=1 math_runs=2
+interpolation opacity_tracks=5
+legibility min_size=28 max_size=48 canvas=1080x1920

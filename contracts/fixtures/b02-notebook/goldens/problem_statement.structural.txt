@@ -1,0 +1,8 @@
+shot=problem_statement start=0 duration=258 sample=12
+safe x=0 y=0 w=1080 h=1920
+typography_count=2
+text node=ps_prompt run=txt_ps_prompt role=body size=36 cps=37
+text node=ps_title run=txt_ps_title role=headline size=56 cps=20
+layers text=2 geometry=1 image=1 math_runs=0
+interpolation opacity_tracks=4
+legibility min_size=36 max_size=56 canvas=1080x1920

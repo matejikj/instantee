@@ -1,0 +1,11 @@
+shot=visual_intuition start=1160 duration=384 sample=1172
+safe x=0 y=0 w=1080 h=1920
+typography_count=5
+text node=vi_a run=txt_vi_a role=body size=28 cps=1
+text node=vi_b run=txt_vi_b role=body size=28 cps=1
+text node=vi_c run=txt_vi_c role=body size=28 cps=1
+text node=vi_note run=txt_vi_note role=body size=28 cps=54
+text node=vi_title run=txt_vi_title role=headline size=44 cps=20
+layers text=5 geometry=7 image=1 math_runs=3
+interpolation opacity_tracks=13
+legibility min_size=28 max_size=44 canvas=1080x1920

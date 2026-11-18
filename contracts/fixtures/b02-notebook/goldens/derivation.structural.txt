@@ -1,0 +1,9 @@
+shot=derivation start=644 duration=516 sample=656
+safe x=0 y=0 w=1080 h=1920
+typography_count=3
+text node=de_eq1 run=txt_de_eq1 role=headline size=64 cps=15
+text node=de_eq2 run=txt_de_eq2 role=body size=48 cps=19
+text node=de_title run=txt_de_title role=headline size=48 cps=20
+layers text=3 geometry=1 image=1 math_runs=2
+interpolation opacity_tracks=5
+legibility min_size=48 max_size=64 canvas=1080x1920

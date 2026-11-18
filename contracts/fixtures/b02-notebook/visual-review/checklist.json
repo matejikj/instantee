@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {"id": "math_layers", "description": "Equation/math text runs are present on derivation and summary", "required": true},
+    {"id": "ink_layers", "description": "Ink geometry layers appear on construction and visual intuition", "required": true},
+    {"id": "note_layers", "description": "Paper/note image layers appear under notebook layouts", "required": true},
+    {"id": "interpolation", "description": "Opacity fades pin readable mid-shot frames (not empty canvases)", "required": true},
+    {"id": "phone_legibility", "description": "1080x1920 canvas, Style Bible safe-area, and readable type sizes", "required": true},
+    {"id": "reference_frames", "description": "PNG reference frames compare within the locked tolerance", "required": true}
+  ]
+}

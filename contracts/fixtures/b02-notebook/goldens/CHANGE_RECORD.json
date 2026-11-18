@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "entries": [
+    {
+      "artifact_id": "problem_statement.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "76242244a32109704505001fd9017633c3b84b1ddc9e8861eeaae157d4389efc",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "problem_statement.png",
+      "previous_sha256": "",
+      "next_sha256": "c0940324ac2e95254e2ff9050ba68f964527f1b417ed1ca9613ce37b988ea9d8",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "construction.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "05f1aae9314ed624bdacb8ac3b4f9d75412277c926e67fd5659885462b93c3da",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "construction.png",
+      "previous_sha256": "",
+      "next_sha256": "318cd7dadce7112d4de467914537e5f65d71122b4d08b5d88369995db951a580",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "derivation.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "c97fc330bae4cd565be3bee7ce1fe983d4a70dc47e92bffb6c427cd2d434a4b4",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "derivation.png",
+      "previous_sha256": "",
+      "next_sha256": "309a65d8a7749b83c42c3984e9bcd75559e49924cd234cc60e3b8a569163999c",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "visual_intuition.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "76f05296a7fa85661cab1a8e69d63f6761fb7e803e52a6cc0a248958e85f36f3",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "visual_intuition.png",
+      "previous_sha256": "",
+      "next_sha256": "739663cb8d0387e51bd75e4025fe55cf23acedc7f2bad814918eb46ca3606806",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "summary.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "114f5951912b306185ea2decd57155dde0fc73dc033a98110e0001cf78e18e38",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "summary.png",
+      "previous_sha256": "",
+      "next_sha256": "4fc4431d6c82e0b3cac5155905d75f83cb885699c0e00ed77376f2f065fefa5b",
+      "reason": "initial notebook reference approval",
+      "approved_by_role": "notebook-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    }
+  ]
+}

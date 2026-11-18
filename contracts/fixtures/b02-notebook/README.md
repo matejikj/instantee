@@ -6,3 +6,11 @@ tier and encoder profile before the first reference-series measurement.
 
 Layouts follow the notebook composition templates: problem statement,
 construction, derivation, visual intuition and summary.
+
+## Visual acceptance
+Shot-boundary structural dumps and PNG reference frames live under `goldens/`.
+Updates require an entry in `goldens/CHANGE_RECORD.json`.
+Checklist, tolerances, and the signed review record are under `visual-review/`.
+Coverage includes math text, ink geometry, note/paper image layers, opacity
+interpolation, and phone (1080×1920) legibility. Subjective impression alone
+is not acceptance.

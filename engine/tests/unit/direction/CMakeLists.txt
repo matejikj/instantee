@@ -245,6 +245,17 @@ add_test(NAME spike_direction_editorial_visual_acceptance
 set_tests_properties(spike_direction_editorial_visual_acceptance PROPERTIES
   TIMEOUT 120 LABELS "cpu;smoke")
 
+add_executable(spike_direction_notebook_visual_acceptance_test
+  notebook_visual_acceptance_test.cpp)
+target_link_libraries(spike_direction_notebook_visual_acceptance_test PRIVATE
+  instantee::direction instantee::compiler instantee::scene_ir
+  instantee::preview instantee::runtime instantee_build_options)
+add_test(NAME spike_direction_notebook_visual_acceptance
+  COMMAND spike_direction_notebook_visual_acceptance_test
+          "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_notebook_visual_acceptance PROPERTIES
+  TIMEOUT 180 LABELS "cpu;smoke")
+
 add_executable(spike_direction_editorial_multi_seed_test
   editorial_multi_seed_test.cpp)
 target_link_libraries(spike_direction_editorial_multi_seed_test PRIVATE

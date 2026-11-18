@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "status": "approved",
+  "approved_by_role": "notebook-visual-reviewer",
+  "approved_at_utc": "2026-11-18T00:00:00Z",
+  "golden_manifest_sha256": "fa8387ea708fb5d123d8e281ef383e38ff07a5f7531fd570bf06a2e591686d85",
+  "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
+  "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
+  "checklist_results": [
+    {"id": "math_layers", "passed": true, "notes": "locked B-02 reference"},
+    {"id": "ink_layers", "passed": true, "notes": "locked B-02 reference"},
+    {"id": "note_layers", "passed": true, "notes": "locked B-02 reference"},
+    {"id": "interpolation", "passed": true, "notes": "locked B-02 reference"},
+    {"id": "phone_legibility", "passed": true, "notes": "locked B-02 reference"},
+    {"id": "reference_frames", "passed": true, "notes": "locked B-02 reference"}
+  ]
+}

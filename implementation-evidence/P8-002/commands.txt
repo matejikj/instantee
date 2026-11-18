@@ -1,0 +1,7 @@
+python3 tools/dev/sync_tracker.py
+npm run check:authoring
+npm run build:authoring
+npm run test:authoring
+node tools/contracts/check_authoring_public_api.mjs
+node authoring/examples/three-styles/main.mjs
+python3 tools/dev/check.py --report implementation-evidence/P8-002/checks.json

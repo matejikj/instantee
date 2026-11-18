@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * TypeScript authoring SDK + seconds→frames checks against the schema.
- * Imports the compiled package from build/authoring/sdk.
+ * Imports the compiled package through the public workspace entry.
  */
 import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
@@ -10,15 +10,21 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  AuthoringError,
   INTENT_TYPES,
+  PUBLIC_API_VERSION,
+  STYLE_PACKAGE_IDS,
   collectNodeIds,
   createFilm,
   createIntent,
+  direction,
   filmToJson,
+  isAuthoringError,
   parentIdOf,
   reparentNode,
   secondsToFrame,
-} from "../../build/authoring/sdk/index.js";
+  styles,
+} from "@instantee/authoring";
 
 const require = createRequire(import.meta.url);
 const Ajv2020 = require("ajv/dist/2020.js");
@@ -34,6 +40,19 @@ function fail(message) {
 if (!INTENT_TYPES.includes("reveal") || INTENT_TYPES.length < 5) {
   fail("INTENT_TYPES must list CDS intent kinds");
 }
+if (PUBLIC_API_VERSION !== "1.0.0") {
+  fail(`PUBLIC_API_VERSION must be 1.0.0, got ${PUBLIC_API_VERSION}`);
+}
+if (STYLE_PACKAGE_IDS.length !== 3) {
+  fail("STYLE_PACKAGE_IDS must list the three V1 styles");
+}
+if (
+  styles.editorial !== "editorial@1" ||
+  styles.scientificNotebook !== "scientific-notebook@1" ||
+  styles.paperCinema !== "paper-cinema@1"
+) {
+  fail("locked style package tags drifted");
+}
 
 const reveal = createIntent("reveal", 0.8, {
   importance: 0.9,
@@ -41,6 +60,31 @@ const reveal = createIntent("reveal", 0.8, {
 });
 if (reveal.type !== "reveal" || reveal.targetIds?.[0] !== "headline") {
   fail("createIntent must produce typed semantic intent");
+}
+const directed = direction.reveal(0.8, {
+  importance: 0.9,
+  targetIds: ["headline"],
+});
+if (directed.type !== "reveal" || directed.intensity !== 0.8) {
+  fail("direction.reveal must build a typed semantic intent");
+}
+
+try {
+  createIntent(/** @type {any} */ ("not-an-intent"), 0.5);
+  fail("unsupported intent must throw AuthoringError");
+} catch (error) {
+  if (!isAuthoringError(error) || error.code !== "unsupported_intent") {
+    fail(`expected unsupported_intent AuthoringError, got ${error}`);
+  }
+}
+
+try {
+  createIntent("reveal", 2);
+  fail("out-of-range intensity must throw AuthoringError");
+} catch (error) {
+  if (!(error instanceof AuthoringError) || error.code !== "range_error") {
+    fail(`expected range_error AuthoringError, got ${error}`);
+  }
 }
 
 const film = createFilm({
@@ -126,7 +170,7 @@ if (cpp) {
 
 // Hierarchical scene graph: reparent preserves ids, rejects cycles, no UI APIs.
 {
-  /** @type {import("../../build/authoring/sdk/index.js").AuthoringNode[]} */
+  /** @type {import("@instantee/authoring").AuthoringNode[]} */
   const roots = [
     {
       id: "group_a",

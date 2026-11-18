@@ -15,9 +15,17 @@ npm run build:authoring
 npm run test:authoring
 ```
 
-`packages/authoring` exposes declarative `createFilm` builders, shared
-seconds→frames conversion, and generated contract types. Output lands under the
-ignored `build/authoring/` directory. The package is private and not publishable.
+`packages/authoring` (`@instantee/authoring` **v1.0**) exposes the frozen public
+surface: namespaced `film` / `direction` / `sceneGraph` / `time` / `styles` /
+`api` helpers, flat `createFilm` aliases, typed `AuthoringError`, deprecation
+policy, and generated contract types. Import only from `@instantee/authoring`
+(see `packages/authoring/PUBLIC_API.md`). Compiled output lands under the
+ignored `packages/authoring/dist/` directory. The package is private and not
+publishable.
+
+Verified multi-style usage lives in `examples/three-styles/`. The public export
+snapshot is locked under
+`contracts/fixtures/authoring/public-api-v1.snapshot.json`.
 
 Keep authoring packages under `packages/<name>/`, source under each package's
 `src/`, and package-specific tests beside that package when behavior is added.

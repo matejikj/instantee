@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "verification": "TS public API snapshot",
+  "acceptance": "Existuje ověřený příklad projektu pro všechny 3 styly bez interních importů.",
+  "example": "authoring/examples/three-styles/main.mjs",
+  "snapshot": "contracts/fixtures/authoring/public-api-v1.snapshot.json",
+  "styles": [
+    "editorial@1",
+    "scientific-notebook@1",
+    "paper-cinema@1"
+  ],
+  "api_version": "1.0.0",
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

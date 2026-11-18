@@ -1,4 +1,5 @@
 import type { AuthoringNode } from "./generated/index.js";
+import { AuthoringError } from "./errors.js";
 
 export type ReparentOptions = {
   /** Index among siblings under the destination parent; omit to append. */
@@ -114,30 +115,48 @@ export function reparentNode(
   options: ReparentOptions = {},
 ): AuthoringNode[] {
   if (!nodeId) {
-    throw new Error("nodeId must be non-empty");
+    throw new AuthoringError("invalid_argument", "nodeId must be non-empty", {
+      path: "nodeId",
+    });
   }
   if (newParentId !== null && newParentId === "") {
-    throw new Error("newParentId must be non-empty");
+    throw new AuthoringError(
+      "invalid_argument",
+      "newParentId must be non-empty",
+      { path: "newParentId" },
+    );
   }
   if (newParentId === nodeId) {
-    throw new Error("cyclic_parent: a node cannot be its own parent");
+    throw new AuthoringError(
+      "cyclic_parent",
+      "cyclic_parent: a node cannot be its own parent",
+      { path: "newParentId" },
+    );
   }
 
   const next = cloneRoots(roots);
   const source = locateNode(next, nodeId);
   if (!source) {
-    throw new Error(`unknown_node: ${nodeId}`);
+    throw new AuthoringError("unknown_node", `unknown_node: ${nodeId}`, {
+      path: "nodeId",
+    });
   }
 
   let destination: AuthoringNode[] = next;
   if (newParentId !== null) {
     const parent = findNode(next, newParentId);
     if (!parent) {
-      throw new Error(`unknown_parent: ${newParentId}`);
+      throw new AuthoringError(
+        "unknown_parent",
+        `unknown_parent: ${newParentId}`,
+        { path: "newParentId" },
+      );
     }
     if (subtreeContainsId(source.siblings[source.index]!, newParentId)) {
-      throw new Error(
+      throw new AuthoringError(
+        "cyclic_parent",
         "cyclic_parent: cannot reparent a node under its own descendant",
+        { path: "newParentId" },
       );
     }
     if (!parent.children) {
@@ -153,7 +172,9 @@ export function reparentNode(
       options.siblingIndex < 0 ||
       options.siblingIndex > destination.length
     ) {
-      throw new RangeError("siblingIndex out of range");
+      throw new AuthoringError("range_error", "siblingIndex out of range", {
+        path: "siblingIndex",
+      });
     }
     insertAt = options.siblingIndex;
   }
@@ -171,7 +192,9 @@ export function reparentNode(
 
   const [moved] = source.siblings.splice(source.index, 1);
   if (!moved) {
-    throw new Error(`unknown_node: ${nodeId}`);
+    throw new AuthoringError("unknown_node", `unknown_node: ${nodeId}`, {
+      path: "nodeId",
+    });
   }
   if (insertAt > destination.length) {
     insertAt = destination.length;

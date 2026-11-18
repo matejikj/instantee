@@ -14,7 +14,7 @@
     "contracts:generate": "node tools/contracts/generate_types.mjs",
     "contracts:check": "node tools/contracts/check_contracts.mjs",
     "contracts:test": "node tools/contracts/test_contracts.mjs",
-    "test:authoring": "npm run build:authoring && node tools/contracts/test_authoring_sdk.mjs"
+    "test:authoring": "npm run build:authoring && node tools/contracts/test_authoring_sdk.mjs && node tools/contracts/check_authoring_public_api.mjs && node authoring/examples/three-styles/main.mjs"
   },
   "devDependencies": {
     "ajv": "8.17.1",

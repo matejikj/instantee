@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T21:32:00Z",
+  "updated_at_utc": "2026-11-18T23:48:46Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6614,14 +6614,43 @@
       "notes": "Live SAS\u00a72 coverage matrix: 35 requirements mapped, 9 release gates tracked; validator tools/dev/requirements_coverage.py."
     },
     "P8-002": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A verified project example exists for all 3 styles without internal imports.",
-        "met": null
+        "criterion": "Existuje ov\u011b\u0159en\u00fd p\u0159\u00edklad projektu pro v\u0161echny 3 styly bez intern\u00edch import\u016f.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "three-styles example builds editorial, scientific-notebook, and paper-cinema via public entry only",
+            "met": true,
+            "evidence": "authoring/examples/three-styles/main.mjs"
+          },
+          {
+            "criterion": "runtime public export snapshot locked at 1.0.0",
+            "met": true,
+            "evidence": "contracts/fixtures/authoring/public-api-v1.snapshot.json"
+          },
+          {
+            "criterion": "check.py change-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P8-002/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-002/",
+        "contracts/fixtures/authoring/public-api-v1.snapshot.json",
+        "authoring/examples/three-styles/main.mjs"
+      ],
+      "checks": [
+        "implementation-evidence/P8-002/checks.json"
+      ],
+      "blockers": [],
+      "verification": "TS public API snapshot",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T23:48:46Z",
+      "notes": "Frozen @instantee/authoring 1.0.0: namespaced film/direction/sceneGraph/time/styles/api, AuthoringError, deprecation policy, public-api snapshot, three-styles example."
     },
     "P8-003": {
       "status": "todo",

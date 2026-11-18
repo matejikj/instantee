@@ -1,4 +1,6 @@
 import type {AuthoringManifestV1, AuthoringNode} from "./generated/index.js";
+import {AuthoringError} from "./errors.js";
+import {STYLE_PACKAGES} from "./policy.js";
 import {durationSecondsToFrames, type FrameRate} from "./time.js";
 
 export const INTENT_TYPES = [
@@ -60,15 +62,27 @@ export function createIntent(
   } = {},
 ): SemanticIntentInput {
   if (!(INTENT_TYPES as readonly string[]).includes(type)) {
-    throw new Error(`unsupported intent type: ${type}`);
+    throw new AuthoringError(
+      "unsupported_intent",
+      `unsupported intent type: ${type}`,
+      {path: "intent.type"},
+    );
   }
   if (!Number.isFinite(intensity) || intensity < 0 || intensity > 1) {
-    throw new RangeError("intent intensity must be a finite number in [0, 1]");
+    throw new AuthoringError(
+      "range_error",
+      "intent intensity must be a finite number in [0, 1]",
+      {path: "intent.intensity"},
+    );
   }
   if (options.importance !== undefined &&
       (!Number.isFinite(options.importance) || options.importance < 0 ||
        options.importance > 1)) {
-    throw new RangeError("intent importance must be in [0, 1]");
+    throw new AuthoringError(
+      "range_error",
+      "intent importance must be in [0, 1]",
+      {path: "intent.importance"},
+    );
   }
   return Object.freeze({
     type,
@@ -114,10 +128,16 @@ function buildNode(input: TextNodeInput): AuthoringNode {
  */
 export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
   if (!input.filmId) {
-    throw new Error("filmId is required");
+    throw new AuthoringError("invalid_argument", "filmId is required", {
+      path : "filmId",
+    });
   }
   if (!input.shots.length) {
-    throw new Error("at least one shot is required");
+    throw new AuthoringError(
+      "invalid_argument",
+      "at least one shot is required",
+      {path : "shots"},
+    );
   }
 
   const frameRate = input.frameRate ?? {numerator : 30, denominator : 1};
@@ -125,19 +145,29 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
     let durationFrames = shot.durationFrames;
     if (durationFrames === undefined) {
       if (shot.durationSeconds === undefined) {
-        throw new Error(
-            `shot ${shot.id} needs durationFrames or durationSeconds`);
+        throw new AuthoringError(
+          "invalid_argument",
+          `shot ${shot.id} needs durationFrames or durationSeconds`,
+          {path : `shots.${shot.id}.duration`},
+        );
       }
       const converted =
           durationSecondsToFrames(shot.durationSeconds, frameRate);
       durationFrames = converted.frame;
       if (durationFrames < 1) {
-        throw new RangeError(`shot ${shot.id} duration rounds to zero frames`);
+        throw new AuthoringError(
+          "range_error",
+          `shot ${shot.id} duration rounds to zero frames`,
+          {path : `shots.${shot.id}.durationSeconds`},
+        );
       }
     }
     if (!Number.isInteger(durationFrames) || durationFrames < 1) {
-      throw new RangeError(
-          `shot ${shot.id} durationFrames must be a positive integer`);
+      throw new AuthoringError(
+        "range_error",
+        `shot ${shot.id} durationFrames must be a positive integer`,
+        {path : `shots.${shot.id}.durationFrames`},
+      );
     }
 
     const nodes = shot.nodes.map(buildNode);
@@ -149,7 +179,11 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
     };
     if (shot.styleOverride !== undefined) {
       if (!shot.styleOverride) {
-        throw new Error(`shot ${shot.id} styleOverride must be non-empty`);
+        throw new AuthoringError(
+          "invalid_argument",
+          `shot ${shot.id} styleOverride must be non-empty`,
+          {path : `shots.${shot.id}.styleOverride`},
+        );
       }
       entry.style_override = shot.styleOverride;
     }
@@ -170,7 +204,11 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
 
   const [firstShot, ...restShots] = shots;
   if (firstShot === undefined) {
-    throw new Error("at least one shot is required");
+    throw new AuthoringError(
+      "invalid_argument",
+      "at least one shot is required",
+      {path : "shots"},
+    );
   }
 
   const manifest: AuthoringManifestV1 = {
@@ -186,7 +224,7 @@ export function createFilm(input: FilmInput): Readonly<AuthoringManifestV1> {
       denominator : frameRate.denominator,
     },
     seed : input.seed ?? 42,
-    style : input.style ?? "editorial@1",
+    style : input.style ?? STYLE_PACKAGES.editorial,
     assets : [],
     rigs : [],
     transitions : [],

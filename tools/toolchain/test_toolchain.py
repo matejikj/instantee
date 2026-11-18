@@ -20,7 +20,15 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
-        for name in ("engine", "authoring", "benchmarks", "third_party", "contracts"):
+        # Editorial (and later style) fixtures resolve assets via PROJECT_SOURCE_DIR.
+        for name in (
+            "engine",
+            "authoring",
+            "benchmarks",
+            "third_party",
+            "contracts",
+            "assets",
+        ):
             shutil.copytree(ROOT / name, self.source / name)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)

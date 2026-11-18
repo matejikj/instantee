@@ -5959,14 +5959,41 @@
       "notes": "Skeletal FK in scene-ir: bind offsets from pivots, parent-before-child order, world=parent*local via core transform math; optional hinge clamps."
     },
     "P7-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "IK is deterministic, produces no NaN and has a defined fallback.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Deterministic CCD IK for 2+ segment chains with iteration cap and hinge clamps",
+            "met": true,
+            "evidence": "engine/src/scene-ir/src/puppet_ik.cpp"
+          },
+          {
+            "criterion": "Unreachable targets project onto max reach; poses stay finite; NaN inputs fail closed",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_ik_test.cpp"
+          },
+          {
+            "criterion": "IK property tests + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-011/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-011/checks.json"
+      ],
+      "blockers": [],
+      "verification": "IK property tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T18:10:00Z",
+      "notes": "Deterministic 2D CCD IK in scene-ir: hinge limits, iteration cap, reach-circle fallback for unreachable targets; no NaN."
     },
     "P7-012": {
       "status": "todo",

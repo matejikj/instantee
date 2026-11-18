@@ -8,7 +8,8 @@ add_library(instantee_scene_ir STATIC
   src/canonicalize.cpp
   src/lockfile.cpp
   src/puppet_rig.cpp
-  src/puppet_fk.cpp)
+  src/puppet_fk.cpp
+  src/puppet_ik.cpp)
 add_library(instantee::scene_ir ALIAS instantee_scene_ir)
 target_include_directories(instantee_scene_ir
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

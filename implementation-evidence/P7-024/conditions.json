@@ -1,0 +1,48 @@
+{
+  "cache_policy": {
+    "application_asset_scene_cache": "none_in_preview_export",
+    "cold": "new process; empty application cache by construction",
+    "warm": "uncounted same-workload process, then a new measured process; application cache remains empty; OS/driver caches uncontrolled",
+    "os_filesystem_driver_caches": "uncontrolled; not claimed cold or warm"
+  },
+  "thermal_preconditions": {
+    "before": {
+      "thermal_state": "nominal",
+      "low_power_mode": false,
+      "physical_memory_bytes": 17179869184,
+      "logical_cpu_count": 8,
+      "active_cpu_count": 8
+    },
+    "after": {
+      "thermal_state": "nominal",
+      "low_power_mode": false,
+      "physical_memory_bytes": 17179869184,
+      "logical_cpu_count": 8,
+      "active_cpu_count": 8
+    },
+    "background_load": "uncontrolled development session",
+    "power_source": "not_collected",
+    "per_trial_ending_thermal": "unobserved"
+  },
+  "machine_profile_allowlist": {
+    "model": "MacBookAir10,1",
+    "os_build": "27.2.1",
+    "logical_cpu_count": 8,
+    "gpu_cores": 7,
+    "ram_bytes": 17179869184,
+    "filesystem": "apfs",
+    "power_mode": "normal",
+    "thermal_state_start": "nominal",
+    "thermal_state_end": "unobserved_per_trial"
+  },
+  "build_profile_allowlist_keys": [
+    "binary_sha256",
+    "compiler_flags",
+    "dependency_lock_sha256",
+    "shaders_sha256",
+    "source_diff_sha256",
+    "source_dirty",
+    "source_revision",
+    "toolchain_id"
+  ]
+}

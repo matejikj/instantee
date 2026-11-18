@@ -6484,14 +6484,46 @@
       "notes": "B-03 shot-boundary structural+PNG goldens; poses/depth/materials/transforms/continuity/legibility checklist; signed visual-review record; change-record gate."
     },
     "P7-024": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Every valid certification cold run of 60 s has export wall\u2264360 s; the prelocked p99/memory profile is met and CPU evidence is complete, otherwise the gate FAILS.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every cold trial export_wall_ms \u2264 360000 with complete CPU evidence",
+            "met": true,
+            "evidence": "implementation-evidence/P7-024/baseline.json"
+          },
+          {
+            "criterion": "Pre-locked paper-b03-v1 p99/RSS/CPU thresholds; null thresholds FAIL",
+            "met": true,
+            "evidence": "implementation-evidence/P7-024/measurement-profile.json"
+          },
+          {
+            "criterion": "Series threshold_gate true; run reports certified=false",
+            "met": true,
+            "evidence": "implementation-evidence/P7-024/decision.json"
+          },
+          {
+            "criterion": "check.py release/ASan/PTS-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P7-024/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-024/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-024/checks.json"
+      ],
+      "blockers": [],
+      "verification": "B-03 measured report",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-18T22:35:00Z",
+      "notes": "ADR-0014 paper-b03-v1 locked; shot-local fade-out + transparent-skip; 3+3 series threshold_gate true (cold median wall \u2248106s); certified=false."
     },
     "P7-025": {
       "status": "todo",

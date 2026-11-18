@@ -1,0 +1,23 @@
+{
+  "verification": "B-03 measured report",
+  "tests": [
+    "instantee_b03_paper_demo"
+  ],
+  "fixtures": [
+    "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+    "contracts/fixtures/b03-paper/b03-workload.lock.json"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; release/ASan/UBSan and PTS-included ctest passed. TSan not selected (no queue/thread surface in this change).",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "series": {
+    "cold": 3,
+    "warm": 3,
+    "series_pass": true,
+    "cold_wall_within_360s": true,
+    "threshold_gate": true,
+    "certified": false
+  },
+  "thresholds_source": "ADR-0014/paper-b03-v1"
+}

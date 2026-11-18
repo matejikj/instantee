@@ -1,0 +1,32 @@
+{
+  "decision": "accept_b03_threshold_gate_uncertified_runs",
+  "accepted": true,
+  "threshold_gate": true,
+  "cold_wall_within_360s": true,
+  "certified_performance": false,
+  "thresholds_source": "ADR-0014/paper-b03-v1",
+  "thresholds": {
+    "source_adr": "ADR-0014/paper-b03-v1",
+    "export_wall_ms_max": 360000,
+    "frame_latency_p99_ns_max": 280000000,
+    "rss_peak_bytes_max": 268435456,
+    "cpu_seconds_per_verified_frame_max": 0.18
+  },
+  "optimizations": [
+    "shot-local opacity fade-out for inactive figure/title/prop proxies",
+    "reuse transparent-skip preview path to elide opacity-0 composites",
+    "Metal shadow/skin passes not on CPU preview critical path"
+  ],
+  "series_medians_after_gate": {
+    "cold_export_wall_ms": 105574.568417,
+    "cold_frame_latency_p99_ns": 65040250,
+    "cold_rss_peak_bytes": 119963648,
+    "cold_cpu_seconds_per_verified_frame": 0.059787123888888884
+  },
+  "notes": [
+    "Every cold trial met export_wall_ms \u2264 360000",
+    "Unknown/null thresholds would FAIL",
+    "Run reports stay certified=false per BENCHMARK_PROTOCOL",
+    "Not an M1 Air product certificate; allowlisted machine facts only"
+  ]
+}

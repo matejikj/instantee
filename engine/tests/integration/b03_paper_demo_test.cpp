@@ -13,7 +13,9 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <unistd.h>
 
 namespace {
@@ -123,7 +125,8 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  // Figure opacity should be on during reveal and off after its fade window.
+  // Shot-local proxies must fade out after their window so transparent-skip
+  // drops inactive figure/title overdraw on later shots (CPU preview path).
   {
     using instantee::core::FrameIndex;
     using instantee::runtime::preview_frame_at;
@@ -131,19 +134,32 @@ int main(int argc, char **argv) {
     auto mid = preview_frame_at(scene, *program, FrameIndex{120});
     auto after = preview_frame_at(scene, *program, FrameIndex{400});
     expect(mid.has_value() && after.has_value(), "opacity lifecycle frames");
-    std::optional<std::uint32_t> figure_index;
-    for (std::uint32_t i = 0; i < scene.node_ids().size(); ++i) {
-      if (scene.node_ids()[i] == "figure_torso") {
-        figure_index = i;
-        break;
+
+    auto find_node = [&](std::string_view id) -> std::optional<std::uint32_t> {
+      for (std::uint32_t i = 0; i < scene.node_ids().size(); ++i) {
+        if (scene.node_ids()[i] == id) {
+          return i;
+        }
       }
-    }
+      return std::nullopt;
+    };
+    const auto figure_index = find_node("figure_torso");
+    const auto reveal_title = find_node("rs_title");
+    const auto closeup_title = find_node("oc_title");
     expect(figure_index.has_value(), "figure_torso node");
-    if (figure_index && mid && after) {
+    expect(reveal_title.has_value(), "rs_title node");
+    expect(closeup_title.has_value(), "oc_title node");
+    if (figure_index && reveal_title && closeup_title && mid && after) {
       expect(mid->state.nodes[*figure_index].local.opacity >= 0.99,
              "figure opaque mid reveal");
       expect(after->state.nodes[*figure_index].local.opacity <= 0.01,
              "figure faded after reveal");
+      expect(mid->state.nodes[*reveal_title].local.opacity >= 0.99,
+             "reveal title opaque mid shot");
+      expect(after->state.nodes[*reveal_title].local.opacity <= 0.01,
+             "reveal title faded on closeup");
+      expect(after->state.nodes[*closeup_title].local.opacity >= 0.99,
+             "closeup title opaque after reveal");
     }
   }
 

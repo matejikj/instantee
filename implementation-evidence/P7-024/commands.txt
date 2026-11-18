@@ -1,0 +1,10 @@
+cmake --build --preset release --target instantee_b03_paper_demo_test spike-b03-paper-export
+ctest --preset release -R '^instantee_b03_paper_demo$' --output-on-failure
+python3 tools/benchmark/make_b03_profile.py \
+  ./build/release/spike-b03-paper-export \
+  implementation-evidence/P7-024/measurement-profile.json
+python3 tools/benchmark/b03_baseline.py \
+  ./build/release/spike-b03-paper-export \
+  implementation-evidence/P7-024/runs \
+  --profile implementation-evidence/P7-024/measurement-profile.json
+tools/dev/check.py --asan --pts --report implementation-evidence/P7-024/checks.json

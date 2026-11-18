@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "id": "paper-human-basic",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d",
+    "max_joints": 64,
+    "max_influences_per_vertex": 4
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "spine",
+      "parent_id": "root",
+      "pivot": {
+        "x": 0,
+        "y": -36
+      }
+    },
+    {
+      "id": "head",
+      "parent_id": "spine",
+      "pivot": {
+        "x": 0,
+        "y": -70
+      }
+    },
+    {
+      "id": "arm_l",
+      "parent_id": "spine",
+      "pivot": {
+        "x": -28,
+        "y": -48
+      }
+    },
+    {
+      "id": "arm_r",
+      "parent_id": "spine",
+      "pivot": {
+        "x": 28,
+        "y": -48
+      }
+    }
+  ],
+  "bones": [
+    {
+      "id": "bone_spine",
+      "from_joint_id": "root",
+      "to_joint_id": "spine"
+    },
+    {
+      "id": "bone_head",
+      "from_joint_id": "spine",
+      "to_joint_id": "head"
+    },
+    {
+      "id": "bone_arm_l",
+      "from_joint_id": "spine",
+      "to_joint_id": "arm_l"
+    },
+    {
+      "id": "bone_arm_r",
+      "from_joint_id": "spine",
+      "to_joint_id": "arm_r"
+    }
+  ],
+  "layers": [
+    {
+      "id": "torso_layer",
+      "bind_joint_id": "spine"
+    },
+    {
+      "id": "head_layer",
+      "bind_joint_id": "head"
+    }
+  ],
+  "skin_bindings": [
+    {
+      "layer_id": "torso_layer",
+      "influences": [
+        {
+          "joint_id": "spine",
+          "weight": 0.75
+        },
+        {
+          "joint_id": "root",
+          "weight": 0.25
+        }
+      ]
+    },
+    {
+      "layer_id": "head_layer",
+      "influences": [
+        {
+          "joint_id": "head",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "arm_l_hinge",
+      "type": "hinge_limit",
+      "joint_id": "arm_l",
+      "min_rad": -2.4,
+      "max_rad": 1.2
+    },
+    {
+      "id": "arm_r_hinge",
+      "type": "hinge_limit",
+      "joint_id": "arm_r",
+      "min_rad": -1.2,
+      "max_rad": 2.4
+    }
+  ],
+  "reference_poses": [
+    {
+      "id": "bind",
+      "joints": [
+        {
+          "joint_id": "root",
+          "rotation_z_rad": 0,
+          "translate": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "joint_id": "spine",
+          "rotation_z_rad": 0
+        },
+        {
+          "joint_id": "head",
+          "rotation_z_rad": 0
+        },
+        {
+          "joint_id": "arm_l",
+          "rotation_z_rad": -0.4
+        },
+        {
+          "joint_id": "arm_r",
+          "rotation_z_rad": 0.4
+        }
+      ]
+    }
+  ]
+}

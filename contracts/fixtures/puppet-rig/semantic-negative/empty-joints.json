@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "id": "empty-joints",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": []
+}

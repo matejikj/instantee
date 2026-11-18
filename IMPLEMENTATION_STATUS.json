@@ -5885,14 +5885,41 @@
       "notes": "Paper prop blueprints in render-core: parametric flat-part composition with swappable palette/material slots; instrument/building/cloud factories and snapshot goldens."
     },
     "P7-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The validator rejects an invalid rig without GPU access.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "JSON Schema puppet-rig-v1 rejects unknown fields, unsupported retarget and oversized budgets",
+            "met": true,
+            "evidence": "contracts/schemas/puppet-rig-v1.schema.json"
+          },
+          {
+            "criterion": "CPU semantic validator rejects cyclic/dangling parents, bad skin weights and inverted hinges without GPU",
+            "met": true,
+            "evidence": "engine/src/scene-ir/src/puppet_rig.cpp"
+          },
+          {
+            "criterion": "Fixture suite + unit test + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-009/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-009/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Rig schema validation",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T13:32:03Z",
+      "notes": "Puppet-rig-v1 interchange schema with Ajv fixtures and scene-ir CPU parse/validate for paper_2d_v1; Scene IR rig stubs stay opaque."
     },
     "P7-010": {
       "status": "todo",

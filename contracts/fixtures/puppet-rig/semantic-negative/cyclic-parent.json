@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cyclic-parent",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "a",
+      "parent_id": "b",
+      "pivot": {
+        "x": 1,
+        "y": 0
+      }
+    },
+    {
+      "id": "b",
+      "parent_id": "a",
+      "pivot": {
+        "x": 2,
+        "y": 0
+      }
+    }
+  ]
+}

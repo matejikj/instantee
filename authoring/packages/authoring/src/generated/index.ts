@@ -15,3 +15,6 @@ export type {
 export type {
   InstanteePaperMaterialParamsV1 as PaperMaterialParamsV1,
 } from "./paper-material-params-v1.js";
+export type {
+  InstanteePuppetRigInterchangeV1 as PuppetRigV1,
+} from "./puppet-rig-v1.js";

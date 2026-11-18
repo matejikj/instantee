@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "id": "bad-unknown-field",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "gpu_buffer": "not-allowed"
+}

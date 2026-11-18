@@ -25,6 +25,7 @@ const schemas = [
     file: "paper-material-params-v1.schema.json",
     out: "paper-material-params-v1.ts",
   },
+  { file: "puppet-rig-v1.schema.json", out: "puppet-rig-v1.ts" },
 ];
 
 const banner = `/* eslint-disable */
@@ -76,6 +77,9 @@ export type {
 export type {
   InstanteePaperMaterialParamsV1 as PaperMaterialParamsV1,
 } from "./paper-material-params-v1.js";
+export type {
+  InstanteePuppetRigInterchangeV1 as PuppetRigV1,
+} from "./puppet-rig-v1.js";
 `,
   "utf8",
 );

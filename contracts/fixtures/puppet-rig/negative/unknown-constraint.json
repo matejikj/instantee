@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "id": "bad-constraint",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "elbow",
+      "parent_id": "root",
+      "pivot": {
+        "x": 10,
+        "y": 0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "id": "pole",
+      "type": "ik_pole",
+      "joint_id": "elbow"
+    }
+  ]
+}

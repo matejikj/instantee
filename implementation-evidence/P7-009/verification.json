@@ -1,0 +1,17 @@
+{
+  "verification": "Rig schema validation",
+  "tests": [
+    "spike_scene_ir_puppet_rig",
+    "npm run contracts:check",
+    "npm run contracts:test"
+  ],
+  "fixtures": [
+    "contracts/fixtures/puppet-rig/positive/paper-human-basic.json",
+    "contracts/fixtures/puppet-rig/negative/unsupported-retarget.json",
+    "contracts/fixtures/puppet-rig/semantic-negative/cyclic-parent.json"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

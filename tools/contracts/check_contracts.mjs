@@ -89,6 +89,7 @@ async function checkDrift() {
     "scene-ir-v1.ts",
     "style-bible-v1.ts",
     "paper-material-params-v1.ts",
+    "puppet-rig-v1.ts",
   ]) {
     const schemaName = name.replace(".ts", ".schema.json");
     const expected = await expectedGenerated(schemaName);
@@ -126,10 +127,14 @@ async function checkFixtures() {
       "utf8",
     ),
   );
+  const puppetRigSchema = JSON.parse(
+    await readFile(path.join(schemasDir, "puppet-rig-v1.schema.json"), "utf8"),
+  );
   const validateAuthoring = ajv.compile(authoringSchema);
   const validateScene = ajv.compile(sceneSchema);
   const validateStyleBible = ajv.compile(styleBibleSchema);
   const validatePaperMaterial = ajv.compile(paperMaterialSchema);
+  const validatePuppetRig = ajv.compile(puppetRigSchema);
 
   const suites = [
     {
@@ -160,6 +165,14 @@ async function checkFixtures() {
       positive: path.join(fixturesRoot, "paper-material/positive"),
       negative: path.join(fixturesRoot, "paper-material/negative"),
     },
+    {
+      kind: "puppet-rig",
+      validate: validatePuppetRig,
+      requireSeed: false,
+      positive: path.join(fixturesRoot, "puppet-rig/positive"),
+      negative: path.join(fixturesRoot, "puppet-rig/negative"),
+      semanticNegative: path.join(fixturesRoot, "puppet-rig/semantic-negative"),
+    },
   ];
 
   for (const suite of suites) {
@@ -181,6 +194,16 @@ async function checkFixtures() {
         fail(
           `negative fixture unexpectedly valid (${suite.kind}): ${path.relative(repoRoot, file)}`,
         );
+      }
+    }
+    if (suite.semanticNegative) {
+      for (const file of await listJsonFiles(suite.semanticNegative)) {
+        const doc = JSON.parse(await readFile(file, "utf8"));
+        if (!suite.validate(doc)) {
+          fail(
+            `semantic-negative fixture must remain schema-valid (${suite.kind}): ${path.relative(repoRoot, file)}\n${JSON.stringify(suite.validate.errors, null, 2)}`,
+          );
+        }
       }
     }
   }
@@ -224,7 +247,11 @@ async function checkCleanClonePresence() {
     "contracts/schemas/authoring-v1.schema.json",
     "contracts/schemas/scene-ir-v1.schema.json",
     "contracts/schemas/asset-lockfile-v1.schema.json",
+    "contracts/schemas/puppet-rig-v1.schema.json",
     "contracts/defaults/v1.defaults.json",
+    "contracts/fixtures/puppet-rig/positive/paper-human-basic.json",
+    "contracts/fixtures/puppet-rig/negative/unsupported-retarget.json",
+    "contracts/fixtures/puppet-rig/semantic-negative/cyclic-parent.json",
     "contracts/fixtures/authoring/positive/minimal.authoring.json",
     "contracts/fixtures/authoring/positive/cds-sdk-intents.authoring.json",
     "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",

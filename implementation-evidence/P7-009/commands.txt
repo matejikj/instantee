@@ -1,0 +1,9 @@
+xcrun clang-format -i \
+  engine/src/scene-ir/include/instantee/scene_ir/puppet_rig.hpp \
+  engine/src/scene-ir/src/puppet_rig.cpp \
+  engine/tests/unit/scene-ir/puppet_rig_test.cpp
+npm run contracts:generate
+npm run contracts:check
+cmake --build --preset release --target spike_scene_ir_puppet_rig_test
+ctest --preset release -R spike_scene_ir_puppet_rig --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-009/checks.json

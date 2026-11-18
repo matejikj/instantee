@@ -1,0 +1,312 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://instantee.dev/contracts/schemas/puppet-rig-v1.schema.json",
+  "title": "Instantee Puppet Rig Interchange v1",
+  "description": "2D paper puppet skeletal interchange for Paper Cinema. Scene IR keeps opaque rig stubs (id/format_version/payload_ref); this schema defines the versioned payload. Supported retarget profile is only paper_2d_v1. Collection budgets (joints≤64, bones≤128, layers/skin≤32, influences≤4, constraints≤64, poses≤16) and graph/skin semantics are enforced by the CPU validator so generated TypeScript stays compact. No GPU handles.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "retarget",
+    "joints"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[^/\\\\]{1,128}$"
+    },
+    "retarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "space"
+      ],
+      "properties": {
+        "profile": {
+          "const": "paper_2d_v1",
+          "description": "Only the curated 2D paper retarget subset is supported in v1."
+        },
+        "space": {
+          "const": "2d"
+        },
+        "max_joints": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64,
+          "default": 64
+        },
+        "max_influences_per_vertex": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 4
+        }
+      }
+    },
+    "joints": {
+      "type": "array",
+      "description": "Joint hierarchy. Must be non-empty and ≤64; single-root DAG semantics are CPU-enforced.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "pivot"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "parent_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "pivot": {
+            "$ref": "#/$defs/vec2"
+          }
+        }
+      }
+    },
+    "bones": {
+      "type": "array",
+      "default": [],
+      "description": "Optional bones (≤128). Endpoints must name distinct joints.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "from_joint_id",
+          "to_joint_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "from_joint_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "to_joint_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          }
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "default": [],
+      "description": "Paper layers bound to joints (≤32).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "bind_joint_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "bind_joint_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          }
+        }
+      }
+    },
+    "skin_bindings": {
+      "type": "array",
+      "default": [],
+      "description": "Per-layer skin influences (≤32 bindings, ≤4 influences, weights sum to 1).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "layer_id",
+          "influences"
+        ],
+        "properties": {
+          "layer_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "influences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "joint_id",
+                "weight"
+              ],
+              "properties": {
+                "joint_id": {
+                  "type": "string",
+                  "pattern": "^[^/\\\\]{1,128}$"
+                },
+                "weight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "default": [],
+      "description": "Supported constraint types are parent and hinge_limit only (≤64).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "joint_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "parent",
+              "hinge_limit"
+            ]
+          },
+          "joint_id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "min_rad": {
+            "type": "number"
+          },
+          "max_rad": {
+            "type": "number"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "hinge_limit"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "properties": {
+                "min_rad": {
+                  "type": "number"
+                },
+                "max_rad": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "min_rad",
+                "max_rad"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "parent"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "properties": {
+                "min_rad": false,
+                "max_rad": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    "reference_poses": {
+      "type": "array",
+      "default": [],
+      "description": "Named reference poses (≤16). Pose joint lists must be non-empty.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "joints"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[^/\\\\]{1,128}$"
+          },
+          "joints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "joint_id",
+                "rotation_z_rad"
+              ],
+              "properties": {
+                "joint_id": {
+                  "type": "string",
+                  "pattern": "^[^/\\\\]{1,128}$"
+                },
+                "rotation_z_rad": {
+                  "type": "number"
+                },
+                "translate": {
+                  "$ref": "#/$defs/vec2"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "vec2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "skin-weight-sum",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "spine",
+      "parent_id": "root",
+      "pivot": {
+        "x": 0,
+        "y": -10
+      }
+    }
+  ],
+  "layers": [
+    {
+      "id": "torso",
+      "bind_joint_id": "spine"
+    }
+  ],
+  "skin_bindings": [
+    {
+      "layer_id": "torso",
+      "influences": [
+        {
+          "joint_id": "spine",
+          "weight": 0.5
+        },
+        {
+          "joint_id": "root",
+          "weight": 0.3
+        }
+      ]
+    }
+  ]
+}

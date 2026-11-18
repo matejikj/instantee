@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "id": "dangling-parent",
+  "retarget": {
+    "profile": "paper_2d_v1",
+    "space": "2d"
+  },
+  "joints": [
+    {
+      "id": "root",
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "child",
+      "parent_id": "missing",
+      "pivot": {
+        "x": 1,
+        "y": 0
+      }
+    }
+  ]
+}

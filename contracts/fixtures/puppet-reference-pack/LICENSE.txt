@@ -1,0 +1,12 @@
+SPDX-License-Identifier: CC0-1.0
+
+Historical Paper Figure — Instantee reference puppet pack.
+
+To the extent possible under law, the authors have waived all copyright and
+related or neighboring rights to this reference fixture pack (rig topology,
+expression/gesture clips, and pose goldens). You may copy, modify, and
+distribute the material without attribution.
+
+This dedication covers only the curated reference fixtures in this directory.
+It does not alter licenses of third-party dependencies, fonts, or other
+repository assets.

@@ -1,0 +1,15 @@
+{
+  "verification": "Reference puppet pack",
+  "tests": [
+    "spike_scene_ir_puppet_reference_pack"
+  ],
+  "fixtures": [
+    "contracts/fixtures/puppet-reference-pack/LICENSE.txt",
+    "contracts/fixtures/puppet-reference-pack/manifest.txt",
+    "contracts/fixtures/puppet-reference-pack/goldens/"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

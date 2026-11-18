@@ -1,0 +1,12 @@
+puppet_reference_pose smile
+asset=historical-paper-figure-v1 epoch=victorian pose=smile kind=expression joints=6
+j root x=0.000000 y=0.000000 rz=0.000000
+j spine x=0.000000 y=-36.000000 rz=0.000000
+j head x=0.000000 y=-70.000000 rz=0.000000
+j shoulder_r x=28.000000 y=-48.000000 rz=0.000000
+j elbow_r x=58.000000 y=-48.000000 rz=0.000000
+j hand_r x=88.000000 y=-48.000000 rz=0.000000
+p eye_l sx=1.000000 sy=0.972000 o=0.972000
+p eye_r sx=1.000000 sy=0.972000 o=0.972000
+p mouth sx=1.000000 sy=1.262500 o=1.000000
+p head sx=1.000000 sy=1.000000 o=1.000000

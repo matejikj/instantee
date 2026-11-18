@@ -1,0 +1,8 @@
+puppet_reference_pose nod
+asset=historical-paper-figure-v1 epoch=victorian pose=nod kind=gesture joints=6
+j root x=0.000000 y=0.000000 rz=0.000000
+j spine x=0.000000 y=-36.000000 rz=0.000000
+j head x=0.000000 y=-70.000000 rz=0.250000
+j shoulder_r x=28.000000 y=-48.000000 rz=0.000000
+j elbow_r x=58.000000 y=-48.000000 rz=0.000000
+j hand_r x=88.000000 y=-48.000000 rz=0.000000

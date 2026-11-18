@@ -1,0 +1,8 @@
+puppet_reference_pack
+asset_id=historical-paper-figure-v1
+display_name=Historical Paper Figure
+epoch_id=victorian
+license_spdx=CC0-1.0
+rig_id=historical-paper-figure joints=6 layers=7
+expressions=neutral,smile,surprise
+gestures=raise-hand,point,grasp,look-at,nod

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:26:00Z",
+  "updated_at_utc": "2026-11-18T19:37:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6336,14 +6336,45 @@
       "notes": "Seeded procedural background kit with bounded assets over depth-stage planes; ASan/UBSan passed."
     },
     "P7-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "One asset passes rig validation and has goldens for different poses.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Historical paper figure pack validates rig, license, three expressions, and curated gestures",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/puppet_reference_pack.hpp"
+          },
+          {
+            "criterion": "Pose goldens cover bind, raise-hand, nod, smile, and surprise",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-reference-pack/goldens/"
+          },
+          {
+            "criterion": "CC0 license sidecar present for the reference fixture pack",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-reference-pack/LICENSE.txt"
+          },
+          {
+            "criterion": "Reference puppet pack tests + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-020/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-020/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-020/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Reference puppet pack",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Licensed historical paper figure pack with validated rig, three expressions, curated gestures, and pose goldens; ASan/UBSan passed."
     },
     "P7-021": {
       "status": "todo",

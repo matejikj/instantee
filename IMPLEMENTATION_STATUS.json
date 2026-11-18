@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T02:31:17Z",
+  "updated_at_utc": "2026-11-18T02:42:06Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5137,14 +5137,24 @@
       "notes": "Editorial phase gate PASS: framework-native B-01 reel, goldens/linters, multi-seed, reference-series ≤360s, full --gate matrix."
     },
     "P6-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The Notebook style has explicit visual and motion tokens and can be versioned.",
-        "met": null
+        "criterion": "Notebook styl má explicitní vizuální a motion tokeny a lze jej verzovat.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-001/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-001/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Notebook style review",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T02:42:06Z",
+      "notes": "Notebook Style Bible finalized with cream/ink_blue/yellow/lavender tokens, learning-tempo motion, five layout fixtures, and registry versionability."
     },
     "P6-002": {
       "status": "todo",

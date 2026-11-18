@@ -1,0 +1,55 @@
+{
+  "schema_version": "notebook-layout/1",
+  "id": "summary",
+  "description": "Lesson summary with lavender sticky reminder and ink-blue takeaways.",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "summary_title",
+      "role": "subhead",
+      "bounds": { "x_px": 72, "y_px": 200, "width_px": 700, "height_px": 64 },
+      "importance": 0.88,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 40,
+      "text": { "width_px": 660, "height_px": 52, "ascent_px": 40, "descent_px": 12 },
+      "max_width_px": 700
+    },
+    {
+      "id": "takeaways",
+      "role": "body",
+      "bounds": { "x_px": 72, "y_px": 300, "width_px": 720, "height_px": 360 },
+      "importance": 0.9,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 28,
+      "text": { "width_px": 680, "height_px": 300, "ascent_px": 230, "descent_px": 70 },
+      "max_width_px": 720
+    },
+    {
+      "id": "reminder_panel",
+      "role": "deco",
+      "bounds": { "x_px": 812, "y_px": 272, "width_px": 216, "height_px": 236 },
+      "importance": 0.35,
+      "keep_visible": false,
+      "foreground_token": "lavender",
+      "background_token": "cream"
+    },
+    {
+      "id": "reminder",
+      "role": "note",
+      "bounds": { "x_px": 828, "y_px": 288, "width_px": 184, "height_px": 204 },
+      "importance": 0.7,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 24,
+      "text": { "width_px": 160, "height_px": 160, "ascent_px": 120, "descent_px": 40 },
+      "max_width_px": 180
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "notebook-layout/1",
+  "id": "problem-statement",
+  "description": "Learning problem title with cream page, ink-blue body, and lavender margin rule.",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "title",
+      "role": "headline",
+      "bounds": { "x_px": 72, "y_px": 160, "width_px": 936, "height_px": 120 },
+      "importance": 0.96,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 52,
+      "text": { "width_px": 900, "height_px": 96, "ascent_px": 76, "descent_px": 20 },
+      "max_width_px": 936
+    },
+    {
+      "id": "margin_rule",
+      "role": "deco",
+      "bounds": { "x_px": 56, "y_px": 140, "width_px": 8, "height_px": 1600 },
+      "importance": 0.2,
+      "keep_visible": false,
+      "foreground_token": "lavender",
+      "background_token": "cream"
+    },
+    {
+      "id": "prompt",
+      "role": "body",
+      "bounds": { "x_px": 88, "y_px": 320, "width_px": 900, "height_px": 220 },
+      "importance": 0.85,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 30,
+      "text": { "width_px": 860, "height_px": 180, "ascent_px": 140, "descent_px": 40 },
+      "max_width_px": 900
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

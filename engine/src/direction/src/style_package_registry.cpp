@@ -264,9 +264,11 @@ StylePackageRegistry make_builtin_style_package_registry() {
       .minimum_engine_version = "0.1.0",
       .required_capabilities = {"path_geometry", "text", "camera", "tracks",
                                 "export", "typography", "time"},
-      .registered_components = {"ink_stroke", "math_layout", "diagram_note"},
-      .shader_features = {"ink-stroke", "grid-paper"},
-      .material_presets = {"pen_ink", "notebook_grid"},
+      .registered_components = {"ink_stroke", "math_layout", "diagram_note",
+                                "sticky_note", "highlighter"},
+      .shader_features = {"ink-stroke", "grid-paper", "solid-fill"},
+      .material_presets = {"pen_ink", "notebook_grid", "highlighter",
+                           "sticky_note"},
   };
 
   (void)registry.register_package(std::move(editorial));

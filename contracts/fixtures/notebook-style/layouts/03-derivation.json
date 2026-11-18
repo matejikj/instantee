@@ -1,0 +1,46 @@
+{
+  "schema_version": "notebook-layout/1",
+  "id": "derivation",
+  "description": "Stepwise derivation with equation mono and caption annotation.",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "step_label",
+      "role": "subhead",
+      "bounds": { "x_px": 88, "y_px": 200, "width_px": 400, "height_px": 56 },
+      "importance": 0.75,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 34,
+      "text": { "width_px": 360, "height_px": 44, "ascent_px": 34, "descent_px": 10 },
+      "max_width_px": 400
+    },
+    {
+      "id": "equation",
+      "role": "mono",
+      "bounds": { "x_px": 88, "y_px": 280, "width_px": 880, "height_px": 96 },
+      "importance": 0.95,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 36,
+      "text": { "width_px": 820, "height_px": 72, "ascent_px": 56, "descent_px": 16 },
+      "max_width_px": 880
+    },
+    {
+      "id": "annotation",
+      "role": "caption",
+      "bounds": { "x_px": 88, "y_px": 400, "width_px": 720, "height_px": 80 },
+      "importance": 0.65,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 24,
+      "text": { "width_px": 680, "height_px": 60, "ascent_px": 46, "descent_px": 14 },
+      "max_width_px": 720
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

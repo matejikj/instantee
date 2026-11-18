@@ -1,5 +1,6 @@
 #include <instantee/direction/style_package_registry.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -37,6 +38,18 @@ int main() {
   expect(ok.has_value(), "editorial ready before render");
   if (ok) {
     expect(ok->shader_features.size() >= 1, "editorial declares features");
+  }
+
+  auto notebook_ok =
+      registry.check_before_render("scientific-notebook", "1.0.0", engine);
+  expect(notebook_ok.has_value(), "notebook ready before render");
+  if (notebook_ok) {
+    expect(notebook_ok->material_presets.size() >= 4,
+           "notebook materials include sticky/highlighter");
+    expect(std::find(notebook_ok->registered_components.begin(),
+                     notebook_ok->registered_components.end(),
+                     "sticky_note") != notebook_ok->registered_components.end(),
+           "notebook registers sticky_note");
   }
 
   auto unknown =

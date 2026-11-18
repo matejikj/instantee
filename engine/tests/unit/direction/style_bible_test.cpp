@@ -62,9 +62,15 @@ int main(int argc, char **argv) {
   expect(a->colors().count("accent") == 1, "editorial accent color");
   expect(b->colors().count("pulp") == 1, "paper pulp color");
   expect(c->colors().count("grid") == 1, "notebook grid color");
+  expect(c->colors().count("cream") == 1, "notebook cream color");
+  expect(c->colors().count("ink_blue") == 1, "notebook ink_blue color");
+  expect(c->colors().count("yellow") == 1, "notebook yellow color");
+  expect(c->colors().count("lavender") == 1, "notebook lavender color");
   expect(a->materials().count("halftone_panel") == 1, "editorial material");
   expect(b->materials().count("paper_sheet") == 1, "paper material");
   expect(c->materials().count("pen_ink") == 1, "notebook material");
+  expect(c->materials().count("highlighter") == 1, "notebook highlighter");
+  expect(c->materials().count("sticky_note") == 1, "notebook sticky_note");
   expect(a->safe_area().mode == SafeAreaMode::reels_overlay, "editorial safe");
   expect(b->safe_area().mode == SafeAreaMode::reels_clear, "paper safe");
   expect(c->safe_area().mode == SafeAreaMode::full_frame, "notebook safe");
@@ -76,6 +82,11 @@ int main(int argc, char **argv) {
   expect(c->motion().at("ink_reveal").ease ==
              instantee::direction::MotionEase::linear,
          "notebook motion");
+  expect(c->motion().at("ink_reveal").duration_frames == 36,
+         "notebook learning tempo");
+  expect(c->version() == "1.0.0", "notebook package version");
+  expect(c->fonts().at("equation").role == instantee::direction::FontRole::mono,
+         "notebook equation role");
 
   // Style Bible skeletons validate without requiring any core-model change:
   // colors use existing LinearRgba values. Editorial completes black / dirty
@@ -89,6 +100,7 @@ int main(int argc, char **argv) {
              a->colors().at("accent").value.b == 0.0,
          "editorial accent is acid green");
   expect(a->fonts().size() == 5, "editorial type scale size");
+  expect(c->fonts().size() == 5, "notebook type scale size");
 
   auto unsupported = load_style_bible_file(bad_schema);
   expect(!unsupported.has_value(), "reject unsupported schema");

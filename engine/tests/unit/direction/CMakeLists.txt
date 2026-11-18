@@ -169,6 +169,16 @@ add_test(NAME spike_direction_editorial_style_review
 set_tests_properties(spike_direction_editorial_style_review PROPERTIES
   TIMEOUT 30 LABELS "cpu;smoke")
 
+add_executable(spike_direction_notebook_style_review_test
+  notebook_style_review_test.cpp)
+target_link_libraries(spike_direction_notebook_style_review_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_notebook_style_review
+  COMMAND spike_direction_notebook_style_review_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_direction_notebook_style_review PROPERTIES
+  TIMEOUT 30 LABELS "cpu;smoke")
+
+
 add_executable(spike_direction_headline_reveal_test headline_reveal_test.cpp)
 target_link_libraries(spike_direction_headline_reveal_test PRIVATE
   instantee::direction instantee::typography instantee_build_options)

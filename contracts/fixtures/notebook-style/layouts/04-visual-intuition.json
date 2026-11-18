@@ -1,0 +1,40 @@
+{
+  "schema_version": "notebook-layout/1",
+  "id": "visual-intuition",
+  "description": "Visual intuition panel with cream page and yellow callout bar.",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "insight",
+      "role": "headline",
+      "bounds": { "x_px": 72, "y_px": 240, "width_px": 936, "height_px": 100 },
+      "importance": 0.92,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 48,
+      "text": { "width_px": 880, "height_px": 80, "ascent_px": 62, "descent_px": 18 },
+      "max_width_px": 936
+    },
+    {
+      "id": "sketch",
+      "role": "figure",
+      "bounds": { "x_px": 120, "y_px": 400, "width_px": 840, "height_px": 640 },
+      "importance": 0.9,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream"
+    },
+    {
+      "id": "callout_bar",
+      "role": "deco",
+      "bounds": { "x_px": 120, "y_px": 1080, "width_px": 240, "height_px": 16 },
+      "importance": 0.3,
+      "keep_visible": false,
+      "foreground_token": "yellow",
+      "background_token": "cream"
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

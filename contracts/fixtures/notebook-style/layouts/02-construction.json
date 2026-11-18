@@ -1,0 +1,49 @@
+{
+  "schema_version": "notebook-layout/1",
+  "id": "construction",
+  "description": "Diagram construction with sticky callout and yellow highlight strip.",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "canvas": { "width_px": 1080, "height_px": 1920 },
+  "elements": [
+    {
+      "id": "diagram",
+      "role": "figure",
+      "bounds": { "x_px": 96, "y_px": 280, "width_px": 640, "height_px": 720 },
+      "importance": 0.94,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream"
+    },
+    {
+      "id": "sticky_panel",
+      "role": "deco",
+      "bounds": { "x_px": 772, "y_px": 312, "width_px": 236, "height_px": 196 },
+      "importance": 0.35,
+      "keep_visible": false,
+      "foreground_token": "lavender",
+      "background_token": "cream"
+    },
+    {
+      "id": "sticky",
+      "role": "note",
+      "bounds": { "x_px": 788, "y_px": 328, "width_px": 204, "height_px": 164 },
+      "importance": 0.7,
+      "keep_visible": true,
+      "foreground_token": "ink_blue",
+      "background_token": "cream",
+      "font_size_px": 24,
+      "text": { "width_px": 180, "height_px": 120, "ascent_px": 90, "descent_px": 30 },
+      "max_width_px": 200
+    },
+    {
+      "id": "highlight",
+      "role": "deco",
+      "bounds": { "x_px": 96, "y_px": 1040, "width_px": 640, "height_px": 28 },
+      "importance": 0.35,
+      "keep_visible": false,
+      "foreground_token": "yellow",
+      "background_token": "cream"
+    }
+  ],
+  "expect": { "layout_errors": 0, "typography_errors": 0 }
+}

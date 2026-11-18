@@ -3,7 +3,8 @@ add_library(instantee_math STATIC
   src/ast.cpp
   src/parse.cpp
   src/layout.cpp
-  src/semantic.cpp)
+  src/semantic.cpp
+  src/morph.cpp)
 add_library(instantee::math ALIAS instantee_math)
 target_include_directories(instantee_math
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

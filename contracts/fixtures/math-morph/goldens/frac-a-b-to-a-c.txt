@@ -1,0 +1,23 @@
+morph frac-a-b-to-a-c
+pairs 9
+  persist m from=m to=m
+  persist m/0/frac from=m/0/frac to=m/0/frac
+  persist m/0/frac/den from=m/0/frac/den to=m/0/frac/den
+  persist m/0/frac/den/row from=m/0/frac/den/row to=m/0/frac/den/row
+  enter m/0/frac/den/row/0/atom#enter:m/0/frac/den/row/0/atom:c from=- to=m/0/frac/den/row/0/atom:c
+  exit m/0/frac/den/row/0/atom#exit:m/0/frac/den/row/0/atom:b from=m/0/frac/den/row/0/atom:b to=-
+  persist m/0/frac/num from=m/0/frac/num to=m/0/frac/num
+  persist m/0/frac/num/row from=m/0/frac/num/row to=m/0/frac/num/row
+  persist m/0/frac/num/row/0/atom from=m/0/frac/num/row/0/atom:a to=m/0/frac/num/row/0/atom:a
+t=0
+  enter m/0/frac/den/row/0/atom#enter:m/0/frac/den/row/0/atom:c glyph=c x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=0.000
+  exit m/0/frac/den/row/0/atom#exit:m/0/frac/den/row/0/atom:b glyph=b x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=1.000
+  persist m/0/frac/num/row/0/atom glyph=a x=1.000 y=6.250 w=5.000 h=8.000 d=2.000 op=1.000
+t=0.5
+  enter m/0/frac/den/row/0/atom#enter:m/0/frac/den/row/0/atom:c glyph=c x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=0.500
+  exit m/0/frac/den/row/0/atom#exit:m/0/frac/den/row/0/atom:b glyph=b x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=0.500
+  persist m/0/frac/num/row/0/atom glyph=a x=1.000 y=6.250 w=5.000 h=8.000 d=2.000 op=1.000
+t=1
+  enter m/0/frac/den/row/0/atom#enter:m/0/frac/den/row/0/atom:c glyph=c x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=1.000
+  exit m/0/frac/den/row/0/atom#exit:m/0/frac/den/row/0/atom:b glyph=b x=1.000 y=-7.250 w=5.000 h=8.000 d=2.000 op=0.000
+  persist m/0/frac/num/row/0/atom glyph=a x=1.000 y=6.250 w=5.000 h=8.000 d=2.000 op=1.000

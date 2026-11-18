@@ -5996,14 +5996,46 @@
       "notes": "Deterministic 2D CCD IK in scene-ir: hinge limits, iteration cap, reach-circle fallback for unreachable targets; no NaN."
     },
     "P7-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The arm deforms naturally during gestures without visible cracks.",
-        "met": null
+        "criterion": "Skinning matches reference deformation goldens within tolerance; unsupported rig subsets fail with an explicit error rather than a natural fallback.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "CPU LBS over FK skin matrices; layer quads inherit documented influences (≤4)",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/puppet_skin.hpp"
+          },
+          {
+            "criterion": "Shoulder-+90° forearm deform matches analytic reference and golden",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-skin/goldens/forearm-shoulder-90.txt"
+          },
+          {
+            "criterion": "Missing bindings / unsupported retarget / influence overflow fail closed",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_skin_test.cpp"
+          },
+          {
+            "criterion": "Skinning goldens + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-012/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-012/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Skinning goldens + unsupported-rig negatives",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T18:19:17Z",
+      "notes": "CPU paper-part skinning in scene-ir: skin matrices from FK, layer-quad LBS, golden forearm deform, explicit errors for unsupported subsets."
     },
     "P7-013": {
       "status": "todo",

@@ -1,0 +1,8 @@
+xcrun clang-format -i \
+  engine/src/scene-ir/include/instantee/scene_ir/puppet_skin.hpp \
+  engine/src/scene-ir/src/puppet_skin.cpp \
+  engine/tests/unit/scene-ir/puppet_skin_test.cpp
+cmake --build --preset release --target spike_scene_ir_puppet_skin_test
+ctest --preset release -R spike_scene_ir_puppet_skin --output-on-failure
+python3 tools/dev/check_module_boundaries.py
+tools/dev/check.py --report implementation-evidence/P7-012/checks.json

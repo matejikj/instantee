@@ -1,0 +1,13 @@
+{
+  "verification": "Skinning goldens + unsupported-rig negatives",
+  "tests": [
+    "spike_scene_ir_puppet_skin"
+  ],
+  "goldens": [
+    "contracts/fixtures/puppet-skin/goldens/forearm-shoulder-90.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

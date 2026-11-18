@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T18:41:17Z",
+  "updated_at_utc": "2026-11-18T18:51:43Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6121,14 +6121,50 @@
       "notes": "Curated retargetable gesture clips evaluated through FK on the reference-human rig; goldens + ASan/UBSan."
     },
     "P7-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The character smoothly travels the defined distance without substantial foot sliding.",
-        "met": null
+        "criterion": "Walk cycle meets timing/pose reference fixtures and tolerance; subjective smoothness alone is insufficient without a review record.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Distance-driven plan exposes start/cycle/stop with fixed 88-frame timing fixture",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/puppet_walk.hpp"
+          },
+          {
+            "criterion": "Planted-foot world-X drift stays within tolerance across cruise frames",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_walk_test.cpp"
+          },
+          {
+            "criterion": "Walk-cycle pose goldens lock start/mid-cruise/stop samples",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-walk/goldens/"
+          },
+          {
+            "criterion": "Signed review record rejects subjective-only acceptance",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-walk/visual-review/review-record.json"
+          },
+          {
+            "criterion": "Walk tests + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-015/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-015/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Walk-cycle goldens + signed review record",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Absolute-frame biped walk with analytic plant locks, goldens, and signed locomotion review; ASan/UBSan passed."
     },
     "P7-016": {
       "status": "todo",

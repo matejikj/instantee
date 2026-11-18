@@ -1,0 +1,10 @@
+puppet_walk cycle-f40
+phase=cycle frame=40.0000 cycle_t=0.6111 root_x=77.3333 slide=0.0000
+plant foot_r x=72.000000
+j root x=82.771699 y=0.000000 rz=0.000000
+j hip_l x=76.771699 y=18.000000 rz=-0.289254
+j hip_r x=88.771699 y=18.000000 rz=0.289254
+j knee_l x=84.187879 y=42.919877 rz=0.750569
+j knee_r x=81.355519 y=42.919877 rz=0.051423
+j foot_l x=75.654921 y=60.085803 rz=0.101239
+j foot_r x=72.000000 y=69.310676 rz=-0.101239

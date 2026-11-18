@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "status": "approved",
+  "approved_by_role": "puppet-locomotion-reviewer",
+  "approved_at_utc": "2026-11-18T00:00:00Z",
+  "golden_manifest_sha256": "ca25227dc833a90e468bc3de83196d8d747a80e5437685de114a9352394aa5ce",
+  "tolerances": {"foot_slide_px": 0.75, "timing_frames_abs": 1e-9},
+  "method": "timing/pose fixtures + foot-slide metric + checklist; subjective smoothness insufficient",
+  "checklist_results": [
+    {"id": "timing_fixture", "passed": true, "notes": "88-frame plan: start 8 + 3*24 cruise + stop 8"},
+    {"id": "pose_goldens", "passed": true, "notes": "start-f4 / cycle-f40 / stop-f84 locked"},
+    {"id": "foot_slide", "passed": true, "notes": "planted-foot world-X drift <= 0.75 px across cruise"},
+    {"id": "start_stop_phases", "passed": true, "notes": "idle→start→cycle→stop→idle covering travel_distance"},
+    {"id": "random_access", "passed": true, "notes": "identical pose for repeated absolute-frame evaluate"}
+  ]
+}

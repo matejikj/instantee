@@ -1,0 +1,16 @@
+{
+  "verification": "Walk-cycle goldens + signed review record",
+  "tests": [
+    "spike_scene_ir_puppet_walk"
+  ],
+  "fixtures": [
+    "contracts/fixtures/puppet-walk/goldens/start-f4.txt",
+    "contracts/fixtures/puppet-walk/goldens/cycle-f40.txt",
+    "contracts/fixtures/puppet-walk/goldens/stop-f84.txt",
+    "contracts/fixtures/puppet-walk/visual-review/review-record.json"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

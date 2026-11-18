@@ -1,0 +1,23 @@
+{
+  "verification": "B-03 demo MP4",
+  "tests": [
+    "instantee_b03_paper_demo",
+    "spike_scene_ir_paper_cinema_asset_lock"
+  ],
+  "fixtures": [
+    "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+    "contracts/fixtures/b03-paper/b03-workload.lock.json",
+    "assets/paper-cinema/paper-cinema.lock.json"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; release/ASan/TSan/PTS-risk matrix and contracts/authoring/python suites passed.",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "demo_frames": 1800,
+  "series": {
+    "cold": 3,
+    "warm": 3,
+    "series_pass": true,
+    "cold_wall_within_360s": true
+  }
+}

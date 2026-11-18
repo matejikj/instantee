@@ -1,0 +1,15 @@
+{
+  "export_child": [
+    "Scene IR load/compile",
+    "RenderJob frame slots",
+    "preview raster buffers",
+    "AppleVideoSink encoder pool E=8",
+    "OutputTransaction staging to publish"
+  ],
+  "harness_parent": [
+    "spawn/wait4 process accounting",
+    "shared stop token with SIGTERM then SIGKILL escalation"
+  ],
+  "cache": "No durable application cache across processes; warm is an uncounted same-workload process before the measured one.",
+  "concurrency": "Single-threaded sequential frame export in the child; parent does not share mutable scene state."
+}

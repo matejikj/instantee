@@ -1,0 +1,23 @@
+{
+  "telemetry_enabled": true,
+  "validation_mode": "disabled",
+  "scheduled": 1800,
+  "admitted": 1800,
+  "accepted": 1800,
+  "verified": 1800,
+  "published": true,
+  "finalize_ms": 2524.83,
+  "in_flight_peak": 1,
+  "queue_peak": 1,
+  "encoder_pool_peak": 8,
+  "frame_lost_samples": 0,
+  "resource_lost_samples": 0,
+  "latency_summary": [
+    1800,
+    14422917,
+    55193125,
+    55995542,
+    57380500,
+    124705375
+  ]
+}

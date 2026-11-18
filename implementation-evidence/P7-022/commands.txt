@@ -1,0 +1,13 @@
+python3 tools/benchmark/gen_b03_scene.py
+./build/release/engine/tests/unit/scene-ir/spike_scene_ir_paper_cinema_asset_lock_test "$(pwd)" --write-lock
+cmake --build --preset release --target spike-b03-paper-export instantee_b03_paper_demo_test
+ctest --preset release -R '^instantee_b03_paper_demo$' --output-on-failure
+./build/release/spike-b03-paper-export /tmp/instantee-b03-demo-full 1800 on
+python3 tools/benchmark/make_b03_profile.py \
+  ./build/release/spike-b03-paper-export \
+  implementation-evidence/P7-022/measurement-profile.json
+python3 tools/benchmark/b03_baseline.py \
+  ./build/release/spike-b03-paper-export \
+  implementation-evidence/P7-022/runs \
+  --profile implementation-evidence/P7-022/measurement-profile.json
+tools/dev/check.py --asan --pts --report implementation-evidence/P7-022/checks.json

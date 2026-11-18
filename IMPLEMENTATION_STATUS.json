@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:50:00Z",
+  "updated_at_utc": "2026-11-18T21:32:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6418,14 +6418,50 @@
       "notes": "Five Paper Cinema shot templates lower to shared lighting recipes and a style-name-free render graph; ASan/UBSan passed."
     },
     "P7-022": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The entire story is created with the framework without external video editing.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Locked 1800-frame historical Scene IR with five Paper Cinema shot templates",
+            "met": true,
+            "evidence": "contracts/fixtures/b03-paper/b03-historical-reel.scene.json"
+          },
+          {
+            "criterion": "Workload lock pins scene/asset/style/font/quality/encoder before measurement",
+            "met": true,
+            "evidence": "contracts/fixtures/b03-paper/b03-workload.lock.json"
+          },
+          {
+            "criterion": "Framework-native silent 1080x1920 MP4 via Scene IR preview export (60-frame CI smoke + 1800-frame demo)",
+            "met": true,
+            "evidence": "engine/tests/integration/b03_paper_demo_test.cpp"
+          },
+          {
+            "criterion": "3 cold + 3 warm reference series measured uncertified; wall within 360s on this host",
+            "met": true,
+            "evidence": "implementation-evidence/P7-022/baseline.json"
+          },
+          {
+            "criterion": "Selected checks including ASan/TSan (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-022/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-022/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-022/checks.json"
+      ],
+      "blockers": [],
+      "verification": "B-03 demo MP4",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "notes": "Locked B-03 historical Paper Cinema 60s Scene IR + workload lock; framework-native silent 1080x1920 MP4; 3+3 cold/warm reference series measured uncertified; CI 60-frame smoke."
     },
     "P7-023": {
       "status": "todo",

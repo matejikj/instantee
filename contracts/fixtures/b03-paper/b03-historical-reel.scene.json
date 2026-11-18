@@ -1,0 +1,1519 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 1800,
+  "seed": 42,
+  "assets": [
+    {
+      "id": "font_display",
+      "uri": "assets/paper-cinema/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "paper_fiber",
+      "uri": "assets/paper-cinema/textures/paper-fiber.png",
+      "sha256": "383f7997841ab6af5a3c864400c571814dbc0d90e21a9623b0d4c7c9d8ef1985",
+      "media_type": "image/png",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "paper_wash",
+      "uri": "assets/paper-cinema/textures/paper-wash.png",
+      "sha256": "3abce6e41885ac53192011c339ceb700d0fe46a24ee4944383442dbf623f085b",
+      "media_type": "image/png",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "silhouette",
+      "uri": "assets/paper-cinema/patterns/silhouette-card.png",
+      "sha256": "d955366e87ae45aba50f899cbcb5dcef917f098b7b0737bc436035637f4eaef0",
+      "media_type": "image/png",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "ink",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.14,
+        "g": 0.1,
+        "b": 0.08,
+        "a": 1
+      }
+    },
+    {
+      "id": "pulp",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.9,
+        "g": 0.84,
+        "b": 0.72,
+        "a": 1
+      }
+    },
+    {
+      "id": "accent",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.55,
+        "g": 0.22,
+        "b": 0.16,
+        "a": 1
+      }
+    },
+    {
+      "id": "sky",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.72,
+        "g": 0.78,
+        "b": 0.86,
+        "a": 1
+      }
+    },
+    {
+      "id": "veil",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.14,
+        "g": 0.17,
+        "b": 0.23,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "id": "stage_floor",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          980,
+          0
+        ],
+        [
+          980,
+          220
+        ],
+        [
+          0,
+          220
+        ]
+      ]
+    },
+    {
+      "id": "fold_card",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          420,
+          0
+        ],
+        [
+          420,
+          560
+        ],
+        [
+          0,
+          560
+        ]
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          180,
+          0
+        ],
+        [
+          180,
+          260
+        ],
+        [
+          0,
+          260
+        ]
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          120,
+          140
+        ],
+        [
+          0,
+          140
+        ]
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          70,
+          0
+        ],
+        [
+          70,
+          220
+        ],
+        [
+          0,
+          220
+        ]
+      ]
+    },
+    {
+      "id": "prop_object",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          200,
+          0
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          0,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "diagram_bar",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          640,
+          0
+        ],
+        [
+          640,
+          28
+        ],
+        [
+          0,
+          28
+        ]
+      ]
+    }
+  ],
+  "rigs": [
+    {
+      "id": "historical-paper-figure",
+      "format_version": "1.0.0",
+      "payload_ref": "contracts/fixtures/puppet-reference-pack/manifest.txt"
+    }
+  ],
+  "text_runs": [
+    {
+      "id": "txt_rs_title",
+      "text": "Victorian workshop",
+      "font_asset_id": "font_display",
+      "font_size_px": 56,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_oc_title",
+      "text": "Object study",
+      "font_asset_id": "font_display",
+      "font_size_px": 52,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_pd_title",
+      "text": "Dialogue of paper figures",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_te_title",
+      "text": "Fold mechanism",
+      "font_asset_id": "font_display",
+      "font_size_px": 52,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_ad_title",
+      "text": "Atmosphere dissolves to dusk",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "main_cam",
+      "projection": "perspective",
+      "fov_y_rad": 0.6981317007977318,
+      "near": 0.1,
+      "far": 2000
+    }
+  ],
+  "nodes": [
+    {
+      "id": "camera",
+      "kind": "camera",
+      "layer_order": 1000,
+      "camera_id": "main_cam",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "bg_wash",
+      "kind": "image",
+      "layer_order": -20,
+      "material_id": "sky",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": -40
+        },
+        "opacity": 0
+      },
+      "asset_id": "paper_wash"
+    },
+    {
+      "id": "bg_far",
+      "kind": "image",
+      "layer_order": -10,
+      "material_id": "sky",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40,
+          "y": 420,
+          "z": -30
+        },
+        "opacity": 0
+      },
+      "asset_id": "silhouette"
+    },
+    {
+      "id": "bg_fiber",
+      "kind": "image",
+      "layer_order": 5,
+      "material_id": "pulp",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 1500,
+          "z": -5
+        },
+        "opacity": 0
+      },
+      "asset_id": "paper_fiber"
+    },
+    {
+      "id": "stage",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "stage_floor",
+      "material_id": "pulp",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 1500,
+          "z": -2
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "fold",
+      "kind": "geometry",
+      "layer_order": 20,
+      "geometry_id": "fold_card",
+      "material_id": "pulp",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 330,
+          "y": 620,
+          "z": -1
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "figure",
+      "kind": "puppet",
+      "layer_order": 40,
+      "rig_id": "historical-paper-figure",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 420,
+          "y": 780,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "figure_torso",
+      "kind": "geometry",
+      "layer_order": 41,
+      "geometry_id": "torso",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 450,
+          "y": 980,
+          "z": 1
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "figure_head",
+      "kind": "geometry",
+      "layer_order": 42,
+      "geometry_id": "head",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 480,
+          "y": 820,
+          "z": 2
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "figure_arm",
+      "kind": "geometry",
+      "layer_order": 43,
+      "geometry_id": "arm",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 620,
+          "y": 980,
+          "z": 2
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "prop",
+      "kind": "geometry",
+      "layer_order": 50,
+      "geometry_id": "prop_object",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 440,
+          "y": 900,
+          "z": 3
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "diagram",
+      "kind": "geometry",
+      "layer_order": 55,
+      "geometry_id": "diagram_bar",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 220,
+          "y": 1100,
+          "z": 1
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "rotation_z_rad": 0
+      }
+    },
+    {
+      "id": "veil_overlay",
+      "kind": "image",
+      "layer_order": 80,
+      "material_id": "veil",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 8
+        },
+        "opacity": 0
+      },
+      "asset_id": "paper_wash"
+    },
+    {
+      "id": "rs_title",
+      "kind": "text",
+      "layer_order": 60,
+      "text_run_id": "txt_rs_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 120,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "oc_title",
+      "kind": "text",
+      "layer_order": 61,
+      "text_run_id": "txt_oc_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 120,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "pd_title",
+      "kind": "text",
+      "layer_order": 62,
+      "text_run_id": "txt_pd_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 120,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "te_title",
+      "kind": "text",
+      "layer_order": 63,
+      "text_run_id": "txt_te_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 120,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "ad_title",
+      "kind": "text",
+      "layer_order": 64,
+      "text_run_id": "txt_ad_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 50,
+          "y": 120,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    }
+  ],
+  "shots": [
+    {
+      "id": "reveal_stage",
+      "start_frame": 0,
+      "duration_frames": 360,
+      "node_ids": [
+        "camera",
+        "bg_wash",
+        "bg_far",
+        "bg_fiber",
+        "stage",
+        "rs_title",
+        "figure",
+        "figure_torso",
+        "figure_head",
+        "figure_arm"
+      ],
+      "camera_node_id": "camera"
+    },
+    {
+      "id": "object_closeup",
+      "start_frame": 360,
+      "duration_frames": 300,
+      "node_ids": [
+        "camera",
+        "bg_wash",
+        "bg_far",
+        "bg_fiber",
+        "stage",
+        "oc_title",
+        "prop"
+      ],
+      "camera_node_id": "camera"
+    },
+    {
+      "id": "puppet_dialogue",
+      "start_frame": 660,
+      "duration_frames": 420,
+      "node_ids": [
+        "camera",
+        "bg_wash",
+        "bg_far",
+        "bg_fiber",
+        "stage",
+        "pd_title",
+        "figure",
+        "figure_torso",
+        "figure_head",
+        "figure_arm"
+      ],
+      "camera_node_id": "camera"
+    },
+    {
+      "id": "technical_explanation",
+      "start_frame": 1080,
+      "duration_frames": 360,
+      "node_ids": [
+        "camera",
+        "bg_wash",
+        "bg_far",
+        "bg_fiber",
+        "stage",
+        "te_title",
+        "fold",
+        "diagram"
+      ],
+      "camera_node_id": "camera"
+    },
+    {
+      "id": "atmospheric_dissolve",
+      "start_frame": 1440,
+      "duration_frames": 360,
+      "node_ids": [
+        "camera",
+        "bg_wash",
+        "bg_far",
+        "bg_fiber",
+        "stage",
+        "ad_title",
+        "figure",
+        "figure_torso",
+        "figure_head",
+        "veil_overlay"
+      ],
+      "camera_node_id": "camera"
+    }
+  ],
+  "transition_spans": [
+    {
+      "id": "tech_to_atmosphere",
+      "from_shot_id": "technical_explanation",
+      "to_shot_id": "atmospheric_dissolve",
+      "start_frame": 1434,
+      "duration_frames": 12,
+      "blend": "dissolve"
+    }
+  ],
+  "animation_tracks": [
+    {
+      "id": "bg_wash_opacity",
+      "target_id": "bg_wash",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 18,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "bg_far_opacity",
+      "target_id": "bg_far",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 18,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "bg_fiber_opacity",
+      "target_id": "bg_fiber",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 18,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "stage_opacity",
+      "target_id": "stage",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 18,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "rs_title_opacity",
+      "target_id": "rs_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 10,
+          "value": 1.0
+        },
+        {
+          "frame": 359,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "oc_title_opacity",
+      "target_id": "oc_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 370,
+          "value": 1.0
+        },
+        {
+          "frame": 659,
+          "value": 1.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "pd_title_opacity",
+      "target_id": "pd_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 670,
+          "value": 1.0
+        },
+        {
+          "frame": 1079,
+          "value": 1.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "te_title_opacity",
+      "target_id": "te_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1090,
+          "value": 1.0
+        },
+        {
+          "frame": 1439,
+          "value": 1.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "ad_title_opacity",
+      "target_id": "ad_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1450,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "figure_opacity",
+      "target_id": "figure",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 10,
+          "value": 1.0
+        },
+        {
+          "frame": 359,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 670,
+          "value": 1.0
+        },
+        {
+          "frame": 1079,
+          "value": 1.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1450,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "figure_torso_opacity",
+      "target_id": "figure_torso",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 10,
+          "value": 1.0
+        },
+        {
+          "frame": 359,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 670,
+          "value": 1.0
+        },
+        {
+          "frame": 1079,
+          "value": 1.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1450,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "figure_head_opacity",
+      "target_id": "figure_head",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 10,
+          "value": 1.0
+        },
+        {
+          "frame": 359,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 670,
+          "value": 1.0
+        },
+        {
+          "frame": 1079,
+          "value": 1.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1450,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "figure_arm_opacity",
+      "target_id": "figure_arm",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 10,
+          "value": 1.0
+        },
+        {
+          "frame": 359,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 670,
+          "value": 1.0
+        },
+        {
+          "frame": 1079,
+          "value": 1.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1799,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "prop_opacity",
+      "target_id": "prop",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 360,
+          "value": 0.0
+        },
+        {
+          "frame": 370,
+          "value": 1.0
+        },
+        {
+          "frame": 659,
+          "value": 1.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 1799,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "fold_opacity",
+      "target_id": "fold",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1090,
+          "value": 1.0
+        },
+        {
+          "frame": 1439,
+          "value": 1.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1799,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "diagram_opacity",
+      "target_id": "diagram",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1090,
+          "value": 1.0
+        },
+        {
+          "frame": 1439,
+          "value": 1.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1799,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "arm_raise",
+      "target_id": "figure_arm",
+      "property": "rotation_z_rad",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 780,
+          "value": -0.85
+        },
+        {
+          "frame": 960,
+          "value": -0.85
+        },
+        {
+          "frame": 1040,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "fold_hinge",
+      "target_id": "fold",
+      "property": "rotation_z_rad",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1080,
+          "value": 0.0
+        },
+        {
+          "frame": 1200,
+          "value": -1.2
+        },
+        {
+          "frame": 1320,
+          "value": -1.2
+        },
+        {
+          "frame": 1420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "cam_translate_z",
+      "target_id": "camera",
+      "property": "translate_z",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 180,
+          "value": -40.0
+        },
+        {
+          "frame": 360,
+          "value": -40.0
+        },
+        {
+          "frame": 1080,
+          "value": -40.0
+        },
+        {
+          "frame": 1260,
+          "value": -28.0
+        },
+        {
+          "frame": 1440,
+          "value": -28.0
+        },
+        {
+          "frame": 1799,
+          "value": -28.0
+        }
+      ]
+    },
+    {
+      "id": "cam_scale_x",
+      "target_id": "camera",
+      "property": "scale_x",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 1.0
+        },
+        {
+          "frame": 480,
+          "value": 1.18
+        },
+        {
+          "frame": 660,
+          "value": 1.18
+        },
+        {
+          "frame": 1799,
+          "value": 1.18
+        }
+      ]
+    },
+    {
+      "id": "cam_scale_y",
+      "target_id": "camera",
+      "property": "scale_y",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 1.0
+        },
+        {
+          "frame": 360,
+          "value": 1.0
+        },
+        {
+          "frame": 480,
+          "value": 1.18
+        },
+        {
+          "frame": 660,
+          "value": 1.18
+        },
+        {
+          "frame": 1799,
+          "value": 1.18
+        }
+      ]
+    },
+    {
+      "id": "cam_translate_x",
+      "target_id": "camera",
+      "property": "translate_x",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 660,
+          "value": 0.0
+        },
+        {
+          "frame": 820,
+          "value": 36.0
+        },
+        {
+          "frame": 1080,
+          "value": 36.0
+        },
+        {
+          "frame": 1799,
+          "value": 36.0
+        }
+      ]
+    },
+    {
+      "id": "cam_translate_y",
+      "target_id": "camera",
+      "property": "translate_y",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1620,
+          "value": -48.0
+        },
+        {
+          "frame": 1799,
+          "value": -48.0
+        }
+      ]
+    },
+    {
+      "id": "veil_rise",
+      "target_id": "veil_overlay",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1440,
+          "value": 0.0
+        },
+        {
+          "frame": 1560,
+          "value": 0.35
+        },
+        {
+          "frame": 1799,
+          "value": 0.55
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "project_sha256": "60a575496e2f962ab36aa12b7f437714cf9a10732245417e83a174370ec8b4bc",
+    "style_packages": [
+      {
+        "id": "paper-cinema",
+        "version": "1.0.0"
+      }
+    ]
+  }
+}

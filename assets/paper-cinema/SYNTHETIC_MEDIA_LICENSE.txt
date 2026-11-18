@@ -1,0 +1,4 @@
+Synthetic paper-cinema demo textures and silhouette patterns in this directory were
+generated for the Instantee repository. They are not third-party stock art.
+Redistribute with the repository under the project license.
+Font files remain under their upstream OFL license in fonts/.

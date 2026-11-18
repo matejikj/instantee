@@ -1,0 +1,32 @@
+{
+  "artifact": "B-03 historical Paper Cinema reel 60s MP4",
+  "acceptance_met": true,
+  "framework_native_story": true,
+  "external_video_assembly": false,
+  "demo_verified_frames": 1800,
+  "demo_wall_s": 96.42,
+  "reference_series": {
+    "evidence_kind": "b03_60s_cold_warm_reference_series",
+    "series_pass": true,
+    "cold_wall_within_360s": true,
+    "cold_pass_count": 3,
+    "warm_pass_count": 3,
+    "summary": {
+      "cold_median_export_wall_ms": 96669.936917,
+      "warm_median_export_wall_ms": 96401.925334,
+      "cold_median_p99_ns": 57846750,
+      "warm_median_p99_ns": 57289583,
+      "cold_median_rss_peak_bytes": 120045568,
+      "warm_median_rss_peak_bytes": 120078336,
+      "cold_median_cpu_seconds_per_verified_frame": 0.05483726444444444,
+      "warm_median_cpu_seconds_per_verified_frame": 0.05482913833333333
+    }
+  },
+  "certification_claim": false,
+  "notes": [
+    "Measured uncertified reference series on development hardware; not an M1 Air certificate.",
+    "Wall \u2264360 s held on this machine; product certification remains a later gate.",
+    "MP4 bytes retained only in local temp; evidence stores digests and reports."
+  ],
+  "decided_at_utc": "2026-11-18T20:15:00Z"
+}

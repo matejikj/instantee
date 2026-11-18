@@ -1,0 +1,27 @@
+{
+  "workload_id": "B-03-paper-historical-reel-60s-v1",
+  "scene": "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+  "scene_sha256": "f648e5145a85517f31de847ce41bea9a12f88568ee593a51c9e283cc1d68a0da",
+  "asset_lock": "assets/paper-cinema/paper-cinema.lock.json",
+  "asset_lock_sha256": "259bf6be96a6e452b9905e5aa41fd0f3818b1611a82d9b7beca1142e4045e49f",
+  "style_bible": "contracts/fixtures/style-bible/positive/paper-cinema.style.json",
+  "style_sha256": "5cb32fccddc0906a0279102ac3ab0347db7e3aabbdc9d8efb2764dd072cbc673",
+  "font_primary_sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+  "quality_tier": "paper-b03-v1",
+  "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder",
+  "duration_frames": 1800,
+  "width": 1080,
+  "height": 1920,
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed_decimal": "42",
+  "notes": [
+    "Locked before first B-03 reference-series measurement.",
+    "Five Paper Cinema templates: reveal_stage, object_closeup, puppet_dialogue, technical_explanation, atmospheric_dissolve.",
+    "Composes reference puppet provenance, fold hinge, depth layers, and cinematic camera tracks.",
+    "Preview raster uses proxy fills; export is framework-native MP4 only.",
+    "No external video assembly."
+  ]
+}

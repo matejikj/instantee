@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-18T21:31:45Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "33f72ac",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "assets/paper-cinema/PIN.json",
+    "assets/paper-cinema/README.md",
+    "assets/paper-cinema/SYNTHETIC_MEDIA_LICENSE.txt",
+    "assets/paper-cinema/fonts/NotoSans-Regular.ttf",
+    "assets/paper-cinema/fonts/OFL-Noto-Sans.txt",
+    "assets/paper-cinema/paper-cinema.lock.json",
+    "assets/paper-cinema/patterns/silhouette-card.png",
+    "assets/paper-cinema/textures/paper-fiber.png",
+    "assets/paper-cinema/textures/paper-wash.png",
+    "contracts/fixtures/b03-paper/README.md",
+    "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+    "contracts/fixtures/b03-paper/b03-workload.lock.json",
+    "engine/apps/CMakeLists.txt",
+    "engine/apps/b03-paper-export/CMakeLists.txt",
+    "engine/apps/b03-paper-export/main.mm",
+    "engine/tests/integration/CMakeLists.txt",
+    "engine/tests/integration/b03_paper_demo_test.cpp",
+    "engine/tests/unit/scene-ir/CMakeLists.txt",
+    "engine/tests/unit/scene-ir/paper_cinema_asset_lock_test.cpp",
+    "tools/benchmark/b03_baseline.py",
+    "tools/benchmark/gen_b03_scene.py",
+    "tools/benchmark/make_b03_profile.py"
+  ],
+  "risks": [
+    "native",
+    "concurrency",
+    "timing",
+    "authoring",
+    "python:tools/benchmark"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/apps/b03-paper-export/main.mm engine/tests/integration/b03_paper_demo_test.cpp engine/tests/unit/scene-ir/paper_cinema_asset_lock_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/apps/b03-paper-export/main.mm engine/tests/integration/b03_paper_demo_test.cpp engine/tests/unit/scene-ir/paper_cinema_asset_lock_test.cpp",
+      "status": "unavailable",
+      "reason": "clang-tidy not found"
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 97.6,
+      "tests": {
+        "total": 319,
+        "passed": 319,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 373.4,
+      "tests": {
+        "total": 319,
+        "passed": 319,
+        "failed": 0
+      }
+    },
+    {
+      "name": "tsan",
+      "command": "cmake --workflow --preset tsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1351.9,
+      "tests": {
+        "total": 319,
+        "passed": 319,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.4
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 4.0
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.4
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.1
+    },
+    {
+      "name": "python:tools/benchmark",
+      "command": "python3 -m unittest discover -s tools/benchmark -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.6
+    }
+  ],
+  "result": "incomplete",
+  "certified_performance": false
+}

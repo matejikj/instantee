@@ -1,0 +1,6 @@
+{
+  "demo_mp4_sha256": "da506c3ea4488ecde9eb49f542e208da010a7872b12ff34c450bd5b6dd71b5fe",
+  "demo_mp4_bytes": 252065,
+  "retained_in_repo": false,
+  "note": "MP4 retained only in local temp; evidence stores digests."
+}

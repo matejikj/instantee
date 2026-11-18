@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "target_feature_profile": "metal-apple-baseline",
+  "style_packages": [
+    { "id": "paper-cinema", "version": "1.0.0" }
+  ],
+  "assets": [
+    {
+      "id": "paper-cinema-font-display",
+      "uri": "assets/paper-cinema/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "role": "font"
+    },
+    {
+      "id": "paper-cinema-texture-paper-fiber",
+      "uri": "assets/paper-cinema/textures/paper-fiber.png",
+      "sha256": "383f7997841ab6af5a3c864400c571814dbc0d90e21a9623b0d4c7c9d8ef1985",
+      "media_type": "image/png",
+      "role": "image"
+    },
+    {
+      "id": "paper-cinema-texture-paper-wash",
+      "uri": "assets/paper-cinema/textures/paper-wash.png",
+      "sha256": "3abce6e41885ac53192011c339ceb700d0fe46a24ee4944383442dbf623f085b",
+      "media_type": "image/png",
+      "role": "image"
+    },
+    {
+      "id": "paper-cinema-pattern-silhouette",
+      "uri": "assets/paper-cinema/patterns/silhouette-card.png",
+      "sha256": "d955366e87ae45aba50f899cbcb5dcef917f098b7b0737bc436035637f4eaef0",
+      "media_type": "image/png",
+      "role": "image"
+    }
+  ],
+  "content_sha256": "735c05539f03f33ad5de151193c1c184e35677bb45f0b74ebcbe03f9413deb7b"
+}

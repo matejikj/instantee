@@ -20,7 +20,7 @@ class ToolchainTests(unittest.TestCase):
         for name in ("CMakeLists.txt", "CMakePresets.json", "package.json"):
             shutil.copy2(ROOT / name, self.source / name)
         shutil.copytree(ROOT / "cmake", self.source / "cmake")
-        # Editorial (and later style) fixtures resolve assets via PROJECT_SOURCE_DIR.
+        # Editorial/notebook fixtures resolve assets via PROJECT_SOURCE_DIR.
         for name in (
             "engine",
             "authoring",
@@ -30,6 +30,14 @@ class ToolchainTests(unittest.TestCase):
             "assets",
         ):
             shutil.copytree(ROOT / name, self.source / name)
+        # Math grammar (and other style probes) assert ADR presence under the
+        # design pack. Copy ADRs when present so the sandboxed ctest matrix
+        # matches a developer tree that includes the ignored design pack.
+        adr_src = ROOT / "motion_framework_sas" / "adrs"
+        if adr_src.is_dir():
+            adr_dst = self.source / "motion_framework_sas" / "adrs"
+            adr_dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(adr_src, adr_dst)
         helper = self.source / "tools/toolchain"
         helper.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/toolchain/check-node.cjs", helper)

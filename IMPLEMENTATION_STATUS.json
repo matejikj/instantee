@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T07:06:17Z",
+  "updated_at_utc": "2026-11-18T09:19:16Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5559,14 +5559,49 @@
       "notes": "Post-shot opacity fade-out; ADR-0014 notebook-b02-v1 locked; 3+3 series threshold_gate true (cold median wall ≈87s); goldens refreshed."
     },
     "P6-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A completed 60 s explainer has passing tests, linter checks and performance checks.",
-        "met": null
+        "criterion": "Dokončený 60s explainer a zelené testy, linter a performance.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Framework-native 60s B-02 explainer + green golden/linter/math probes",
+            "met": true,
+            "evidence": "implementation-evidence/P6-021/gate-report.json"
+          },
+          {
+            "criterion": "B-02 reference series threshold_gate; cold wall ≤360s",
+            "met": true,
+            "evidence": "implementation-evidence/P6-021/baseline.json"
+          },
+          {
+            "criterion": "Full check.py --gate matrix passed",
+            "met": true,
+            "evidence": "implementation-evidence/P6-021/checks.json"
+          },
+          {
+            "criterion": "Phase decision PASS",
+            "met": true,
+            "evidence": "implementation-evidence/P6-021/gate-decision.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-021/",
+        "implementation-evidence/P6-021/baseline.json",
+        "implementation-evidence/P6-021/gate-decision.json",
+        "implementation-evidence/P6-021/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P6-021/checks.json"
+      ],
+      "blockers": [],
+      "verification": "P6 release gate",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "C",
+      "completed_at_utc": "2026-11-18T09:19:16Z",
+      "notes": "Notebook phase gate PASS: inventory complete, B-02 series threshold_gate, math/typography/golden/lint probes, full --gate matrix; unlocks Paper Cinema."
     },
     "P7-001": {
       "status": "todo",
@@ -6396,17 +6431,29 @@
     },
     "P6": {
       "gate_task_id": "P6-021",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
+        "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-021/",
+        "implementation-evidence/P6-021/baseline.json",
+        "implementation-evidence/P6-021/gate-decision.json",
+        "implementation-evidence/P6-021/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P6-021/checks.json"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Individual B-02 run reports remain certified=false; series threshold_gate records compliance.",
+        "B-02 path is CPU preview raster; P3 Metal ceilings are not interchangeable.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     },
     "P7": {
       "gate_task_id": "P7-025",

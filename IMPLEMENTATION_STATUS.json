@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T11:48:37Z",
+  "updated_at_utc": "2026-11-18T12:04:37Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5700,14 +5700,41 @@
       "notes": "Paper-sheet MSL shading + CPU parity reference; profile tolerances for multi-scale; inactive feature contributes no pass; metallib embedded and validated."
     },
     "P7-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Edges are stable across frames and do not deform text regions.",
-        "met": null
+        "criterion": "Hrany jsou stabilní mezi snímky a nedeformují textové oblasti.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Seeded irregular outline/fill mesh identical across repeated compiles; cache records a single tessellation",
+            "met": true,
+            "evidence": "engine/tests/unit/geometry/paper_cut_test.cpp"
+          },
+          {
+            "criterion": "Safe inset stays covered; amplitude > inset and undersized bounds fail closed",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-cut/goldens/rect-seed42.txt"
+          },
+          {
+            "criterion": "Edge geometry golden + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-004/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-004/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-004/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Edge geometry golden",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T12:04:37Z",
+      "notes": "Seeded irregular-cut silhouettes in geometry: safe-inset clamping, compile-once fill cache, shared outline for mask boundaries, edge geometry golden."
     },
     "P7-005": {
       "status": "todo",

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-18T12:03:05Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "ca96478",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/fixtures/paper-cut/goldens/rect-seed42.txt",
+    "engine/src/geometry/CMakeLists.txt",
+    "engine/src/geometry/include/instantee/geometry/paper_cut.hpp",
+    "engine/src/geometry/paper_cut.cpp",
+    "engine/tests/unit/geometry/CMakeLists.txt",
+    "engine/tests/unit/geometry/paper_cut_test.cpp"
+  ],
+  "risks": [
+    "native",
+    "authoring"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/geometry/include/instantee/geometry/paper_cut.hpp engine/src/geometry/paper_cut.cpp engine/tests/unit/geometry/paper_cut_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 12.6
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/src/geometry/paper_cut.cpp engine/tests/unit/geometry/paper_cut_test.cpp",
+      "status": "unavailable",
+      "reason": "clang-tidy not found"
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 30.2,
+      "tests": {
+        "total": 278,
+        "passed": 278,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 313.7,
+      "tests": {
+        "total": 284,
+        "passed": 284,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.5
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.6
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    }
+  ],
+  "result": "incomplete",
+  "certified_performance": false
+}

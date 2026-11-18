@@ -1,0 +1,5 @@
+cmake --build --preset release --target spike_paper_cut_test
+./build/release/engine/tests/unit/geometry/spike_paper_cut_test "$PWD" --write-goldens
+./build/release/engine/tests/unit/geometry/spike_paper_cut_test "$PWD"
+ctest --preset release -R 'spike_paper_cut|header_instantee_geometry_instantee_geometry_paper_cut'
+python3 tools/dev/check.py --report implementation-evidence/P7-004/checks.json

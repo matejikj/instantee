@@ -1,0 +1,7 @@
+paper_cut rect-seed42
+seed=42 amp=4.0000 wave=10.0000 inset=14.0000
+safe=54.0000,74.0000,266.0000,206.0000
+outline_pts=81 verts=80 tris=78 checksum=0xb8c2458f6a48c28e
+p0=40.0000,59.6373
+p40=280.0000,217.1461
+p80=40.0000,59.6373

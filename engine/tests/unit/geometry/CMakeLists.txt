@@ -19,3 +19,11 @@ add_test(NAME spike_ink_stroke
   COMMAND spike_ink_stroke_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_ink_stroke PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_paper_cut_test paper_cut_test.cpp)
+target_link_libraries(spike_paper_cut_test PRIVATE
+  instantee::geometry instantee_build_options)
+add_test(NAME spike_paper_cut
+  COMMAND spike_paper_cut_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_cut PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

@@ -106,7 +106,7 @@
       "include_prefix": "instantee/math/",
       "decision": "promote",
       "allowed_dependencies": ["diagnostics"],
-      "notes": "Safe TeX-like math grammar V1 allowlist and pre-scan diagnostics. No external TeX process; AST/layout arrive in later tasks. Depends only on diagnostics."
+      "notes": "Safe TeX-like math grammar V1, AST parse, and box layout behind a metrics port. No external TeX; no FreeType/HarfBuzz link — callers inject MathMetricsProvider. Depends only on diagnostics."
     },
     "asset-pipeline": {
       "role": "production",

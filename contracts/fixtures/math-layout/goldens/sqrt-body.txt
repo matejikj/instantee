@@ -1,0 +1,6 @@
+row kind=1 w=10.500 h=9.550 d=2.800 x=0.000 shift=0.000
+  sqrt kind=8 w=10.500 h=9.550 d=2.800 x=0.000 shift=0.000
+    surd kind=6 w=5.500 h=9.300 d=2.800 x=0.000 shift=0.000
+    overline kind=6 w=5.000 h=0.500 d=0.000 x=5.500 shift=9.050
+    radicand kind=2 w=5.000 h=8.000 d=2.000 x=5.500 shift=0.000
+      atom:x kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000

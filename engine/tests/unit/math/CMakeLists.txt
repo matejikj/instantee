@@ -12,3 +12,11 @@ target_link_libraries(spike_math_parser_test PRIVATE
 add_test(NAME spike_math_parser COMMAND spike_math_parser_test)
 set_tests_properties(spike_math_parser PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_math_layout_test math_layout_test.cpp)
+target_link_libraries(spike_math_layout_test PRIVATE
+  instantee::math instantee_build_options)
+add_test(NAME spike_math_layout
+  COMMAND spike_math_layout_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_math_layout PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

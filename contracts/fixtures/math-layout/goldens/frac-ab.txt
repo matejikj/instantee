@@ -1,0 +1,7 @@
+row kind=1 w=7.000 h=14.250 d=9.250 x=0.000 shift=0.000
+  frac kind=7 w=7.000 h=14.250 d=9.250 x=0.000 shift=0.000
+    num kind=2 w=5.000 h=8.000 d=2.000 x=1.000 shift=6.250
+      atom:a kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
+    rule kind=6 w=7.000 h=0.250 d=0.250 x=0.000 shift=2.500
+    den kind=2 w=5.000 h=8.000 d=2.000 x=1.000 shift=-7.250
+      atom:b kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000

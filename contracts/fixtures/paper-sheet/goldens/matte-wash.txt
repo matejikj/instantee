@@ -1,0 +1,6 @@
+name=matte-wash seed=17 fiber=0.55 roughness=0.4 wash=0.18 edge=0.08 shadow=0.2 nvar=0.22 mean_luma_q=237
+p0,0=207,203,191
+p4,3=230,226,213
+p8,6=255,255,251
+p12,9=225,221,208
+p15,11=207,203,191

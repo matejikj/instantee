@@ -91,6 +91,14 @@ add_test(NAME spike_print_grain
 set_tests_properties(spike_print_grain PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_paper_sheet_test paper_sheet_test.cpp)
+target_link_libraries(spike_paper_sheet_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_paper_sheet
+  COMMAND spike_paper_sheet_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_sheet PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_ink_stroke_feature_test ink_stroke_feature_test.cpp)
 target_link_libraries(spike_ink_stroke_feature_test PRIVATE
   instantee::render_core instantee_build_options)

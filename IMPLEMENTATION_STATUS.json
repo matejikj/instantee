@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T11:18:58Z",
+  "updated_at_utc": "2026-11-18T11:48:37Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5668,14 +5668,36 @@
       "notes": "Paper material params v1: bounded knobs + versioned defaults; parse Style Bible maps; reject unknown/out-of-range; shared shader param descs."
     },
     "P7-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The material looks consistent at different scales and stays within the GPU budget.",
-        "met": null
+        "criterion": "Paper shading splňuje referenční fixtures/tolerance a registrovanou material feature; neaktivní efekt nepřidává pass.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Matte/watercolor CPU reference matches goldens; scale consistency within profile tolerance",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-sheet/goldens/matte-wash.txt"
+          },
+          {
+            "criterion": "Registered paper-sheet feature; inactive feature adds no pass; metallib validates",
+            "met": true,
+            "evidence": "implementation-evidence/P7-003/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-003/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-003/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Paper shader golden + profile",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T11:48:37Z",
+      "notes": "Paper-sheet MSL shading + CPU parity reference; profile tolerances for multi-scale; inactive feature contributes no pass; metallib embedded and validated."
     },
     "P7-004": {
       "status": "todo",

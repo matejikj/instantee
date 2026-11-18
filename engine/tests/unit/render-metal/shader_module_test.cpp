@@ -30,11 +30,12 @@ int main() {
   }
 
   const auto modules = builtin_shader_modules();
-  expect(modules.size() == 5, "five builtin modules");
+  expect(modules.size() == 6, "six builtin modules");
 
   bool saw_halftone = false;
   bool saw_print_grain = false;
   bool saw_ink_stroke = false;
+  bool saw_paper_sheet = false;
   for (const ShaderModuleDesc &module : modules) {
     expect(!module.metallib_bytes.empty(), "module has metallib bytes");
     expect(!module.entry_points.empty(), "module declares entry points");
@@ -50,6 +51,10 @@ int main() {
       saw_ink_stroke = true;
       expect(module.feature_id == "ink_stroke", "ink_stroke feature id");
       expect(module.entry_points.size() == 2, "ink_stroke entries");
+    } else if (module.id == "paper_sheet") {
+      saw_paper_sheet = true;
+      expect(module.feature_id == "paper-sheet", "paper-sheet feature id");
+      expect(module.entry_points.size() == 2, "paper-sheet entries");
     } else {
       expect(module.feature_id == "test_pattern", "pattern feature id");
     }
@@ -71,6 +76,7 @@ int main() {
   expect(saw_halftone, "halftone module present");
   expect(saw_print_grain, "print_grain module present");
   expect(saw_ink_stroke, "ink_stroke module present");
+  expect(saw_paper_sheet, "paper_sheet module present");
 
   // Corrupt bytes must fail closed without crashing the process.
   ShaderModuleDesc bogus = test_pattern_shader_module();

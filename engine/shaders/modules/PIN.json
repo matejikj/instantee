@@ -67,6 +67,17 @@
       ],
       "feature_id": "ink_stroke",
       "source_sha256": "be3c3dbd655e683874f48e15ceafa175d4936048023585677b14eacc006b2414"
+    },
+    {
+      "id": "paper_sheet",
+      "version": 1,
+      "source": "../spike/paper_sheet.metal",
+      "entry_points": [
+        "vs_paper_sheet_main",
+        "fs_paper_sheet_main"
+      ],
+      "feature_id": "paper-sheet",
+      "source_sha256": "418c3db9c62c2936380e3c378fd5a64d5d14e005a18c112e1d59d333e05002d7"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "description": "Reference tolerances for matte/watercolor paper-sheet shading goldens. Not a certified throughput claim.",
+  "feature_id": "paper-sheet",
+  "pass_key": "paper_sheet",
+  "shader_module": "paper_sheet",
+  "cost_envelope": {
+    "passes_when_active": 1,
+    "passes_when_inactive": 0,
+    "fullscreen_triangle": true,
+    "ray_tracing": false
+  },
+  "scale_consistency": {
+    "base_extent_px": [16, 12],
+    "scaled_extent_px": [32, 24],
+    "max_mean_abs_delta_u8": 18.0,
+    "max_center_abs_delta_u8": 28
+  },
+  "golden_files": [
+    "goldens/matte-wash.txt",
+    "goldens/scale-consistency.txt"
+  ]
+}

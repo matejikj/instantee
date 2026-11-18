@@ -4,6 +4,7 @@
 #include "halftone_metallib.hpp"
 #include "ink_stroke_metallib.hpp"
 #include "metal_owner.hpp"
+#include "paper_sheet_metallib.hpp"
 #include "print_grain_metallib.hpp"
 #include "shared_surface_pattern_metallib.hpp"
 #include "test_pattern_metallib.hpp"
@@ -155,10 +156,22 @@ ShaderModuleDesc ink_stroke_shader_module() {
   };
 }
 
+ShaderModuleDesc paper_sheet_shader_module() {
+  return ShaderModuleDesc{
+      .id = "paper_sheet",
+      .version = 1,
+      .feature_id = "paper-sheet",
+      .entry_points = {"vs_paper_sheet_main", "fs_paper_sheet_main"},
+      .metallib_bytes =
+          std::span<const std::uint8_t>{detail::kPaperSheetMetallib,
+                                        detail::kPaperSheetMetallib_size},
+  };
+}
+
 std::vector<ShaderModuleDesc> builtin_shader_modules() {
   return {test_pattern_shader_module(), shared_surface_shader_module(),
-          halftone_shader_module(), print_grain_shader_module(),
-          ink_stroke_shader_module()};
+          halftone_shader_module(),     print_grain_shader_module(),
+          ink_stroke_shader_module(),   paper_sheet_shader_module()};
 }
 
 } // namespace instantee::render_metal

@@ -139,6 +139,19 @@ instantee_compile_metallib(
   SYMBOL_NAMESPACE "instantee::render_metal::detail"
   SYMBOL_NAME "kInkStrokeMetallib")
 
+set(INSTANTEE_PAPER_SHEET_SHADER
+  "${PROJECT_SOURCE_DIR}/engine/shaders/spike/paper_sheet.metal")
+set(INSTANTEE_PAPER_SHEET_METALLIB
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/paper_sheet.metallib")
+set(INSTANTEE_PAPER_SHEET_METALLIB_HEADER
+  "${CMAKE_CURRENT_BINARY_DIR}/generated/paper_sheet_metallib.hpp")
+instantee_compile_metallib(
+  SOURCES "${INSTANTEE_PAPER_SHEET_SHADER}"
+  OUTPUT_METALLIB "${INSTANTEE_PAPER_SHEET_METALLIB}"
+  OUTPUT_HEADER "${INSTANTEE_PAPER_SHEET_METALLIB_HEADER}"
+  SYMBOL_NAMESPACE "instantee::render_metal::detail"
+  SYMBOL_NAME "kPaperSheetMetallib")
+
 find_library(INSTANTEE_METAL_FRAMEWORK Metal REQUIRED)
 find_library(INSTANTEE_FOUNDATION_FRAMEWORK Foundation REQUIRED)
 
@@ -157,7 +170,8 @@ add_library(instantee_render_metal STATIC
   "${INSTANTEE_PRIMITIVES_METALLIB_HEADER}"
   "${INSTANTEE_HALFTONE_METALLIB_HEADER}"
   "${INSTANTEE_PRINT_GRAIN_METALLIB_HEADER}"
-  "${INSTANTEE_INK_STROKE_METALLIB_HEADER}")
+  "${INSTANTEE_INK_STROKE_METALLIB_HEADER}"
+  "${INSTANTEE_PAPER_SHEET_METALLIB_HEADER}")
 add_library(instantee::render_metal ALIAS instantee_render_metal)
 target_include_directories(instantee_render_metal
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"

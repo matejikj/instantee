@@ -40,6 +40,7 @@ validate_shader_module(Device &device, const ShaderModuleDesc &module);
 [[nodiscard]] ShaderModuleDesc shared_surface_shader_module();
 [[nodiscard]] ShaderModuleDesc halftone_shader_module();
 [[nodiscard]] ShaderModuleDesc print_grain_shader_module();
+[[nodiscard]] ShaderModuleDesc ink_stroke_shader_module();
 
 [[nodiscard]] std::vector<ShaderModuleDesc> builtin_shader_modules();
 

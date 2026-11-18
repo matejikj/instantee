@@ -2,6 +2,7 @@
 
 #include "device_native.hpp"
 #include "halftone_metallib.hpp"
+#include "ink_stroke_metallib.hpp"
 #include "metal_owner.hpp"
 #include "print_grain_metallib.hpp"
 #include "shared_surface_pattern_metallib.hpp"
@@ -142,9 +143,22 @@ ShaderModuleDesc print_grain_shader_module() {
   };
 }
 
+ShaderModuleDesc ink_stroke_shader_module() {
+  return ShaderModuleDesc{
+      .id = "ink_stroke",
+      .version = 1,
+      .feature_id = "ink_stroke",
+      .entry_points = {"vs_ink_stroke_main", "fs_ink_stroke_main"},
+      .metallib_bytes =
+          std::span<const std::uint8_t>{detail::kInkStrokeMetallib,
+                                        detail::kInkStrokeMetallib_size},
+  };
+}
+
 std::vector<ShaderModuleDesc> builtin_shader_modules() {
   return {test_pattern_shader_module(), shared_surface_shader_module(),
-          halftone_shader_module(), print_grain_shader_module()};
+          halftone_shader_module(), print_grain_shader_module(),
+          ink_stroke_shader_module()};
 }
 
 } // namespace instantee::render_metal

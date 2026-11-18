@@ -11,6 +11,7 @@ add_library(instantee_render_core STATIC
   src/photo_crop.cpp
   src/halftone.cpp
   src/print_grain.cpp
+  src/ink_stroke.cpp
   src/graphic_shapes.cpp
   src/editorial_charts.cpp
   src/shadow.cpp

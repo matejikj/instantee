@@ -11,3 +11,11 @@ target_link_libraries(spike_arc_length_test PRIVATE
 add_test(NAME spike_arc_length COMMAND spike_arc_length_test)
 set_tests_properties(spike_arc_length PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_ink_stroke_test ink_stroke_test.cpp)
+target_link_libraries(spike_ink_stroke_test PRIVATE
+  instantee::geometry instantee_build_options)
+add_test(NAME spike_ink_stroke
+  COMMAND spike_ink_stroke_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_ink_stroke PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")

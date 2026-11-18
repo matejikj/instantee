@@ -56,6 +56,17 @@
       ],
       "feature_id": "print_grain",
       "source_sha256": "231513be81a7589c033ded67941a8e64b499372329d5db95cf495e58edb059f7"
+    },
+    {
+      "id": "ink_stroke",
+      "version": 1,
+      "source": "../spike/ink_stroke.metal",
+      "entry_points": [
+        "vs_ink_stroke_main",
+        "fs_ink_stroke_main"
+      ],
+      "feature_id": "ink_stroke",
+      "source_sha256": "be3c3dbd655e683874f48e15ceafa175d4936048023585677b14eacc006b2414"
     }
   ]
 }

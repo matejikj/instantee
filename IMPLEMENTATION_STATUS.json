@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T03:43:46Z",
+  "updated_at_utc": "2026-11-18T04:22:47Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5277,14 +5277,24 @@
       "notes": "ArcLengthTable + sample/prefix_at_progress in shared geometry; progress maps by length, not vertex index."
     },
     "P6-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A stroke progresses smoothly from 0 to 100% without CPU repainting of a raster bitmap.",
-        "met": null
+        "criterion": "Tah od 0 do 100 % proběhne plynule bez CPU překreslování rastrové bitmapy.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-008/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Stroke progress goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T04:22:47Z",
+      "notes": "Variable-width ink ribbon with arc-length attrs in geometry; GPU progress discard + procedural brush; render-core feature registry only."
     },
     "P6-009": {
       "status": "todo",

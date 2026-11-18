@@ -1,0 +1,10 @@
+ink_stroke path-L
+verts=6 tris=4 length=8.0000 grain=0.3000 seed=7
+w@0.0000=1.6000
+w@0.2500=4.7071
+w@1.0000=1.6000
+progress=0.0000 revealed=0.0000 tris=0 verts=2 tip=0.0000,0.0000
+progress=0.2500 revealed=2.0000 tris=2 verts=4 tip=2.0000,0.0000
+progress=0.5000 revealed=4.0000 tris=2 verts=4 tip=2.0000,2.0000
+progress=0.7500 revealed=6.0000 tris=2 verts=4 tip=2.0000,4.0000
+progress=1.0000 revealed=8.0000 tris=4 verts=6 tip=2.0000,6.0000

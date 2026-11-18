@@ -3,7 +3,8 @@ add_library(instantee_geometry STATIC
   tessellate.cpp
   stroke.cpp
   path_cache.cpp
-  arc_length.cpp)
+  arc_length.cpp
+  ink_stroke.cpp)
 add_library(instantee::geometry ALIAS instantee_geometry)
 target_include_directories(instantee_geometry
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

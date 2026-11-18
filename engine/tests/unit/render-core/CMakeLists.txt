@@ -112,6 +112,14 @@ add_test(NAME spike_plot_curve COMMAND spike_plot_curve_test)
 set_tests_properties(spike_plot_curve PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_diagram_test diagram_test.cpp)
+target_link_libraries(spike_diagram_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_diagram
+  COMMAND spike_diagram_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_diagram PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_graphic_shapes_test graphic_shapes_test.cpp)
 target_link_libraries(spike_graphic_shapes_test PRIVATE
   instantee::render_core instantee_build_options)

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T04:50:10Z",
+  "updated_at_utc": "2026-11-18T04:58:52Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5357,14 +5357,24 @@
       "notes": "Bounded PlotExpr AST (no eval) with adaptive sampling, axes mapping, clipping, and discontinuity splits."
     },
     "P6-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Connectors respond to node transforms and support mask/reveal.",
-        "met": null
+        "criterion": "Konektory reagují na transformace uzlů a podporují mask/reveal.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-012/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Diagram layout golden",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T04:58:52Z",
+      "notes": "Diagram kit: typed ports, transform-reactive connectors, mask/reveal, layout goldens (baseline/transformed/reveal)."
     },
     "P6-013": {
       "status": "todo",

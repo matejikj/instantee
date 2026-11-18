@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:08:00Z",
+  "updated_at_utc": "2026-11-18T19:18:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6249,14 +6249,50 @@
       "notes": "CPU letter-card fold/unfold via crease hinges; goldens + ASan/UBSan."
     },
     "P7-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Deformation does not tear the silhouette or exceed the stated GPU complexity tier.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Bend/wave deform with paper-curvature-lite-v1 op budgets and feature registration",
+            "met": true,
+            "evidence": "engine/src/render-core/include/instantee/render_core/paper_curvature.hpp"
+          },
+          {
+            "criterion": "Silhouette stays watertight without collapsed edges; oversize grids fail closed",
+            "met": true,
+            "evidence": "engine/tests/unit/render-core/paper_curvature_test.cpp"
+          },
+          {
+            "criterion": "Curvature goldens lock bend and wave samples",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-curvature/goldens/"
+          },
+          {
+            "criterion": "Targeted curvature benchmark stays within lite ops budget (non-certified baseline)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-018/paper_curvature_report.json"
+          },
+          {
+            "criterion": "Reviewed decision record + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-018/decision.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-018/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Curvature shader benchmark",
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C",
+      "notes": "Lite bend/wave paper curvature with tiered op budgets, silhouette checks, and non-certified micrometric."
     },
     "P7-019": {
       "status": "todo",

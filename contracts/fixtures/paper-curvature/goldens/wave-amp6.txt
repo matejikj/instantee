@@ -1,0 +1,7 @@
+paper_curvature wave-amp6
+mesh=curvature-grid grid=16x10 mode=wave ops=748 tier=paper-curvature-lite-v1
+v 0 x=0.000000 y=0.000000 z=0.000000
+v 16 x=120.000000 y=0.000000 z=0.000000
+v 170 x=0.000000 y=80.000000 z=0.000000
+v 186 x=120.000000 y=80.000000 z=0.000000
+v 93 x=60.000000 y=40.000000 z=0.000000

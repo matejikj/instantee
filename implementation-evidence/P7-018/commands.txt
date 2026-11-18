@@ -1,0 +1,13 @@
+xcrun clang-format -i \
+  engine/src/render-core/include/instantee/render_core/paper_curvature.hpp \
+  engine/src/render-core/src/paper_curvature.cpp \
+  engine/tests/unit/render-core/paper_curvature_test.cpp \
+  engine/apps/paper-curvature-bench/main.cpp
+cmake --build --preset release --target spike_paper_curvature_test paper-curvature-bench
+ctest --preset release -R '^spike_paper_curvature$' --output-on-failure
+python3 tools/benchmark/paper_curvature_bench.py \
+  --binary build/release/paper-curvature-bench \
+  --out implementation-evidence/P7-018/paper_curvature_report.json \
+  --raw-out /tmp/instantee-paper-curvature-bench.raw.json \
+  --min-time 0.05s
+tools/dev/check.py --report implementation-evidence/P7-018/checks.json

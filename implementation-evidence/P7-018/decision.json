@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "subject": "paper curvature lite deformation",
+  "measurement": "benchmark",
+  "certification": "non_certified_dev_baseline",
+  "tier_id": "paper-curvature-lite-v1",
+  "inputs": [
+    "implementation-evidence/P7-018/paper_curvature_report.json",
+    "contracts/fixtures/paper-curvature/goldens/",
+    "engine/tests/unit/render-core/paper_curvature_test.cpp"
+  ],
+  "findings": [
+    "Bend and wave deform keep shared edges coincident and non-collapsed on the 16x10 reference grid.",
+    "All micrometric workloads report ops_used <= ops_budget for paper-curvature-lite-v1.",
+    "Results are a development baseline; not claimed as certified M1 Air product SLOs."
+  ],
+  "decision": "accept",
+  "rationale": "Silhouette integrity unit/golden checks pass and the curvature shader/mesh op budget is respected under the targeted benchmark."
+}

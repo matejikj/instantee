@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "kind": "paper_curvature_benchmark",
+  "measurement": "benchmark",
+  "certification": "non_certified_dev_baseline",
+  "library": {
+    "name": "google-benchmark",
+    "tag": "v1.9.1",
+    "pin": "third_party/google-benchmark/PIN.json"
+  },
+  "machine_profile": {
+    "os": "Darwin",
+    "os_release": "27.2.0",
+    "arch": "arm64",
+    "python": "3.14.6",
+    "logical_cpus": 8,
+    "page_size": 16384,
+    "certification": "non_certified_dev_baseline"
+  },
+  "build_profile": {
+    "binary": "paper-curvature-bench",
+    "cmake_build_type_hint": "Release preferred for micrometrics",
+    "sanitizer": "none_required_for_report",
+    "certification": "non_certified_dev_baseline"
+  },
+  "workload": {
+    "id": "synthetic_paper_curvature_grid",
+    "tier_id": "paper-curvature-lite-v1",
+    "notes": [
+      "In-process bend/wave deform of a regular paper grid.",
+      "Counters report ops_used vs lite-tier ops_budget."
+    ]
+  },
+  "benchmarks": [
+    {
+      "name": "BM_PaperCurvatureBend/8",
+      "iterations": 98842,
+      "real_time": 0.7090976002165867,
+      "cpu_time": 0.7074219461362596,
+      "time_unit": "us",
+      "items_per_second": 114500264.57674842,
+      "counters": {
+        "ops_used": 486.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2228224.0
+      }
+    },
+    {
+      "name": "BM_PaperCurvatureBend/16",
+      "iterations": 27232,
+      "real_time": 2.585782975911923,
+      "cpu_time": 2.5759767920094014,
+      "time_unit": "us",
+      "items_per_second": 112190451.7526978,
+      "counters": {
+        "ops_used": 1734.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2342912.0
+      }
+    },
+    {
+      "name": "BM_PaperCurvatureBend/32",
+      "iterations": 7710,
+      "real_time": 9.112143320299174,
+      "cpu_time": 9.0888456549935,
+      "time_unit": "us",
+      "items_per_second": 119817195.86157708,
+      "counters": {
+        "ops_used": 6534.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2490368.0
+      }
+    },
+    {
+      "name": "BM_PaperCurvatureWave/8",
+      "iterations": 93383,
+      "real_time": 0.7475999378913691,
+      "cpu_time": 0.7462064829787,
+      "time_unit": "us",
+      "items_per_second": 108549043.52568068,
+      "counters": {
+        "ops_used": 324.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2490368.0
+      }
+    },
+    {
+      "name": "BM_PaperCurvatureWave/16",
+      "iterations": 28666,
+      "real_time": 2.446809809526787,
+      "cpu_time": 2.4388125305239603,
+      "time_unit": "us",
+      "items_per_second": 118500293.22996409,
+      "counters": {
+        "ops_used": 1156.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2506752.0
+      }
+    },
+    {
+      "name": "BM_PaperCurvatureWave/32",
+      "iterations": 7456,
+      "real_time": 9.51419997327106,
+      "cpu_time": 9.49195278969955,
+      "time_unit": "us",
+      "items_per_second": 114728762.78754336,
+      "counters": {
+        "ops_used": 4356.0,
+        "ops_budget": 8192.0,
+        "rss_peak_bytes": 2506752.0
+      }
+    }
+  ],
+  "tier": {
+    "tier_id": "paper-curvature-lite-v1",
+    "rows": [
+      {
+        "name": "BM_PaperCurvatureBend/8",
+        "ops_used": 486.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      },
+      {
+        "name": "BM_PaperCurvatureBend/16",
+        "ops_used": 1734.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      },
+      {
+        "name": "BM_PaperCurvatureBend/32",
+        "ops_used": 6534.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      },
+      {
+        "name": "BM_PaperCurvatureWave/8",
+        "ops_used": 324.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      },
+      {
+        "name": "BM_PaperCurvatureWave/16",
+        "ops_used": 1156.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      },
+      {
+        "name": "BM_PaperCurvatureWave/32",
+        "ops_used": 4356.0,
+        "ops_budget": 8192.0,
+        "within_tier": true
+      }
+    ],
+    "verdict": "pass",
+    "reason": "all_workloads_within_ops_budget"
+  },
+  "bottlenecks": [
+    "Wall time uses Google Benchmark real_time; cpu_time is process CPU.",
+    "Not an M1 Air certification series; sanitizer builds must not be used as product SLOs.",
+    "CPU reference deform mirrors the lite-tier vertex ALU budget for bend/wave.",
+    "Tier check: all_workloads_within_ops_budget (verdict=pass).",
+    "Benchmarks collected: 6."
+  ],
+  "decision": {
+    "within_complexity_tier": true,
+    "accepted": true,
+    "summary": "Paper curvature bend/wave stay within paper-curvature-lite-v1 ops budget; silhouette integrity is covered by unit tests/goldens."
+  }
+}

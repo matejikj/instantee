@@ -1,0 +1,7 @@
+paper_curvature bend-0.8
+mesh=curvature-grid grid=16x10 mode=bend ops=1122 tier=paper-curvature-lite-v1
+v 0 x=1.587249 y=0.000000 z=-11.840851
+v 16 x=118.412751 y=0.000000 z=-11.840851
+v 170 x=1.587249 y=80.000000 z=-11.840851
+v 186 x=118.412751 y=80.000000 z=-11.840851
+v 93 x=60.000000 y=40.000000 z=-0.000000

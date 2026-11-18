@@ -1,0 +1,17 @@
+{
+  "verification": "Curvature shader benchmark",
+  "tests": [
+    "spike_paper_curvature"
+  ],
+  "fixtures": [
+    "contracts/fixtures/paper-curvature/goldens/bend-0.8.txt",
+    "contracts/fixtures/paper-curvature/goldens/wave-amp6.txt"
+  ],
+  "benchmark_report": "implementation-evidence/P7-018/paper_curvature_report.json",
+  "decision_record": "implementation-evidence/P7-018/decision.json",
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan, contracts/authoring, and tools/benchmark unit tests.",
+  "measurement": "benchmark",
+  "certification": "non_certified_dev_baseline",
+  "evidence_tier": "C"
+}

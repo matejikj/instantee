@@ -1,0 +1,12 @@
+{
+  "verification": "Layered shadow goldens",
+  "tests": [
+    "spike_paper_layered_shadow",
+    "header_instantee_render_core_instantee_render_core_paper_layered_shadow"
+  ],
+  "golden": "contracts/fixtures/paper-layered-shadow/goldens/three-layer.txt",
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest and asan-ubsan.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

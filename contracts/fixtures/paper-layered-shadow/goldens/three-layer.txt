@@ -1,0 +1,10 @@
+name=three-layer layers=3 w=32 h=32 offset=4,4 contact_depth=2 soft=2 max_spread=3
+cast order=0 depth=4 recv=5.5 delta=1.5 contact=1 off=1.4,1.4 soft=1
+cast order=1 depth=5.5 recv=12 delta=6.5 contact=0 off=9,9 soft=2.35
+cast order=2 depth=12 recv=14 delta=2 contact=1 off=1.4,1.4 soft=1
+p2,2=255,255,255
+p8,8=220,80,70
+p12,14=220,80,70
+p18,10=36,72,108
+p22,20=70,140,210
+p28,28=255,255,255

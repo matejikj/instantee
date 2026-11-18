@@ -182,6 +182,14 @@ target_link_libraries(spike_shadow_test PRIVATE
 add_test(NAME spike_shadow COMMAND spike_shadow_test)
 set_tests_properties(spike_shadow PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")
 
+add_executable(spike_paper_layered_shadow_test paper_layered_shadow_test.cpp)
+target_link_libraries(spike_paper_layered_shadow_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_paper_layered_shadow
+  COMMAND spike_paper_layered_shadow_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_layered_shadow PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_linear_compositor_test linear_compositor_test.cpp)
 target_link_libraries(spike_linear_compositor_test PRIVATE
   instantee::render_core instantee_build_options)

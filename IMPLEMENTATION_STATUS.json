@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T12:29:03Z",
+  "updated_at_utc": "2026-11-18T12:55:16Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5774,14 +5774,41 @@
       "notes": "Layered 2.5D depth stage in core-model: paper planes, stage anchors, layer clips, camera parallax sampling over existing perspective projection."
     },
     "P7-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Depth is visible without expensive ray tracing or halo artifacts.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Offset/contact casts between distinct-depth paper layers; soft radius capped",
+            "met": true,
+            "evidence": "engine/src/render-core/include/instantee/render_core/paper_layered_shadow.hpp"
+          },
+          {
+            "criterion": "Layered shadow golden + behavioral checks for floor cue and no floating halo",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-layered-shadow/goldens/three-layer.txt"
+          },
+          {
+            "criterion": "Selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-006/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-006/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Layered shadow goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T12:55:16Z",
+      "notes": "Paper layered shadows in render-core: depth-map receivers, contact vs offset drops, tier-clamped blur clipped to sheets/floor; layered shadow golden."
     },
     "P7-007": {
       "status": "todo",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T04:34:46Z",
+  "updated_at_utc": "2026-11-18T04:42:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5317,14 +5317,24 @@
       "notes": "Handwriting presets (line/dash/scribble) pack ink_progress tracks into editorial beat windows with pauses; rescale follows markers."
     },
     "P6-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Changing the range does not change data or create label collisions without a warning.",
-        "met": null
+        "criterion": "Změna rozsahu nemění data a nevytváří label kolize bez warningu.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-010/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Axes numeric/layout tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T04:42:00Z",
+      "notes": "plot_axes: domain→pixel mapping, nice ticks/grid DrawOps, label collision warnings; domain changes do not mutate data."
     },
     "P6-011": {
       "status": "todo",

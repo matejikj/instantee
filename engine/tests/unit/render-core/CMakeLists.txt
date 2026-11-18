@@ -98,6 +98,13 @@ add_test(NAME spike_ink_stroke_feature COMMAND spike_ink_stroke_feature_test)
 set_tests_properties(spike_ink_stroke_feature PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_plot_axes_test plot_axes_test.cpp)
+target_link_libraries(spike_plot_axes_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_plot_axes COMMAND spike_plot_axes_test)
+set_tests_properties(spike_plot_axes PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_graphic_shapes_test graphic_shapes_test.cpp)
 target_link_libraries(spike_graphic_shapes_test PRIVATE
   instantee::render_core instantee_build_options)

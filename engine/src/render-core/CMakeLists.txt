@@ -13,6 +13,7 @@ add_library(instantee_render_core STATIC
   src/print_grain.cpp
   src/ink_stroke.cpp
   src/plot_axes.cpp
+  src/plot_curve.cpp
   src/graphic_shapes.cpp
   src/editorial_charts.cpp
   src/shadow.cpp

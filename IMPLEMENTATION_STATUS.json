@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T04:42:00Z",
+  "updated_at_utc": "2026-11-18T04:50:10Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5337,14 +5337,24 @@
       "notes": "plot_axes: domain→pixel mapping, nice ticks/grid DrawOps, label collision warnings; domain changes do not mutate data."
     },
     "P6-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Sine, polynomial and discontinuous graphs stay within limits and produce correct curves.",
-        "met": null
+        "criterion": "Sinus/polynom/graf s diskontinuitou nepřekročí limity a vytváří správné křivky.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-011/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Plot numeric fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T04:50:10Z",
+      "notes": "Bounded PlotExpr AST (no eval) with adaptive sampling, axes mapping, clipping, and discontinuity splits."
     },
     "P6-012": {
       "status": "todo",

@@ -1,14 +1,18 @@
 row kind=1 w=12.500 h=16.350 d=11.600 x=0.000 shift=0.000
   frac kind=7 w=12.500 h=16.350 d=11.600 x=0.000 shift=0.000
     num kind=2 w=9.000 h=10.100 d=2.000 x=1.750 shift=6.250
-      script kind=9 w=9.000 h=10.100 d=2.000 x=0.000 shift=0.000
-        base kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
-        sup kind=2 w=3.500 h=5.600 d=1.400 x=5.500 shift=4.500
-          number:2 kind=4 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+      row kind=1 w=9.000 h=10.100 d=2.000 x=0.000 shift=0.000
+        script kind=9 w=9.000 h=10.100 d=2.000 x=0.000 shift=0.000
+          base kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
+          sup kind=2 w=3.500 h=5.600 d=1.400 x=5.500 shift=4.500
+            row kind=1 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+              number:2 kind=4 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
     rule kind=6 w=12.500 h=0.250 d=0.250 x=0.000 shift=2.500
     den kind=2 w=10.500 h=9.550 d=2.800 x=1.000 shift=-8.800
-      sqrt kind=8 w=10.500 h=9.550 d=2.800 x=0.000 shift=0.000
-        surd kind=6 w=5.500 h=9.300 d=2.800 x=0.000 shift=0.000
-        overline kind=6 w=5.000 h=0.500 d=0.000 x=5.500 shift=9.050
-        radicand kind=2 w=5.000 h=8.000 d=2.000 x=5.500 shift=0.000
-          atom:b kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
+      row kind=1 w=10.500 h=9.550 d=2.800 x=0.000 shift=0.000
+        sqrt kind=8 w=10.500 h=9.550 d=2.800 x=0.000 shift=0.000
+          surd kind=6 w=5.500 h=9.300 d=2.800 x=0.000 shift=0.000
+          overline kind=6 w=5.000 h=0.500 d=0.000 x=5.500 shift=9.050
+          radicand kind=2 w=5.000 h=8.000 d=2.000 x=5.500 shift=0.000
+            row kind=1 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
+              atom:b kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000

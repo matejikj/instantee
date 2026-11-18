@@ -2,6 +2,8 @@ row kind=1 w=9.000 h=10.100 d=3.960 x=0.000 shift=0.000
   script kind=9 w=9.000 h=10.100 d=3.960 x=0.000 shift=0.000
     base kind=3 w=5.000 h=8.000 d=2.000 x=0.000 shift=0.000
     sub kind=2 w=3.500 h=5.600 d=1.400 x=5.500 shift=-2.560
-      atom:i kind=3 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+      row kind=1 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+        atom:i kind=3 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
     sup kind=2 w=3.500 h=5.600 d=1.400 x=5.500 shift=4.500
-      number:2 kind=4 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+      row kind=1 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000
+        number:2 kind=4 w=3.500 h=5.600 d=1.400 x=0.000 shift=0.000

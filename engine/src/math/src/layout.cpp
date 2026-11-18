@@ -106,9 +106,14 @@ Layouter::layout_node(const MathNode &node, float size_px) const {
     if (!inner) {
       return inner;
     }
-    MathLayoutBox group = std::move(*inner);
-    group.source_kind = MathNodeKind::group;
-    group.tag = "group";
+    // Keep the child nested so AST and layout trees stay isomorphic for
+    // semantic id assignment.
+    MathLayoutBox group{.width_px = inner->width_px,
+                        .height_px = inner->height_px,
+                        .depth_px = inner->depth_px,
+                        .source_kind = MathNodeKind::group,
+                        .tag = "group"};
+    group.children.push_back(std::move(*inner));
     return group;
   }
   case MathNodeKind::atom:
@@ -160,15 +165,19 @@ Layouter::layout_node(const MathNode &node, float size_px) const {
     if (!body) {
       return body;
     }
-    MathLayoutBox box = std::move(*body);
-    box.source_kind = node.kind;
-    box.tag =
-        (node.kind == MathNodeKind::accent ? "accent:" : "style:") + node.value;
+    MathLayoutBox box{
+        .width_px = body->width_px,
+        .height_px = body->height_px,
+        .depth_px = body->depth_px,
+        .source_kind = node.kind,
+        .tag = (node.kind == MathNodeKind::accent ? "accent:" : "style:") +
+               node.value};
     if (node.kind == MathNodeKind::accent) {
       // Reserve a thin accent band above the body without changing width.
       const double band = static_cast<double>(size_px) * 0.15;
       box.height_px += band;
     }
+    box.children.push_back(std::move(*body));
     return box;
   }
   case MathNodeKind::delimited: {

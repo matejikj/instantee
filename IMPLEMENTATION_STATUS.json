@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T03:12:48Z",
+  "updated_at_utc": "2026-11-18T03:27:21Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5217,14 +5217,24 @@
       "notes": "layout_math builds TeX-like boxes via MathMetricsProvider; unit-metric goldens for frac/sqrt/scripts."
     },
     "P6-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The author can highlight a specific subexpression without inferring it from pixels.",
-        "met": null
+        "criterion": "Autor může zvýraznit konkrétní subexpression bez odvozování z pixelů.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-005/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-005/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Semantic math node test",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T03:27:21Z",
+      "notes": "compile_math_anim assigns path-stable semantic ids and render commands; highlight_math_subexpression resolves bounds by id."
     },
     "P6-006": {
       "status": "todo",

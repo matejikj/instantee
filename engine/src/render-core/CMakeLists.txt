@@ -15,6 +15,7 @@ add_library(instantee_render_core STATIC
   src/plot_axes.cpp
   src/plot_curve.cpp
   src/diagram.cpp
+  src/diagram_animation.cpp
   src/graphic_shapes.cpp
   src/editorial_charts.cpp
   src/shadow.cpp

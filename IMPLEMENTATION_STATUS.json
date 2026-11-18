@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T04:58:52Z",
+  "updated_at_utc": "2026-11-18T05:06:11Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5377,14 +5377,24 @@
       "notes": "Diagram kit: typed ports, transform-reactive connectors, mask/reveal, layout goldens (baseline/transformed/reveal)."
     },
     "P6-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "An explanatory graph can change state without rewriting the renderer.",
-        "met": null
+        "criterion": "Vysvětlovací graf může změnit stav bez přepisu rendereru.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-013/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Diagram animation demo",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T05:06:11Z",
+      "notes": "Diagram animation: staged edge reveal, layout pose lerp, active-path highlight, group compare; samples DiagramScene for layout_diagram."
     },
     "P6-014": {
       "status": "todo",

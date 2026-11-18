@@ -1,0 +1,79 @@
+diagram-animation-demo frames=7
+nodes=4 edges=3 stages=3 poses=3
+frame t=0.000 path=0 compare=0 ops=21
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node C c=230.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node D c=140.000,30.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=0.000 w=2.000 rgb=20,40,90
+  edge B-C reveal=0.000 w=2.000 rgb=20,40,90
+  edge B-D reveal=0.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=0.000
+  resolved B-C from=158.000,80.000 to=212.000,80.000 reveal=0.000
+  resolved B-D from=140.000,66.000 to=140.000,42.000 reveal=0.000
+frame t=0.200 path=0 compare=0 ops=22
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node C c=230.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node D c=140.000,30.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=0.800 w=2.000 rgb=20,40,90
+  edge B-C reveal=0.000 w=2.000 rgb=20,40,90
+  edge B-D reveal=0.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=0.800
+  resolved B-C from=158.000,80.000 to=212.000,80.000 reveal=0.000
+  resolved B-D from=140.000,66.000 to=140.000,42.000 reveal=0.000
+frame t=0.400 path=0 compare=0 ops=25
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node C c=230.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node D c=140.000,30.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=1.000 w=2.000 rgb=20,40,90
+  edge B-C reveal=0.600 w=2.000 rgb=20,40,90
+  edge B-D reveal=0.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=1.000
+  resolved B-C from=158.000,80.000 to=212.000,80.000 reveal=0.600
+  resolved B-D from=140.000,66.000 to=140.000,42.000 reveal=0.000
+frame t=0.600 path=1 compare=0 ops=28
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node C c=230.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node D c=140.000,30.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=1.000 w=3.500 rgb=200,40,50
+  edge B-C reveal=1.000 w=3.500 rgb=200,40,50
+  edge B-D reveal=0.500 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=1.000
+  resolved B-C from=158.000,80.000 to=212.000,80.000 reveal=1.000
+  resolved B-D from=140.000,66.000 to=140.000,42.000 reveal=0.500
+frame t=0.750 path=1 compare=0 ops=28
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node C c=233.333,76.667 rot=0.033 reveal=1.000 fill_a=255 stroke_rgb=200,40,50
+  node D c=140.000,45.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=1.000 w=3.500 rgb=200,40,50
+  edge B-C reveal=1.000 w=3.500 rgb=200,40,50
+  edge B-D reveal=1.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=1.000
+  resolved B-C from=158.000,80.000 to=215.343,76.067 reveal=1.000
+  resolved B-D from=140.000,66.000 to=140.000,57.000 reveal=1.000
+frame t=0.900 path=0 compare=1 ops=28
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node C c=243.333,66.667 rot=0.133 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node D c=140.000,90.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=1.000 w=2.000 rgb=20,40,90
+  edge B-C reveal=1.000 w=2.000 rgb=20,40,90
+  edge B-D reveal=1.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=1.000
+  resolved B-C from=158.000,80.000 to=225.493,64.274 reveal=1.000
+  resolved B-D from=140.000,66.000 to=140.000,102.000 reveal=1.000
+frame t=1.000 path=0 compare=1 ops=28
+  node A c=50.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node B c=140.000,80.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node C c=250.000,60.000 rot=0.200 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  node D c=140.000,120.000 rot=0.000 reveal=1.000 fill_a=255 stroke_rgb=20,40,90
+  edge A-B reveal=1.000 w=2.000 rgb=20,40,90
+  edge B-C reveal=1.000 w=2.000 rgb=20,40,90
+  edge B-D reveal=1.000 w=2.000 rgb=20,40,90
+  resolved A-B from=68.000,80.000 to=122.000,80.000 reveal=1.000
+  resolved B-C from=158.000,80.000 to=232.359,56.424 reveal=1.000
+  resolved B-D from=140.000,66.000 to=140.000,132.000 reveal=1.000

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T13:17:19Z",
+  "updated_at_utc": "2026-11-18T18:41:17Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6080,14 +6080,45 @@
       "notes": "Paper puppet expression tracks in scene-ir: blink/mouth/head-turn/eye-widen channels, three curated expressions with stable face part ids, weighted blend."
     },
     "P7-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Key gestures are reproducible on the reference human rig.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Curated library exposes raise-hand, point, grasp, look-at, and nod",
+            "met": true,
+            "evidence": "engine/src/scene-ir/src/puppet_gesture.cpp"
+          },
+          {
+            "criterion": "Retargetable role sampling + FK evaluation is deterministic on reference-human",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_gesture_test.cpp"
+          },
+          {
+            "criterion": "Gesture demo goldens lock end poses for all five clips",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-gesture/goldens/"
+          },
+          {
+            "criterion": "Gesture tests + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-014/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-014/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Gesture demo goldens",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Curated retargetable gesture clips evaluated through FK on the reference-human rig; goldens + ASan/UBSan."
     },
     "P7-015": {
       "status": "todo",

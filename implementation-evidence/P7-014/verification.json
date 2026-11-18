@@ -1,0 +1,17 @@
+{
+  "verification": "Gesture demo goldens",
+  "tests": [
+    "spike_scene_ir_puppet_gesture"
+  ],
+  "fixtures": [
+    "contracts/fixtures/puppet-gesture/goldens/raise-hand-t1.txt",
+    "contracts/fixtures/puppet-gesture/goldens/point-t1.txt",
+    "contracts/fixtures/puppet-gesture/goldens/grasp-t1.txt",
+    "contracts/fixtures/puppet-gesture/goldens/look-at-t1.txt",
+    "contracts/fixtures/puppet-gesture/goldens/nod-t1.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

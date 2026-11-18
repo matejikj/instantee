@@ -11,7 +11,8 @@ add_library(instantee_scene_ir STATIC
   src/puppet_fk.cpp
   src/puppet_ik.cpp
   src/puppet_skin.cpp
-  src/puppet_expression.cpp)
+  src/puppet_expression.cpp
+  src/puppet_gesture.cpp)
 add_library(instantee::scene_ir ALIAS instantee_scene_ir)
 target_include_directories(instantee_scene_ir
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

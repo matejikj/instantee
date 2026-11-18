@@ -1,0 +1,8 @@
+puppet_gesture point-t1
+clip=point t=1.0000 joints=6
+j root x=0.000000 y=0.000000 rz=0.000000
+j spine x=0.000000 y=-36.000000 rz=0.000000
+j head x=0.000000 y=-70.000000 rz=0.000000
+j shoulder_r x=28.000000 y=-48.000000 rz=-0.350000
+j elbow_r x=56.181181 y=-58.286934 rz=-0.150000
+j hand_r x=82.508658 y=-72.669700 rz=-0.100000

@@ -1,0 +1,8 @@
+puppet_gesture look-at-t1
+clip=look-at t=1.0000 joints=6
+j root x=0.000000 y=0.000000 rz=0.000000
+j spine x=0.000000 y=-36.000000 rz=0.080000
+j head x=2.717100 y=-69.891258 rz=0.400000
+j shoulder_r x=28.869424 y=-45.724009 rz=0.000000
+j elbow_r x=58.773475 y=-43.326568 rz=0.000000
+j hand_r x=88.677526 y=-40.929127 rz=0.000000

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T09:19:16Z",
+  "updated_at_utc": "2026-11-18T10:51:42Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5604,14 +5604,36 @@
       "notes": "Notebook phase gate PASS: inventory complete, B-02 series threshold_gate, math/typography/golden/lint probes, full --gate matrix; unlocks Paper Cinema."
     },
     "P7-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The Style Bible supports period variants without a different renderer.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Epoch overlays retint tokens without changing renderer features",
+            "met": true,
+            "evidence": "implementation-evidence/P7-001/art-direction-review.json"
+          },
+          {
+            "criterion": "Semantic drift fixture rejected; review and registry probes green",
+            "met": true,
+            "evidence": "implementation-evidence/P7-001/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-001/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-001/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Paper art-direction review",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T10:51:42Z",
+      "notes": "Finalized paper-cinema Style Bible with victorian/wartime/midcentury epoch overlays; shared paper-sheet renderer; reject epoch_renderer_drift."
     },
     "P7-002": {
       "status": "todo",

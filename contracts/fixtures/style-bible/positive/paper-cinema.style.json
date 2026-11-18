@@ -12,6 +12,20 @@
         "b": 0.72,
         "a": 1
       },
+      "ink": {
+        "space": "linear-rgba",
+        "r": 0.14,
+        "g": 0.1,
+        "b": 0.08,
+        "a": 1
+      },
+      "wash": {
+        "space": "linear-rgba",
+        "r": 0.35,
+        "g": 0.55,
+        "b": 0.7,
+        "a": 1
+      },
       "shadow": {
         "space": "linear-rgba",
         "r": 0.18,
@@ -19,11 +33,18 @@
         "b": 0.08,
         "a": 0.65
       },
-      "wash": {
+      "highlight": {
         "space": "linear-rgba",
-        "r": 0.35,
-        "g": 0.55,
-        "b": 0.7,
+        "r": 0.96,
+        "g": 0.9,
+        "b": 0.74,
+        "a": 1
+      },
+      "backdrop": {
+        "space": "linear-rgba",
+        "r": 0.22,
+        "g": 0.2,
+        "b": 0.18,
         "a": 1
       }
     },
@@ -33,25 +54,61 @@
         "role": "headline",
         "size_scale": 1.15
       },
+      "subhead": {
+        "family": "DejaVu Sans",
+        "role": "subhead",
+        "size_scale": 1.0
+      },
+      "body": {
+        "family": "DejaVu Sans",
+        "role": "body",
+        "size_scale": 0.95
+      },
       "note": {
         "family": "DejaVu Sans",
         "role": "caption",
         "size_scale": 0.85
+      },
+      "mono": {
+        "family": "DejaVu Sans",
+        "role": "mono",
+        "size_scale": 0.9
       }
     },
     "materials": {
       "paper_sheet": {
-        "shader_feature": "paper-shade",
+        "shader_feature": "paper-sheet",
         "opacity": 1,
         "parameters": {
           "fiber": 0.4,
-          "fold": 0.15
+          "fold": 0.15,
+          "roughness": 0.35,
+          "shadow_bias": 0.06,
+          "edge_thickness": 0.04
+        }
+      },
+      "paper_fold": {
+        "shader_feature": "paper-fold",
+        "opacity": 1,
+        "parameters": {
+          "crease": 0.45,
+          "fiber": 0.3
         }
       },
       "cutout": {
         "shader_feature": "solid-fill",
         "opacity": 1,
-        "parameters": {}
+        "parameters": {
+          "grain": 0.02
+        }
+      },
+      "contact_shadow": {
+        "shader_feature": "solid-fill",
+        "opacity": 0.45,
+        "parameters": {
+          "blur": 0.25,
+          "bias": 0.08
+        }
       }
     },
     "spacing": {
@@ -60,6 +117,12 @@
       },
       "layer_gap": {
         "px": 12
+      },
+      "depth_step": {
+        "px": 18
+      },
+      "shadow_offset": {
+        "px": 8
       }
     },
     "motion": {
@@ -74,6 +137,18 @@
         "duration_frames": 36,
         "intensity": 0.45,
         "stagger_frames": 0
+      },
+      "layer_parallax": {
+        "ease": "ease_out",
+        "duration_frames": 48,
+        "intensity": 0.35,
+        "stagger_frames": 2
+      },
+      "camera_move": {
+        "ease": "ease_in_out",
+        "duration_frames": 60,
+        "intensity": 0.4,
+        "stagger_frames": 0
       }
     },
     "camera": {
@@ -84,6 +159,14 @@
       "stage_hold": {
         "framing": "static",
         "ease": "linear"
+      },
+      "slow_push": {
+        "framing": "push_in",
+        "ease": "ease_in_out"
+      },
+      "crane_pan": {
+        "framing": "pan",
+        "ease": "ease_in_out"
       }
     },
     "safe_area": {
@@ -92,6 +175,317 @@
       "bottom_px": 180,
       "left_px": 40,
       "right_px": 40
+    }
+  },
+  "epochs": {
+    "victorian": {
+      "label": "Victorian pulp theatre",
+      "colors": {
+        "pulp": {
+          "space": "linear-rgba",
+          "r": 0.86,
+          "g": 0.78,
+          "b": 0.62,
+          "a": 1
+        },
+        "ink": {
+          "space": "linear-rgba",
+          "r": 0.12,
+          "g": 0.08,
+          "b": 0.06,
+          "a": 1
+        },
+        "wash": {
+          "space": "linear-rgba",
+          "r": 0.42,
+          "g": 0.28,
+          "b": 0.22,
+          "a": 1
+        },
+        "shadow": {
+          "space": "linear-rgba",
+          "r": 0.1,
+          "g": 0.06,
+          "b": 0.04,
+          "a": 0.72
+        },
+        "highlight": {
+          "space": "linear-rgba",
+          "r": 0.92,
+          "g": 0.84,
+          "b": 0.58,
+          "a": 1
+        },
+        "backdrop": {
+          "space": "linear-rgba",
+          "r": 0.16,
+          "g": 0.12,
+          "b": 0.1,
+          "a": 1
+        }
+      },
+      "materials": {
+        "paper_sheet": {
+          "shader_feature": "paper-sheet",
+          "opacity": 1,
+          "parameters": {
+            "fiber": 0.62,
+            "fold": 0.28,
+            "roughness": 0.48,
+            "shadow_bias": 0.1,
+            "edge_thickness": 0.06
+          }
+        },
+        "contact_shadow": {
+          "shader_feature": "solid-fill",
+          "opacity": 0.55,
+          "parameters": {
+            "blur": 0.32,
+            "bias": 0.12
+          }
+        }
+      },
+      "motion": {
+        "fold_reveal": {
+          "ease": "ease_in_out",
+          "duration_frames": 42,
+          "intensity": 0.55,
+          "stagger_frames": 6
+        },
+        "camera_move": {
+          "ease": "ease_in_out",
+          "duration_frames": 84,
+          "intensity": 0.3,
+          "stagger_frames": 0
+        },
+        "layer_parallax": {
+          "ease": "ease_out",
+          "duration_frames": 64,
+          "intensity": 0.28,
+          "stagger_frames": 3
+        }
+      },
+      "camera": {
+        "slow_push": {
+          "framing": "push_in",
+          "ease": "ease_in"
+        },
+        "depth_orbit": {
+          "framing": "orbit",
+          "ease": "ease_in_out"
+        }
+      }
+    },
+    "wartime": {
+      "label": "Wartime newsprint stage",
+      "colors": {
+        "pulp": {
+          "space": "linear-rgba",
+          "r": 0.78,
+          "g": 0.76,
+          "b": 0.7,
+          "a": 1
+        },
+        "ink": {
+          "space": "linear-rgba",
+          "r": 0.08,
+          "g": 0.08,
+          "b": 0.08,
+          "a": 1
+        },
+        "wash": {
+          "space": "linear-rgba",
+          "r": 0.28,
+          "g": 0.36,
+          "b": 0.32,
+          "a": 1
+        },
+        "shadow": {
+          "space": "linear-rgba",
+          "r": 0.05,
+          "g": 0.05,
+          "b": 0.05,
+          "a": 0.8
+        },
+        "highlight": {
+          "space": "linear-rgba",
+          "r": 0.88,
+          "g": 0.88,
+          "b": 0.82,
+          "a": 1
+        },
+        "backdrop": {
+          "space": "linear-rgba",
+          "r": 0.12,
+          "g": 0.12,
+          "b": 0.11,
+          "a": 1
+        }
+      },
+      "materials": {
+        "paper_sheet": {
+          "shader_feature": "paper-sheet",
+          "opacity": 1,
+          "parameters": {
+            "fiber": 0.5,
+            "fold": 0.12,
+            "roughness": 0.55,
+            "shadow_bias": 0.09,
+            "edge_thickness": 0.05
+          }
+        },
+        "paper_fold": {
+          "shader_feature": "paper-fold",
+          "opacity": 1,
+          "parameters": {
+            "crease": 0.55,
+            "fiber": 0.4
+          }
+        },
+        "contact_shadow": {
+          "shader_feature": "solid-fill",
+          "opacity": 0.6,
+          "parameters": {
+            "blur": 0.2,
+            "bias": 0.1
+          }
+        }
+      },
+      "motion": {
+        "fold_reveal": {
+          "ease": "ease_out",
+          "duration_frames": 22,
+          "intensity": 0.85,
+          "stagger_frames": 2
+        },
+        "camera_move": {
+          "ease": "ease_in_out",
+          "duration_frames": 40,
+          "intensity": 0.55,
+          "stagger_frames": 0
+        },
+        "puppet_settle": {
+          "ease": "spring",
+          "duration_frames": 28,
+          "intensity": 0.6,
+          "stagger_frames": 0
+        }
+      },
+      "camera": {
+        "crane_pan": {
+          "framing": "pan",
+          "ease": "ease_out"
+        },
+        "slow_push": {
+          "framing": "push_in",
+          "ease": "ease_in_out"
+        }
+      }
+    },
+    "midcentury": {
+      "label": "Mid-century classroom cutouts",
+      "colors": {
+        "pulp": {
+          "space": "linear-rgba",
+          "r": 0.94,
+          "g": 0.9,
+          "b": 0.8,
+          "a": 1
+        },
+        "ink": {
+          "space": "linear-rgba",
+          "r": 0.16,
+          "g": 0.22,
+          "b": 0.28,
+          "a": 1
+        },
+        "wash": {
+          "space": "linear-rgba",
+          "r": 0.2,
+          "g": 0.48,
+          "b": 0.62,
+          "a": 1
+        },
+        "shadow": {
+          "space": "linear-rgba",
+          "r": 0.2,
+          "g": 0.16,
+          "b": 0.12,
+          "a": 0.5
+        },
+        "highlight": {
+          "space": "linear-rgba",
+          "r": 0.98,
+          "g": 0.94,
+          "b": 0.78,
+          "a": 1
+        },
+        "backdrop": {
+          "space": "linear-rgba",
+          "r": 0.32,
+          "g": 0.4,
+          "b": 0.46,
+          "a": 1
+        }
+      },
+      "materials": {
+        "paper_sheet": {
+          "shader_feature": "paper-sheet",
+          "opacity": 1,
+          "parameters": {
+            "fiber": 0.28,
+            "fold": 0.1,
+            "roughness": 0.22,
+            "shadow_bias": 0.04,
+            "edge_thickness": 0.03
+          }
+        },
+        "cutout": {
+          "shader_feature": "solid-fill",
+          "opacity": 1,
+          "parameters": {
+            "grain": 0.015
+          }
+        },
+        "contact_shadow": {
+          "shader_feature": "solid-fill",
+          "opacity": 0.35,
+          "parameters": {
+            "blur": 0.18,
+            "bias": 0.05
+          }
+        }
+      },
+      "motion": {
+        "fold_reveal": {
+          "ease": "ease_in_out",
+          "duration_frames": 28,
+          "intensity": 0.65,
+          "stagger_frames": 3
+        },
+        "layer_parallax": {
+          "ease": "ease_out",
+          "duration_frames": 52,
+          "intensity": 0.42,
+          "stagger_frames": 2
+        },
+        "camera_move": {
+          "ease": "ease_in_out",
+          "duration_frames": 56,
+          "intensity": 0.38,
+          "stagger_frames": 0
+        }
+      },
+      "camera": {
+        "depth_orbit": {
+          "framing": "orbit",
+          "ease": "ease_in_out"
+        },
+        "stage_hold": {
+          "framing": "static",
+          "ease": "linear"
+        }
+      }
     }
   }
 }

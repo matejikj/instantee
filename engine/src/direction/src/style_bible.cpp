@@ -255,9 +255,9 @@ load_style_bible_json(std::string_view text) {
     return std::unexpected(err("type_mismatch", "Root must be an object"));
   }
 
-  constexpr std::string_view kRootKeys[] = {"schema_version", "package_id",
-                                            "version", "minimum_engine_version",
-                                            "tokens"};
+  constexpr std::string_view kRootKeys[] = {
+      "schema_version",         "package_id", "version",
+      "minimum_engine_version", "tokens",     "epochs"};
   if (auto unknown = reject_unknown_keys(root, "", kRootKeys); !unknown) {
     return std::unexpected(unknown.error());
   }
@@ -580,7 +580,393 @@ load_style_bible_json(std::string_view text) {
   bible.safe_area_.left_px = *left;
   bible.safe_area_.right_px = *right;
 
+  if (yyjson_val *epochs_val = yyjson_obj_get(root, "epochs")) {
+    if (!yyjson_is_obj(epochs_val) || yyjson_obj_size(epochs_val) == 0) {
+      return std::unexpected(
+          err("empty_tokens", "epochs must be a non-empty object", "/epochs"));
+    }
+    std::unordered_map<std::string, std::string> base_features;
+    base_features.reserve(bible.materials_.size());
+    for (const auto &[id, token] : bible.materials_) {
+      base_features.emplace(id, token.shader_feature);
+    }
+
+    yyjson_obj_iter iter;
+    yyjson_obj_iter_init(epochs_val, &iter);
+    while (yyjson_val *key = yyjson_obj_iter_next(&iter)) {
+      yyjson_val *val = yyjson_obj_iter_get_val(key);
+      const char *name = yyjson_get_str(key);
+      if (name == nullptr || val == nullptr || !yyjson_is_obj(val)) {
+        return std::unexpected(
+            err("type_mismatch", "Epoch overlay must be an object", "/epochs"));
+      }
+      const std::string epoch_id{name};
+      const std::string epoch_path = path_join("/epochs", epoch_id);
+      constexpr std::string_view kEpochKeys[] = {
+          "label",   "colors", "fonts", "materials",
+          "spacing", "motion", "camera"};
+      if (auto unknown = reject_unknown_keys(val, epoch_path, kEpochKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
+
+      StyleEpochOverlay overlay;
+      overlay.id = epoch_id;
+      auto label = require_string(val, "label", epoch_path, 128);
+      if (!label) {
+        return std::unexpected(label.error());
+      }
+      overlay.label = std::move(*label);
+
+      if (yyjson_val *colors_val = yyjson_obj_get(val, "colors")) {
+        auto colors = parse_token_map<ColorToken>(
+            colors_val, path_join(epoch_path, "colors"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<ColorToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {"space", "r", "g", "b", "a"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              auto space = require_string(token_val, "space", path, 32);
+              if (!space) {
+                return std::unexpected(space.error());
+              }
+              if (*space != "linear-rgba") {
+                return std::unexpected(err("invalid_enum",
+                                           "Unsupported color space",
+                                           path_join(path, "space")));
+              }
+              ColorToken token;
+              auto r = require_number(token_val, "r", path, 0.0, 1.0);
+              auto g = require_number(token_val, "g", path, 0.0, 1.0);
+              auto b = require_number(token_val, "b", path, 0.0, 1.0);
+              auto a = require_number(token_val, "a", path, 0.0, 1.0);
+              if (!r || !g || !b || !a) {
+                return std::unexpected((!r   ? r.error()
+                                        : !g ? g.error()
+                                        : !b ? b.error()
+                                             : a.error()));
+              }
+              token.value.r = *r;
+              token.value.g = *g;
+              token.value.b = *b;
+              token.value.a = *a;
+              return token;
+            });
+        if (!colors) {
+          return std::unexpected(colors.error());
+        }
+        overlay.colors = std::move(*colors);
+      }
+
+      if (yyjson_val *fonts_val = yyjson_obj_get(val, "fonts")) {
+        auto fonts = parse_token_map<FontToken>(
+            fonts_val, path_join(epoch_path, "fonts"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<FontToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {"family", "role",
+                                                   "size_scale"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              FontToken token;
+              auto family = require_string(token_val, "family", path, 128);
+              if (!family) {
+                return std::unexpected(family.error());
+              }
+              token.family = std::move(*family);
+              auto role = require_string(token_val, "role", path, 32);
+              if (!role) {
+                return std::unexpected(role.error());
+              }
+              auto parsed_role =
+                  parse_font_role(*role, path_join(path, "role"));
+              if (!parsed_role) {
+                return std::unexpected(parsed_role.error());
+              }
+              token.role = *parsed_role;
+              auto scale =
+                  require_number(token_val, "size_scale", path, 0.0001, 16.0);
+              if (!scale) {
+                return std::unexpected(scale.error());
+              }
+              token.size_scale = *scale;
+              return token;
+            });
+        if (!fonts) {
+          return std::unexpected(fonts.error());
+        }
+        overlay.fonts = std::move(*fonts);
+      }
+
+      if (yyjson_val *materials_val = yyjson_obj_get(val, "materials")) {
+        auto materials = parse_token_map<MaterialToken>(
+            materials_val, path_join(epoch_path, "materials"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<MaterialToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {"shader_feature", "opacity",
+                                                   "parameters"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              MaterialToken token;
+              auto feature =
+                  require_string(token_val, "shader_feature", path, 64);
+              if (!feature) {
+                return std::unexpected(feature.error());
+              }
+              token.shader_feature = std::move(*feature);
+              auto opacity =
+                  require_number(token_val, "opacity", path, 0.0, 1.0);
+              if (!opacity) {
+                return std::unexpected(opacity.error());
+              }
+              token.opacity = *opacity;
+              if (yyjson_val *params =
+                      yyjson_obj_get(token_val, "parameters")) {
+                if (!yyjson_is_obj(params)) {
+                  return std::unexpected(err("type_mismatch", "Expected object",
+                                             path_join(path, "parameters")));
+                }
+                yyjson_obj_iter piter;
+                yyjson_obj_iter_init(params, &piter);
+                while (yyjson_val *pkey = yyjson_obj_iter_next(&piter)) {
+                  yyjson_val *pvalue = yyjson_obj_iter_get_val(pkey);
+                  const char *pname = yyjson_get_str(pkey);
+                  if (pname == nullptr || pvalue == nullptr ||
+                      !yyjson_is_num(pvalue)) {
+                    return std::unexpected(err(
+                        "type_mismatch", "Material parameters must be numbers",
+                        path_join(path, "parameters")));
+                  }
+                  const double number = yyjson_get_num(pvalue);
+                  if (!std::isfinite(number)) {
+                    return std::unexpected(
+                        err("out_of_range", "Material parameter must be finite",
+                            path_join(path, "parameters")));
+                  }
+                  token.parameters.emplace(pname, number);
+                }
+              }
+              return token;
+            });
+        if (!materials) {
+          return std::unexpected(materials.error());
+        }
+        for (const auto &[mat_id, token] : *materials) {
+          const auto base_it = base_features.find(mat_id);
+          if (base_it != base_features.end()) {
+            if (token.shader_feature != base_it->second) {
+              return std::unexpected(err(
+                  "epoch_renderer_drift",
+                  "Epoch material shader_feature must match the base package",
+                  path_join(path_join(epoch_path, "materials"), mat_id)));
+            }
+          } else {
+            bool known_feature = false;
+            for (const auto &[_, feature] : base_features) {
+              if (feature == token.shader_feature) {
+                known_feature = true;
+                break;
+              }
+            }
+            if (!known_feature) {
+              return std::unexpected(err(
+                  "epoch_renderer_drift",
+                  "Epoch materials may only reuse base package shader features",
+                  path_join(path_join(epoch_path, "materials"), mat_id)));
+            }
+          }
+        }
+        overlay.materials = std::move(*materials);
+      }
+
+      if (yyjson_val *spacing_val = yyjson_obj_get(val, "spacing")) {
+        auto spacing = parse_token_map<SpacingToken>(
+            spacing_val, path_join(epoch_path, "spacing"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<SpacingToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {"px"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              auto px = require_number(token_val, "px", path, 0.0, 4096.0);
+              if (!px) {
+                return std::unexpected(px.error());
+              }
+              return SpacingToken{.px = *px};
+            });
+        if (!spacing) {
+          return std::unexpected(spacing.error());
+        }
+        overlay.spacing = std::move(*spacing);
+      }
+
+      if (yyjson_val *motion_val = yyjson_obj_get(val, "motion")) {
+        auto motion = parse_token_map<MotionToken>(
+            motion_val, path_join(epoch_path, "motion"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<MotionToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {
+                  "ease", "duration_frames", "intensity", "stagger_frames"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              MotionToken token;
+              auto ease = require_string(token_val, "ease", path, 32);
+              if (!ease) {
+                return std::unexpected(ease.error());
+              }
+              auto parsed_ease = parse_ease(*ease, path_join(path, "ease"));
+              if (!parsed_ease) {
+                return std::unexpected(parsed_ease.error());
+              }
+              token.ease = *parsed_ease;
+              auto duration =
+                  require_uint(token_val, "duration_frames", path, 1, 18000);
+              if (!duration) {
+                return std::unexpected(duration.error());
+              }
+              token.duration_frames = *duration;
+              auto intensity =
+                  require_number(token_val, "intensity", path, 0.0, 1.0);
+              if (!intensity) {
+                return std::unexpected(intensity.error());
+              }
+              token.intensity = *intensity;
+              if (yyjson_obj_get(token_val, "stagger_frames") != nullptr) {
+                auto stagger =
+                    require_uint(token_val, "stagger_frames", path, 0, 600);
+                if (!stagger) {
+                  return std::unexpected(stagger.error());
+                }
+                token.stagger_frames = *stagger;
+              }
+              return token;
+            });
+        if (!motion) {
+          return std::unexpected(motion.error());
+        }
+        overlay.motion = std::move(*motion);
+      }
+
+      if (yyjson_val *camera_val = yyjson_obj_get(val, "camera")) {
+        auto camera = parse_token_map<CameraToken>(
+            camera_val, path_join(epoch_path, "camera"),
+            [](yyjson_val *token_val, std::string_view path)
+                -> std::expected<CameraToken, diagnostics::Error> {
+              constexpr std::string_view keys[] = {"framing", "ease"};
+              if (auto unknown = reject_unknown_keys(token_val, path, keys);
+                  !unknown) {
+                return std::unexpected(unknown.error());
+              }
+              CameraToken token;
+              auto framing = require_string(token_val, "framing", path, 32);
+              if (!framing) {
+                return std::unexpected(framing.error());
+              }
+              auto parsed = parse_framing(*framing, path_join(path, "framing"));
+              if (!parsed) {
+                return std::unexpected(parsed.error());
+              }
+              token.framing = *parsed;
+              if (yyjson_obj_get(token_val, "ease") != nullptr) {
+                auto ease = require_string(token_val, "ease", path, 32);
+                if (!ease) {
+                  return std::unexpected(ease.error());
+                }
+                auto parsed_ease = parse_ease(*ease, path_join(path, "ease"));
+                if (!parsed_ease) {
+                  return std::unexpected(parsed_ease.error());
+                }
+                token.ease = *parsed_ease;
+              }
+              return token;
+            });
+        if (!camera) {
+          return std::unexpected(camera.error());
+        }
+        overlay.camera = std::move(*camera);
+      }
+
+      if (overlay.colors.empty() && overlay.fonts.empty() &&
+          overlay.materials.empty() && overlay.spacing.empty() &&
+          overlay.motion.empty() && overlay.camera.empty()) {
+        return std::unexpected(err(
+            "empty_tokens",
+            "Epoch overlay must override at least one token map", epoch_path));
+      }
+
+      bible.epoch_ids_.push_back(epoch_id);
+      if (!bible.epochs_.emplace(epoch_id, std::move(overlay)).second) {
+        return std::unexpected(
+            err("duplicate_token", "Duplicate epoch id", epoch_path));
+      }
+    }
+    std::sort(bible.epoch_ids_.begin(), bible.epoch_ids_.end());
+  }
+
   return bible;
+}
+
+bool StyleBible::has_epoch(std::string_view epoch_id) const noexcept {
+  return epochs_.contains(std::string{epoch_id});
+}
+
+const StyleEpochOverlay *
+StyleBible::epoch(std::string_view epoch_id) const noexcept {
+  const auto it = epochs_.find(std::string{epoch_id});
+  if (it == epochs_.end()) {
+    return nullptr;
+  }
+  return &it->second;
+}
+
+std::expected<StyleBible, diagnostics::Error>
+resolve_style_bible_epoch(const StyleBible &bible, std::string_view epoch_id) {
+  const StyleEpochOverlay *overlay = bible.epoch(epoch_id);
+  if (overlay == nullptr) {
+    return std::unexpected(
+        err("unknown_epoch", "Style Bible epoch is unknown",
+            std::string{"/epochs/"} + std::string{epoch_id}));
+  }
+
+  StyleBible resolved = bible;
+  resolved.epoch_ids_.clear();
+  resolved.epochs_.clear();
+
+  for (const auto &[id, token] : overlay->colors) {
+    resolved.colors_[id] = token;
+  }
+  for (const auto &[id, token] : overlay->fonts) {
+    resolved.fonts_[id] = token;
+  }
+  for (const auto &[id, token] : overlay->materials) {
+    const auto base = bible.materials_.find(id);
+    if (base != bible.materials_.end() &&
+        token.shader_feature != base->second.shader_feature) {
+      return std::unexpected(
+          err("epoch_renderer_drift",
+              "Epoch material shader_feature must match the base package",
+              std::string{"/epochs/"} + overlay->id + "/materials/" + id));
+    }
+    resolved.materials_[id] = token;
+  }
+  for (const auto &[id, token] : overlay->spacing) {
+    resolved.spacing_[id] = token;
+  }
+  for (const auto &[id, token] : overlay->motion) {
+    resolved.motion_[id] = token;
+  }
+  for (const auto &[id, token] : overlay->camera) {
+    resolved.camera_[id] = token;
+  }
+  return resolved;
 }
 
 std::expected<StyleBible, diagnostics::Error>

@@ -9,6 +9,7 @@ namespace {
 
 using instantee::direction::load_style_bible_file;
 using instantee::direction::load_style_bible_json;
+using instantee::direction::resolve_style_bible_epoch;
 using instantee::direction::SafeAreaMode;
 
 int failures = 0;
@@ -68,6 +69,20 @@ int main(int argc, char **argv) {
   expect(c->colors().count("lavender") == 1, "notebook lavender color");
   expect(a->materials().count("halftone_panel") == 1, "editorial material");
   expect(b->materials().count("paper_sheet") == 1, "paper material");
+  expect(b->materials().at("paper_sheet").shader_feature == "paper-sheet",
+         "paper uses shared paper-sheet feature");
+  expect(b->epoch_ids().size() >= 3, "paper declares historical epochs");
+  expect(b->has_epoch("victorian"), "victorian epoch");
+  auto victorian = resolve_style_bible_epoch(*b, "victorian");
+  expect(victorian.has_value(), "resolve victorian");
+  if (victorian) {
+    expect(victorian->materials().at("paper_sheet").shader_feature ==
+               "paper-sheet",
+           "epoch keeps renderer");
+    expect(victorian->colors().at("pulp").value.r !=
+               b->colors().at("pulp").value.r,
+           "epoch retints pulp");
+  }
   expect(c->materials().count("pen_ink") == 1, "notebook material");
   expect(c->materials().count("highlighter") == 1, "notebook highlighter");
   expect(c->materials().count("sticky_note") == 1, "notebook sticky_note");
@@ -87,6 +102,15 @@ int main(int argc, char **argv) {
   expect(c->version() == "1.0.0", "notebook package version");
   expect(c->fonts().at("equation").role == instantee::direction::FontRole::mono,
          "notebook equation role");
+
+  const auto drift = root / "contracts/fixtures/style-bible/semantic-negative/"
+                            "epoch-renderer-drift.style.json";
+  auto drifted = load_style_bible_file(drift);
+  expect(!drifted.has_value(), "reject epoch renderer drift");
+  if (!drifted) {
+    expect(drifted.error().code == "epoch_renderer_drift",
+           "epoch_renderer_drift code");
+  }
 
   // Style Bible skeletons validate without requiring any core-model change:
   // colors use existing LinearRgba values. Editorial completes black / dirty

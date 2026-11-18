@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "paper-cinema",
+  "version": "1.0.0",
+  "minimum_engine_version": "0.1.0",
+  "tokens": {
+    "colors": {
+      "pulp": {
+        "space": "linear-rgba",
+        "r": 0.9,
+        "g": 0.84,
+        "b": 0.72,
+        "a": 1
+      }
+    },
+    "fonts": {
+      "title": {
+        "family": "DejaVu Sans",
+        "role": "headline",
+        "size_scale": 1.0
+      }
+    },
+    "materials": {
+      "paper_sheet": {
+        "shader_feature": "paper-sheet",
+        "opacity": 1,
+        "parameters": {
+          "fiber": 0.4
+        }
+      }
+    },
+    "spacing": {
+      "stage_pad": {
+        "px": 36
+      }
+    },
+    "motion": {
+      "fold_reveal": {
+        "ease": "ease_in_out",
+        "duration_frames": 30,
+        "intensity": 0.7
+      }
+    },
+    "camera": {
+      "stage_hold": {
+        "framing": "static",
+        "ease": "linear"
+      }
+    },
+    "safe_area": {
+      "mode": "reels_clear",
+      "top_px": 96,
+      "bottom_px": 180,
+      "left_px": 40,
+      "right_px": 40
+    }
+  },
+  "epochs": {
+    "broken": {
+      "label": "Drifted renderer",
+      "materials": {
+        "paper_sheet": {
+          "shader_feature": "halftone",
+          "opacity": 1,
+          "parameters": {}
+        }
+      }
+    }
+  }
+}

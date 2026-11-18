@@ -87,6 +87,19 @@ struct SafeAreaPolicy {
   double right_px = 0;
 };
 
+// Period overlay that retints base tokens. Material shader_feature values must
+// match the base package so epochs never introduce a different renderer.
+struct StyleEpochOverlay {
+  std::string id{};
+  std::string label{};
+  std::unordered_map<std::string, ColorToken> colors{};
+  std::unordered_map<std::string, FontToken> fonts{};
+  std::unordered_map<std::string, MaterialToken> materials{};
+  std::unordered_map<std::string, SpacingToken> spacing{};
+  std::unordered_map<std::string, MotionToken> motion{};
+  std::unordered_map<std::string, CameraToken> camera{};
+};
+
 // Immutable Style Bible document. Ownership is value-based; no GPU/native
 // handles. Distinct packages differ only by tokens — core-model is unchanged.
 class StyleBible {
@@ -132,9 +145,18 @@ public:
     return safe_area_;
   }
 
+  [[nodiscard]] const std::vector<std::string> &epoch_ids() const noexcept {
+    return epoch_ids_;
+  }
+  [[nodiscard]] bool has_epoch(std::string_view epoch_id) const noexcept;
+  [[nodiscard]] const StyleEpochOverlay *
+  epoch(std::string_view epoch_id) const noexcept;
+
 private:
   friend std::expected<StyleBible, diagnostics::Error>
   load_style_bible_json(std::string_view text);
+  friend std::expected<StyleBible, diagnostics::Error>
+  resolve_style_bible_epoch(const StyleBible &bible, std::string_view epoch_id);
 
   std::string schema_version_;
   std::string package_id_;
@@ -147,6 +169,8 @@ private:
   std::unordered_map<std::string, MotionToken> motion_;
   std::unordered_map<std::string, CameraToken> camera_;
   SafeAreaPolicy safe_area_{};
+  std::vector<std::string> epoch_ids_{};
+  std::unordered_map<std::string, StyleEpochOverlay> epochs_{};
 };
 
 [[nodiscard]] std::expected<StyleBible, diagnostics::Error>
@@ -154,6 +178,12 @@ load_style_bible_json(std::string_view text);
 
 [[nodiscard]] std::expected<StyleBible, diagnostics::Error>
 load_style_bible_file(const std::filesystem::path &path);
+
+// Merge a named epoch overlay onto base tokens. Safe-area stays package-wide.
+// Resolved snapshots carry no nested epochs. Material shader features that
+// disagree with the base package fail closed.
+[[nodiscard]] std::expected<StyleBible, diagnostics::Error>
+resolve_style_bible_epoch(const StyleBible &bible, std::string_view epoch_id);
 
 [[nodiscard]] constexpr std::string_view font_role_id(FontRole role) noexcept {
   switch (role) {

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://instantee.dev/contracts/schemas/style-bible-v1.schema.json",
   "title": "Instantee Style Bible v1",
-  "description": "Versioned creative-direction token document. Typed color, font, material, spacing, motion, camera and safe-area tokens. No GPU handles, native paths as public URIs, or core-model mutations.",
+  "description": "Versioned creative-direction token document. Typed color, font, material, spacing, motion, camera and safe-area tokens. Optional epoch overlays retint the same package without a different renderer. No GPU handles, native paths as public URIs, or core-model mutations.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -25,6 +25,16 @@
     },
     "minimum_engine_version": {
       "$ref": "#/$defs/semver"
+    },
+    "epochs": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/token_id"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/epoch_overlay"
+      }
     },
     "tokens": {
       "type": "object",
@@ -303,6 +313,62 @@
           "type": "number",
           "minimum": 0,
           "maximum": 540
+        }
+      }
+    },
+    "epoch_overlay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "colors": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/color_token"
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/font_token"
+          }
+        },
+        "materials": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/material_token"
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/spacing_token"
+          }
+        },
+        "motion": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/motion_token"
+          }
+        },
+        "camera": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/camera_token"
+          }
         }
       }
     }

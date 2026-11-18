@@ -16,13 +16,16 @@ export type Semver = string;
 export type TokenId = string;
 
 /**
- * Versioned creative-direction token document. Typed color, font, material, spacing, motion, camera and safe-area tokens. No GPU handles, native paths as public URIs, or core-model mutations.
+ * Versioned creative-direction token document. Typed color, font, material, spacing, motion, camera and safe-area tokens. Optional epoch overlays retint the same package without a different renderer. No GPU handles, native paths as public URIs, or core-model mutations.
  */
 export interface InstanteeStyleBibleV1 {
   schema_version: "1.0.0";
   package_id: string;
   version: Semver;
   minimum_engine_version: Semver;
+  epochs?: {
+    [k: string]: EpochOverlay | undefined;
+  };
   tokens: {
     colors: {
       [k: string]: ColorToken | undefined;
@@ -43,6 +46,31 @@ export interface InstanteeStyleBibleV1 {
       [k: string]: CameraToken | undefined;
     };
     safe_area: SafeAreaPolicy;
+  };
+}
+/**
+ * This interface was referenced by `InstanteeStyleBibleV1`'s JSON-Schema
+ * via the `definition` "epoch_overlay".
+ */
+export interface EpochOverlay {
+  label: string;
+  colors?: {
+    [k: string]: ColorToken | undefined;
+  };
+  fonts?: {
+    [k: string]: FontToken | undefined;
+  };
+  materials?: {
+    [k: string]: MaterialToken | undefined;
+  };
+  spacing?: {
+    [k: string]: SpacingToken | undefined;
+  };
+  motion?: {
+    [k: string]: MotionToken | undefined;
+  };
+  camera?: {
+    [k: string]: CameraToken | undefined;
   };
 }
 /**

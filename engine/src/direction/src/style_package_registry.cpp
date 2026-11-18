@@ -254,9 +254,11 @@ StylePackageRegistry make_builtin_style_package_registry() {
       .minimum_engine_version = "0.1.0",
       .required_capabilities = {"path_geometry", "text", "camera", "tracks",
                                 "export", "typography", "time"},
-      .registered_components = {"puppet_rig", "depth_stage", "paper_fold"},
-      .shader_features = {"paper-sheet", "paper-fold"},
-      .material_presets = {"paper_sheet", "ink_edge"},
+      .registered_components = {"puppet_rig", "depth_stage", "paper_fold",
+                                "epoch_variant"},
+      .shader_features = {"paper-sheet", "paper-fold", "solid-fill"},
+      .material_presets = {"paper_sheet", "paper_fold", "cutout",
+                           "contact_shadow"},
   };
   StylePackageDesc notebook{
       .package_id = "scientific-notebook",

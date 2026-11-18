@@ -40,6 +40,19 @@ int main() {
     expect(ok->shader_features.size() >= 1, "editorial declares features");
   }
 
+  auto paper_ok = registry.check_before_render("paper-cinema", "1.0.0", engine);
+  expect(paper_ok.has_value(), "paper ready before render");
+  if (paper_ok) {
+    expect(std::find(paper_ok->shader_features.begin(),
+                     paper_ok->shader_features.end(),
+                     "paper-sheet") != paper_ok->shader_features.end(),
+           "paper declares paper-sheet");
+    expect(std::find(paper_ok->material_presets.begin(),
+                     paper_ok->material_presets.end(),
+                     "contact_shadow") != paper_ok->material_presets.end(),
+           "paper declares contact_shadow");
+  }
+
   auto notebook_ok =
       registry.check_before_render("scientific-notebook", "1.0.0", engine);
   expect(notebook_ok.has_value(), "notebook ready before render");

@@ -1,0 +1,13 @@
+{
+  "verification": "Environment generation tests",
+  "tests": [
+    "spike_paper_background_kit"
+  ],
+  "fixtures": [
+    "contracts/fixtures/paper-background/seed-b6a7.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

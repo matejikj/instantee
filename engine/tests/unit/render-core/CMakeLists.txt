@@ -214,6 +214,14 @@ add_test(NAME spike_paper_curvature
 set_tests_properties(spike_paper_curvature PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_paper_background_kit_test paper_background_kit_test.cpp)
+target_link_libraries(spike_paper_background_kit_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_paper_background_kit
+  COMMAND spike_paper_background_kit_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_background_kit PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_linear_compositor_test linear_compositor_test.cpp)
 target_link_libraries(spike_linear_compositor_test PRIVATE
   instantee::render_core instantee_build_options)

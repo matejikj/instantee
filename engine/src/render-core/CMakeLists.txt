@@ -27,6 +27,7 @@ add_library(instantee_render_core STATIC
   src/paper_prop_blueprint.cpp
   src/paper_fold.cpp
   src/paper_curvature.cpp
+  src/paper_background_kit.cpp
   src/linear_compositor.cpp
   src/visibility.cpp
   src/frame_primitives.cpp

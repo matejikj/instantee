@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:18:00Z",
+  "updated_at_utc": "2026-11-18T19:26:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6295,14 +6295,45 @@
       "notes": "Lite bend/wave paper curvature with tiered op budgets, silhouette checks, and non-certified micrometric."
     },
     "P7-019": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A random seed produces stable scenery and the asset count is bounded.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Seeded generator places mountains/clouds/buildings/trees/atmosphere on a depth stage",
+            "met": true,
+            "evidence": "engine/src/render-core/include/instantee/render_core/paper_background_kit.hpp"
+          },
+          {
+            "criterion": "Identical seed reproduces scenery; total and per-kind caps are enforced",
+            "met": true,
+            "evidence": "engine/tests/unit/render-core/paper_background_kit_test.cpp"
+          },
+          {
+            "criterion": "Environment fixture locks one seeded scenery dump",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-background/seed-b6a7.txt"
+          },
+          {
+            "criterion": "Environment generation tests + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-019/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-019/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-019/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Environment generation tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "Seeded procedural background kit with bounded assets over depth-stage planes; ASan/UBSan passed."
     },
     "P7-020": {
       "status": "todo",

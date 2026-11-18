@@ -1,0 +1,7 @@
+xcrun clang-format -i \
+  engine/src/render-core/include/instantee/render_core/paper_background_kit.hpp \
+  engine/src/render-core/src/paper_background_kit.cpp \
+  engine/tests/unit/render-core/paper_background_kit_test.cpp
+cmake --build --preset release --target spike_paper_background_kit_test
+ctest --preset release -R '^spike_paper_background_kit$' --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-019/checks.json

@@ -1,0 +1,42 @@
+paper_background seed-b6a7
+seed=46759 assets=39 layers=12
+counts mountain=8 cloud=8 building=3 tree=14 atmosphere=6
+e cloud_6 kind=cloud layer=0 depth=4.0000 x=400.2015 y=-136.4940 scale=0.7634 prop=prop.cloud.v1 parts=3
+e building_2 kind=building layer=1 depth=5.6000 x=-81.5518 y=-227.2099 scale=0.9634 prop=prop.building.v1 parts=5
+e tree_13 kind=tree layer=1 depth=5.6000 x=339.1425 y=193.3350 scale=0.8542 sil=2
+e tree_8 kind=tree layer=1 depth=5.6000 x=95.0449 y=13.1647 scale=0.9659 sil=2
+e atmosphere_2 kind=atmosphere layer=1 depth=5.6000 x=-209.4643 y=178.8302 scale=0.7061 sil=1
+e atmosphere_5 kind=atmosphere layer=1 depth=5.6000 x=-134.6072 y=236.8560 scale=1.1148 sil=1
+e mountain_3 kind=mountain layer=2 depth=7.2000 x=225.9901 y=197.0115 scale=1.2126 sil=2
+e mountain_1 kind=mountain layer=3 depth=8.8000 x=-116.8746 y=-289.8772 scale=0.7975 sil=2
+e mountain_7 kind=mountain layer=3 depth=8.8000 x=-260.9717 y=-4.3319 scale=1.0161 sil=2
+e cloud_4 kind=cloud layer=3 depth=8.8000 x=-35.9989 y=247.2604 scale=0.6919 prop=prop.cloud.v1 parts=3
+e tree_2 kind=tree layer=3 depth=8.8000 x=-53.8921 y=104.4195 scale=0.8418 sil=2
+e tree_4 kind=tree layer=3 depth=8.8000 x=-146.5824 y=-303.6378 scale=0.7906 sil=2
+e atmosphere_1 kind=atmosphere layer=3 depth=8.8000 x=337.2438 y=77.3217 scale=0.7164 sil=1
+e tree_0 kind=tree layer=4 depth=10.4000 x=167.1477 y=-169.1569 scale=0.9694 sil=2
+e mountain_0 kind=mountain layer=5 depth=12.0000 x=55.4094 y=-285.3151 scale=0.7517 sil=2
+e cloud_1 kind=cloud layer=5 depth=12.0000 x=240.1656 y=11.6753 scale=0.8751 prop=prop.cloud.v1 parts=3
+e tree_12 kind=tree layer=5 depth=12.0000 x=-399.8502 y=230.8198 scale=0.8085 sil=2
+e tree_5 kind=tree layer=5 depth=12.0000 x=414.5166 y=-203.9494 scale=0.7771 sil=2
+e mountain_6 kind=mountain layer=6 depth=13.6000 x=328.2419 y=30.8758 scale=0.6434 sil=2
+e building_1 kind=building layer=6 depth=13.6000 x=-250.6249 y=236.9188 scale=0.9413 prop=prop.building.v1 parts=5
+e tree_3 kind=tree layer=6 depth=13.6000 x=-252.5524 y=245.3198 scale=0.6822 sil=2
+e mountain_4 kind=mountain layer=7 depth=15.2000 x=-130.5108 y=159.4357 scale=0.6550 sil=2
+e cloud_5 kind=cloud layer=7 depth=15.2000 x=-205.1563 y=-37.4904 scale=0.7901 prop=prop.cloud.v1 parts=3
+e tree_1 kind=tree layer=7 depth=15.2000 x=-406.9207 y=-161.0839 scale=0.7398 sil=2
+e atmosphere_3 kind=atmosphere layer=7 depth=15.2000 x=-337.0961 y=-192.3570 scale=0.9008 sil=1
+e tree_10 kind=tree layer=8 depth=16.8000 x=-75.5692 y=220.7216 scale=0.9347 sil=2
+e atmosphere_0 kind=atmosphere layer=8 depth=16.8000 x=264.4094 y=34.4665 scale=1.0207 sil=1
+e mountain_5 kind=mountain layer=9 depth=18.4000 x=-156.6090 y=19.1024 scale=0.9448 sil=2
+e cloud_0 kind=cloud layer=9 depth=18.4000 x=336.1216 y=-205.0916 scale=0.7560 prop=prop.cloud.v1 parts=3
+e building_0 kind=building layer=9 depth=18.4000 x=-100.1787 y=-300.5587 scale=0.6101 prop=prop.building.v1 parts=5
+e tree_9 kind=tree layer=9 depth=18.4000 x=-193.6469 y=141.1611 scale=0.7972 sil=2
+e atmosphere_4 kind=atmosphere layer=9 depth=18.4000 x=23.6250 y=72.7699 scale=0.6603 sil=1
+e cloud_7 kind=cloud layer=10 depth=20.0000 x=-129.6179 y=-318.1416 scale=0.7040 prop=prop.cloud.v1 parts=3
+e tree_11 kind=tree layer=10 depth=20.0000 x=-291.0355 y=-288.2998 scale=1.1324 sil=2
+e tree_6 kind=tree layer=10 depth=20.0000 x=329.3264 y=-201.5890 scale=0.9521 sil=2
+e tree_7 kind=tree layer=10 depth=20.0000 x=16.9714 y=60.9758 scale=0.7093 sil=2
+e mountain_2 kind=mountain layer=11 depth=21.6000 x=40.4349 y=217.7240 scale=1.2193 sil=2
+e cloud_2 kind=cloud layer=11 depth=21.6000 x=-42.5838 y=-329.3018 scale=1.0524 prop=prop.cloud.v1 parts=3
+e cloud_3 kind=cloud layer=11 depth=21.6000 x=-333.6192 y=-307.3122 scale=1.1554 prop=prop.cloud.v1 parts=3

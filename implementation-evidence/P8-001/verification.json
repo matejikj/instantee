@@ -1,0 +1,21 @@
+{
+  "verification": "Requirements coverage matrix",
+  "matrix": "contracts/traceability/requirements-coverage-v1.json",
+  "acceptance": {
+    "no_uncovered_must": true,
+    "no_untracked_release_gate": true,
+    "sas_rtm_ids_aligned": true,
+    "met": true
+  },
+  "counts": {
+    "requirements": 35,
+    "must": 33,
+    "should": 1,
+    "stretch": 1,
+    "mapped": 35,
+    "release_gates": 9,
+    "tracked_gates": 9
+  },
+  "measurement": "none",
+  "evidence_tier": "A"
+}

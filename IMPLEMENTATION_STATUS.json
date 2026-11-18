@@ -6571,14 +6571,47 @@
       "notes": "Paper Cinema phase gate PASS: inventory complete, B-03 series threshold_gate, 2D puppet limits declared, golden/lint probes, full --gate matrix; unlocks P8."
     },
     "P8-001": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "No MUST requirement is uncovered and no release gate is untracked.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "All 33 SAS MUST requirements map to backlog tasks with no unknown refs",
+            "met": true,
+            "evidence": "contracts/traceability/requirements-coverage-v1.json"
+          },
+          {
+            "criterion": "All nine phase gates P0-020\u2026P8-037 are tracked under phase_gates",
+            "met": true,
+            "evidence": "contracts/traceability/requirements-coverage-v1.json"
+          },
+          {
+            "criterion": "SAS and design-pack RTM identifier sets stay aligned (35 ids)",
+            "met": true,
+            "evidence": "implementation-evidence/P8-001/decision.json"
+          },
+          {
+            "criterion": "check.py change-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P8-001/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-001/",
+        "contracts/traceability/requirements-coverage-v1.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-001/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Requirements coverage matrix",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T23:55:00Z",
+      "notes": "Live SAS\u00a72 coverage matrix: 35 requirements mapped, 9 release gates tracked; validator tools/dev/requirements_coverage.py."
     },
     "P8-002": {
       "status": "todo",

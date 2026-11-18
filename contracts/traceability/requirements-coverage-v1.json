@@ -1,0 +1,4577 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "requirements_coverage_matrix",
+  "generated_at_utc": "2026-11-18T23:43:07Z",
+  "sources": {
+    "sas": "motion_framework_sas/SOFTWARE_ARCHITECTURE_SPECIFICATION.md",
+    "rtm": "motion_framework_sas/REQUIREMENTS_TRACEABILITY.md",
+    "backlog": "motion_framework_sas/implementation_tasks.json",
+    "tracker": "IMPLEMENTATION_STATUS.json"
+  },
+  "counts": {
+    "requirements": 35,
+    "must": 33,
+    "should": 1,
+    "stretch": 1,
+    "mapped": 35,
+    "release_gates": 9,
+    "tracked_gates": 9
+  },
+  "acceptance": {
+    "no_uncovered_must": true,
+    "no_untracked_release_gate": true,
+    "sas_rtm_ids_aligned": true,
+    "met": true
+  },
+  "uncovered_must": [],
+  "untracked_release_gates": [],
+  "sas_rtm_id_drift": [],
+  "requirements": [
+    {
+      "id": "FR-01",
+      "title": "Definice filmu z TypeScriptu",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-010",
+        "P1-011",
+        "P8-002"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-010",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Cross-language contract test",
+          "evidence": [
+            "implementation-evidence/P1-010/"
+          ],
+          "checks": [
+            "implementation-evidence/P1-010/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P1-011",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "TS API tests",
+          "evidence": [
+            "implementation-evidence/P1-011/"
+          ],
+          "checks": [
+            "implementation-evidence/P1-011/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-002",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "TS public API snapshot",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-010",
+        "P1-011"
+      ],
+      "verifications": [
+        "Cross-language contract test",
+        "TS API tests",
+        "TS public API snapshot"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-010/",
+        "implementation-evidence/P1-011/"
+      ]
+    },
+    {
+      "id": "FR-02",
+      "title": "Vertik\u00e1ln\u00ed video 1080\u00d71920/30fps",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-010",
+        "P0-011",
+        "P8-016"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-010",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "End-to-end MP4 test",
+          "evidence": [
+            "implementation-evidence/P0-010/README.md",
+            "implementation-evidence/P0-010/checks.json",
+            "implementation-evidence/P0-010/dependency-verification.json",
+            "implementation-evidence/P0-010/reference-verification.json",
+            "implementation-evidence/P0-010/source-sha256.json",
+            "implementation-evidence/P0-010/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "end-to-end Metal render to H.264 MP4",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "RGBA to BGRA staging unit coverage",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P0-011",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "PTS extraction test",
+          "evidence": [
+            "implementation-evidence/P0-011/README.md",
+            "implementation-evidence/P0-011/checks.json",
+            "implementation-evidence/P0-011/dependency-verification.json",
+            "implementation-evidence/P0-011/reference-verification.json",
+            "implementation-evidence/P0-011/source-sha256.json",
+            "implementation-evidence/P0-011/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "presentation timeline extraction and validation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-011/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-016",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Media conformance suite",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-010",
+        "P0-011"
+      ],
+      "verifications": [
+        "End-to-end MP4 test",
+        "Media conformance suite",
+        "PTS extraction test"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-010/README.md",
+        "implementation-evidence/P0-010/checks.json",
+        "implementation-evidence/P0-010/dependency-verification.json",
+        "implementation-evidence/P0-010/reference-verification.json",
+        "implementation-evidence/P0-010/source-sha256.json",
+        "implementation-evidence/P0-010/task-contract.json",
+        "implementation-evidence/P0-011/README.md",
+        "implementation-evidence/P0-011/checks.json",
+        "implementation-evidence/P0-011/dependency-verification.json",
+        "implementation-evidence/P0-011/reference-verification.json",
+        "implementation-evidence/P0-011/source-sha256.json",
+        "implementation-evidence/P0-011/task-contract.json"
+      ]
+    },
+    {
+      "id": "FR-03",
+      "title": "Timeline, keyframes, easing a pohyb objekt\u016f",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P2-008",
+        "P2-013",
+        "P2-020"
+      ],
+      "tasks": [
+        {
+          "task_id": "P2-008",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Track unit tests",
+          "evidence": [
+            "implementation-evidence/P2-008/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-008/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-013",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Random-access property tests",
+          "evidence": [
+            "implementation-evidence/P2-013/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-013/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-020",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P2 gate report",
+          "evidence": [
+            "implementation-evidence/P2-020/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-020/checks.json",
+            "implementation-evidence/P2-020/gate-decision.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P2-008",
+        "P2-013",
+        "P2-020"
+      ],
+      "verifications": [
+        "P2 gate report",
+        "Random-access property tests",
+        "Track unit tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P2-008/",
+        "implementation-evidence/P2-013/",
+        "implementation-evidence/P2-020/"
+      ]
+    },
+    {
+      "id": "FR-04",
+      "title": "Hierarchie transformac\u00ed, masky, skupiny",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P2-001",
+        "P2-003",
+        "P2-016",
+        "P3-018"
+      ],
+      "tasks": [
+        {
+          "task_id": "P2-001",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Scene graph tests",
+          "evidence": [
+            "implementation-evidence/P2-001/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-001/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-003",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Matrix property tests",
+          "evidence": [
+            "implementation-evidence/P2-003/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-003/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-016",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Clip semantics tests",
+          "evidence": [
+            "implementation-evidence/P2-016/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-016/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Mask compositing goldens",
+          "evidence": [
+            "implementation-evidence/P3-018/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-018/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P2-001",
+        "P2-003",
+        "P2-016",
+        "P3-018"
+      ],
+      "verifications": [
+        "Clip semantics tests",
+        "Mask compositing goldens",
+        "Matrix property tests",
+        "Scene graph tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P2-001/",
+        "implementation-evidence/P2-003/",
+        "implementation-evidence/P2-016/",
+        "implementation-evidence/P3-018/"
+      ]
+    },
+    {
+      "id": "FR-05",
+      "title": "2D a 2.5D kamera, vrstven\u00ed, parallax",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P2-004",
+        "P2-005",
+        "P7-005"
+      ],
+      "tasks": [
+        {
+          "task_id": "P2-004",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Camera golden math test",
+          "evidence": [
+            "implementation-evidence/P2-004/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-004/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-005",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Depth/camera math tests",
+          "evidence": [
+            "implementation-evidence/P2-005/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-005/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-005",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Stage depth scene test",
+          "evidence": [
+            "implementation-evidence/P7-005/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-005/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P2-004",
+        "P2-005",
+        "P7-005"
+      ],
+      "verifications": [
+        "Camera golden math test",
+        "Depth/camera math tests",
+        "Stage depth scene test"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P2-004/",
+        "implementation-evidence/P2-005/",
+        "implementation-evidence/P7-005/"
+      ]
+    },
+    {
+      "id": "FR-06",
+      "title": "Typografie s korektn\u00edm shapingem a diakritikou",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P3-016",
+        "P3-017",
+        "P5-002"
+      ],
+      "tasks": [
+        {
+          "task_id": "P3-016",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Typography shaping fixtures",
+          "evidence": [
+            "implementation-evidence/P3-016/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-016/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-017",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Font atlas benchmark",
+          "evidence": [
+            "implementation-evidence/P3-017/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-017/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P5-002",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Kinetic text fixtures",
+          "evidence": [
+            "implementation-evidence/P5-002/"
+          ],
+          "checks": [
+            "implementation-evidence/P5-002/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P3-016",
+        "P3-017",
+        "P5-002"
+      ],
+      "verifications": [
+        "Font atlas benchmark",
+        "Kinetic text fixtures",
+        "Typography shaping fixtures"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P3-016/",
+        "implementation-evidence/P3-017/",
+        "implementation-evidence/P5-002/"
+      ]
+    },
+    {
+      "id": "FR-07",
+      "title": "Vektorov\u00e9 cesty, kreslen\u00ed tah\u016f, k\u0159ivky",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P3-010",
+        "P6-007",
+        "P6-008"
+      ],
+      "tasks": [
+        {
+          "task_id": "P3-010",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Path tessellation tests",
+          "evidence": [
+            "implementation-evidence/P3-010/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-010/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-007",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Geometry numeric tests",
+          "evidence": [
+            "implementation-evidence/P6-007/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-007/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-008",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Stroke progress goldens",
+          "evidence": [
+            "implementation-evidence/P6-008/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-008/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P3-010",
+        "P6-007",
+        "P6-008"
+      ],
+      "verifications": [
+        "Geometry numeric tests",
+        "Path tessellation tests",
+        "Stroke progress goldens"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P3-010/",
+        "implementation-evidence/P6-007/",
+        "implementation-evidence/P6-008/"
+      ]
+    },
+    {
+      "id": "FR-08",
+      "title": "CDS Style Bible a s\u00e9mantick\u00e9 instrukce",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P4-001",
+        "P4-004",
+        "P4-012"
+      ],
+      "tasks": [
+        {
+          "task_id": "P4-001",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Style Bible schema tests",
+          "evidence": [
+            "implementation-evidence/P4-001/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-001/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P4-004",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "CDS compiler snapshot + negative unsupported tests",
+          "evidence": [
+            "implementation-evidence/P4-004/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-004/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P4-012",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Determinism variation tests",
+          "evidence": [
+            "implementation-evidence/P4-012/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-012/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P4-001",
+        "P4-004",
+        "P4-012"
+      ],
+      "verifications": [
+        "CDS compiler snapshot + negative unsupported tests",
+        "Determinism variation tests",
+        "Style Bible schema tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P4-001/",
+        "implementation-evidence/P4-004/",
+        "implementation-evidence/P4-012/"
+      ]
+    },
+    {
+      "id": "FR-09",
+      "title": "T\u0159i stylov\u00e9 bal\u00ed\u010dky",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P4-018",
+        "P5-020",
+        "P6-021",
+        "P7-025"
+      ],
+      "tasks": [
+        {
+          "task_id": "P4-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Multi-style compiler goldens + extension test",
+          "evidence": [
+            "implementation-evidence/P4-018/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-018/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P5-020",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P5 release gate",
+          "evidence": [
+            "implementation-evidence/P5-020/",
+            "implementation-evidence/P5-020/baseline.json",
+            "implementation-evidence/P5-020/gate-decision.json",
+            "implementation-evidence/P5-020/gate-report.json"
+          ],
+          "checks": [
+            "implementation-evidence/P5-020/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-021",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P6 release gate",
+          "evidence": [
+            "implementation-evidence/P6-021/",
+            "implementation-evidence/P6-021/baseline.json",
+            "implementation-evidence/P6-021/gate-decision.json",
+            "implementation-evidence/P6-021/gate-report.json"
+          ],
+          "checks": [
+            "implementation-evidence/P6-021/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-025",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P7 release gate",
+          "evidence": [
+            "implementation-evidence/P7-025/",
+            "implementation-evidence/P7-025/baseline.json",
+            "implementation-evidence/P7-025/gate-decision.json",
+            "implementation-evidence/P7-025/gate-report.json"
+          ],
+          "checks": [
+            "implementation-evidence/P7-025/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P4-018",
+        "P5-020",
+        "P6-021",
+        "P7-025"
+      ],
+      "verifications": [
+        "Multi-style compiler goldens + extension test",
+        "P5 release gate",
+        "P6 release gate",
+        "P7 release gate"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P4-018/",
+        "implementation-evidence/P5-020/",
+        "implementation-evidence/P5-020/baseline.json",
+        "implementation-evidence/P5-020/gate-decision.json",
+        "implementation-evidence/P5-020/gate-report.json",
+        "implementation-evidence/P6-021/",
+        "implementation-evidence/P6-021/baseline.json",
+        "implementation-evidence/P6-021/gate-decision.json",
+        "implementation-evidence/P6-021/gate-report.json",
+        "implementation-evidence/P7-025/",
+        "implementation-evidence/P7-025/baseline.json",
+        "implementation-evidence/P7-025/gate-decision.json",
+        "implementation-evidence/P7-025/gate-report.json"
+      ]
+    },
+    {
+      "id": "FR-10",
+      "title": "Paper rigging, IK, gesto, skl\u00e1d\u00e1n\u00ed pap\u00edru",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P7-009",
+        "P7-011",
+        "P7-014",
+        "P7-017"
+      ],
+      "tasks": [
+        {
+          "task_id": "P7-009",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Rig schema validation",
+          "evidence": [
+            "implementation-evidence/P7-009/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-009/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-011",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "IK property tests",
+          "evidence": [
+            "implementation-evidence/P7-011/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-011/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Gesture demo goldens",
+          "evidence": [
+            "implementation-evidence/P7-014/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-014/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-017",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Fold animation golden",
+          "evidence": [
+            "implementation-evidence/P7-017/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-017/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P7-009",
+        "P7-011",
+        "P7-014",
+        "P7-017"
+      ],
+      "verifications": [
+        "Fold animation golden",
+        "Gesture demo goldens",
+        "IK property tests",
+        "Rig schema validation"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P7-009/",
+        "implementation-evidence/P7-011/",
+        "implementation-evidence/P7-014/",
+        "implementation-evidence/P7-017/"
+      ]
+    },
+    {
+      "id": "FR-11",
+      "title": "Matematika a grafy",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P6-003",
+        "P6-006",
+        "P6-011",
+        "P6-013"
+      ],
+      "tasks": [
+        {
+          "task_id": "P6-003",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Parser property/fuzz tests",
+          "evidence": [
+            "implementation-evidence/P6-003/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-003/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-006",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Equation morph golden",
+          "evidence": [
+            "implementation-evidence/P6-006/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-006/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-011",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Plot numeric fixtures",
+          "evidence": [
+            "implementation-evidence/P6-011/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-011/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-013",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Diagram animation demo",
+          "evidence": [
+            "implementation-evidence/P6-013/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-013/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P6-003",
+        "P6-006",
+        "P6-011",
+        "P6-013"
+      ],
+      "verifications": [
+        "Diagram animation demo",
+        "Equation morph golden",
+        "Parser property/fuzz tests",
+        "Plot numeric fixtures"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P6-003/",
+        "implementation-evidence/P6-006/",
+        "implementation-evidence/P6-011/",
+        "implementation-evidence/P6-013/"
+      ]
+    },
+    {
+      "id": "FR-12",
+      "title": "Cache asset\u016f a opakovan\u00fd render",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-014",
+        "P3-014",
+        "P8-005"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Provenance fixture",
+          "evidence": [
+            "implementation-evidence/P1-014/"
+          ],
+          "checks": [
+            "implementation-evidence/P1-014/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Cache invalidation + corruption tests",
+          "evidence": [
+            "implementation-evidence/P3-014/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-014/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-005",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Reproducibility lock test",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-014",
+        "P3-014"
+      ],
+      "verifications": [
+        "Cache invalidation + corruption tests",
+        "Provenance fixture",
+        "Reproducibility lock test"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-014/",
+        "implementation-evidence/P3-014/"
+      ]
+    },
+    {
+      "id": "FR-13",
+      "title": "S\u00e9riov\u00fd MP4 export bez zvuku",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-010",
+        "P0-014",
+        "P8-016"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-010",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "End-to-end MP4 test",
+          "evidence": [
+            "implementation-evidence/P0-010/README.md",
+            "implementation-evidence/P0-010/checks.json",
+            "implementation-evidence/P0-010/dependency-verification.json",
+            "implementation-evidence/P0-010/reference-verification.json",
+            "implementation-evidence/P0-010/source-sha256.json",
+            "implementation-evidence/P0-010/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "end-to-end Metal render to H.264 MP4",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "RGBA to BGRA staging unit coverage",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-010/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P0-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests",
+          "evidence": [
+            "implementation-evidence/P0-014/README.md",
+            "implementation-evidence/P0-014/checks.json",
+            "implementation-evidence/P0-014/dependency-verification.json",
+            "implementation-evidence/P0-014/reference-verification.json",
+            "implementation-evidence/P0-014/source-sha256.json",
+            "implementation-evidence/P0-014/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "transactional publish and write_all faults",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-016",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Media conformance suite",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-010",
+        "P0-014"
+      ],
+      "verifications": [
+        "End-to-end MP4 test",
+        "Media conformance suite",
+        "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-010/README.md",
+        "implementation-evidence/P0-010/checks.json",
+        "implementation-evidence/P0-010/dependency-verification.json",
+        "implementation-evidence/P0-010/reference-verification.json",
+        "implementation-evidence/P0-010/source-sha256.json",
+        "implementation-evidence/P0-010/task-contract.json",
+        "implementation-evidence/P0-014/README.md",
+        "implementation-evidence/P0-014/checks.json",
+        "implementation-evidence/P0-014/dependency-verification.json",
+        "implementation-evidence/P0-014/reference-verification.json",
+        "implementation-evidence/P0-014/source-sha256.json",
+        "implementation-evidence/P0-014/task-contract.json"
+      ]
+    },
+    {
+      "id": "FR-14",
+      "title": "Preview s p\u0159eskakov\u00e1n\u00edm na \u010dasov\u00e9 ose",
+      "priority": "SHOULD",
+      "blocking_must": false,
+      "mapped": true,
+      "task_ids": [
+        "P2-017",
+        "P3-023",
+        "P8-006"
+      ],
+      "tasks": [
+        {
+          "task_id": "P2-017",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Frame seek integration",
+          "evidence": [
+            "implementation-evidence/P2-017/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-017/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-023",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Preview PNG integration",
+          "evidence": [
+            "implementation-evidence/P3-023/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-023/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-006",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "CLI e2e regression",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P2-017",
+        "P3-023"
+      ],
+      "verifications": [
+        "CLI e2e regression",
+        "Frame seek integration",
+        "Preview PNG integration"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P2-017/",
+        "implementation-evidence/P3-023/"
+      ]
+    },
+    {
+      "id": "FR-15",
+      "title": "Diagnostika sc\u00e9ny, kvality a v\u00fdkonu",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-016",
+        "P3-022",
+        "P8-019",
+        "P8-028"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-016",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Report schema + metric oracle + telemetry on/off comparison",
+          "evidence": [
+            "implementation-evidence/P0-016/README.md",
+            "implementation-evidence/P0-016/checks.json",
+            "implementation-evidence/P0-016/conditions.json",
+            "implementation-evidence/P0-016/dependency-verification.json",
+            "implementation-evidence/P0-016/development-overhead/measurement-profile.json",
+            "implementation-evidence/P0-016/development-overhead/overhead.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/report.json",
+            "implementation-evidence/P0-016/media-checksums.json",
+            "implementation-evidence/P0-016/memory-unit-verification.json",
+            "implementation-evidence/P0-016/overhead/measurement-profile.json",
+            "implementation-evidence/P0-016/overhead/overhead.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/reports/report.json",
+            "implementation-evidence/P0-016/ownership-review.json",
+            "implementation-evidence/P0-016/reference-verification.json",
+            "implementation-evidence/P0-016/source-sha256.json",
+            "implementation-evidence/P0-016/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "Native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Final report ownership ASan+UBSan checks",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Isolated clean build and negative toolchain/private-header tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Machine-profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Independent metric, schema, native and privacy oracles",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Python syntax compilation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Dependency acceptance and current implementation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Darwin memory unit corroboration",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Release telemetry on/off comparison and full report schema",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Source correctness and resource ownership review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Pre-stage content/privacy and secret scanner review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Staged delivery and commit metadata review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-022",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Telemetry contract tests",
+          "evidence": [
+            "implementation-evidence/P3-022/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-022/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-019",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Report schema fixture",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-028",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Quality lint CI report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-016",
+        "P3-022"
+      ],
+      "verifications": [
+        "Quality lint CI report",
+        "Report schema + metric oracle + telemetry on/off comparison",
+        "Report schema fixture",
+        "Telemetry contract tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-016/README.md",
+        "implementation-evidence/P0-016/checks.json",
+        "implementation-evidence/P0-016/conditions.json",
+        "implementation-evidence/P0-016/dependency-verification.json",
+        "implementation-evidence/P0-016/development-overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/development-overhead/overhead.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/media-checksums.json",
+        "implementation-evidence/P0-016/memory-unit-verification.json",
+        "implementation-evidence/P0-016/overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/overhead/overhead.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/ownership-review.json",
+        "implementation-evidence/P0-016/reference-verification.json",
+        "implementation-evidence/P0-016/source-sha256.json",
+        "implementation-evidence/P0-016/task-contract.json",
+        "implementation-evidence/P3-022/"
+      ]
+    },
+    {
+      "id": "FR-16",
+      "title": "Mo\u017enost ru\u010dn\u00edho override CDS",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P4-005",
+        "P4-019"
+      ],
+      "tasks": [
+        {
+          "task_id": "P4-005",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Conflict matrix tests",
+          "evidence": [
+            "implementation-evidence/P4-005/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-005/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P4-019",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "E2E CDS test",
+          "evidence": [
+            "implementation-evidence/P4-019/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-019/checks.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P4-005",
+        "P4-019"
+      ],
+      "verifications": [
+        "Conflict matrix tests",
+        "E2E CDS test"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P4-005/",
+        "implementation-evidence/P4-019/"
+      ]
+    },
+    {
+      "id": "NFR-COMP-01",
+      "title": "Form\u00e1ty",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-015",
+        "P1-018",
+        "P8-004"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-015",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Migration golden tests",
+          "evidence": [
+            "implementation-evidence/P1-015/",
+            "implementation-evidence/P1-015/NOTES.md",
+            "engine/src/scene-ir/src/migrate.cpp",
+            "engine/tests/unit/scene-ir/migrate_test.cpp",
+            "contracts/fixtures/authoring/migrations/from-0.9.0/",
+            "contracts/VERSIONING.md"
+          ],
+          "checks": [
+            "implementation-evidence/P1-015/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P1-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "CI contract gate + clean-clone contracts presence",
+          "evidence": [
+            "implementation-evidence/P1-018/",
+            "implementation-evidence/P1-018/NOTES.md",
+            "contracts/invariants-sas6.json",
+            "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",
+            "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
+            "contracts/fixtures/scene-ir/semantic-negative/",
+            "tools/contracts/check_contracts.mjs"
+          ],
+          "checks": [
+            "implementation-evidence/P1-018/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-004",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Migration compatibility suite",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-015",
+        "P1-018"
+      ],
+      "verifications": [
+        "CI contract gate + clean-clone contracts presence",
+        "Migration compatibility suite",
+        "Migration golden tests"
+      ],
+      "evidence_artifacts": [
+        "contracts/VERSIONING.md",
+        "contracts/fixtures/authoring/migrations/from-0.9.0/",
+        "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
+        "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",
+        "contracts/fixtures/scene-ir/semantic-negative/",
+        "contracts/invariants-sas6.json",
+        "engine/src/scene-ir/src/migrate.cpp",
+        "engine/tests/unit/scene-ir/migrate_test.cpp",
+        "implementation-evidence/P1-015/",
+        "implementation-evidence/P1-015/NOTES.md",
+        "implementation-evidence/P1-018/",
+        "implementation-evidence/P1-018/NOTES.md",
+        "tools/contracts/check_contracts.mjs"
+      ]
+    },
+    {
+      "id": "NFR-CON-01",
+      "title": "P\u0159et\u00ed\u017een\u00ed",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-013",
+        "P2-018",
+        "P8-010",
+        "P8-039"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-013",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Controlled slow-sink/queue tests + CPU/memory report",
+          "evidence": [
+            "implementation-evidence/P0-013/README.md",
+            "implementation-evidence/P0-013/checks.json",
+            "implementation-evidence/P0-013/dependency-verification.json",
+            "implementation-evidence/P0-013/reference-verification.json",
+            "implementation-evidence/P0-013/source-sha256.json",
+            "implementation-evidence/P0-013/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "slow-sink and queue backpressure",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Scheduler stress + TSan fake-GPU/sink tests",
+          "evidence": [
+            "implementation-evidence/P2-018/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-018/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-010",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Backpressure load audit",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-039",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Concurrency stress + TSan + overload CPU/memory reports",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-013",
+        "P2-018"
+      ],
+      "verifications": [
+        "Backpressure load audit",
+        "Concurrency stress + TSan + overload CPU/memory reports",
+        "Controlled slow-sink/queue tests + CPU/memory report",
+        "Scheduler stress + TSan fake-GPU/sink tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-013/README.md",
+        "implementation-evidence/P0-013/checks.json",
+        "implementation-evidence/P0-013/dependency-verification.json",
+        "implementation-evidence/P0-013/reference-verification.json",
+        "implementation-evidence/P0-013/source-sha256.json",
+        "implementation-evidence/P0-013/task-contract.json",
+        "implementation-evidence/P2-018/"
+      ]
+    },
+    {
+      "id": "NFR-CON-02",
+      "title": "Shutdown",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-015",
+        "P3-024",
+        "P8-008",
+        "P8-039"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-015",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Cancellation matrix + subprocess interruption tests",
+          "evidence": [
+            "implementation-evidence/P0-015/README.md",
+            "implementation-evidence/P0-015/checks.json",
+            "implementation-evidence/P0-015/dependency-verification.json",
+            "implementation-evidence/P0-015/ownership-review.json",
+            "implementation-evidence/P0-015/reference-verification.json",
+            "implementation-evidence/P0-015/source-sha256.json",
+            "implementation-evidence/P0-015/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "Native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Final targeted TSan rebuild and checks",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Final signal-bridge regression check",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Isolated build integration and negative toolchain tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Subprocess interruption matrix",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Python syntax compilation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Machine-profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Predecessor/reference verification",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Source diff and ownership review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Content and privacy review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            },
+            {
+              "name": "Staged delivery and metadata review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-015/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-024",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Full pipeline integration + job/cancel/budget tests",
+          "evidence": [
+            "implementation-evidence/P3-024/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-024/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-008",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Cancellation fault matrix audit",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-039",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Concurrency stress + TSan + overload CPU/memory reports",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-015",
+        "P3-024"
+      ],
+      "verifications": [
+        "Cancellation fault matrix audit",
+        "Cancellation matrix + subprocess interruption tests",
+        "Concurrency stress + TSan + overload CPU/memory reports",
+        "Full pipeline integration + job/cancel/budget tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-015/README.md",
+        "implementation-evidence/P0-015/checks.json",
+        "implementation-evidence/P0-015/dependency-verification.json",
+        "implementation-evidence/P0-015/ownership-review.json",
+        "implementation-evidence/P0-015/reference-verification.json",
+        "implementation-evidence/P0-015/source-sha256.json",
+        "implementation-evidence/P0-015/task-contract.json",
+        "implementation-evidence/P3-024/"
+      ]
+    },
+    {
+      "id": "NFR-DET-01",
+      "title": "Determinismus",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P2-012",
+        "P2-013",
+        "P2-020"
+      ],
+      "tasks": [
+        {
+          "task_id": "P2-012",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Seed stability tests",
+          "evidence": [
+            "implementation-evidence/P2-012/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-012/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-013",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Random-access property tests",
+          "evidence": [
+            "implementation-evidence/P2-013/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-013/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P2-020",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P2 gate report",
+          "evidence": [
+            "implementation-evidence/P2-020/"
+          ],
+          "checks": [
+            "implementation-evidence/P2-020/checks.json",
+            "implementation-evidence/P2-020/gate-decision.json"
+          ],
+          "evidenced": true
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P2-012",
+        "P2-013",
+        "P2-020"
+      ],
+      "verifications": [
+        "P2 gate report",
+        "Random-access property tests",
+        "Seed stability tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P2-012/",
+        "implementation-evidence/P2-013/",
+        "implementation-evidence/P2-020/"
+      ]
+    },
+    {
+      "id": "NFR-DET-02",
+      "title": "Pixely",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P8-027"
+      ],
+      "tasks": [
+        {
+          "task_id": "P8-027",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Golden diff CI + approval",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [],
+      "verifications": [
+        "Golden diff CI + approval"
+      ],
+      "evidence_artifacts": []
+    },
+    {
+      "id": "NFR-MAINT-01",
+      "title": "Modulov\u00e9 hranice",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-001",
+        "P1-002",
+        "P8-003",
+        "P8-025"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-001",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Clean checkout + CI smoke + toolchain preset matrix + clang-tidy negative check",
+          "evidence": [
+            "implementation-evidence/P1-001/README.md",
+            "implementation-evidence/P1-001/checks.json"
+          ],
+          "checks": [
+            {
+              "name": "tools/dev/check.py change matrix",
+              "status": "pass",
+              "evidence": "implementation-evidence/P1-001/checks.json"
+            },
+            {
+              "name": "development preset configure",
+              "status": "pass"
+            },
+            {
+              "name": "clang-tidy negative gate",
+              "status": "pass",
+              "evidence": "tools/dev/test_clang_tidy_gate.py"
+            },
+            {
+              "name": "module boundary checker",
+              "status": "pass"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P1-002",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Dependency negative + isolated public-header compile tests",
+          "evidence": [
+            "implementation-evidence/P1-002/README.md",
+            "implementation-evidence/P1-002/checks.json"
+          ],
+          "checks": [
+            {
+              "name": "tools/dev/check.py change matrix (shared with slice)",
+              "status": "pass",
+              "evidence": "implementation-evidence/P1-002/checks.json"
+            },
+            {
+              "name": "dependency negative tests",
+              "status": "pass"
+            },
+            {
+              "name": "isolated public-header compiles",
+              "status": "pass"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-003",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "C++ header/dependency/API review report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-025",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "CI branch protection checks",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-001",
+        "P1-002"
+      ],
+      "verifications": [
+        "C++ header/dependency/API review report",
+        "CI branch protection checks",
+        "Clean checkout + CI smoke + toolchain preset matrix + clang-tidy negative check",
+        "Dependency negative + isolated public-header compile tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-001/README.md",
+        "implementation-evidence/P1-001/checks.json",
+        "implementation-evidence/P1-002/README.md",
+        "implementation-evidence/P1-002/checks.json"
+      ]
+    },
+    {
+      "id": "NFR-MEM-01",
+      "title": "Pam\u011b\u0165",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P3-004",
+        "P3-005",
+        "P3-024",
+        "P8-011",
+        "P8-024"
+      ],
+      "tasks": [
+        {
+          "task_id": "P3-004",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "RAII fault injection + GPU retirement stress",
+          "evidence": [
+            "implementation-evidence/P3-004/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-004/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-005",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Pool recycling tests",
+          "evidence": [
+            "implementation-evidence/P3-005/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-005/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-024",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Full pipeline integration + job/cancel/budget tests",
+          "evidence": [
+            "implementation-evidence/P3-024/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-024/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-011",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Memory pressure audit tests",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-024",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Endurance plot + report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P3-004",
+        "P3-005",
+        "P3-024"
+      ],
+      "verifications": [
+        "Endurance plot + report",
+        "Full pipeline integration + job/cancel/budget tests",
+        "Memory pressure audit tests",
+        "Pool recycling tests",
+        "RAII fault injection + GPU retirement stress"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P3-004/",
+        "implementation-evidence/P3-005/",
+        "implementation-evidence/P3-024/"
+      ]
+    },
+    {
+      "id": "NFR-MEM-02",
+      "title": "Omezov\u00e1n\u00ed front",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-013",
+        "P3-006",
+        "P8-010"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-013",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Controlled slow-sink/queue tests + CPU/memory report",
+          "evidence": [
+            "implementation-evidence/P0-013/README.md",
+            "implementation-evidence/P0-013/checks.json",
+            "implementation-evidence/P0-013/dependency-verification.json",
+            "implementation-evidence/P0-013/reference-verification.json",
+            "implementation-evidence/P0-013/source-sha256.json",
+            "implementation-evidence/P0-013/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "slow-sink and queue backpressure",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-013/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-006",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Interop integration test",
+          "evidence": [
+            "implementation-evidence/P3-006/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-006/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-010",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Backpressure load audit",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-013",
+        "P3-006"
+      ],
+      "verifications": [
+        "Backpressure load audit",
+        "Controlled slow-sink/queue tests + CPU/memory report",
+        "Interop integration test"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-013/README.md",
+        "implementation-evidence/P0-013/checks.json",
+        "implementation-evidence/P0-013/dependency-verification.json",
+        "implementation-evidence/P0-013/reference-verification.json",
+        "implementation-evidence/P0-013/source-sha256.json",
+        "implementation-evidence/P0-013/task-contract.json",
+        "implementation-evidence/P3-006/"
+      ]
+    },
+    {
+      "id": "NFR-OWN-01",
+      "title": "C++23 ownership",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-008",
+        "P3-004",
+        "P8-038"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-008",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Ownership fault injection + pool pressure stress",
+          "evidence": [
+            "implementation-evidence/P0-008/README.md",
+            "implementation-evidence/P0-008/checks.json",
+            "implementation-evidence/P0-008/dependency-verification.json",
+            "implementation-evidence/P0-008/reference-verification.json",
+            "implementation-evidence/P0-008/source-sha256.json",
+            "implementation-evidence/P0-008/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "ownership fault injection and pool pressure stress",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-008/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-004",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "RAII fault injection + GPU retirement stress",
+          "evidence": [
+            "implementation-evidence/P3-004/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-004/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-038",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Ownership audit + sanitizer/native evidence",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-008",
+        "P3-004"
+      ],
+      "verifications": [
+        "Ownership audit + sanitizer/native evidence",
+        "Ownership fault injection + pool pressure stress",
+        "RAII fault injection + GPU retirement stress"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-008/README.md",
+        "implementation-evidence/P0-008/checks.json",
+        "implementation-evidence/P0-008/dependency-verification.json",
+        "implementation-evidence/P0-008/reference-verification.json",
+        "implementation-evidence/P0-008/source-sha256.json",
+        "implementation-evidence/P0-008/task-contract.json",
+        "implementation-evidence/P3-004/"
+      ]
+    },
+    {
+      "id": "NFR-OWN-02",
+      "title": "Asynchronn\u00ed lifetime",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-007",
+        "P3-006",
+        "P8-038"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-007",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Pixel parity + ASan/native lifetime stress",
+          "evidence": [
+            "implementation-evidence/P0-007/README.md",
+            "implementation-evidence/P0-007/checks.json",
+            "implementation-evidence/P0-007/dependency-verification.json",
+            "implementation-evidence/P0-007/reference-verification.json",
+            "implementation-evidence/P0-007/source-sha256.json",
+            "implementation-evidence/P0-007/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "pixel parity and readback lifetime stress",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-007/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-006",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Interop integration test",
+          "evidence": [
+            "implementation-evidence/P3-006/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-006/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-038",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Ownership audit + sanitizer/native evidence",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-007",
+        "P3-006"
+      ],
+      "verifications": [
+        "Interop integration test",
+        "Ownership audit + sanitizer/native evidence",
+        "Pixel parity + ASan/native lifetime stress"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-007/README.md",
+        "implementation-evidence/P0-007/checks.json",
+        "implementation-evidence/P0-007/dependency-verification.json",
+        "implementation-evidence/P0-007/reference-verification.json",
+        "implementation-evidence/P0-007/source-sha256.json",
+        "implementation-evidence/P0-007/task-contract.json",
+        "implementation-evidence/P3-006/"
+      ]
+    },
+    {
+      "id": "NFR-PERF-01",
+      "title": "Throughput",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P5-018",
+        "P6-020",
+        "P7-024",
+        "P8-023",
+        "P8-021"
+      ],
+      "tasks": [
+        {
+          "task_id": "P5-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "B-01 measured report",
+          "evidence": [
+            "implementation-evidence/P5-018/"
+          ],
+          "checks": [
+            "implementation-evidence/P5-018/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P6-020",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "B-02 measured report",
+          "evidence": [
+            "implementation-evidence/P6-020/"
+          ],
+          "checks": [
+            "implementation-evidence/P6-020/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P7-024",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "B-03 measured report",
+          "evidence": [
+            "implementation-evidence/P7-024/"
+          ],
+          "checks": [
+            "implementation-evidence/P7-024/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-023",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-01/B-02/B-03 certificate",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-021",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-04 signed benchmark report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P5-018",
+        "P6-020",
+        "P7-024"
+      ],
+      "verifications": [
+        "B-01 measured report",
+        "B-01/B-02/B-03 certificate",
+        "B-02 measured report",
+        "B-03 measured report",
+        "B-04 signed benchmark report"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P5-018/",
+        "implementation-evidence/P6-020/",
+        "implementation-evidence/P7-024/"
+      ]
+    },
+    {
+      "id": "NFR-PERF-02",
+      "title": "Intern\u00ed rezerva",
+      "priority": "STRETCH",
+      "blocking_must": false,
+      "mapped": true,
+      "task_ids": [
+        "P3-022",
+        "P8-019",
+        "P8-023"
+      ],
+      "tasks": [
+        {
+          "task_id": "P3-022",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Telemetry contract tests",
+          "evidence": [
+            "implementation-evidence/P3-022/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-022/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-019",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Report schema fixture",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-023",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-01/B-02/B-03 certificate",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P3-022"
+      ],
+      "verifications": [
+        "B-01/B-02/B-03 certificate",
+        "Report schema fixture",
+        "Telemetry contract tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P3-022/"
+      ]
+    },
+    {
+      "id": "NFR-PERF-03",
+      "title": "D\u00e9lka",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-021",
+        "P4-021",
+        "P8-023",
+        "P8-021",
+        "P8-024"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-021",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Parse/compile benchmark report + ADR-0002 baseline",
+          "evidence": [
+            "implementation-evidence/P1-021/",
+            "implementation-evidence/P1-021/NOTES.md",
+            "implementation-evidence/P1-021/parse_compile_report.json",
+            "tools/benchmark/parse_compile_bench.py",
+            "motion_framework_sas/adrs/0002-scene-ir-versioning.md",
+            "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+          ],
+          "checks": [
+            "implementation-evidence/P1-021/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P4-021",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "CDS compile benchmark report + ADR-0014 update",
+          "evidence": [
+            "implementation-evidence/P4-021/"
+          ],
+          "checks": [
+            "implementation-evidence/P4-021/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-023",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-01/B-02/B-03 certificate",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-021",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-04 signed benchmark report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-024",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Endurance plot + report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-021",
+        "P4-021"
+      ],
+      "verifications": [
+        "B-01/B-02/B-03 certificate",
+        "B-04 signed benchmark report",
+        "CDS compile benchmark report + ADR-0014 update",
+        "Endurance plot + report",
+        "Parse/compile benchmark report + ADR-0002 baseline"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-021/",
+        "implementation-evidence/P1-021/NOTES.md",
+        "implementation-evidence/P1-021/parse_compile_report.json",
+        "implementation-evidence/P4-021/",
+        "motion_framework_sas/adrs/0002-scene-ir-versioning.md",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md",
+        "tools/benchmark/parse_compile_bench.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-04",
+      "title": "Latence",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-016",
+        "P3-022",
+        "P3-025",
+        "P8-019",
+        "P8-041"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-016",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Report schema + metric oracle + telemetry on/off comparison",
+          "evidence": [
+            "implementation-evidence/P0-016/README.md",
+            "implementation-evidence/P0-016/checks.json",
+            "implementation-evidence/P0-016/conditions.json",
+            "implementation-evidence/P0-016/dependency-verification.json",
+            "implementation-evidence/P0-016/development-overhead/measurement-profile.json",
+            "implementation-evidence/P0-016/development-overhead/overhead.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/report.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/child.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/frames.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/output/resources.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/outer.json",
+            "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/report.json",
+            "implementation-evidence/P0-016/media-checksums.json",
+            "implementation-evidence/P0-016/memory-unit-verification.json",
+            "implementation-evidence/P0-016/overhead/measurement-profile.json",
+            "implementation-evidence/P0-016/overhead/overhead.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-00-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-00-on/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-01-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-01-on/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-02-off/reports/report.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/child.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/frames.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/output/resources.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/reports/outer.json",
+            "implementation-evidence/P0-016/overhead/pair-02-on/reports/report.json",
+            "implementation-evidence/P0-016/ownership-review.json",
+            "implementation-evidence/P0-016/reference-verification.json",
+            "implementation-evidence/P0-016/source-sha256.json",
+            "implementation-evidence/P0-016/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "Native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Final report ownership ASan+UBSan checks",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Isolated clean build and negative toolchain/private-header tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Machine-profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Independent metric, schema, native and privacy oracles",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Python syntax compilation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Dependency acceptance and current implementation",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Darwin memory unit corroboration",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Release telemetry on/off comparison and full report schema",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Source correctness and resource ownership review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Pre-stage content/privacy and secret scanner review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            },
+            {
+              "name": "Staged delivery and commit metadata review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-016/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-022",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Telemetry contract tests",
+          "evidence": [
+            "implementation-evidence/P3-022/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-022/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-025",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "P3 gate + 60s report + thresholds ADR",
+          "evidence": [
+            "implementation-evidence/P3-025/",
+            "implementation-evidence/P3-025/p3_gate_series.json",
+            "implementation-evidence/P3-025/gate-decision.json",
+            "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+          ],
+          "checks": [
+            "implementation-evidence/P3-025/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-019",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Report schema fixture",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-041",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Metric oracle + independent reproduction + report audit",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-016",
+        "P3-022",
+        "P3-025"
+      ],
+      "verifications": [
+        "Metric oracle + independent reproduction + report audit",
+        "P3 gate + 60s report + thresholds ADR",
+        "Report schema + metric oracle + telemetry on/off comparison",
+        "Report schema fixture",
+        "Telemetry contract tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-016/README.md",
+        "implementation-evidence/P0-016/checks.json",
+        "implementation-evidence/P0-016/conditions.json",
+        "implementation-evidence/P0-016/dependency-verification.json",
+        "implementation-evidence/P0-016/development-overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/development-overhead/overhead.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/development-overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/media-checksums.json",
+        "implementation-evidence/P0-016/memory-unit-verification.json",
+        "implementation-evidence/P0-016/overhead/measurement-profile.json",
+        "implementation-evidence/P0-016/overhead/overhead.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-00-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-01-on/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-off/reports/report.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/child.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/frames.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/output/resources.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/outer.json",
+        "implementation-evidence/P0-016/overhead/pair-02-on/reports/report.json",
+        "implementation-evidence/P0-016/ownership-review.json",
+        "implementation-evidence/P0-016/reference-verification.json",
+        "implementation-evidence/P0-016/source-sha256.json",
+        "implementation-evidence/P0-016/task-contract.json",
+        "implementation-evidence/P3-022/",
+        "implementation-evidence/P3-025/",
+        "implementation-evidence/P3-025/gate-decision.json",
+        "implementation-evidence/P3-025/p3_gate_series.json",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+      ]
+    },
+    {
+      "id": "NFR-PERF-05",
+      "title": "Reprodukovatelnost/CPU",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-018",
+        "P0-019",
+        "P8-023",
+        "P8-041"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-018",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "B-00 60s raw reports + reproducibility review",
+          "evidence": [
+            "implementation-evidence/P0-018/README.md",
+            "implementation-evidence/P0-018/baseline.json",
+            "implementation-evidence/P0-018/checks.json",
+            "implementation-evidence/P0-018/conditions.json",
+            "implementation-evidence/P0-018/dependency-verification.json",
+            "implementation-evidence/P0-018/measurement-profile.json",
+            "implementation-evidence/P0-018/media-checksums.json",
+            "implementation-evidence/P0-018/ownership-review.json",
+            "implementation-evidence/P0-018/source-sha256.json",
+            "implementation-evidence/P0-018/task-contract.json",
+            "implementation-evidence/P0-018/runs/cold-00/reports/report.json",
+            "implementation-evidence/P0-018/runs/cold-00/reports/outer.json",
+            "implementation-evidence/P0-018/runs/cold-00/output/child.json",
+            "implementation-evidence/P0-018/runs/cold-00/output/frames.json",
+            "implementation-evidence/P0-018/runs/cold-00/output/resources.json",
+            "implementation-evidence/P0-018/runs/cold-01/reports/report.json",
+            "implementation-evidence/P0-018/runs/cold-01/reports/outer.json",
+            "implementation-evidence/P0-018/runs/cold-01/output/child.json",
+            "implementation-evidence/P0-018/runs/cold-01/output/frames.json",
+            "implementation-evidence/P0-018/runs/cold-01/output/resources.json",
+            "implementation-evidence/P0-018/runs/cold-02/reports/report.json",
+            "implementation-evidence/P0-018/runs/cold-02/reports/outer.json",
+            "implementation-evidence/P0-018/runs/cold-02/output/child.json",
+            "implementation-evidence/P0-018/runs/cold-02/output/frames.json",
+            "implementation-evidence/P0-018/runs/cold-02/output/resources.json",
+            "implementation-evidence/P0-018/runs/warm-00/reports/report.json",
+            "implementation-evidence/P0-018/runs/warm-00/reports/outer.json",
+            "implementation-evidence/P0-018/runs/warm-00/output/child.json",
+            "implementation-evidence/P0-018/runs/warm-00/output/frames.json",
+            "implementation-evidence/P0-018/runs/warm-00/output/resources.json",
+            "implementation-evidence/P0-018/runs/warm-01/reports/report.json",
+            "implementation-evidence/P0-018/runs/warm-01/reports/outer.json",
+            "implementation-evidence/P0-018/runs/warm-01/output/child.json",
+            "implementation-evidence/P0-018/runs/warm-01/output/frames.json",
+            "implementation-evidence/P0-018/runs/warm-01/output/resources.json",
+            "implementation-evidence/P0-018/runs/warm-02/reports/report.json",
+            "implementation-evidence/P0-018/runs/warm-02/reports/outer.json",
+            "implementation-evidence/P0-018/runs/warm-02/output/child.json",
+            "implementation-evidence/P0-018/runs/warm-02/output/frames.json",
+            "implementation-evidence/P0-018/runs/warm-02/output/resources.json"
+          ],
+          "checks": [
+            {
+              "name": "locked profile and B-00 series",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-018/checks.json"
+            },
+            {
+              "name": "metric/baseline unit tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-018/checks.json"
+            },
+            {
+              "name": "reproducibility and cache-policy review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-018/checks.json"
+            },
+            {
+              "name": "thermal preconditions",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-018/checks.json"
+            },
+            {
+              "name": "content/security review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-018/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P0-019",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "B-00 300s endurance reports",
+          "evidence": [
+            "implementation-evidence/P0-019/README.md",
+            "implementation-evidence/P0-019/endurance.json",
+            "implementation-evidence/P0-019/checks.json",
+            "implementation-evidence/P0-019/conditions.json",
+            "implementation-evidence/P0-019/dependency-verification.json",
+            "implementation-evidence/P0-019/measurement-profile.json",
+            "implementation-evidence/P0-019/media-checksums.json",
+            "implementation-evidence/P0-019/ownership-review.json",
+            "implementation-evidence/P0-019/source-sha256.json",
+            "implementation-evidence/P0-019/task-contract.json",
+            "implementation-evidence/P0-019/runs/cold-00/reports/report.json",
+            "implementation-evidence/P0-019/runs/cold-00/reports/outer.json",
+            "implementation-evidence/P0-019/runs/cold-00/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/cold-00/output/child.json",
+            "implementation-evidence/P0-019/runs/cold-00/output/frames.json",
+            "implementation-evidence/P0-019/runs/cold-00/output/resources.json",
+            "implementation-evidence/P0-019/runs/cold-01/reports/report.json",
+            "implementation-evidence/P0-019/runs/cold-01/reports/outer.json",
+            "implementation-evidence/P0-019/runs/cold-01/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/cold-01/output/child.json",
+            "implementation-evidence/P0-019/runs/cold-01/output/frames.json",
+            "implementation-evidence/P0-019/runs/cold-01/output/resources.json",
+            "implementation-evidence/P0-019/runs/cold-02/reports/report.json",
+            "implementation-evidence/P0-019/runs/cold-02/reports/outer.json",
+            "implementation-evidence/P0-019/runs/cold-02/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/cold-02/output/child.json",
+            "implementation-evidence/P0-019/runs/cold-02/output/frames.json",
+            "implementation-evidence/P0-019/runs/cold-02/output/resources.json",
+            "implementation-evidence/P0-019/runs/warm-00/reports/report.json",
+            "implementation-evidence/P0-019/runs/warm-00/reports/outer.json",
+            "implementation-evidence/P0-019/runs/warm-00/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/warm-00/output/child.json",
+            "implementation-evidence/P0-019/runs/warm-00/output/frames.json",
+            "implementation-evidence/P0-019/runs/warm-00/output/resources.json",
+            "implementation-evidence/P0-019/runs/warm-01/reports/report.json",
+            "implementation-evidence/P0-019/runs/warm-01/reports/outer.json",
+            "implementation-evidence/P0-019/runs/warm-01/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/warm-01/output/child.json",
+            "implementation-evidence/P0-019/runs/warm-01/output/frames.json",
+            "implementation-evidence/P0-019/runs/warm-01/output/resources.json",
+            "implementation-evidence/P0-019/runs/warm-02/reports/report.json",
+            "implementation-evidence/P0-019/runs/warm-02/reports/outer.json",
+            "implementation-evidence/P0-019/runs/warm-02/reports/thermal_series.json",
+            "implementation-evidence/P0-019/runs/warm-02/output/child.json",
+            "implementation-evidence/P0-019/runs/warm-02/output/frames.json",
+            "implementation-evidence/P0-019/runs/warm-02/output/resources.json"
+          ],
+          "checks": [
+            {
+              "name": "locked profile and B-00 300s series",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            },
+            {
+              "name": "metric/endurance unit tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            },
+            {
+              "name": "capacity, silent-drop and RSS growth gates",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            },
+            {
+              "name": "reproducibility and cache-policy review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            },
+            {
+              "name": "thermal preconditions and per-trial series",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            },
+            {
+              "name": "content/security review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-019/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-023",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "B-01/B-02/B-03 certificate",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-041",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Metric oracle + independent reproduction + report audit",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-018",
+        "P0-019"
+      ],
+      "verifications": [
+        "B-00 300s endurance reports",
+        "B-00 60s raw reports + reproducibility review",
+        "B-01/B-02/B-03 certificate",
+        "Metric oracle + independent reproduction + report audit"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-018/README.md",
+        "implementation-evidence/P0-018/baseline.json",
+        "implementation-evidence/P0-018/checks.json",
+        "implementation-evidence/P0-018/conditions.json",
+        "implementation-evidence/P0-018/dependency-verification.json",
+        "implementation-evidence/P0-018/measurement-profile.json",
+        "implementation-evidence/P0-018/media-checksums.json",
+        "implementation-evidence/P0-018/ownership-review.json",
+        "implementation-evidence/P0-018/runs/cold-00/output/child.json",
+        "implementation-evidence/P0-018/runs/cold-00/output/frames.json",
+        "implementation-evidence/P0-018/runs/cold-00/output/resources.json",
+        "implementation-evidence/P0-018/runs/cold-00/reports/outer.json",
+        "implementation-evidence/P0-018/runs/cold-00/reports/report.json",
+        "implementation-evidence/P0-018/runs/cold-01/output/child.json",
+        "implementation-evidence/P0-018/runs/cold-01/output/frames.json",
+        "implementation-evidence/P0-018/runs/cold-01/output/resources.json",
+        "implementation-evidence/P0-018/runs/cold-01/reports/outer.json",
+        "implementation-evidence/P0-018/runs/cold-01/reports/report.json",
+        "implementation-evidence/P0-018/runs/cold-02/output/child.json",
+        "implementation-evidence/P0-018/runs/cold-02/output/frames.json",
+        "implementation-evidence/P0-018/runs/cold-02/output/resources.json",
+        "implementation-evidence/P0-018/runs/cold-02/reports/outer.json",
+        "implementation-evidence/P0-018/runs/cold-02/reports/report.json",
+        "implementation-evidence/P0-018/runs/warm-00/output/child.json",
+        "implementation-evidence/P0-018/runs/warm-00/output/frames.json",
+        "implementation-evidence/P0-018/runs/warm-00/output/resources.json",
+        "implementation-evidence/P0-018/runs/warm-00/reports/outer.json",
+        "implementation-evidence/P0-018/runs/warm-00/reports/report.json",
+        "implementation-evidence/P0-018/runs/warm-01/output/child.json",
+        "implementation-evidence/P0-018/runs/warm-01/output/frames.json",
+        "implementation-evidence/P0-018/runs/warm-01/output/resources.json",
+        "implementation-evidence/P0-018/runs/warm-01/reports/outer.json",
+        "implementation-evidence/P0-018/runs/warm-01/reports/report.json",
+        "implementation-evidence/P0-018/runs/warm-02/output/child.json",
+        "implementation-evidence/P0-018/runs/warm-02/output/frames.json",
+        "implementation-evidence/P0-018/runs/warm-02/output/resources.json",
+        "implementation-evidence/P0-018/runs/warm-02/reports/outer.json",
+        "implementation-evidence/P0-018/runs/warm-02/reports/report.json",
+        "implementation-evidence/P0-018/source-sha256.json",
+        "implementation-evidence/P0-018/task-contract.json",
+        "implementation-evidence/P0-019/README.md",
+        "implementation-evidence/P0-019/checks.json",
+        "implementation-evidence/P0-019/conditions.json",
+        "implementation-evidence/P0-019/dependency-verification.json",
+        "implementation-evidence/P0-019/endurance.json",
+        "implementation-evidence/P0-019/measurement-profile.json",
+        "implementation-evidence/P0-019/media-checksums.json",
+        "implementation-evidence/P0-019/ownership-review.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-00/output/resources.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-00/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-01/output/resources.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-01/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/child.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/frames.json",
+        "implementation-evidence/P0-019/runs/cold-02/output/resources.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/outer.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/report.json",
+        "implementation-evidence/P0-019/runs/cold-02/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-00/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-00/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-01/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-01/reports/thermal_series.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/child.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/frames.json",
+        "implementation-evidence/P0-019/runs/warm-02/output/resources.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/outer.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/report.json",
+        "implementation-evidence/P0-019/runs/warm-02/reports/thermal_series.json",
+        "implementation-evidence/P0-019/source-sha256.json",
+        "implementation-evidence/P0-019/task-contract.json"
+      ]
+    },
+    {
+      "id": "NFR-REL-01",
+      "title": "Selh\u00e1n\u00ed",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-014",
+        "P3-024",
+        "P8-007",
+        "P8-009"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests",
+          "evidence": [
+            "implementation-evidence/P0-014/README.md",
+            "implementation-evidence/P0-014/checks.json",
+            "implementation-evidence/P0-014/dependency-verification.json",
+            "implementation-evidence/P0-014/reference-verification.json",
+            "implementation-evidence/P0-014/source-sha256.json",
+            "implementation-evidence/P0-014/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "transactional publish and write_all faults",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-024",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Full pipeline integration + job/cancel/budget tests",
+          "evidence": [
+            "implementation-evidence/P3-024/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-024/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-007",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Job state transition audit + fault tests",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-009",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Fault injection integration",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-014",
+        "P3-024"
+      ],
+      "verifications": [
+        "Fault injection integration",
+        "Full pipeline integration + job/cancel/budget tests",
+        "Job state transition audit + fault tests",
+        "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-014/README.md",
+        "implementation-evidence/P0-014/checks.json",
+        "implementation-evidence/P0-014/dependency-verification.json",
+        "implementation-evidence/P0-014/reference-verification.json",
+        "implementation-evidence/P0-014/source-sha256.json",
+        "implementation-evidence/P0-014/task-contract.json",
+        "implementation-evidence/P3-024/"
+      ]
+    },
+    {
+      "id": "NFR-REL-02",
+      "title": "Diagnostika",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-003",
+        "P1-019",
+        "P8-019"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-003",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Unit/property + error ownership tests",
+          "evidence": [
+            "implementation-evidence/P1-003/README.md",
+            "implementation-evidence/P1-003/checks.json"
+          ],
+          "checks": [
+            {
+              "name": "tools/dev/check.py change matrix",
+              "status": "pass",
+              "evidence": "implementation-evidence/P1-003/checks.json"
+            },
+            {
+              "name": "core-model time/units tests",
+              "status": "pass"
+            },
+            {
+              "name": "diagnostics ownership tests",
+              "status": "pass"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P1-019",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Error contract tests",
+          "evidence": [
+            "implementation-evidence/P1-019/README.md",
+            "implementation-evidence/P1-019/checks.json"
+          ],
+          "checks": [
+            {
+              "name": "tools/dev/check.py change matrix (shared)",
+              "status": "pass",
+              "evidence": "implementation-evidence/P1-019/checks.json"
+            },
+            {
+              "name": "error contract/snapshot tests",
+              "status": "pass"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-019",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Report schema fixture",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-003",
+        "P1-019"
+      ],
+      "verifications": [
+        "Error contract tests",
+        "Report schema fixture",
+        "Unit/property + error ownership tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-003/README.md",
+        "implementation-evidence/P1-003/checks.json",
+        "implementation-evidence/P1-019/README.md",
+        "implementation-evidence/P1-019/checks.json"
+      ]
+    },
+    {
+      "id": "NFR-REL-03",
+      "title": "P\u0159eru\u0161en\u00fd z\u00e1pis",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P0-014",
+        "P3-024",
+        "P8-007",
+        "P8-040"
+      ],
+      "tasks": [
+        {
+          "task_id": "P0-014",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests",
+          "evidence": [
+            "implementation-evidence/P0-014/README.md",
+            "implementation-evidence/P0-014/checks.json",
+            "implementation-evidence/P0-014/dependency-verification.json",
+            "implementation-evidence/P0-014/reference-verification.json",
+            "implementation-evidence/P0-014/source-sha256.json",
+            "implementation-evidence/P0-014/task-contract.json"
+          ],
+          "checks": [
+            {
+              "name": "reference and predecessor evidence",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "native release configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "ASan+UBSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "TSan configure/build/CTest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "isolated build integration and negative tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "transactional publish and write_all faults",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Clang static analyzer",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "clang-format",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "Python syntax",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "machine profile regression tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "architecture contract tests",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "generated assignment drift",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "controlled design manifest",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "diff whitespace",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            },
+            {
+              "name": "content/security and staged delivery review",
+              "status": "pass",
+              "evidence": "implementation-evidence/P0-014/checks.json"
+            }
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P3-024",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Full pipeline integration + job/cancel/budget tests",
+          "evidence": [
+            "implementation-evidence/P3-024/"
+          ],
+          "checks": [
+            "implementation-evidence/P3-024/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-007",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Job state transition audit + fault tests",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-040",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Crash matrix + filesystem/durability capability evidence",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P0-014",
+        "P3-024"
+      ],
+      "verifications": [
+        "Crash matrix + filesystem/durability capability evidence",
+        "Full pipeline integration + job/cancel/budget tests",
+        "Job state transition audit + fault tests",
+        "Short-write/EINTR + ENOSPC/EIO, finish/sync/rename fault injection, existing/concurrent target tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P0-014/README.md",
+        "implementation-evidence/P0-014/checks.json",
+        "implementation-evidence/P0-014/dependency-verification.json",
+        "implementation-evidence/P0-014/reference-verification.json",
+        "implementation-evidence/P0-014/source-sha256.json",
+        "implementation-evidence/P0-014/task-contract.json",
+        "implementation-evidence/P3-024/"
+      ]
+    },
+    {
+      "id": "NFR-SEC-01",
+      "title": "Assety",
+      "priority": "MUST",
+      "blocking_must": true,
+      "mapped": true,
+      "task_ids": [
+        "P1-009",
+        "P8-012",
+        "P8-013",
+        "P8-014"
+      ],
+      "tasks": [
+        {
+          "task_id": "P1-009",
+          "in_backlog": true,
+          "tracker_status": "done",
+          "acceptance_met": true,
+          "verification": "Malformed-input + path boundary suite",
+          "evidence": [
+            "implementation-evidence/P1-009/"
+          ],
+          "checks": [
+            "implementation-evidence/P1-009/checks.json"
+          ],
+          "evidenced": true
+        },
+        {
+          "task_id": "P8-012",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Fuzz corpus + report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-013",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Asset security test report",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        },
+        {
+          "task_id": "P8-014",
+          "in_backlog": true,
+          "tracker_status": "todo",
+          "acceptance_met": null,
+          "verification": "Path boundary audit tests",
+          "evidence": [],
+          "checks": [],
+          "evidenced": false
+        }
+      ],
+      "unknown_task_refs": [],
+      "done_evidenced_tasks": [
+        "P1-009"
+      ],
+      "verifications": [
+        "Asset security test report",
+        "Fuzz corpus + report",
+        "Malformed-input + path boundary suite",
+        "Path boundary audit tests"
+      ],
+      "evidence_artifacts": [
+        "implementation-evidence/P1-009/"
+      ]
+    }
+  ],
+  "release_gates": [
+    {
+      "phase": "P0",
+      "expected_gate_task_id": "P0-020",
+      "tracker_gate_task_id": "P0-020",
+      "tracked": true,
+      "status": "done",
+      "decision": "GO",
+      "evidence": [
+        "implementation-evidence/P0-020/go-no-go-decision.json",
+        "implementation-evidence/P0-020/adr/0012-p0-feasibility-go-no-go.md",
+        "implementation-evidence/P0-020/checks.json",
+        "ARCHITECTURE.md"
+      ],
+      "checks": [
+        {
+          "name": "architecture review gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/checks.json"
+        },
+        {
+          "name": "explicit open risks without blocking P1",
+          "status": "pass",
+          "evidence": "implementation-evidence/P0-020/go-no-go-decision.json"
+        }
+      ]
+    },
+    {
+      "phase": "P1",
+      "expected_gate_task_id": "P1-020",
+      "tracker_gate_task_id": "P1-020",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P1-020/",
+        "implementation-evidence/P1-020/gate-decision.json",
+        "implementation-evidence/P1-020/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "architecture gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P1-020/checks.json"
+        }
+      ]
+    },
+    {
+      "phase": "P2",
+      "expected_gate_task_id": "P2-020",
+      "tracker_gate_task_id": "P2-020",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P2-020/",
+        "implementation-evidence/P2-020/gate-decision.json",
+        "implementation-evidence/P2-020/gate-report.json",
+        "implementation-evidence/P2-020/checks.json"
+      ],
+      "checks": [
+        {
+          "name": "determinism gate binary",
+          "status": "pass",
+          "evidence": "implementation-evidence/P2-020/gate-report.json"
+        },
+        {
+          "name": "full check.py --gate",
+          "status": "pass",
+          "evidence": "implementation-evidence/P2-020/checks.json"
+        }
+      ]
+    },
+    {
+      "phase": "P3",
+      "expected_gate_task_id": "P3-025",
+      "tracker_gate_task_id": "P3-025",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P3-025/",
+        "implementation-evidence/P3-025/p3_gate_series.json",
+        "implementation-evidence/P3-025/gate-decision.json",
+        "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+      ],
+      "checks": [
+        "implementation-evidence/P3-025/checks.json"
+      ]
+    },
+    {
+      "phase": "P4",
+      "expected_gate_task_id": "P4-020",
+      "tracker_gate_task_id": "P4-020",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P4-020/",
+        "implementation-evidence/P4-020/gate-decision.json",
+        "implementation-evidence/P4-020/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P4-020/checks.json"
+      ]
+    },
+    {
+      "phase": "P5",
+      "expected_gate_task_id": "P5-020",
+      "tracker_gate_task_id": "P5-020",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P5-020/",
+        "implementation-evidence/P5-020/baseline.json",
+        "implementation-evidence/P5-020/gate-decision.json",
+        "implementation-evidence/P5-020/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P5-020/checks.json"
+      ]
+    },
+    {
+      "phase": "P6",
+      "expected_gate_task_id": "P6-021",
+      "tracker_gate_task_id": "P6-021",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P6-021/",
+        "implementation-evidence/P6-021/baseline.json",
+        "implementation-evidence/P6-021/gate-decision.json",
+        "implementation-evidence/P6-021/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P6-021/checks.json"
+      ]
+    },
+    {
+      "phase": "P7",
+      "expected_gate_task_id": "P7-025",
+      "tracker_gate_task_id": "P7-025",
+      "tracked": true,
+      "status": "done",
+      "decision": "PASS",
+      "evidence": [
+        "implementation-evidence/P7-025/",
+        "implementation-evidence/P7-025/baseline.json",
+        "implementation-evidence/P7-025/gate-decision.json",
+        "implementation-evidence/P7-025/gate-report.json"
+      ],
+      "checks": [
+        "implementation-evidence/P7-025/checks.json"
+      ]
+    },
+    {
+      "phase": "P8",
+      "expected_gate_task_id": "P8-037",
+      "tracker_gate_task_id": "P8-037",
+      "tracked": true,
+      "status": "todo",
+      "decision": null,
+      "evidence": [],
+      "checks": []
+    }
+  ],
+  "notes": [
+    "Coverage means every SAS \u00a72 requirement is mapped to backlog tasks and every phase gate is tracked.",
+    "Done+evidenced tasks strengthen the matrix; unfinished P8 mappings remain tracked planning coverage.",
+    "NFR-PERF-02 is a SAS stretch target, not a blocking MUST release threshold.",
+    "FR-14 is SHOULD; mapped but non-blocking if incomplete."
+  ]
+}

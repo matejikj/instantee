@@ -1,0 +1,17 @@
+{
+  "decision": "accept_requirements_coverage_matrix",
+  "accepted": true,
+  "no_uncovered_must": true,
+  "no_untracked_release_gate": true,
+  "sas_rtm_ids_aligned": true,
+  "requirements": 35,
+  "must": 33,
+  "should": 1,
+  "stretch": 1,
+  "release_gates_tracked": 9,
+  "matrix": "contracts/traceability/requirements-coverage-v1.json",
+  "notes": [
+    "Coverage is mapping+gate tracking; unfinished P8 task evidence remains planned.",
+    "NFR-PERF-02 stays a stretch target; FR-14 stays SHOULD."
+  ]
+}

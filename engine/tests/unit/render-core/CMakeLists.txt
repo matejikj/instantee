@@ -198,6 +198,14 @@ add_test(NAME spike_paper_prop_blueprint
 set_tests_properties(spike_paper_prop_blueprint PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_paper_fold_test paper_fold_test.cpp)
+target_link_libraries(spike_paper_fold_test PRIVATE instantee::render_core
+  instantee_build_options)
+add_test(NAME spike_paper_fold
+  COMMAND spike_paper_fold_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_fold PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_linear_compositor_test linear_compositor_test.cpp)
 target_link_libraries(spike_linear_compositor_test PRIVATE
   instantee::render_core instantee_build_options)

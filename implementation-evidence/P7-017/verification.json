@@ -1,0 +1,15 @@
+{
+  "verification": "Fold animation golden",
+  "tests": [
+    "spike_paper_fold"
+  ],
+  "fixtures": [
+    "contracts/fixtures/paper-fold/goldens/flat-f0.txt",
+    "contracts/fixtures/paper-fold/goldens/half-f12.txt",
+    "contracts/fixtures/paper-fold/goldens/closed-f24.txt"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest, asan-ubsan and contracts/authoring suites.",
+  "measurement": "none",
+  "evidence_tier": "B"
+}

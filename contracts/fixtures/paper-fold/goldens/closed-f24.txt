@@ -1,0 +1,10 @@
+paper_fold closed-f24
+mesh=letter-fold frame=24 verts=6 segments=2
+seg panel_left crease=- ang=0.000000 z=0.000000 occ=0
+seg panel_right crease=hinge ang=3.141593 z=-0.000000 occ=1
+v 0 x=0.000000 y=0.000000 z=0.000000
+v 1 x=60.000000 y=0.000000 z=0.000000
+v 2 x=0.000000 y=0.000000 z=-0.000000
+v 3 x=0.000000 y=80.000000 z=0.000000
+v 4 x=60.000000 y=80.000000 z=0.000000
+v 5 x=0.000000 y=80.000000 z=-0.000000

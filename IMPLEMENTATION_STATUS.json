@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T19:00:30Z",
+  "updated_at_utc": "2026-11-18T19:08:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6208,14 +6208,45 @@
       "notes": "Analytic secondary motion from absolute frame time; random-access fixtures + ASan/UBSan."
     },
     "P7-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Paper can visually fold/unfold without a 3D simulator.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Crease/segment mesh with keyframed hinge angles and occlusion sort",
+            "met": true,
+            "evidence": "engine/src/render-core/include/instantee/render_core/paper_fold.hpp"
+          },
+          {
+            "criterion": "Letter-card fold/unfold reaches flat, mid −Z lift, and stacked closed poses",
+            "met": true,
+            "evidence": "engine/tests/unit/render-core/paper_fold_test.cpp"
+          },
+          {
+            "criterion": "Fold animation goldens lock flat/half/closed frames",
+            "met": true,
+            "evidence": "contracts/fixtures/paper-fold/goldens/"
+          },
+          {
+            "criterion": "Fold tests + selected checks (clang-tidy unavailable; ASan/UBSan passed)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-017/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-017/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-017/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Fold animation golden",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "notes": "CPU letter-card fold/unfold via crease hinges; goldens + ASan/UBSan."
     },
     "P7-018": {
       "status": "todo",

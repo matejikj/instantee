@@ -1,0 +1,7 @@
+xcrun clang-format -i \
+  engine/src/render-core/include/instantee/render_core/paper_fold.hpp \
+  engine/src/render-core/src/paper_fold.cpp \
+  engine/tests/unit/render-core/paper_fold_test.cpp
+cmake --build --preset release --target spike_paper_fold_test
+ctest --preset release -R '^spike_paper_fold$' --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-017/checks.json

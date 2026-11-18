@@ -128,6 +128,14 @@ add_test(NAME spike_diagram_animation
 set_tests_properties(spike_diagram_animation PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_paper_notes_test paper_notes_test.cpp)
+target_link_libraries(spike_paper_notes_test PRIVATE
+  instantee::render_core instantee_build_options)
+add_test(NAME spike_paper_notes
+  COMMAND spike_paper_notes_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_paper_notes PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke")
+
 add_executable(spike_graphic_shapes_test graphic_shapes_test.cpp)
 target_link_libraries(spike_graphic_shapes_test PRIVATE
   instantee::render_core instantee_build_options)

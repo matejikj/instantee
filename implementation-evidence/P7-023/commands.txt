@@ -1,0 +1,5 @@
+cmake --build --preset release --target spike_direction_paper_cinema_visual_acceptance_test
+./build/release/engine/tests/unit/direction/spike_direction_paper_cinema_visual_acceptance_test "$(pwd)" --write-goldens
+./build/release/engine/tests/unit/direction/spike_direction_paper_cinema_visual_acceptance_test "$(pwd)"
+ctest --preset release -R spike_direction_paper_cinema_visual_acceptance --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-023/checks.json

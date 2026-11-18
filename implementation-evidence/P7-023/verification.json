@@ -1,0 +1,25 @@
+{
+  "verification": "Golden + art review",
+  "tests": [
+    "spike_direction_paper_cinema_visual_acceptance"
+  ],
+  "fixtures": [
+    "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+    "contracts/fixtures/b03-paper/goldens/",
+    "contracts/fixtures/b03-paper/visual-review/"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; release build/tests, ASan/UBSan, contracts and authoring suites passed. TSan not selected by change-risk matrix (no runtime queue/thread surface).",
+  "measurement": "none",
+  "evidence_tier": "A",
+  "checklist": [
+    "poses",
+    "depth",
+    "shadows_materials",
+    "transforms",
+    "shot_continuity",
+    "phone_legibility",
+    "reference_frames"
+  ],
+  "review_status": "approved"
+}

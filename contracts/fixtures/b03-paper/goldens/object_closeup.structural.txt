@@ -1,0 +1,10 @@
+shot=object_closeup start=360 duration=300 sample=370
+safe x=40 y=96 w=1000 h=1644
+typography_count=1
+text node=oc_title run=txt_oc_title role=headline size=52 cps=12
+layers text=1 geometry=2 image=3 puppet=0 character_parts=0
+materials ink pulp sky
+depth min_z=-40 max_z=3 distinct_z=6
+transforms rotation=0 translate=3 scale=2 opacity=6
+continuity transitions=1
+legibility min_size=52 max_size=52 canvas=1080x1920

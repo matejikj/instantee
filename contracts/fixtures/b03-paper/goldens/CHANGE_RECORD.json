@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "entries": [
+    {
+      "artifact_id": "reveal_stage.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "fa4af532132a35dad8c2622c4be8bece27c396a2f27d7e7681761a3885bd3db6",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "reveal_stage.png",
+      "previous_sha256": "",
+      "next_sha256": "8b8f7729d3effe8fcd4bd3d9298909588a2fa419537683efb19a2dc9788c5372",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "object_closeup.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "b4be49e4e412fec654ff60a9050be9fe5ca623293eb8bf257f18f04f78ae2b41",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "object_closeup.png",
+      "previous_sha256": "",
+      "next_sha256": "a116a71f3535b4652916a1f23ec5c93083c7f6b078a3caf9a5615bd49522865b",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "puppet_dialogue.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "39652f456280cdc0a44168517e998ac1c0aec8603f96675e6da7e78ac3626dba",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "puppet_dialogue.png",
+      "previous_sha256": "",
+      "next_sha256": "f9721ce69912eab09e040071fd31d03d23cdf79684518ec384a66fb1b74085a3",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "technical_explanation.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "71c4e73f8a98406f4b6a1e0c38a3e167dbbd96a9ccf168ecf7213862d47074e0",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "technical_explanation.png",
+      "previous_sha256": "",
+      "next_sha256": "e84f8a500059c652981f5f6d75181995a888dce86a18a52fd85977593fbd857a",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "atmospheric_dissolve.structural.txt",
+      "previous_sha256": "",
+      "next_sha256": "5fbf9ff8f85dd65bab741935e9bb3b14a7a4d0744512b4f6c31ece623b657b59",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    },
+    {
+      "artifact_id": "atmospheric_dissolve.png",
+      "previous_sha256": "",
+      "next_sha256": "eb8abb127f2f8818b6c61df9f4d33b4e2854a0590a3c1c7f2583f1f4211f003f",
+      "reason": "initial paper cinema reference approval",
+      "approved_by_role": "paper-cinema-visual-reviewer",
+      "approved_at_utc": "2026-11-18T00:00:00Z"
+    }
+  ]
+}

@@ -6464,14 +6464,24 @@
       "notes": "Locked B-03 historical Paper Cinema 60s Scene IR + workload lock; framework-native silent 1080x1920 MP4; 3+3 cold/warm reference series measured uncertified; CI 60-frame smoke."
     },
     "P7-023": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The reference character and materials pass visual review.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-023/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-023/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Golden + art review",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T22:08:29Z",
+      "notes": "B-03 shot-boundary structural+PNG goldens; poses/depth/materials/transforms/continuity/legibility checklist; signed visual-review record; change-record gate."
     },
     "P7-024": {
       "status": "todo",

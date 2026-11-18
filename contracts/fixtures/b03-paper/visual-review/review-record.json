@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "status": "approved",
+  "approved_by_role": "paper-cinema-visual-reviewer",
+  "approved_at_utc": "2026-11-18T00:00:00Z",
+  "golden_manifest_sha256": "6b129ee8b667c990f7f2d150036c45706f21e2b63f6ba9c599fec05a6f97ca2c",
+  "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
+  "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
+  "checklist_results": [
+    {"id": "poses", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "depth", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "shadows_materials", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "transforms", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "shot_continuity", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "phone_legibility", "passed": true, "notes": "locked B-03 reference"},
+    {"id": "reference_frames", "passed": true, "notes": "locked B-03 reference"}
+  ]
+}

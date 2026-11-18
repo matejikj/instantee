@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {"id": "poses", "description": "Reference puppet parts (torso/head/arm) appear on character shots", "required": true},
+    {"id": "depth", "description": "Background, stage, and figure layers use distinct depth planes", "required": true},
+    {"id": "shadows_materials", "description": "Paper materials (pulp/ink/accent/sky/veil) and Style Bible contact_shadow declaration are present", "required": true},
+    {"id": "transforms", "description": "Arm raise, fold hinge, and camera move tracks animate the figure", "required": true},
+    {"id": "shot_continuity", "description": "Five curated shots plus dissolve transition span are locked", "required": true},
+    {"id": "phone_legibility", "description": "1080x1920 canvas, Style Bible safe-area, and readable headlines", "required": true},
+    {"id": "reference_frames", "description": "PNG reference frames compare within the locked tolerance", "required": true}
+  ]
+}

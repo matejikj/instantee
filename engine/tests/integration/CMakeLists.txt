@@ -71,6 +71,15 @@ add_test(NAME instantee_b01_editorial_demo
 set_tests_properties(instantee_b01_editorial_demo PROPERTIES TIMEOUT 600
   LABELS "cpu;smoke;pts")
 
+add_executable(instantee_b02_notebook_demo_test b02_notebook_demo_test.cpp)
+target_link_libraries(instantee_b02_notebook_demo_test PRIVATE
+  instantee::export instantee::export_apple instantee::compiler
+  instantee::scene_ir instantee_build_options)
+add_test(NAME instantee_b02_notebook_demo
+  COMMAND instantee_b02_notebook_demo_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(instantee_b02_notebook_demo PROPERTIES TIMEOUT 600
+  LABELS "cpu;smoke;pts")
+
 add_executable(instantee_cds_sdk_e2e_test cds_sdk_e2e_test.cpp)
 target_link_libraries(instantee_cds_sdk_e2e_test PRIVATE
   instantee::export instantee::export_apple instantee::compiler

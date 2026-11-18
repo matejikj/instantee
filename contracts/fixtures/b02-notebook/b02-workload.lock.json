@@ -1,0 +1,27 @@
+{
+  "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+  "scene": "contracts/fixtures/b02-notebook/b02-pythagoras-explainer.scene.json",
+  "scene_sha256": "8114ab55a95f6571aa260111fd8d9d65473e505e6cdff1165f6af28faa73af6d",
+  "asset_lock": "assets/notebook/notebook.lock.json",
+  "asset_lock_sha256": "26ac08f54d839e5ac8ed25e8209f2fda127184e4305a55c54a21346691263a7c",
+  "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+  "style_sha256": "eeffa8e0109f4caf19d09f9b4591654c2b03230509e2b842ab73cacaa5a92e70",
+  "font_primary_sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+  "font_math_sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+  "quality_tier": "notebook-b02-v1",
+  "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder",
+  "duration_frames": 1800,
+  "width": 1080,
+  "height": 1920,
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed_decimal": "42",
+  "notes": [
+    "Locked before first B-02 reference-series measurement.",
+    "Five notebook layouts: problem statement, construction, derivation, visual intuition, summary.",
+    "Preview raster uses proxy fills for text/geometry/image; export is framework-native MP4 only.",
+    "No external video assembly."
+  ]
+}

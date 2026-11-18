@@ -1,0 +1,1730 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 1800,
+  "seed": 42,
+  "assets": [
+    {
+      "id": "font_display",
+      "uri": "assets/notebook/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "font_math",
+      "uri": "assets/notebook/fonts/DejaVuSans.ttf",
+      "sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "paper_fiber",
+      "uri": "assets/notebook/textures/paper-fiber.png",
+      "sha256": "df61a66ed37a77444b3895527bce67b42640690cc9da8719a4a151129bcb9169",
+      "media_type": "image/png",
+      "color_profile": "untagged"
+    },
+    {
+      "id": "sketch_hatch",
+      "uri": "assets/notebook/patterns/sketch-hatch.png",
+      "sha256": "30c9d2165d3384b1a1f7c694cc796cf63ad482046b9ff3dc680ca05ed70fc50d",
+      "media_type": "image/png",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "ink",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.12,
+        "g": 0.14,
+        "b": 0.18,
+        "a": 1
+      }
+    },
+    {
+      "id": "accent",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.18,
+        "g": 0.42,
+        "b": 0.62,
+        "a": 1
+      }
+    },
+    {
+      "id": "paper",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.96,
+        "g": 0.94,
+        "b": 0.88,
+        "a": 1
+      }
+    },
+    {
+      "id": "ink_light",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.35,
+        "g": 0.38,
+        "b": 0.42,
+        "a": 1
+      }
+    },
+    {
+      "id": "highlight",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.95,
+        "g": 0.82,
+        "b": 0.25,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "id": "leg_a",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          40,
+          280
+        ],
+        [
+          0,
+          280
+        ]
+      ]
+    },
+    {
+      "id": "leg_b",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          360,
+          0
+        ],
+        [
+          360,
+          40
+        ],
+        [
+          0,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "hyp",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          360,
+          0
+        ],
+        [
+          360,
+          24
+        ],
+        [
+          0,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "sq_a",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          120,
+          120
+        ],
+        [
+          0,
+          120
+        ]
+      ]
+    },
+    {
+      "id": "sq_b",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          200,
+          0
+        ],
+        [
+          200,
+          200
+        ],
+        [
+          0,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "sq_c",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          240,
+          0
+        ],
+        [
+          240,
+          240
+        ],
+        [
+          0,
+          240
+        ]
+      ]
+    },
+    {
+      "id": "pin_dot",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          28,
+          0
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          0,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "tape_strip",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          48,
+          0
+        ],
+        [
+          48,
+          14
+        ],
+        [
+          0,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "ink_bar",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          594,
+          0
+        ],
+        [
+          594,
+          20
+        ],
+        [
+          0,
+          20
+        ]
+      ]
+    }
+  ],
+  "text_runs": [
+    {
+      "id": "txt_ps_title",
+      "text": "Pythagorean relation",
+      "font_asset_id": "font_display",
+      "font_size_px": 56,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_ps_prompt",
+      "text": "Relate the sides of a right triangle.",
+      "font_asset_id": "font_display",
+      "font_size_px": 36,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_co_title",
+      "text": "Pythagorean relation",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_co_step1",
+      "text": "Draw right triangle ABC with right angle at C.",
+      "font_asset_id": "font_display",
+      "font_size_px": 32,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_co_step2",
+      "text": "Mark legs a, b and hypotenuse c.",
+      "font_asset_id": "font_display",
+      "font_size_px": 32,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_de_title",
+      "text": "Pythagorean relation",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_de_eq1",
+      "text": "a^2 + b^2 = c^2",
+      "font_asset_id": "font_math",
+      "font_size_px": 64,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_de_eq2",
+      "text": "c = sqrt(a^2 + b^2)",
+      "font_asset_id": "font_math",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_vi_title",
+      "text": "Pythagorean relation",
+      "font_asset_id": "font_display",
+      "font_size_px": 44,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_vi_note",
+      "text": "Squares on the legs fill the square on the hypotenuse.",
+      "font_asset_id": "font_display",
+      "font_size_px": 28,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_vi_a",
+      "text": "A",
+      "font_asset_id": "font_math",
+      "font_size_px": 28,
+      "max_width_px": 80,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_vi_b",
+      "text": "B",
+      "font_asset_id": "font_math",
+      "font_size_px": 28,
+      "max_width_px": 80,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_vi_c",
+      "text": "C",
+      "font_asset_id": "font_math",
+      "font_size_px": 28,
+      "max_width_px": 80,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_su_title",
+      "text": "Pythagorean relation",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_su_claim",
+      "text": "In a right triangle, a^2 + b^2 = c^2.",
+      "font_asset_id": "font_math",
+      "font_size_px": 40,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_su_b1",
+      "text": "Works in Euclidean plane geometry.",
+      "font_asset_id": "font_display",
+      "font_size_px": 28,
+      "max_width_px": 980,
+      "text_role": "body"
+    },
+    {
+      "id": "txt_su_b2",
+      "text": "Foundation for distance in R^2.",
+      "font_asset_id": "font_display",
+      "font_size_px": 28,
+      "max_width_px": 980,
+      "text_role": "body"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 10
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "layer_order": 0,
+      "camera_id": "cam0",
+      "visible": true
+    },
+    {
+      "id": "paper_bg",
+      "kind": "image",
+      "layer_order": 1,
+      "material_id": "paper",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "opacity": 0
+      },
+      "asset_id": "paper_fiber"
+    },
+    {
+      "id": "ps_title",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_ps_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 80,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "ps_prompt",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_ps_prompt",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 220,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "ps_pin",
+      "kind": "geometry",
+      "layer_order": 22,
+      "geometry_id": "pin_dot",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 1044,
+          "y": 8,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "co_title",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_co_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 64,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "co_step1",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_co_step1",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 180,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "co_step2",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_co_step2",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 1010,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "co_hatch",
+      "kind": "image",
+      "layer_order": 8,
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 120,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      },
+      "asset_id": "sketch_hatch"
+    },
+    {
+      "id": "de_title",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_de_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 64,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "de_eq1",
+      "kind": "text",
+      "layer_order": 21,
+      "text_run_id": "txt_de_eq1",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 320,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "de_eq2",
+      "kind": "text",
+      "layer_order": 21,
+      "text_run_id": "txt_de_eq2",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 720,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "de_highlight",
+      "kind": "geometry",
+      "layer_order": 18,
+      "geometry_id": "ink_bar",
+      "material_id": "highlight",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 1892,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_title",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_vi_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 48,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "vi_leg_a",
+      "kind": "geometry",
+      "layer_order": 12,
+      "geometry_id": "leg_a",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 220,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_leg_b",
+      "kind": "geometry",
+      "layer_order": 12,
+      "geometry_id": "leg_b",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 260,
+          "y": 660,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_hyp",
+      "kind": "geometry",
+      "layer_order": 13,
+      "geometry_id": "hyp",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 220,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_sq_a",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "sq_a",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 80,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_sq_b",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "sq_b",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 260,
+          "y": 700,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_sq_c",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "sq_c",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 620,
+          "y": 360,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "vi_a",
+      "kind": "text",
+      "layer_order": 22,
+      "text_run_id": "txt_vi_a",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 200,
+          "y": 700,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "vi_b",
+      "kind": "text",
+      "layer_order": 22,
+      "text_run_id": "txt_vi_b",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 420,
+          "y": 700,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "vi_c",
+      "kind": "text",
+      "layer_order": 22,
+      "text_run_id": "txt_vi_c",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 220,
+          "y": 380,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "vi_note",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_vi_note",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 1200,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "vi_tape",
+      "kind": "geometry",
+      "layer_order": 22,
+      "geometry_id": "tape_strip",
+      "material_id": "highlight",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 378,
+          "y": 40,
+          "z": 0
+        },
+        "opacity": 0,
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    },
+    {
+      "id": "su_title",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_su_title",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 64,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "su_claim",
+      "kind": "text",
+      "layer_order": 21,
+      "text_run_id": "txt_su_claim",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 220,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "su_b1",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_su_b1",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "su_b2",
+      "kind": "text",
+      "layer_order": 19,
+      "text_run_id": "txt_su_b2",
+      "material_id": "ink_light",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48,
+          "y": 500,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    }
+  ],
+  "animation_tracks": [
+    {
+      "id": "cam_push",
+      "target_id": "main_cam",
+      "property": "translate_z",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 10
+        },
+        {
+          "frame": 900,
+          "value": 8.5
+        },
+        {
+          "frame": 1799,
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "paper_bg_in",
+      "target_id": "paper_bg",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 1,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "problem_statement_ps_title_fade",
+      "target_id": "ps_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 12,
+          "value": 1.0
+        },
+        {
+          "frame": 257,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "problem_statement_ps_prompt_fade",
+      "target_id": "ps_prompt",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 12,
+          "value": 1.0
+        },
+        {
+          "frame": 257,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "problem_statement_ps_pin_fade",
+      "target_id": "ps_pin",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 12,
+          "value": 1.0
+        },
+        {
+          "frame": 257,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "construction_co_title_fade",
+      "target_id": "co_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 258,
+          "value": 0.0
+        },
+        {
+          "frame": 270,
+          "value": 1.0
+        },
+        {
+          "frame": 643,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "construction_co_step1_fade",
+      "target_id": "co_step1",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 258,
+          "value": 0.0
+        },
+        {
+          "frame": 270,
+          "value": 1.0
+        },
+        {
+          "frame": 643,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "construction_co_step2_fade",
+      "target_id": "co_step2",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 258,
+          "value": 0.0
+        },
+        {
+          "frame": 270,
+          "value": 1.0
+        },
+        {
+          "frame": 643,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "construction_co_hatch_fade",
+      "target_id": "co_hatch",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 258,
+          "value": 0.0
+        },
+        {
+          "frame": 270,
+          "value": 1.0
+        },
+        {
+          "frame": 643,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "derivation_de_title_fade",
+      "target_id": "de_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 644,
+          "value": 0.0
+        },
+        {
+          "frame": 656,
+          "value": 1.0
+        },
+        {
+          "frame": 1159,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "derivation_de_eq1_fade",
+      "target_id": "de_eq1",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 644,
+          "value": 0.0
+        },
+        {
+          "frame": 656,
+          "value": 1.0
+        },
+        {
+          "frame": 1159,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "derivation_de_eq2_fade",
+      "target_id": "de_eq2",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 644,
+          "value": 0.0
+        },
+        {
+          "frame": 656,
+          "value": 1.0
+        },
+        {
+          "frame": 1159,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "derivation_de_highlight_fade",
+      "target_id": "de_highlight",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 644,
+          "value": 0.0
+        },
+        {
+          "frame": 656,
+          "value": 1.0
+        },
+        {
+          "frame": 1159,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_title_fade",
+      "target_id": "vi_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_leg_a_fade",
+      "target_id": "vi_leg_a",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_leg_b_fade",
+      "target_id": "vi_leg_b",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_hyp_fade",
+      "target_id": "vi_hyp",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_sq_a_fade",
+      "target_id": "vi_sq_a",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_sq_b_fade",
+      "target_id": "vi_sq_b",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_sq_c_fade",
+      "target_id": "vi_sq_c",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_a_fade",
+      "target_id": "vi_a",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_b_fade",
+      "target_id": "vi_b",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_c_fade",
+      "target_id": "vi_c",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_note_fade",
+      "target_id": "vi_note",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "visual_intuition_vi_tape_fade",
+      "target_id": "vi_tape",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1160,
+          "value": 0.0
+        },
+        {
+          "frame": 1172,
+          "value": 1.0
+        },
+        {
+          "frame": 1543,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "summary_su_title_fade",
+      "target_id": "su_title",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1544,
+          "value": 0.0
+        },
+        {
+          "frame": 1556,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "summary_su_claim_fade",
+      "target_id": "su_claim",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1544,
+          "value": 0.0
+        },
+        {
+          "frame": 1556,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "summary_su_b1_fade",
+      "target_id": "su_b1",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1544,
+          "value": 0.0
+        },
+        {
+          "frame": 1556,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "summary_su_b2_fade",
+      "target_id": "su_b2",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1544,
+          "value": 0.0
+        },
+        {
+          "frame": 1556,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        }
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "problem_statement",
+      "start_frame": 0,
+      "duration_frames": 258,
+      "node_ids": [
+        "ps_title",
+        "ps_prompt",
+        "ps_pin",
+        "paper_bg",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "construction",
+      "start_frame": 258,
+      "duration_frames": 386,
+      "node_ids": [
+        "co_title",
+        "co_step1",
+        "co_step2",
+        "co_hatch",
+        "paper_bg",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "derivation",
+      "start_frame": 644,
+      "duration_frames": 516,
+      "node_ids": [
+        "de_title",
+        "de_eq1",
+        "de_eq2",
+        "de_highlight",
+        "paper_bg",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "visual_intuition",
+      "start_frame": 1160,
+      "duration_frames": 384,
+      "node_ids": [
+        "vi_title",
+        "vi_leg_a",
+        "vi_leg_b",
+        "vi_hyp",
+        "vi_sq_a",
+        "vi_sq_b",
+        "vi_sq_c",
+        "vi_a",
+        "vi_b",
+        "vi_c",
+        "vi_note",
+        "vi_tape",
+        "paper_bg",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "summary",
+      "start_frame": 1544,
+      "duration_frames": 256,
+      "node_ids": [
+        "su_title",
+        "su_claim",
+        "su_b1",
+        "su_b2",
+        "paper_bg",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [
+    {
+      "id": "t_ps_co",
+      "from_shot_id": "problem_statement",
+      "to_shot_id": "construction",
+      "start_frame": 250,
+      "duration_frames": 8,
+      "blend": "wipe"
+    },
+    {
+      "id": "t_co_de",
+      "from_shot_id": "construction",
+      "to_shot_id": "derivation",
+      "start_frame": 634,
+      "duration_frames": 10,
+      "blend": "dissolve"
+    },
+    {
+      "id": "t_de_vi",
+      "from_shot_id": "derivation",
+      "to_shot_id": "visual_intuition",
+      "start_frame": 1154,
+      "duration_frames": 6,
+      "blend": "cut"
+    },
+    {
+      "id": "t_vi_su",
+      "from_shot_id": "visual_intuition",
+      "to_shot_id": "summary",
+      "start_frame": 1543,
+      "duration_frames": 1,
+      "blend": "cut"
+    }
+  ],
+  "provenance": {
+    "project_sha256": "461ab77d949b87adc720a129f7eca082c9acd09dc9d26bfb65f499b7e4c1b0f7",
+    "style_packages": [
+      {
+        "id": "scientific-notebook",
+        "version": "1.0.0"
+      }
+    ]
+  }
+}

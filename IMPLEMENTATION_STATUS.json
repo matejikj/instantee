@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T02:42:06Z",
+  "updated_at_utc": "2026-11-18T02:54:35Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5157,14 +5157,24 @@
       "notes": "Notebook Style Bible finalized with cream/ink_blue/yellow/lavender tokens, learning-tempo motion, five layout fixtures, and registry versionability."
     },
     "P6-002": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Unsupported commands return precise diagnostics; the engine does not execute external TeX.",
-        "met": null
+        "criterion": "Nepodporovaný příkaz vrací přesnou diagnostiku; engine nespouští externí TeX.",
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P6-002/"
+      ],
+      "checks": [
+        "implementation-evidence/P6-002/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Math grammar fixtures + ADR",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T02:54:35Z",
+      "notes": "ADR-0015 V1 TeX-like allowlist; validate_math_grammar rejects unsupported/forbidden commands without spawning TeX."
     },
     "P6-003": {
       "status": "todo",

@@ -1,0 +1,7 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "frac-sqrt",
+  "description": "Basic fraction and root within the V1 allowlist.",
+  "source": "\\frac{a+b}{\\sqrt{c}}",
+  "expect_ok": true
+}

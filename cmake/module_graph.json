@@ -100,6 +100,14 @@
       "allowed_dependencies": ["diagnostics"],
       "notes": "Path flatten/tessellate/stroke and compile-once mesh cache. libtess2 is a private fill dependency and must not leak into public headers; stroking is local."
     },
+    "math": {
+      "role": "production",
+      "target": "instantee_math",
+      "include_prefix": "instantee/math/",
+      "decision": "promote",
+      "allowed_dependencies": ["diagnostics"],
+      "notes": "Safe TeX-like math grammar V1 allowlist and pre-scan diagnostics. No external TeX process; AST/layout arrive in later tasks. Depends only on diagnostics."
+    },
     "asset-pipeline": {
       "role": "production",
       "target": "instantee_asset_pipeline",
@@ -193,6 +201,7 @@
     "engine/src/export/",
     "engine/src/direction/",
     "engine/src/geometry/",
+    "engine/src/math/",
     "engine/src/asset-pipeline/",
     "engine/src/typography/",
     "engine/src/render-core/",

@@ -1,0 +1,8 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "unsupported-environment",
+  "description": "Environments are outside V1 and reject with a dedicated code.",
+  "source": "\\begin{matrix} a & b \\end{matrix}",
+  "expect_ok": false,
+  "expect_code": "math.environment.unsupported"
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "greek-ops",
+  "description": "Greek letters with relational operators.",
+  "source": "\\alpha \\leq \\beta + \\gamma",
+  "expect_ok": true
+}

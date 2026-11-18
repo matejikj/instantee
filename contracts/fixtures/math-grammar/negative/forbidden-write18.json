@@ -1,0 +1,8 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "forbidden-write18",
+  "description": "Shell-escape style \\write18 is forbidden.",
+  "source": "a \\write18{rm -rf /} b",
+  "expect_ok": false,
+  "expect_code": "math.command.forbidden"
+}

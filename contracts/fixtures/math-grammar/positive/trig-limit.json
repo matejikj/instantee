@@ -1,0 +1,7 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "trig-limit",
+  "description": "Function names, scripts, and upright labels.",
+  "source": "\\lim_{n \\to \\infty} \\sin(\\mathrm{x}_n)",
+  "expect_ok": true
+}

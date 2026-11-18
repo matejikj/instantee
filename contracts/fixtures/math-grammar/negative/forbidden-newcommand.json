@@ -1,0 +1,8 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "forbidden-newcommand",
+  "description": "Macro definition commands are forbidden.",
+  "source": "\\newcommand{\\foo}{1}",
+  "expect_ok": false,
+  "expect_code": "math.command.forbidden"
+}

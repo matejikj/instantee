@@ -1,0 +1,8 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "forbidden-input",
+  "description": "TeX \\input is forbidden; the engine must not execute external TeX.",
+  "source": "\\input{evil.tex}",
+  "expect_ok": false,
+  "expect_code": "math.command.forbidden"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "math-grammar-fixture/1",
+  "id": "unsupported-command",
+  "description": "Unknown control sequence must fail with a precise unsupported code.",
+  "source": "\\frac{1}{2} + \\unknowncmd{x}",
+  "expect_ok": false,
+  "expect_code": "math.command.unsupported"
+}

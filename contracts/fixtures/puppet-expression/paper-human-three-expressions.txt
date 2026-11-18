@@ -1,0 +1,21 @@
+puppet_expression neutral
+character=paper-human parts=4
+part eye_l sx=1 sy=1 op=1
+part eye_r sx=1 sy=1 op=1
+part mouth sx=1 sy=1 op=1
+part head sx=1 sy=1 op=1
+joint head rz=0
+puppet_expression smile
+character=paper-human parts=4
+part eye_l sx=1 sy=0.972 op=0.972
+part eye_r sx=1 sy=0.972 op=0.972
+part mouth sx=1 sy=1.2625 op=1
+part head sx=1 sy=1 op=1
+joint head rz=0
+puppet_expression surprise
+character=paper-human parts=4
+part eye_l sx=1 sy=1.126 op=1
+part eye_r sx=1 sy=1.126 op=1
+part mouth sx=1 sy=1.6375 op=1
+part head sx=1 sy=1 op=1
+joint head rz=0.09

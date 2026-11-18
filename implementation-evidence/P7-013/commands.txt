@@ -1,0 +1,7 @@
+xcrun clang-format -i \
+  engine/src/scene-ir/include/instantee/scene_ir/puppet_expression.hpp \
+  engine/src/scene-ir/src/puppet_expression.cpp \
+  engine/tests/unit/scene-ir/puppet_expression_test.cpp
+cmake --build --preset release --target spike_scene_ir_puppet_expression_test
+ctest --preset release -R spike_scene_ir_puppet_expression --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-013/checks.json

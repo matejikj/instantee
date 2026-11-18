@@ -6038,14 +6038,46 @@
       "notes": "CPU paper-part skinning in scene-ir: skin matrices from FK, layer-quad LBS, golden forearm deform, explicit errors for unsupported subsets."
     },
     "P7-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Three expressions of one character work with stable part IDs.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Default paper-face library exposes blink/mouth/head-turn/eye-widen channels and three named expressions",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/puppet_expression.hpp"
+          },
+          {
+            "criterion": "neutral/smile/surprise share identical stable part ids; blend preserves them",
+            "met": true,
+            "evidence": "engine/tests/unit/scene-ir/puppet_expression_test.cpp"
+          },
+          {
+            "criterion": "Expression fixture locks the three evaluated expressions",
+            "met": true,
+            "evidence": "contracts/fixtures/puppet-expression/paper-human-three-expressions.txt"
+          },
+          {
+            "criterion": "Expression fixture tests + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-013/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-013/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Expression fixture",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T18:32:31Z",
+      "notes": "Paper puppet expression tracks in scene-ir: blink/mouth/head-turn/eye-widen channels, three curated expressions with stable face part ids, weighted blend."
     },
     "P7-014": {
       "status": "todo",

@@ -116,3 +116,11 @@ add_test(NAME spike_scene_ir_puppet_skin
   COMMAND spike_scene_ir_puppet_skin_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_scene_ir_puppet_skin PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
+
+add_executable(spike_scene_ir_puppet_expression_test puppet_expression_test.cpp)
+target_link_libraries(spike_scene_ir_puppet_expression_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+add_test(NAME spike_scene_ir_puppet_expression
+  COMMAND spike_scene_ir_puppet_expression_test "${PROJECT_SOURCE_DIR}")
+set_tests_properties(spike_scene_ir_puppet_expression PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")

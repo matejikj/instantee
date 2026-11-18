@@ -1,0 +1,11 @@
+{
+  "verification": "Camera presets demo",
+  "tests": [
+    "spike_direction_cinematic_camera",
+    "header_instantee_direction_instantee_direction_cinematic_camera"
+  ],
+  "checks_result": "incomplete",
+  "checks_note": "clang-tidy unavailable on this host; all other selected checks passed including release ctest and asan-ubsan.",
+  "measurement": "none",
+  "evidence_tier": "A"
+}

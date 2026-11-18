@@ -14,6 +14,7 @@ add_library(instantee_direction STATIC
   src/safe_area.cpp
   src/shot_planner.cpp
   src/camera_language.cpp
+  src/cinematic_camera.cpp
   src/transition_planner.cpp
   src/editorial_transitions.cpp
   src/editorial_beats.cpp

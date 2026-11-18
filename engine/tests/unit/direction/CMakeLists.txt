@@ -84,6 +84,14 @@ add_test(NAME spike_direction_camera_language
 set_tests_properties(spike_direction_camera_language PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke")
 
+add_executable(spike_direction_cinematic_camera_test cinematic_camera_test.cpp)
+target_link_libraries(spike_direction_cinematic_camera_test PRIVATE
+  instantee::direction instantee_build_options)
+add_test(NAME spike_direction_cinematic_camera
+  COMMAND spike_direction_cinematic_camera_test)
+set_tests_properties(spike_direction_cinematic_camera PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")
+
 add_executable(spike_direction_transition_planner_test
   transition_planner_test.cpp)
 target_link_libraries(spike_direction_transition_planner_test PRIVATE

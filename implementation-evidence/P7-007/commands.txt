@@ -1,0 +1,7 @@
+xcrun clang-format -i \
+  engine/src/direction/include/instantee/direction/cinematic_camera.hpp \
+  engine/src/direction/src/cinematic_camera.cpp \
+  engine/tests/unit/direction/cinematic_camera_test.cpp
+cmake --build --preset release --target spike_direction_cinematic_camera_test
+ctest --preset release -R spike_direction_cinematic_camera --output-on-failure
+tools/dev/check.py --report implementation-evidence/P7-007/checks.json

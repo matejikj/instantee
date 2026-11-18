@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T12:55:16Z",
+  "updated_at_utc": "2026-11-18T13:07:33Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -5811,14 +5811,41 @@
       "notes": "Paper layered shadows in render-core: depth-map receivers, contact vs offset drops, tier-clamped blur clipped to sheets/floor; layered shadow golden."
     },
     "P7-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The same scene has stable framing without distracting jitter.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Presets emit capability-gated TRS tracks; missing required capability fails closed",
+            "met": true,
+            "evidence": "engine/src/direction/include/instantee/direction/cinematic_camera.hpp"
+          },
+          {
+            "criterion": "Same depth-stage scene: framed subject, no direction-reversal jitter under eased sampling",
+            "met": true,
+            "evidence": "engine/tests/unit/direction/cinematic_camera_test.cpp"
+          },
+          {
+            "criterion": "Camera presets demo + selected checks (clang-tidy unavailable)",
+            "met": true,
+            "evidence": "implementation-evidence/P7-007/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P7-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P7-007/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Camera presets demo",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T13:07:33Z",
+      "notes": "Cinematic camera presets in direction: dolly/truck/slow zoom/crane pan/rack-depth over camera language + motion grammar; depth-stage demo proves stable framing without jitter."
     },
     "P7-008": {
       "status": "todo",

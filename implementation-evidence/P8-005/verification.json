@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "verification": "Reproducibility lock test",
+  "acceptance": "Clean checkout offline vytvoří stejné IR a odhalí změněný asset.",
+  "release_lock": "contracts/release/release-asset-lock-v1.json",
+  "schema": "contracts/schemas/release-asset-lock-v1.schema.json",
+  "ctest": ["spike_scene_ir_release_lock"],
+  "checks": [
+    "offline verify_release_asset_lock",
+    "identical Scene IR canonical digest",
+    "release_lock_detects_modified_entry",
+    "asset_digest_mismatch on poisoned hash"
+  ],
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

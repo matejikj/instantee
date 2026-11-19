@@ -1,0 +1,7 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target spike_scene_ir_release_lock_test
+./build/release/engine/tests/unit/scene-ir/spike_scene_ir_release_lock_test --write-lock
+ctest --preset release -R spike_scene_ir_release_lock --output-on-failure
+python3 tools/dev/check_cpp_api_surface.py
+npm run contracts:check
+python3 tools/dev/check.py --report implementation-evidence/P8-005/checks.json

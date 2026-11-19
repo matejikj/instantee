@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "lock_id": "instantee-release-v1",
+  "compiler_version": "0.1.0",
+  "target_feature_profile": "metal-apple-baseline",
+  "build_flags": [
+    { "key": "cmake_preset", "value": "release" },
+    { "key": "cxx_standard", "value": "23" },
+    { "key": "sanitizer_default", "value": "none" },
+    { "key": "toolchain_mode", "value": "certification" }
+  ],
+  "style_packages": [
+    { "id": "editorial", "version": "1" },
+    { "id": "paper-cinema", "version": "1" },
+    { "id": "scientific-notebook", "version": "1" }
+  ],
+  "entries": [
+    {
+      "id": "blueprint-building-golden",
+      "path": "contracts/fixtures/paper-prop-blueprint/goldens/building.txt",
+      "sha256": "875d9b178d1006108ef00aa25a597871fba1ec7259b30064abf5721800dfb5a1",
+      "role": "blueprint",
+      "license": "project-fixture"
+    },
+    {
+      "id": "blueprint-cloud-golden",
+      "path": "contracts/fixtures/paper-prop-blueprint/goldens/cloud.txt",
+      "sha256": "2f67c305e53c942facb310f5b5d09b1304843df9a1075c54163062738e05ab62",
+      "role": "blueprint",
+      "license": "project-fixture"
+    },
+    {
+      "id": "blueprint-instrument-golden",
+      "path": "contracts/fixtures/paper-prop-blueprint/goldens/instrument.txt",
+      "sha256": "c2b6d917acfc4114def21ec085319b71c277d81bc76fe6a59aaf96b8b8c1d00b",
+      "role": "blueprint",
+      "license": "project-fixture"
+    },
+    {
+      "id": "font-dejavu-sans",
+      "path": "third_party/fonts/DejaVuSans.ttf",
+      "sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "role": "font",
+      "license": "Bitstream-Vera-Arev",
+      "license_path": "third_party/fonts/LICENSE-DejaVu.txt"
+    },
+    {
+      "id": "font-noto-sans",
+      "path": "third_party/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "role": "font",
+      "license": "OFL-1.1",
+      "license_path": "third_party/fonts/OFL-Noto-Sans.txt"
+    },
+    {
+      "id": "fonts-pin",
+      "path": "third_party/fonts/PIN.json",
+      "sha256": "31b402e67fce5b7c1328ded580e5d4ed90dd492e59ec14701fa12ef95162f320",
+      "role": "pin",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "license-editorial-synthetic",
+      "path": "assets/editorial/SYNTHETIC_MEDIA_LICENSE.txt",
+      "sha256": "60a806e778a34549c4696dce2516f1304c4d96cec2c3b16b4ae4fb86c60675f0",
+      "role": "license",
+      "license": "synthetic-media"
+    },
+    {
+      "id": "license-notebook-synthetic",
+      "path": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt",
+      "sha256": "d089859944d0083e904bae95f5359ffe8bfd9526a2d8c47d949afe1b60728b4b",
+      "role": "license",
+      "license": "synthetic-media"
+    },
+    {
+      "id": "license-paper-cinema-synthetic",
+      "path": "assets/paper-cinema/SYNTHETIC_MEDIA_LICENSE.txt",
+      "sha256": "227a8d8ece4d97650a8af1d9b436079641934a1f3e414edbb7840ea9c83eeed3",
+      "role": "license",
+      "license": "synthetic-media"
+    },
+    {
+      "id": "style-bible-editorial",
+      "path": "contracts/fixtures/style-bible/positive/editorial.style.json",
+      "sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+      "role": "style_bible",
+      "license": "project-fixture"
+    },
+    {
+      "id": "style-bible-paper-cinema",
+      "path": "contracts/fixtures/style-bible/positive/paper-cinema.style.json",
+      "sha256": "5cb32fccddc0906a0279102ac3ab0347db7e3aabbdc9d8efb2764dd072cbc673",
+      "role": "style_bible",
+      "license": "project-fixture"
+    },
+    {
+      "id": "style-bible-scientific-notebook",
+      "path": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+      "sha256": "eeffa8e0109f4caf19d09f9b4591654c2b03230509e2b842ab73cacaa5a92e70",
+      "role": "style_bible",
+      "license": "project-fixture"
+    },
+    {
+      "id": "style-lock-editorial",
+      "path": "assets/editorial/editorial.lock.json",
+      "sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+      "role": "style_lock",
+      "license": "project-fixture"
+    },
+    {
+      "id": "style-lock-notebook",
+      "path": "assets/notebook/notebook.lock.json",
+      "sha256": "26ac08f54d839e5ac8ed25e8209f2fda127184e4305a55c54a21346691263a7c",
+      "role": "style_lock",
+      "license": "project-fixture"
+    },
+    {
+      "id": "style-lock-paper-cinema",
+      "path": "assets/paper-cinema/paper-cinema.lock.json",
+      "sha256": "259bf6be96a6e452b9905e5aa41fd0f3818b1611a82d9b7beca1142e4045e49f",
+      "role": "style_lock",
+      "license": "project-fixture"
+    },
+    {
+      "id": "texture-editorial-paper-grain",
+      "path": "assets/editorial/textures/paper-grain.png",
+      "sha256": "a4ca70e36821b4007a480b1bcf7009ed2a0dd4b091bf2c23f5a1335673522dfa",
+      "role": "texture",
+      "license": "synthetic-media",
+      "license_path": "assets/editorial/SYNTHETIC_MEDIA_LICENSE.txt"
+    },
+    {
+      "id": "texture-notebook-paper-fiber",
+      "path": "assets/notebook/textures/paper-fiber.png",
+      "sha256": "df61a66ed37a77444b3895527bce67b42640690cc9da8719a4a151129bcb9169",
+      "role": "texture",
+      "license": "synthetic-media",
+      "license_path": "assets/notebook/SYNTHETIC_MEDIA_LICENSE.txt"
+    },
+    {
+      "id": "texture-paper-cinema-paper-fiber",
+      "path": "assets/paper-cinema/textures/paper-fiber.png",
+      "sha256": "383f7997841ab6af5a3c864400c571814dbc0d90e21a9623b0d4c7c9d8ef1985",
+      "role": "texture",
+      "license": "synthetic-media",
+      "license_path": "assets/paper-cinema/SYNTHETIC_MEDIA_LICENSE.txt"
+    }
+  ],
+  "content_sha256": "3a08b656a65d0a2920d1b04185bfbe0b27a4d166e90ea24ce8a020e77e31e6a1"
+}

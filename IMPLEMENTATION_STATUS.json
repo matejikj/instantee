@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T00:07:15Z",
+  "updated_at_utc": "2026-11-19T00:19:18Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6740,14 +6740,42 @@
       "notes": "Schema compatibility policy: version matrix, locked-examples catalog, authoring unknown_field rejection, classify_authoring_schema_version, C++/JS compatibility suites."
     },
     "P8-005": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A clean checkout produces identical IR offline and detects modified assets.",
-        "met": null
+        "criterion": "Clean checkout offline vytvo\u0159\u00ed stejn\u00e9 IR a odhal\u00ed zm\u011bn\u011bn\u00fd asset.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "offline verify_release_asset_lock succeeds for pinned fonts/textures/blueprints/style docs",
+            "met": true,
+            "evidence": "contracts/release/release-asset-lock-v1.json"
+          },
+          {
+            "criterion": "identical IR canonical digest and modified-entry detection",
+            "met": true,
+            "evidence": "implementation-evidence/P8-005/verification.json"
+          },
+          {
+            "criterion": "check.py change-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P8-005/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-005/",
+        "contracts/release/release-asset-lock-v1.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-005/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Reproducibility lock test",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-19T00:19:18Z",
+      "notes": "Release asset lock pins fonts, textures, blueprints, Style Bible fixtures, nested style locks, licenses and build flags; offline verify + modified-asset detection."
     },
     "P8-006": {
       "status": "todo",

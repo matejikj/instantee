@@ -249,6 +249,8 @@ async function checkCleanClonePresence() {
     "contracts/schemas/authoring-v1.schema.json",
     "contracts/schemas/scene-ir-v1.schema.json",
     "contracts/schemas/asset-lockfile-v1.schema.json",
+    "contracts/schemas/release-asset-lock-v1.schema.json",
+    "contracts/release/release-asset-lock-v1.json",
     "contracts/schemas/puppet-rig-v1.schema.json",
     "contracts/defaults/v1.defaults.json",
     "contracts/fixtures/puppet-rig/positive/paper-human-basic.json",
@@ -317,6 +319,32 @@ await checkFixtures();
 }
 await checkCleanClonePresence();
 await checkDefaults();
+{
+  const ajv = new Ajv2020.default({
+    allErrors: true,
+    strict: true,
+    validateFormats: true,
+  });
+  addFormats.default(ajv);
+  const releaseSchema = JSON.parse(
+    await readFile(
+      path.join(schemasDir, "release-asset-lock-v1.schema.json"),
+      "utf8",
+    ),
+  );
+  const validateRelease = ajv.compile(releaseSchema);
+  const releaseLock = JSON.parse(
+    await readFile(
+      path.join(repoRoot, "contracts/release/release-asset-lock-v1.json"),
+      "utf8",
+    ),
+  );
+  if (!validateRelease(releaseLock)) {
+    fail(
+      `release asset lock failed schema\n${JSON.stringify(validateRelease.errors, null, 2)}`,
+    );
+  }
+}
 {
   const { spawnSync } = await import("node:child_process");
   const result = spawnSync(

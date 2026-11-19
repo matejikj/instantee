@@ -35,6 +35,7 @@ contracts/
   invariants-sas6.json  Coverage map for SAS §6.2 invariants
   cpp/          Frozen C++ public-header inventory and API-surface fixtures
   compatibility/ Supported-version matrix and locked load/migrate examples
+  release/      Repository-wide release asset lock (fonts, textures, blueprints)
   INTEGER_ENCODING.md
   VERSIONING.md
   README.md
@@ -46,6 +47,11 @@ enforced by `tools/dev/check_cpp_api_surface.py` (CTest `cpp_api_surface`).
 Schema compatibility policy: `compatibility/schema-version-matrix-v1.json`,
 `VERSIONING.md` (unknown fields = reject), and CTest
 `spike_scene_ir_compatibility_suite`.
+
+Release reproducibility: `release/release-asset-lock-v1.json` pins fonts,
+textures, blueprints, Style Bible fixtures, nested style locks, licenses and
+build flags; CTest `spike_scene_ir_release_lock` verifies offline digests and
+detects modified assets.
 
 
 Keep language-specific serializers in `engine/` and `authoring/`. Do not

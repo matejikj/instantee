@@ -52,6 +52,13 @@ document must not mutate `core-model` types.
 Current accepted version is `1.0.0` for each family. Unsupported versions fail
 closed with `unsupported_schema` (see the matrix).
 
+## Release asset lock
+
+`contracts/release/release-asset-lock-v1.json` (schema
+`release-asset-lock-v1.schema.json`) pins repository-relative fonts, textures,
+blueprints, Style Bible documents, nested style locks, licenses and recorded
+build flags. Verification hashes files offline and fails on digest drift.
+
 ## Compatibility suite
 
 - C++: CTest `spike_scene_ir_compatibility_suite` drives the locked-examples

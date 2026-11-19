@@ -7,6 +7,7 @@ add_library(instantee_scene_ir STATIC
   src/graph_edit.cpp
   src/canonicalize.cpp
   src/lockfile.cpp
+  src/release_lock.cpp
   src/puppet_rig.cpp
   src/puppet_fk.cpp
   src/puppet_ik.cpp

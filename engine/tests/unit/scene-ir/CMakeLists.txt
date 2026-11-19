@@ -97,6 +97,16 @@ add_test(NAME spike_scene_ir_compatibility_suite
 set_tests_properties(spike_scene_ir_compatibility_suite PROPERTIES TIMEOUT 30
   LABELS "cpu;smoke;compatibility")
 
+add_executable(spike_scene_ir_release_lock_test release_lock_test.cpp)
+target_link_libraries(spike_scene_ir_release_lock_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+target_compile_definitions(spike_scene_ir_release_lock_test PRIVATE
+  "INSTANTEE_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\"")
+add_test(NAME spike_scene_ir_release_lock
+  COMMAND spike_scene_ir_release_lock_test)
+set_tests_properties(spike_scene_ir_release_lock PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke;reproducibility")
+
 add_executable(spike_scene_ir_semantic_fixture_test semantic_fixture_test.cpp)
 target_link_libraries(spike_scene_ir_semantic_fixture_test PRIVATE
   instantee::scene_ir instantee_build_options)

@@ -1,0 +1,5 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target fuzz-scene-ir-smoke
+./build/release/fuzz-scene-ir-smoke --corpus engine/apps/fuzz-scene-ir/corpus --fixtures contracts/fixtures --mutations 12
+ctest --preset release -R 'fuzz_scene_ir_' --output-on-failure
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-012/checks.json

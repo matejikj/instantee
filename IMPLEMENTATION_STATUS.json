@@ -7002,14 +7002,40 @@
       "notes": "estimate_rgba8_bytes + job preflight; RenderTargetPool free-list eviction under pressure; composed pressure audit."
     },
     "P8-012": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Reproducible inputs cause no panic, memory explosion or infinite loop.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Bounded deterministic corpus run completes without panic/OOM/hang",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-012/fuzz-report.json",
+              "engine/apps/fuzz-scene-ir/main.cpp"
+            ]
+          },
+          {
+            "criterion": "Coverage includes parse, graph validate, authoring, frame arithmetic",
+            "met": true,
+            "evidence": "implementation-evidence/P8-012/verification.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-012/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-012/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Fuzz corpus + report",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "A",
+      "completed_at_utc": "2026-11-19T04:12:00Z",
+      "notes": "Expanded fuzz driver: corpus seeds + fixture walk, deterministic mutations, scene/authoring/graph/frame-arith; 420 inputs, exit 0."
     },
     "P8-013": {
       "status": "todo",

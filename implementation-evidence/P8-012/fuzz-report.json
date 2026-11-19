@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "verification": "Fuzz corpus + report",
+  "driver": "engine/apps/fuzz-scene-ir",
+  "corpus": "engine/apps/fuzz-scene-ir/corpus",
+  "fixtures": "contracts/fixtures/{scene-ir,authoring}",
+  "mutations_per_seed": 12,
+  "max_mutations_cap": 256,
+  "input_limits": "scene_ir::InputLimits (depth capped to 32 in harness)",
+  "coverage": [
+    "load_scene_json parse + structural validate",
+    "validate_graph semantic checks",
+    "load_authoring_json",
+    "FrameIndex::checked_add + FrameClock pts/duration"
+  ],
+  "stats": {
+    "inputs": 420,
+    "scene_ok": 14,
+    "scene_err": 406,
+    "authoring_ok": 23,
+    "authoring_err": 397,
+    "graph_ok": 8,
+    "graph_err": 6,
+    "frame_ops": 210
+  },
+  "result": "passed",
+  "notes": "No crash, hang, or unbounded allocation observed; errors return Error."
+}

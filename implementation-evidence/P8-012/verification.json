@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "verification": "Fuzz corpus + report",
+  "acceptance": "Reproducible inputs cause no panic, memory explosion or infinite loop.",
+  "fuzz_report": "implementation-evidence/P8-012/fuzz-report.json",
+  "ctest": [
+    "fuzz_scene_ir_smoke",
+    "fuzz_scene_ir_corpus"
+  ],
+  "checks": [
+    "bounded InputLimits",
+    "deterministic mutations",
+    "scene + authoring + graph + frame arithmetic paths",
+    "no crash on corpus run"
+  ],
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

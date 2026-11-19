@@ -1,6 +1,5 @@
 #include <instantee/scene_ir/uri_sandbox.hpp>
 
-#include <algorithm>
 #include <cctype>
 #include <system_error>
 
@@ -13,12 +12,29 @@ diagnostics::Error bad_uri(std::string_view message) {
                             "unsafe_asset_uri", "scene_ir", message};
 }
 
+// True when `relative` is `assets` or `assets/...` with no `..` components.
+[[nodiscard]] bool
+is_under_assets_relative(const std::filesystem::path &relative) noexcept {
+  auto it = relative.begin();
+  if (it == relative.end() || *it != "assets") {
+    return false;
+  }
+  ++it;
+  for (; it != relative.end(); ++it) {
+    if (*it == "..") {
+      return false;
+    }
+  }
+  return true;
+}
+
 } // namespace
 
 bool is_safe_asset_uri_syntax(std::string_view uri) noexcept {
   if (uri.empty() || uri.size() > 512U) {
     return false;
   }
+  // Reject Windows separators, URI schemes (':'), and empty path segments.
   if (uri.find('\\') != std::string_view::npos ||
       uri.find(':') != std::string_view::npos ||
       uri.find("//") != std::string_view::npos) {
@@ -27,6 +43,8 @@ bool is_safe_asset_uri_syntax(std::string_view uri) noexcept {
   if (!uri.starts_with("assets/")) {
     return false;
   }
+  // Lexical `..` anywhere (including `assets/foo/../x`) is forbidden before
+  // canonicalize so syntax policy does not depend on filesystem state.
   if (uri.contains("..")) {
     return false;
   }
@@ -58,20 +76,20 @@ resolve_asset_uri(const std::filesystem::path &project_root,
     return std::unexpected(bad_uri("Cannot canonicalize project root"));
   }
 
+  // Follows symlinks. A link under assets/ that resolves outside project_root
+  // or outside assets/ is rejected via lexically_relative below.
   const std::filesystem::path candidate =
       std::filesystem::weakly_canonical(root / std::string(uri), ec);
   if (ec) {
     return std::unexpected(bad_uri("Cannot canonicalize asset URI"));
   }
 
-  const std::string root_text = root.generic_string();
-  const std::string candidate_text = candidate.generic_string();
-  if (candidate_text != root_text &&
-      !candidate_text.starts_with(root_text + "/")) {
+  const std::filesystem::path relative = candidate.lexically_relative(root);
+  if (relative.empty() || relative.native().starts_with("..") ||
+      (!relative.empty() && *relative.begin() == "..")) {
     return std::unexpected(bad_uri("Asset URI escapes the project root"));
   }
-  if (!candidate_text.starts_with(root_text + "/assets/") &&
-      candidate_text != root_text + "/assets") {
+  if (!is_under_assets_relative(relative)) {
     return std::unexpected(bad_uri("Asset URI is outside the assets sandbox"));
   }
   return candidate;

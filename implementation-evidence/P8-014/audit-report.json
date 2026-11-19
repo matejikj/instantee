@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "subject": "Asset URI sandbox path-boundary audit",
+  "measurement": "none",
+  "certified_performance": false,
+  "policy_ownership": "instantee::scene_ir::uri_sandbox (P1 security layer)",
+  "mechanism": {
+    "syntax": "is_safe_asset_uri_syntax — assets/ prefix, no .. : \\ //, length≤512",
+    "resolve": "weakly_canonical + lexically_relative must stay under assets/",
+    "symlinks": "followed then rejected if outside project root or assets/",
+    "load": "LoadOptions::enforce_uri_sandbox invokes resolve during JSON load"
+  },
+  "negative_matrix": [
+    "empty / absolute / drive / backslash / double-slash",
+    "lexical .. traversal",
+    "https / http / file schemes",
+    "query / fragment / overlong URI",
+    "symlink from assets/ to outside project",
+    "symlink from assets/ to project sibling outside assets/",
+    "load_scene_json with enforce_uri_sandbox rejects unsafe URIs"
+  ],
+  "gaps": [],
+  "result": "passed"
+}

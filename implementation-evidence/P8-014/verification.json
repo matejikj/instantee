@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "verification": "Path boundary audit tests",
+  "acceptance": "Traversal and external paths outside the sandbox are rejected.",
+  "audit_report": "implementation-evidence/P8-014/audit-report.json",
+  "ctest": [
+    "spike_scene_ir_uri_sandbox_audit",
+    "spike_scene_ir_security"
+  ],
+  "checks": [
+    "syntax negative matrix",
+    "symlink escape outside project",
+    "symlink to non-assets under root",
+    "load-time enforce_uri_sandbox"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

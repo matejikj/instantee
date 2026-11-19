@@ -1,0 +1,4 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target spike_scene_ir_uri_sandbox_audit_test
+./build/release/engine/tests/unit/scene-ir/spike_scene_ir_uri_sandbox_audit_test
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-014/checks.json

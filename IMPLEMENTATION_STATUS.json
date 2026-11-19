@@ -7077,14 +7077,40 @@
       "notes": "fuzz-asset-import corpus+mutations; SVG security, bitmap budgets, sandboxed font open; 120 inputs, exit 0."
     },
     "P8-014": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Traversal and external paths outside the sandbox are rejected.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Traversal and paths outside sandbox rejected (syntax + symlink + load)",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-014/audit-report.json",
+              "engine/tests/unit/scene-ir/uri_sandbox_audit_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Policy ownership remains in scene-ir URI sandbox helpers",
+            "met": true,
+            "evidence": "engine/src/scene-ir/include/instantee/scene_ir/uri_sandbox.hpp"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-014/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-014/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Path boundary audit tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T05:05:00Z",
+      "notes": "lexically_relative containment; symlink escape matrix; load-time enforce_uri_sandbox audit."
     },
     "P8-015": {
       "status": "todo",

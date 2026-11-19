@@ -6891,14 +6891,40 @@
       "notes": "Cancellation fault matrix across job phases, queues, scheduler and export; sink cancel on publish-gate stop; late callback shared context; post-publish cancel rejected."
     },
     "P8-009": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Expected failures cause no unhandled exceptions and temporary files are cleaned up.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Expected failures cause no unhandled exceptions",
+            "met": true,
+            "evidence": "engine/tests/unit/export-core/export_recovery_test.cpp"
+          },
+          {
+            "criterion": "Temporary files are cleaned up; orphan vs published vs missing report distinguished",
+            "met": true,
+            "evidence": [
+              "engine/src/export-core/include/instantee/export_core/export_recovery.hpp",
+              "implementation-evidence/P8-009/verification.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-009/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-009/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Fault injection integration",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T02:50:00Z",
+      "notes": "Export workspace inspect/recover APIs; live marker flock; orphan staging cleanup without touching published targets or foreign entries."
     },
     "P8-010": {
       "status": "todo",

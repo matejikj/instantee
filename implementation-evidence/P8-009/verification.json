@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "verification": "Fault injection integration",
+  "acceptance": "Expected failures cause no unhandled exceptions and temporary files are cleaned up.",
+  "ctest": [
+    "spike_export_core_export_recovery",
+    "spike_export_core_transaction"
+  ],
+  "checks": [
+    "classify published vs missing report",
+    "orphan staging removed",
+    "active staging skipped via flock",
+    "foreign entry preserved",
+    "published target never deleted",
+    "invalid inputs return expected errors without throw",
+    "cancelled commit destructor cleans staging"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

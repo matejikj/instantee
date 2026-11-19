@@ -1,6 +1,7 @@
 add_library(instantee_export_core STATIC
   src/write_all.cpp
   src/output_transaction.cpp
+  src/export_recovery.cpp
   src/video_sink.cpp
   src/frame_bridge.cpp
   src/rec709_handoff.cpp)

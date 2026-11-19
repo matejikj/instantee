@@ -8,6 +8,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <sys/file.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <utility>
@@ -154,6 +155,9 @@ struct OutputTransaction::State {
   std::filesystem::path staging_directory{};
   std::filesystem::path staging_file{};
   std::string job_nonce{};
+  // Exclusive flock on the ownership marker for the live job lifetime so
+  // orphan recovery can distinguish active staging from crash leftovers.
+  int marker_lock_fd = -1;
   bool published = false;
   bool abandoned = false;
 };
@@ -166,7 +170,14 @@ OutputTransaction &
 OutputTransaction::operator=(OutputTransaction &&) noexcept = default;
 
 OutputTransaction::~OutputTransaction() {
-  if (!state_ || state_->published || state_->abandoned) {
+  if (!state_) {
+    return;
+  }
+  if (state_->marker_lock_fd >= 0) {
+    ::flock(state_->marker_lock_fd, LOCK_UN);
+    close_once(std::exchange(state_->marker_lock_fd, -1));
+  }
+  if (state_->published || state_->abandoned) {
     return;
   }
   state_->abandoned = true;
@@ -312,7 +323,13 @@ OutputTransaction::begin(OutputTransactionConfig config) {
       offset += static_cast<std::size_t>(wrote);
     }
   }
-  marker.reset();
+  if (::flock(marker.get(), LOCK_EX) != 0) {
+    close_once(marker.release());
+    remove_tree_best_effort(staging_directory);
+    return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
+                                      "marker_lock_failed",
+                                      "Cannot lock staging ownership marker"));
+  }
 
   auto state = std::make_unique<State>();
   state->config = std::move(config);
@@ -322,6 +339,7 @@ OutputTransaction::begin(OutputTransactionConfig config) {
   state->staging_directory = std::move(staging_directory);
   state->staging_file = state->staging_directory / kStagingFileName;
   state->job_nonce = std::move(nonce);
+  state->marker_lock_fd = marker.release();
   return OutputTransaction{std::move(state)};
 }
 
@@ -460,7 +478,12 @@ OutputTransaction::commit(std::stop_token stop) {
   }
 
   // Staging directory may still hold the marker; never delete the published
-  // target while cleaning leftovers.
+  // target while cleaning leftovers. Drop the live lock before removal so
+  // concurrent recovery does not observe a locked orphan.
+  if (state_->marker_lock_fd >= 0) {
+    ::flock(state_->marker_lock_fd, LOCK_UN);
+    close_once(std::exchange(state_->marker_lock_fd, -1));
+  }
   remove_tree_best_effort(state_->staging_directory);
   return result;
 }

@@ -1,0 +1,10 @@
+{
+  "verification": "Benchmark fixture checksum",
+  "measurement": "benchmark",
+  "evidence_tier": "C",
+  "notes": [
+    "Catalog consolidates B-01..B-05 workload locks with offline SHA-256 audit.",
+    "B-04 mixed and B-05 worst-accepted fixtures locked before measurement.",
+    "Regression policy: identical workload_id + digests; otherwise new baseline."
+  ]
+}

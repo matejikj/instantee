@@ -172,3 +172,16 @@ allowlisted thermal series sampled during the run. Pass/fail requires complete
 verified samples, capacity bounds, no silent drops and bounded post-warmup RSS
 growth under the soft/hard budgets used only as anti-leak gates—not as certified
 SLO caps. Default `--timeout` is 1800 s.
+
+## Versioned B-01..B-05 workload locks
+
+`contracts/fixtures/benchmark-workloads/catalog-v1.json` consolidates the locked
+B-01..B-05 workloads. Offline checksum audit (and intentional baseline bumps):
+
+```sh
+python3 tools/benchmark/verify_workload_locks.py --json
+```
+
+Regression must compare the same `workload_id` and pinned digests. Changing a
+scene, asset lock, style bible, or catalog digest without a new workload id
+fails closed. B-04/B-05 locks exist before their first measurement runs.

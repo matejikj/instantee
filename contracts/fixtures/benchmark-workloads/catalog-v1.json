@@ -1,0 +1,62 @@
+{
+  "schema_version": "benchmark-workload-catalog-v1",
+  "title": "Instantee versioned benchmark workload catalog",
+  "policy": {
+    "baseline_identity": "workload_id",
+    "digest_drift": "fail_closed_requires_new_workload_id",
+    "regression_rule": "compare_identical_locked_inputs_only"
+  },
+  "workloads": [
+    {
+      "id": "B-01-editorial-news-reel-60s-v1",
+      "family": "B-01",
+      "lock": "contracts/fixtures/b01-editorial/b01-workload.lock.json",
+      "status": "locked_measured_series_available",
+      "measurement_gate": "reference-series-60s",
+      "duration_frames": 1800,
+      "quality_tier": "editorial-b01-v1"
+    },
+    {
+      "id": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "family": "B-02",
+      "lock": "contracts/fixtures/b02-notebook/b02-workload.lock.json",
+      "status": "locked_measured_series_available",
+      "measurement_gate": "reference-series-60s",
+      "duration_frames": 1800,
+      "quality_tier": "notebook-b02-v1"
+    },
+    {
+      "id": "B-03-paper-historical-reel-60s-v1",
+      "family": "B-03",
+      "lock": "contracts/fixtures/b03-paper/b03-workload.lock.json",
+      "status": "locked_measured_series_available",
+      "measurement_gate": "reference-series-60s",
+      "duration_frames": 1800,
+      "quality_tier": "paper-b03-v1"
+    },
+    {
+      "id": "B-04-mixed-300s-v1",
+      "family": "B-04",
+      "lock": "contracts/fixtures/b04-mixed/b04-workload.lock.json",
+      "status": "locked_pre_measurement",
+      "measurement_gate": "reference-series-300s",
+      "duration_frames": 9000,
+      "quality_tier": "mixed-b04-v1"
+    },
+    {
+      "id": "B-05-worst-accepted-300s-v1",
+      "family": "B-05",
+      "lock": "contracts/fixtures/b05-worst-accepted/b05-workload.lock.json",
+      "status": "locked_pre_measurement",
+      "measurement_gate": "reference-series-300s",
+      "duration_frames": 9000,
+      "quality_tier": "worst-accepted-b05-v1"
+    }
+  ],
+  "catalog_sha256": "dda49b59c397dc3105e453bc7b50cfd6939e7591d5b2c00fbbaccc3873e7e8ae",
+  "notes": [
+    "B-01..B-03 were locked before their first P5/P6/P7 reference series.",
+    "B-04/B-05 are locked here before their first measurement runs.",
+    "A fixture or profile digest change without a new workload_id is a failed audit."
+  ]
+}

@@ -98,9 +98,12 @@ lookup_complexity_tier(std::string_view tier_id) {
   if (tier_id == "p3-foundation-draft") {
     return complexity_tier_p3_foundation_draft();
   }
-  // Style reel ids inherit the same structural caps until a dedicated tighten.
+  // Style / certification reel ids inherit the same structural caps until a
+  // dedicated tighten. mixed-b04-v1 and worst-accepted-b05-v1 publish the V1
+  // ceiling used by the locked B-04/B-05 workload fixtures.
   if (tier_id == "editorial-b01-v1" || tier_id == "notebook-b02-v1" ||
-      tier_id == "paper-b03-v1") {
+      tier_id == "paper-b03-v1" || tier_id == "mixed-b04-v1" ||
+      tier_id == "worst-accepted-b05-v1") {
     auto tier = complexity_tier_p3_foundation_draft();
     tier.id = std::string(tier_id);
     return tier;

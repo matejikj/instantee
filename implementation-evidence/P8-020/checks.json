@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-19T18:09:05Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "4ddc01f",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/fixtures/b04-mixed/README.md",
+    "contracts/fixtures/b04-mixed/b04-mixed-300s.scene.json",
+    "contracts/fixtures/b04-mixed/b04-workload.lock.json",
+    "contracts/fixtures/b05-worst-accepted/README.md",
+    "contracts/fixtures/b05-worst-accepted/b05-workload.lock.json",
+    "contracts/fixtures/b05-worst-accepted/b05-worst-accepted-300s.scene.json",
+    "contracts/fixtures/b05-worst-accepted/complexity-tier.json",
+    "contracts/fixtures/benchmark-workloads/README.md",
+    "contracts/fixtures/benchmark-workloads/catalog-v1.json",
+    "engine/src/scene-ir/src/scene_complexity.cpp",
+    "engine/tests/unit/scene-ir/scene_complexity_test.cpp",
+    "tools/benchmark/README.md",
+    "tools/benchmark/gen_b04_scene.py",
+    "tools/benchmark/gen_b05_scene.py",
+    "tools/benchmark/test_workload_locks.py",
+    "tools/benchmark/verify_workload_locks.py",
+    "tools/benchmark/workload_lock.py",
+    "tools/contracts/check_contracts.mjs"
+  ],
+  "risks": [
+    "native",
+    "authoring",
+    "python:tools/benchmark"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/scene-ir/src/scene_complexity.cpp engine/tests/unit/scene-ir/scene_complexity_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 6.6
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/src/scene-ir/src/scene_complexity.cpp engine/tests/unit/scene-ir/scene_complexity_test.cpp",
+      "status": "unavailable",
+      "reason": "clang-tidy not found"
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 36.1,
+      "tests": {
+        "total": 335,
+        "passed": 335,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 432.5,
+      "tests": {
+        "total": 343,
+        "passed": 343,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.4
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.3
+    },
+    {
+      "name": "python:tools/benchmark",
+      "command": "python3 -m unittest discover -s tools/benchmark -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.5
+    }
+  ],
+  "result": "incomplete",
+  "certified_performance": false
+}

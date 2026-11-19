@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T17:54:43Z",
+  "updated_at_utc": "2026-11-19T18:09:05Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7304,14 +7304,25 @@
       "notes": "Production performance-report schema under contracts/; semantic harness distinguishes schema fixtures from measured reports and rejects inconsistent counts/formulas/quantiles for certification eligibility."
     },
     "P8-020": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Regression checks compare the same workload; a fixture/profile change is an explicit new baseline.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-020/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-020/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Benchmark fixture checksum",
+      "delivery_slice": null,
+      "measurement": "benchmark",
+      "evidence_tier_min": "C",
+      "evidence_tier": "C",
+      "completed_at_utc": "2026-11-19T18:09:05Z",
+      "notes": "Catalog B-01..B-05 with offline checksum audit; B-04/B-05 locked pre-measurement; digest drift requires new workload_id."
     },
     "P8-021": {
       "status": "todo",

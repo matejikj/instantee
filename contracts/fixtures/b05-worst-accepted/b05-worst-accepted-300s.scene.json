@@ -1,0 +1,4759 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 9000,
+  "seed": 42,
+  "assets": [
+    {
+      "id": "font_display",
+      "uri": "assets/editorial/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "mat_0",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.1,
+        "g": 0.12,
+        "b": 0.2,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_1",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.18,
+        "g": 0.16999999999999998,
+        "b": 0.25,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_2",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.26,
+        "g": 0.22,
+        "b": 0.30000000000000004,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_3",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.33999999999999997,
+        "g": 0.12,
+        "b": 0.35000000000000003,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_4",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.42000000000000004,
+        "g": 0.16999999999999998,
+        "b": 0.2,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_5",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.1,
+        "g": 0.22,
+        "b": 0.25,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_6",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.18,
+        "g": 0.12,
+        "b": 0.30000000000000004,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_7",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.26,
+        "g": 0.16999999999999998,
+        "b": 0.35000000000000003,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_8",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.33999999999999997,
+        "g": 0.22,
+        "b": 0.2,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_9",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.42000000000000004,
+        "g": 0.12,
+        "b": 0.25,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_10",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.1,
+        "g": 0.16999999999999998,
+        "b": 0.30000000000000004,
+        "a": 1
+      }
+    },
+    {
+      "id": "mat_11",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.18,
+        "g": 0.22,
+        "b": 0.35000000000000003,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "id": "geo_0",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_1",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_2",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_3",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_4",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_5",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_6",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_7",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_8",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_9",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_10",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_11",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_12",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_13",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_14",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_15",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_16",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_17",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_18",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_19",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_20",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_21",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_22",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_23",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_24",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_25",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_26",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_27",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_28",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_29",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_30",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_31",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_32",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_33",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_34",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_35",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_36",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_37",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_38",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_39",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_40",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_41",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          136,
+          0
+        ],
+        [
+          136,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_42",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          100,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "geo_43",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106,
+          0
+        ],
+        [
+          106,
+          82
+        ],
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "geo_44",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112,
+          0
+        ],
+        [
+          112,
+          86
+        ],
+        [
+          0,
+          86
+        ]
+      ]
+    },
+    {
+      "id": "geo_45",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          118,
+          0
+        ],
+        [
+          118,
+          70
+        ],
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "geo_46",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          124,
+          0
+        ],
+        [
+          124,
+          74
+        ],
+        [
+          0,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "geo_47",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          130,
+          0
+        ],
+        [
+          130,
+          78
+        ],
+        [
+          0,
+          78
+        ]
+      ]
+    }
+  ],
+  "text_runs": [
+    {
+      "id": "run_0",
+      "text": "W00 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_1",
+      "text": "W01 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_2",
+      "text": "W02 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_3",
+      "text": "W03 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_4",
+      "text": "W04 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_5",
+      "text": "W05 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_6",
+      "text": "W06 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_7",
+      "text": "W07 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_8",
+      "text": "W08 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_9",
+      "text": "W09 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_10",
+      "text": "W10 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_11",
+      "text": "W11 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_12",
+      "text": "W12 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_13",
+      "text": "W13 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_14",
+      "text": "W14 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_15",
+      "text": "W15 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_16",
+      "text": "W16 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_17",
+      "text": "W17 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_18",
+      "text": "W18 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_19",
+      "text": "W19 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_20",
+      "text": "W20 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_21",
+      "text": "W21 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_22",
+      "text": "W22 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_23",
+      "text": "W23 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_24",
+      "text": "W24 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_25",
+      "text": "W25 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_26",
+      "text": "W26 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_27",
+      "text": "W27 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_28",
+      "text": "W28 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_29",
+      "text": "W29 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_30",
+      "text": "W30 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_31",
+      "text": "W31 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_32",
+      "text": "W32 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_33",
+      "text": "W33 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_34",
+      "text": "W34 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_35",
+      "text": "W35 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_36",
+      "text": "W36 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_37",
+      "text": "W37 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_38",
+      "text": "W38 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_39",
+      "text": "W39 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_40",
+      "text": "W40 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_41",
+      "text": "W41 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_42",
+      "text": "W42 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_43",
+      "text": "W43 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_44",
+      "text": "W44 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 18,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_45",
+      "text": "W45 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 19,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_46",
+      "text": "W46 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 20,
+      "max_width_px": 320,
+      "text_role": "body"
+    },
+    {
+      "id": "run_47",
+      "text": "W47 worst-accepted panel label",
+      "font_asset_id": "font_display",
+      "font_size_px": 21,
+      "max_width_px": 320,
+      "text_role": "body"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 10
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "layer_order": 0,
+      "camera_id": "cam0",
+      "visible": true
+    },
+    {
+      "id": "panel_0",
+      "kind": "geometry",
+      "layer_order": 5,
+      "geometry_id": "geo_0",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_1",
+      "kind": "geometry",
+      "layer_order": 6,
+      "geometry_id": "geo_1",
+      "material_id": "mat_1",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_2",
+      "kind": "geometry",
+      "layer_order": 7,
+      "geometry_id": "geo_2",
+      "material_id": "mat_2",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_3",
+      "kind": "geometry",
+      "layer_order": 8,
+      "geometry_id": "geo_3",
+      "material_id": "mat_3",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_4",
+      "kind": "geometry",
+      "layer_order": 9,
+      "geometry_id": "geo_4",
+      "material_id": "mat_4",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_5",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "geo_5",
+      "material_id": "mat_5",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_6",
+      "kind": "geometry",
+      "layer_order": 11,
+      "geometry_id": "geo_6",
+      "material_id": "mat_6",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_7",
+      "kind": "geometry",
+      "layer_order": 12,
+      "geometry_id": "geo_7",
+      "material_id": "mat_7",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_8",
+      "kind": "geometry",
+      "layer_order": 13,
+      "geometry_id": "geo_8",
+      "material_id": "mat_8",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_9",
+      "kind": "geometry",
+      "layer_order": 14,
+      "geometry_id": "geo_9",
+      "material_id": "mat_9",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_10",
+      "kind": "geometry",
+      "layer_order": 15,
+      "geometry_id": "geo_10",
+      "material_id": "mat_10",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_11",
+      "kind": "geometry",
+      "layer_order": 16,
+      "geometry_id": "geo_11",
+      "material_id": "mat_11",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_12",
+      "kind": "geometry",
+      "layer_order": 17,
+      "geometry_id": "geo_12",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_13",
+      "kind": "geometry",
+      "layer_order": 18,
+      "geometry_id": "geo_13",
+      "material_id": "mat_1",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_14",
+      "kind": "geometry",
+      "layer_order": 19,
+      "geometry_id": "geo_14",
+      "material_id": "mat_2",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_15",
+      "kind": "geometry",
+      "layer_order": 20,
+      "geometry_id": "geo_15",
+      "material_id": "mat_3",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_16",
+      "kind": "geometry",
+      "layer_order": 21,
+      "geometry_id": "geo_16",
+      "material_id": "mat_4",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_17",
+      "kind": "geometry",
+      "layer_order": 22,
+      "geometry_id": "geo_17",
+      "material_id": "mat_5",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_18",
+      "kind": "geometry",
+      "layer_order": 23,
+      "geometry_id": "geo_18",
+      "material_id": "mat_6",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_19",
+      "kind": "geometry",
+      "layer_order": 24,
+      "geometry_id": "geo_19",
+      "material_id": "mat_7",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_20",
+      "kind": "geometry",
+      "layer_order": 25,
+      "geometry_id": "geo_20",
+      "material_id": "mat_8",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_21",
+      "kind": "geometry",
+      "layer_order": 26,
+      "geometry_id": "geo_21",
+      "material_id": "mat_9",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_22",
+      "kind": "geometry",
+      "layer_order": 27,
+      "geometry_id": "geo_22",
+      "material_id": "mat_10",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_23",
+      "kind": "geometry",
+      "layer_order": 28,
+      "geometry_id": "geo_23",
+      "material_id": "mat_11",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 440.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_24",
+      "kind": "geometry",
+      "layer_order": 29,
+      "geometry_id": "geo_24",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_25",
+      "kind": "geometry",
+      "layer_order": 30,
+      "geometry_id": "geo_25",
+      "material_id": "mat_1",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_26",
+      "kind": "geometry",
+      "layer_order": 31,
+      "geometry_id": "geo_26",
+      "material_id": "mat_2",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_27",
+      "kind": "geometry",
+      "layer_order": 32,
+      "geometry_id": "geo_27",
+      "material_id": "mat_3",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_28",
+      "kind": "geometry",
+      "layer_order": 33,
+      "geometry_id": "geo_28",
+      "material_id": "mat_4",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_29",
+      "kind": "geometry",
+      "layer_order": 34,
+      "geometry_id": "geo_29",
+      "material_id": "mat_5",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_30",
+      "kind": "geometry",
+      "layer_order": 35,
+      "geometry_id": "geo_30",
+      "material_id": "mat_6",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_31",
+      "kind": "geometry",
+      "layer_order": 36,
+      "geometry_id": "geo_31",
+      "material_id": "mat_7",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 570.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_32",
+      "kind": "geometry",
+      "layer_order": 37,
+      "geometry_id": "geo_32",
+      "material_id": "mat_8",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_33",
+      "kind": "geometry",
+      "layer_order": 38,
+      "geometry_id": "geo_33",
+      "material_id": "mat_9",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_34",
+      "kind": "geometry",
+      "layer_order": 39,
+      "geometry_id": "geo_34",
+      "material_id": "mat_10",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_35",
+      "kind": "geometry",
+      "layer_order": 40,
+      "geometry_id": "geo_35",
+      "material_id": "mat_11",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_36",
+      "kind": "geometry",
+      "layer_order": 41,
+      "geometry_id": "geo_36",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_37",
+      "kind": "geometry",
+      "layer_order": 42,
+      "geometry_id": "geo_37",
+      "material_id": "mat_1",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_38",
+      "kind": "geometry",
+      "layer_order": 43,
+      "geometry_id": "geo_38",
+      "material_id": "mat_2",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_39",
+      "kind": "geometry",
+      "layer_order": 44,
+      "geometry_id": "geo_39",
+      "material_id": "mat_3",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_40",
+      "kind": "geometry",
+      "layer_order": 45,
+      "geometry_id": "geo_40",
+      "material_id": "mat_4",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 40.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_41",
+      "kind": "geometry",
+      "layer_order": 46,
+      "geometry_id": "geo_41",
+      "material_id": "mat_5",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 160.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_42",
+      "kind": "geometry",
+      "layer_order": 47,
+      "geometry_id": "geo_42",
+      "material_id": "mat_6",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 280.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_43",
+      "kind": "geometry",
+      "layer_order": 48,
+      "geometry_id": "geo_43",
+      "material_id": "mat_7",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 400.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_44",
+      "kind": "geometry",
+      "layer_order": 49,
+      "geometry_id": "geo_44",
+      "material_id": "mat_8",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 520.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_45",
+      "kind": "geometry",
+      "layer_order": 50,
+      "geometry_id": "geo_45",
+      "material_id": "mat_9",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 640.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_46",
+      "kind": "geometry",
+      "layer_order": 51,
+      "geometry_id": "geo_46",
+      "material_id": "mat_10",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 760.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "panel_47",
+      "kind": "geometry",
+      "layer_order": 52,
+      "geometry_id": "geo_47",
+      "material_id": "mat_11",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 880.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "label_0",
+      "kind": "text",
+      "layer_order": 100,
+      "text_run_id": "run_0",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_1",
+      "kind": "text",
+      "layer_order": 101,
+      "text_run_id": "run_1",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_2",
+      "kind": "text",
+      "layer_order": 102,
+      "text_run_id": "run_2",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_3",
+      "kind": "text",
+      "layer_order": 103,
+      "text_run_id": "run_3",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_4",
+      "kind": "text",
+      "layer_order": 104,
+      "text_run_id": "run_4",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_5",
+      "kind": "text",
+      "layer_order": 105,
+      "text_run_id": "run_5",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1600.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_6",
+      "kind": "text",
+      "layer_order": 106,
+      "text_run_id": "run_6",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_7",
+      "kind": "text",
+      "layer_order": 107,
+      "text_run_id": "run_7",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_8",
+      "kind": "text",
+      "layer_order": 108,
+      "text_run_id": "run_8",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_9",
+      "kind": "text",
+      "layer_order": 109,
+      "text_run_id": "run_9",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_10",
+      "kind": "text",
+      "layer_order": 110,
+      "text_run_id": "run_10",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_11",
+      "kind": "text",
+      "layer_order": 111,
+      "text_run_id": "run_11",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1628.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_12",
+      "kind": "text",
+      "layer_order": 112,
+      "text_run_id": "run_12",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_13",
+      "kind": "text",
+      "layer_order": 113,
+      "text_run_id": "run_13",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_14",
+      "kind": "text",
+      "layer_order": 114,
+      "text_run_id": "run_14",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_15",
+      "kind": "text",
+      "layer_order": 115,
+      "text_run_id": "run_15",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_16",
+      "kind": "text",
+      "layer_order": 116,
+      "text_run_id": "run_16",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_17",
+      "kind": "text",
+      "layer_order": 117,
+      "text_run_id": "run_17",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1656.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_18",
+      "kind": "text",
+      "layer_order": 118,
+      "text_run_id": "run_18",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_19",
+      "kind": "text",
+      "layer_order": 119,
+      "text_run_id": "run_19",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_20",
+      "kind": "text",
+      "layer_order": 120,
+      "text_run_id": "run_20",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_21",
+      "kind": "text",
+      "layer_order": 121,
+      "text_run_id": "run_21",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_22",
+      "kind": "text",
+      "layer_order": 122,
+      "text_run_id": "run_22",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_23",
+      "kind": "text",
+      "layer_order": 123,
+      "text_run_id": "run_23",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1684.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_24",
+      "kind": "text",
+      "layer_order": 124,
+      "text_run_id": "run_24",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_25",
+      "kind": "text",
+      "layer_order": 125,
+      "text_run_id": "run_25",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_26",
+      "kind": "text",
+      "layer_order": 126,
+      "text_run_id": "run_26",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_27",
+      "kind": "text",
+      "layer_order": 127,
+      "text_run_id": "run_27",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_28",
+      "kind": "text",
+      "layer_order": 128,
+      "text_run_id": "run_28",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_29",
+      "kind": "text",
+      "layer_order": 129,
+      "text_run_id": "run_29",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1712.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_30",
+      "kind": "text",
+      "layer_order": 130,
+      "text_run_id": "run_30",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_31",
+      "kind": "text",
+      "layer_order": 131,
+      "text_run_id": "run_31",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_32",
+      "kind": "text",
+      "layer_order": 132,
+      "text_run_id": "run_32",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_33",
+      "kind": "text",
+      "layer_order": 133,
+      "text_run_id": "run_33",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_34",
+      "kind": "text",
+      "layer_order": 134,
+      "text_run_id": "run_34",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_35",
+      "kind": "text",
+      "layer_order": 135,
+      "text_run_id": "run_35",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1740.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_36",
+      "kind": "text",
+      "layer_order": 136,
+      "text_run_id": "run_36",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_37",
+      "kind": "text",
+      "layer_order": 137,
+      "text_run_id": "run_37",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_38",
+      "kind": "text",
+      "layer_order": 138,
+      "text_run_id": "run_38",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_39",
+      "kind": "text",
+      "layer_order": 139,
+      "text_run_id": "run_39",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_40",
+      "kind": "text",
+      "layer_order": 140,
+      "text_run_id": "run_40",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_41",
+      "kind": "text",
+      "layer_order": 141,
+      "text_run_id": "run_41",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1768.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_42",
+      "kind": "text",
+      "layer_order": 142,
+      "text_run_id": "run_42",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 48.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_43",
+      "kind": "text",
+      "layer_order": 143,
+      "text_run_id": "run_43",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 208.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_44",
+      "kind": "text",
+      "layer_order": 144,
+      "text_run_id": "run_44",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 368.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_45",
+      "kind": "text",
+      "layer_order": 145,
+      "text_run_id": "run_45",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 528.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_46",
+      "kind": "text",
+      "layer_order": 146,
+      "text_run_id": "run_46",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 688.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "label_47",
+      "kind": "text",
+      "layer_order": 147,
+      "text_run_id": "run_47",
+      "material_id": "mat_0",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 848.0,
+          "y": 1796.0,
+          "z": 0.0
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "animation_tracks": [
+    {
+      "id": "op_panel_0",
+      "target_id": "panel_0",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_1",
+      "target_id": "panel_1",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_2",
+      "target_id": "panel_2",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_3",
+      "target_id": "panel_3",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_4",
+      "target_id": "panel_4",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_5",
+      "target_id": "panel_5",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_6",
+      "target_id": "panel_6",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_7",
+      "target_id": "panel_7",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_8",
+      "target_id": "panel_8",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_9",
+      "target_id": "panel_9",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_10",
+      "target_id": "panel_10",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_11",
+      "target_id": "panel_11",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_12",
+      "target_id": "panel_12",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_13",
+      "target_id": "panel_13",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_14",
+      "target_id": "panel_14",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_15",
+      "target_id": "panel_15",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_16",
+      "target_id": "panel_16",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_17",
+      "target_id": "panel_17",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_18",
+      "target_id": "panel_18",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_19",
+      "target_id": "panel_19",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_20",
+      "target_id": "panel_20",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_21",
+      "target_id": "panel_21",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_22",
+      "target_id": "panel_22",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_23",
+      "target_id": "panel_23",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_24",
+      "target_id": "panel_24",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_25",
+      "target_id": "panel_25",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_26",
+      "target_id": "panel_26",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_27",
+      "target_id": "panel_27",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_28",
+      "target_id": "panel_28",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_29",
+      "target_id": "panel_29",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_30",
+      "target_id": "panel_30",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_31",
+      "target_id": "panel_31",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_32",
+      "target_id": "panel_32",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_33",
+      "target_id": "panel_33",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_34",
+      "target_id": "panel_34",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_35",
+      "target_id": "panel_35",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_36",
+      "target_id": "panel_36",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_37",
+      "target_id": "panel_37",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_38",
+      "target_id": "panel_38",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_39",
+      "target_id": "panel_39",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_40",
+      "target_id": "panel_40",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_41",
+      "target_id": "panel_41",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_42",
+      "target_id": "panel_42",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_43",
+      "target_id": "panel_43",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_44",
+      "target_id": "panel_44",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_45",
+      "target_id": "panel_45",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 0.55
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_46",
+      "target_id": "panel_46",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "id": "op_panel_47",
+      "target_id": "panel_47",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.35
+        },
+        {
+          "frame": 4500,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.4
+        }
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "stress_00",
+      "start_frame": 0,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_0",
+        "panel_1",
+        "panel_2",
+        "panel_3",
+        "panel_4",
+        "panel_5",
+        "panel_6",
+        "panel_7",
+        "panel_8",
+        "panel_9",
+        "panel_10",
+        "panel_11",
+        "label_0",
+        "label_1",
+        "label_2",
+        "label_3",
+        "label_4",
+        "label_5",
+        "label_6",
+        "label_7",
+        "label_8",
+        "label_9",
+        "label_10",
+        "label_11"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_01",
+      "start_frame": 600,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_3",
+        "panel_4",
+        "panel_5",
+        "panel_6",
+        "panel_7",
+        "panel_8",
+        "panel_9",
+        "panel_10",
+        "panel_11",
+        "panel_12",
+        "panel_13",
+        "panel_14",
+        "label_3",
+        "label_4",
+        "label_5",
+        "label_6",
+        "label_7",
+        "label_8",
+        "label_9",
+        "label_10",
+        "label_11",
+        "label_12",
+        "label_13",
+        "label_14"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_02",
+      "start_frame": 1200,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_6",
+        "panel_7",
+        "panel_8",
+        "panel_9",
+        "panel_10",
+        "panel_11",
+        "panel_12",
+        "panel_13",
+        "panel_14",
+        "panel_15",
+        "panel_16",
+        "panel_17",
+        "label_6",
+        "label_7",
+        "label_8",
+        "label_9",
+        "label_10",
+        "label_11",
+        "label_12",
+        "label_13",
+        "label_14",
+        "label_15",
+        "label_16",
+        "label_17"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_03",
+      "start_frame": 1800,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_9",
+        "panel_10",
+        "panel_11",
+        "panel_12",
+        "panel_13",
+        "panel_14",
+        "panel_15",
+        "panel_16",
+        "panel_17",
+        "panel_18",
+        "panel_19",
+        "panel_20",
+        "label_9",
+        "label_10",
+        "label_11",
+        "label_12",
+        "label_13",
+        "label_14",
+        "label_15",
+        "label_16",
+        "label_17",
+        "label_18",
+        "label_19",
+        "label_20"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_04",
+      "start_frame": 2400,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_12",
+        "panel_13",
+        "panel_14",
+        "panel_15",
+        "panel_16",
+        "panel_17",
+        "panel_18",
+        "panel_19",
+        "panel_20",
+        "panel_21",
+        "panel_22",
+        "panel_23",
+        "label_12",
+        "label_13",
+        "label_14",
+        "label_15",
+        "label_16",
+        "label_17",
+        "label_18",
+        "label_19",
+        "label_20",
+        "label_21",
+        "label_22",
+        "label_23"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_05",
+      "start_frame": 3000,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_15",
+        "panel_16",
+        "panel_17",
+        "panel_18",
+        "panel_19",
+        "panel_20",
+        "panel_21",
+        "panel_22",
+        "panel_23",
+        "panel_24",
+        "panel_25",
+        "panel_26",
+        "label_15",
+        "label_16",
+        "label_17",
+        "label_18",
+        "label_19",
+        "label_20",
+        "label_21",
+        "label_22",
+        "label_23",
+        "label_24",
+        "label_25",
+        "label_26"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_06",
+      "start_frame": 3600,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_18",
+        "panel_19",
+        "panel_20",
+        "panel_21",
+        "panel_22",
+        "panel_23",
+        "panel_24",
+        "panel_25",
+        "panel_26",
+        "panel_27",
+        "panel_28",
+        "panel_29",
+        "label_18",
+        "label_19",
+        "label_20",
+        "label_21",
+        "label_22",
+        "label_23",
+        "label_24",
+        "label_25",
+        "label_26",
+        "label_27",
+        "label_28",
+        "label_29"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_07",
+      "start_frame": 4200,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_21",
+        "panel_22",
+        "panel_23",
+        "panel_24",
+        "panel_25",
+        "panel_26",
+        "panel_27",
+        "panel_28",
+        "panel_29",
+        "panel_30",
+        "panel_31",
+        "panel_32",
+        "label_21",
+        "label_22",
+        "label_23",
+        "label_24",
+        "label_25",
+        "label_26",
+        "label_27",
+        "label_28",
+        "label_29",
+        "label_30",
+        "label_31",
+        "label_32"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_08",
+      "start_frame": 4800,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_24",
+        "panel_25",
+        "panel_26",
+        "panel_27",
+        "panel_28",
+        "panel_29",
+        "panel_30",
+        "panel_31",
+        "panel_32",
+        "panel_33",
+        "panel_34",
+        "panel_35",
+        "label_24",
+        "label_25",
+        "label_26",
+        "label_27",
+        "label_28",
+        "label_29",
+        "label_30",
+        "label_31",
+        "label_32",
+        "label_33",
+        "label_34",
+        "label_35"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_09",
+      "start_frame": 5400,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_27",
+        "panel_28",
+        "panel_29",
+        "panel_30",
+        "panel_31",
+        "panel_32",
+        "panel_33",
+        "panel_34",
+        "panel_35",
+        "panel_36",
+        "panel_37",
+        "panel_38",
+        "label_27",
+        "label_28",
+        "label_29",
+        "label_30",
+        "label_31",
+        "label_32",
+        "label_33",
+        "label_34",
+        "label_35",
+        "label_36",
+        "label_37",
+        "label_38"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_10",
+      "start_frame": 6000,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_30",
+        "panel_31",
+        "panel_32",
+        "panel_33",
+        "panel_34",
+        "panel_35",
+        "panel_36",
+        "panel_37",
+        "panel_38",
+        "panel_39",
+        "panel_40",
+        "panel_41",
+        "label_30",
+        "label_31",
+        "label_32",
+        "label_33",
+        "label_34",
+        "label_35",
+        "label_36",
+        "label_37",
+        "label_38",
+        "label_39",
+        "label_40",
+        "label_41"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_11",
+      "start_frame": 6600,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_33",
+        "panel_34",
+        "panel_35",
+        "panel_36",
+        "panel_37",
+        "panel_38",
+        "panel_39",
+        "panel_40",
+        "panel_41",
+        "panel_42",
+        "panel_43",
+        "panel_44",
+        "label_33",
+        "label_34",
+        "label_35",
+        "label_36",
+        "label_37",
+        "label_38",
+        "label_39",
+        "label_40",
+        "label_41",
+        "label_42",
+        "label_43",
+        "label_44"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_12",
+      "start_frame": 7200,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_36",
+        "panel_37",
+        "panel_38",
+        "panel_39",
+        "panel_40",
+        "panel_41",
+        "panel_42",
+        "panel_43",
+        "panel_44",
+        "panel_45",
+        "panel_46",
+        "panel_47",
+        "label_36",
+        "label_37",
+        "label_38",
+        "label_39",
+        "label_40",
+        "label_41",
+        "label_42",
+        "label_43",
+        "label_44",
+        "label_45",
+        "label_46",
+        "label_47"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_13",
+      "start_frame": 7800,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_39",
+        "panel_40",
+        "panel_41",
+        "panel_42",
+        "panel_43",
+        "panel_44",
+        "panel_45",
+        "panel_46",
+        "panel_47",
+        "label_39",
+        "label_40",
+        "label_41",
+        "label_42",
+        "label_43",
+        "label_44",
+        "label_45",
+        "label_46",
+        "label_47"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "stress_14",
+      "start_frame": 8400,
+      "duration_frames": 600,
+      "node_ids": [
+        "main_cam",
+        "panel_42",
+        "panel_43",
+        "panel_44",
+        "panel_45",
+        "panel_46",
+        "panel_47",
+        "label_42",
+        "label_43",
+        "label_44",
+        "label_45",
+        "label_46",
+        "label_47"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [],
+  "provenance": {
+    "project_sha256": "dc8a847652ab87543af53c8c67519c100b961f27ad922768354ed30593ddde86",
+    "style_packages": [
+      {
+        "id": "editorial",
+        "version": "1.0.0"
+      }
+    ]
+  }
+}

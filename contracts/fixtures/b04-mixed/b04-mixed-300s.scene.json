@@ -1,0 +1,1136 @@
+{
+  "schema_version": "1.0.0",
+  "compiler_version": "0.1.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "duration_frames": 9000,
+  "seed": 42,
+  "assets": [
+    {
+      "id": "font_display",
+      "uri": "assets/editorial/fonts/NotoSans-Regular.ttf",
+      "sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+      "media_type": "font/ttf",
+      "color_profile": "untagged"
+    }
+  ],
+  "materials": [
+    {
+      "id": "ink",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.05,
+        "g": 0.05,
+        "b": 0.07,
+        "a": 1
+      }
+    },
+    {
+      "id": "accent",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.85,
+        "g": 0.12,
+        "b": 0.08,
+        "a": 1
+      }
+    },
+    {
+      "id": "paper",
+      "shader_feature": "solid-fill",
+      "opacity": 1,
+      "parameters": {
+        "r": 0.96,
+        "g": 0.94,
+        "b": 0.9,
+        "a": 1
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "id": "banner",
+      "kind": "path",
+      "closed": true,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          900,
+          0
+        ],
+        [
+          900,
+          120
+        ],
+        [
+          0,
+          120
+        ]
+      ]
+    }
+  ],
+  "text_runs": [
+    {
+      "id": "txt_editorial_open",
+      "text": "EDITORIAL open",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_notebook_proof",
+      "text": "NOTEBOOK proof",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_paper_stage",
+      "text": "PAPER stage",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_editorial_chart",
+      "text": "EDITORIAL chart",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_notebook_summary",
+      "text": "NOTEBOOK summary",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_paper_dissolve",
+      "text": "PAPER dissolve",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_editorial_close",
+      "text": "EDITORIAL close",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_notebook_recall",
+      "text": "NOTEBOOK recall",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    },
+    {
+      "id": "txt_paper_finale",
+      "text": "PAPER finale",
+      "font_asset_id": "font_display",
+      "font_size_px": 48,
+      "max_width_px": 980,
+      "text_role": "headline"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cam0",
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 1000,
+      "transform": {
+        "translate": {
+          "x": 0,
+          "y": 0,
+          "z": 10
+        },
+        "opacity": 1
+      }
+    }
+  ],
+  "rigs": [],
+  "nodes": [
+    {
+      "id": "main_cam",
+      "kind": "camera",
+      "layer_order": 0,
+      "camera_id": "cam0",
+      "visible": true
+    },
+    {
+      "id": "bg_paper",
+      "kind": "geometry",
+      "layer_order": 1,
+      "geometry_id": "banner",
+      "material_id": "paper",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 90,
+          "y": 200,
+          "z": 0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 12.0,
+          "z": 1.0
+        },
+        "opacity": 1
+      }
+    },
+    {
+      "id": "card_editorial_open",
+      "kind": "text",
+      "layer_order": 20,
+      "text_run_id": "txt_editorial_open",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_editorial_open",
+      "kind": "geometry",
+      "layer_order": 10,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_notebook_proof",
+      "kind": "text",
+      "layer_order": 21,
+      "text_run_id": "txt_notebook_proof",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_notebook_proof",
+      "kind": "geometry",
+      "layer_order": 11,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_paper_stage",
+      "kind": "text",
+      "layer_order": 22,
+      "text_run_id": "txt_paper_stage",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_paper_stage",
+      "kind": "geometry",
+      "layer_order": 12,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_editorial_chart",
+      "kind": "text",
+      "layer_order": 23,
+      "text_run_id": "txt_editorial_chart",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_editorial_chart",
+      "kind": "geometry",
+      "layer_order": 13,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_notebook_summary",
+      "kind": "text",
+      "layer_order": 24,
+      "text_run_id": "txt_notebook_summary",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_notebook_summary",
+      "kind": "geometry",
+      "layer_order": 14,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_paper_dissolve",
+      "kind": "text",
+      "layer_order": 25,
+      "text_run_id": "txt_paper_dissolve",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_paper_dissolve",
+      "kind": "geometry",
+      "layer_order": 15,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_editorial_close",
+      "kind": "text",
+      "layer_order": 26,
+      "text_run_id": "txt_editorial_close",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_editorial_close",
+      "kind": "geometry",
+      "layer_order": 16,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_notebook_recall",
+      "kind": "text",
+      "layer_order": 27,
+      "text_run_id": "txt_notebook_recall",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_notebook_recall",
+      "kind": "geometry",
+      "layer_order": 17,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "card_paper_finale",
+      "kind": "text",
+      "layer_order": 28,
+      "text_run_id": "txt_paper_finale",
+      "material_id": "ink",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 420,
+          "z": 0
+        },
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bar_paper_finale",
+      "kind": "geometry",
+      "layer_order": 18,
+      "geometry_id": "banner",
+      "material_id": "accent",
+      "visible": true,
+      "transform": {
+        "translate": {
+          "x": 64,
+          "y": 640,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.7,
+          "y": 0.35,
+          "z": 1.0
+        },
+        "opacity": 0
+      }
+    }
+  ],
+  "animation_tracks": [
+    {
+      "id": "op_card_editorial_open",
+      "target_id": "card_editorial_open",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 20,
+          "value": 1.0
+        },
+        {
+          "frame": 999,
+          "value": 1.0
+        },
+        {
+          "frame": 1020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_editorial_open",
+      "target_id": "bar_editorial_open",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 20,
+          "value": 1.0
+        },
+        {
+          "frame": 999,
+          "value": 1.0
+        },
+        {
+          "frame": 1020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_notebook_proof",
+      "target_id": "card_notebook_proof",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1000,
+          "value": 0.0
+        },
+        {
+          "frame": 1020,
+          "value": 1.0
+        },
+        {
+          "frame": 1999,
+          "value": 1.0
+        },
+        {
+          "frame": 2020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_notebook_proof",
+      "target_id": "bar_notebook_proof",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1000,
+          "value": 0.0
+        },
+        {
+          "frame": 1020,
+          "value": 1.0
+        },
+        {
+          "frame": 1999,
+          "value": 1.0
+        },
+        {
+          "frame": 2020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_paper_stage",
+      "target_id": "card_paper_stage",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 2000,
+          "value": 0.0
+        },
+        {
+          "frame": 2020,
+          "value": 1.0
+        },
+        {
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_paper_stage",
+      "target_id": "bar_paper_stage",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 2000,
+          "value": 0.0
+        },
+        {
+          "frame": 2020,
+          "value": 1.0
+        },
+        {
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_editorial_chart",
+      "target_id": "card_editorial_chart",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3000,
+          "value": 0.0
+        },
+        {
+          "frame": 3020,
+          "value": 1.0
+        },
+        {
+          "frame": 3999,
+          "value": 1.0
+        },
+        {
+          "frame": 4020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_editorial_chart",
+      "target_id": "bar_editorial_chart",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3000,
+          "value": 0.0
+        },
+        {
+          "frame": 3020,
+          "value": 1.0
+        },
+        {
+          "frame": 3999,
+          "value": 1.0
+        },
+        {
+          "frame": 4020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_notebook_summary",
+      "target_id": "card_notebook_summary",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4000,
+          "value": 0.0
+        },
+        {
+          "frame": 4020,
+          "value": 1.0
+        },
+        {
+          "frame": 4999,
+          "value": 1.0
+        },
+        {
+          "frame": 5020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_notebook_summary",
+      "target_id": "bar_notebook_summary",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4000,
+          "value": 0.0
+        },
+        {
+          "frame": 4020,
+          "value": 1.0
+        },
+        {
+          "frame": 4999,
+          "value": 1.0
+        },
+        {
+          "frame": 5020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_paper_dissolve",
+      "target_id": "card_paper_dissolve",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 5000,
+          "value": 0.0
+        },
+        {
+          "frame": 5020,
+          "value": 1.0
+        },
+        {
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_paper_dissolve",
+      "target_id": "bar_paper_dissolve",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 5000,
+          "value": 0.0
+        },
+        {
+          "frame": 5020,
+          "value": 1.0
+        },
+        {
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_editorial_close",
+      "target_id": "card_editorial_close",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6000,
+          "value": 0.0
+        },
+        {
+          "frame": 6020,
+          "value": 1.0
+        },
+        {
+          "frame": 6999,
+          "value": 1.0
+        },
+        {
+          "frame": 7020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_editorial_close",
+      "target_id": "bar_editorial_close",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6000,
+          "value": 0.0
+        },
+        {
+          "frame": 6020,
+          "value": 1.0
+        },
+        {
+          "frame": 6999,
+          "value": 1.0
+        },
+        {
+          "frame": 7020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_notebook_recall",
+      "target_id": "card_notebook_recall",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7000,
+          "value": 0.0
+        },
+        {
+          "frame": 7020,
+          "value": 1.0
+        },
+        {
+          "frame": 7999,
+          "value": 1.0
+        },
+        {
+          "frame": 8020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_notebook_recall",
+      "target_id": "bar_notebook_recall",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7000,
+          "value": 0.0
+        },
+        {
+          "frame": 7020,
+          "value": 1.0
+        },
+        {
+          "frame": 7999,
+          "value": 1.0
+        },
+        {
+          "frame": 8020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_card_paper_finale",
+      "target_id": "card_paper_finale",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 8000,
+          "value": 0.0
+        },
+        {
+          "frame": 8020,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_bar_paper_finale",
+      "target_id": "bar_paper_finale",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 8000,
+          "value": 0.0
+        },
+        {
+          "frame": 8020,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 1.0
+        },
+        {
+          "frame": 8999,
+          "value": 0.0
+        }
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "editorial_open",
+      "start_frame": 0,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_editorial_open",
+        "bar_editorial_open",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "notebook_proof",
+      "start_frame": 1000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_notebook_proof",
+        "bar_notebook_proof",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "paper_stage",
+      "start_frame": 2000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_paper_stage",
+        "bar_paper_stage",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "editorial_chart",
+      "start_frame": 3000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_editorial_chart",
+        "bar_editorial_chart",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "notebook_summary",
+      "start_frame": 4000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_notebook_summary",
+        "bar_notebook_summary",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "paper_dissolve",
+      "start_frame": 5000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_paper_dissolve",
+        "bar_paper_dissolve",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "editorial_close",
+      "start_frame": 6000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_editorial_close",
+        "bar_editorial_close",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "notebook_recall",
+      "start_frame": 7000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_notebook_recall",
+        "bar_notebook_recall",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    },
+    {
+      "id": "paper_finale",
+      "start_frame": 8000,
+      "duration_frames": 1000,
+      "node_ids": [
+        "card_paper_finale",
+        "bar_paper_finale",
+        "bg_paper",
+        "main_cam"
+      ],
+      "camera_node_id": "main_cam"
+    }
+  ],
+  "transition_spans": [],
+  "provenance": {
+    "project_sha256": "26898bba70ebb7da5f96ac3e111000e1b9d0989f3c232827227536bdef18781a",
+    "style_packages": [
+      {
+        "id": "editorial",
+        "version": "1.0.0"
+      },
+      {
+        "id": "scientific-notebook",
+        "version": "1.0.0"
+      },
+      {
+        "id": "paper-cinema",
+        "version": "1.0.0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "verification": "Benchmark fixture checksum",
+  "measurement": "benchmark",
+  "benchmark": "verify_workload_locks",
+  "ok": true,
+  "catalog": "contracts/fixtures/benchmark-workloads/catalog-v1.json",
+  "catalog_sha256": "dda49b59c397dc3105e453bc7b50cfd6939e7591d5b2c00fbbaccc3873e7e8ae",
+  "workloads": [
+    {
+      "workload_id": "B-01-editorial-news-reel-60s-v1",
+      "family": "B-01",
+      "status": "locked_measured_series_available",
+      "entry_digest": "bcf69ca8c255ee8b7b9a245a323b1fdd978d22e267f030bc81f3811c92d2d0a7",
+      "scene_sha256": "73d1acf8bfb2fa462c8bbd04cd57684f543131ca1443407cb03b732f4a55d910",
+      "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+      "style_sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+      "duration_frames": 1800,
+      "quality_tier": "editorial-b01-v1"
+    },
+    {
+      "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "family": "B-02",
+      "status": "locked_measured_series_available",
+      "entry_digest": "293a718dd49ca104ba99da672abcb342d3cabf806d0c7b6e7e89ef13822e0c2e",
+      "scene_sha256": "0016f7df602b11f02ca96cf6685bd4791ca17ba72616e164059d1531ef958abd",
+      "asset_lock_sha256": "26ac08f54d839e5ac8ed25e8209f2fda127184e4305a55c54a21346691263a7c",
+      "style_sha256": "eeffa8e0109f4caf19d09f9b4591654c2b03230509e2b842ab73cacaa5a92e70",
+      "duration_frames": 1800,
+      "quality_tier": "notebook-b02-v1"
+    },
+    {
+      "workload_id": "B-03-paper-historical-reel-60s-v1",
+      "family": "B-03",
+      "status": "locked_measured_series_available",
+      "entry_digest": "94cedbf351ad77ff3aae96e23fad06dc333392367b525c2f81e1363f169746cf",
+      "scene_sha256": "f648e5145a85517f31de847ce41bea9a12f88568ee593a51c9e283cc1d68a0da",
+      "asset_lock_sha256": "259bf6be96a6e452b9905e5aa41fd0f3818b1611a82d9b7beca1142e4045e49f",
+      "style_sha256": "5cb32fccddc0906a0279102ac3ab0347db7e3aabbdc9d8efb2764dd072cbc673",
+      "duration_frames": 1800,
+      "quality_tier": "paper-b03-v1"
+    },
+    {
+      "workload_id": "B-04-mixed-300s-v1",
+      "family": "B-04",
+      "status": "locked_pre_measurement",
+      "entry_digest": "2f26a8148d4d16e1e1ce1f95b985363a34ef5f93402e0c355a03ba3becc4782b",
+      "scene_sha256": "fb003f7a4538812208448601dd37099fd36d00e329eb662292ca8e4b50277178",
+      "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+      "style_sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+      "duration_frames": 9000,
+      "quality_tier": "mixed-b04-v1"
+    },
+    {
+      "workload_id": "B-05-worst-accepted-300s-v1",
+      "family": "B-05",
+      "status": "locked_pre_measurement",
+      "entry_digest": "0b7ccb7229eb081e7c0c24ccf273b4b89f099f2f3b8689381761582647f67f1e",
+      "scene_sha256": "2f900e8efa9429cbbecaf73b93c246ed6d0270dc466e08f64fa146ea76651f3b",
+      "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+      "style_sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+      "duration_frames": 9000,
+      "quality_tier": "worst-accepted-b05-v1"
+    }
+  ],
+  "decision": {
+    "result": "pass",
+    "summary": "B-01..B-05 locks verify offline; B-04/B-05 pinned pre-measurement; digest drift requires new workload_id."
+  }
+}

@@ -52,6 +52,11 @@ int main() {
            "draft caps set");
     auto looked = lookup_complexity_tier("paper-b03-v1");
     expect(looked.has_value() && looked->id == "paper-b03-v1", "style alias");
+    auto mixed = lookup_complexity_tier("mixed-b04-v1");
+    expect(mixed.has_value() && mixed->id == "mixed-b04-v1", "mixed alias");
+    auto worst = lookup_complexity_tier("worst-accepted-b05-v1");
+    expect(worst.has_value() && worst->id == "worst-accepted-b05-v1",
+           "worst-accepted alias");
     expect(!lookup_complexity_tier("no-such-tier").has_value(), "unknown");
   }
 

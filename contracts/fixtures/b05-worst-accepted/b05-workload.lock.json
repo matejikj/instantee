@@ -1,0 +1,27 @@
+{
+  "workload_id": "B-05-worst-accepted-300s-v1",
+  "scene": "contracts/fixtures/b05-worst-accepted/b05-worst-accepted-300s.scene.json",
+  "scene_sha256": "2f900e8efa9429cbbecaf73b93c246ed6d0270dc466e08f64fa146ea76651f3b",
+  "asset_lock": "assets/editorial/editorial.lock.json",
+  "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+  "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+  "style_sha256": "c8b5052920f44f0d2fdf8280202614f73b54c23982d28052ac79a2456d916a1c",
+  "font_primary_sha256": "f5f552c8c5edb61fe6efb824baf4d4de47b1a8689ab4925ff43f7bd6a4ebece5",
+  "quality_tier": "worst-accepted-b05-v1",
+  "complexity_tier": "worst-accepted-b05-v1",
+  "complexity_tier_doc": "contracts/fixtures/b05-worst-accepted/complexity-tier.json",
+  "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder",
+  "duration_frames": 9000,
+  "width": 1080,
+  "height": 1920,
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed_decimal": "42",
+  "notes": [
+    "Locked before first B-05 worst-accepted measurement.",
+    "Complexity ceilings are explicit in complexity-tier.json.",
+    "Changing any pinned digest requires a new workload_id baseline."
+  ]
+}

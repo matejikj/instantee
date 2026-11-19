@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "subject": "Media conformance suite",
+  "references": [
+    {"name": "reference_a.mp4", "frames": 15, "result": "pass"},
+    {"name": "reference_b.mp4", "frames": 30, "result": "pass"}
+  ],
+  "negatives": [
+    {"case": "missing", "result": "reject"},
+    {"case": "garbage_bytes", "result": "reject"},
+    {"case": "truncated_container", "result": "reject"},
+    {"case": "frame_count_mismatch", "code": "frame_count_mismatch", "result": "reject"},
+    {"case": "width_mismatch", "code": "conformance.width", "result": "reject"},
+    {"case": "empty_expect", "code": "conformance.empty_expect", "result": "reject"}
+  ],
+  "result": "passed"
+}

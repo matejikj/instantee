@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-19T05:39:13Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "64de2d6",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/cpp/public-headers-v1.snapshot.json",
+    "engine/native/export-apple/CMakeLists.txt",
+    "engine/native/export-apple/include/instantee/export_apple/media_conformance.hpp",
+    "engine/native/export-apple/src/media_conformance.cpp",
+    "engine/tests/unit/export-apple/CMakeLists.txt",
+    "engine/tests/unit/export-apple/media_conformance_test.mm",
+    "engine/tests/unit/export-apple/render_to_mp4_test.mm"
+  ],
+  "risks": [
+    "native",
+    "timing",
+    "authoring"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/native/export-apple/include/instantee/export_apple/media_conformance.hpp engine/native/export-apple/src/media_conformance.cpp engine/tests/unit/export-apple/media_conformance_test.mm engine/tests/unit/export-apple/render_to_mp4_test.mm",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 12.6
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/native/export-apple/src/media_conformance.cpp engine/tests/unit/export-apple/media_conformance_test.mm engine/tests/unit/export-apple/render_to_mp4_test.mm",
+      "tool_version": "23.1.5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 4.5
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 106.3,
+      "tests": {
+        "total": 340,
+        "passed": 340,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 398.0,
+      "tests": {
+        "total": 340,
+        "passed": 340,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.4
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.8
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.2
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

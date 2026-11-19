@@ -1,10 +1,11 @@
 {
   "schema_version": "1.0.0",
   "description": "Frozen inventory of C++ public headers under engine/**/include.",
-  "header_count": 166,
+  "header_count": 167,
   "headers": [
     "engine/native/export-apple/include/instantee/export_apple/apple_video_sink.hpp",
     "engine/native/export-apple/include/instantee/export_apple/color_path.hpp",
+    "engine/native/export-apple/include/instantee/export_apple/media_conformance.hpp",
     "engine/native/export-apple/include/instantee/export_apple/pixel_buffer.hpp",
     "engine/native/export-apple/include/instantee/export_apple/video_writer.hpp",
     "engine/native/export-apple/include/instantee/export_apple/workspace.hpp",

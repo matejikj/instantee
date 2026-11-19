@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T05:26:00Z",
+  "updated_at_utc": "2026-11-19T05:39:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7157,14 +7157,48 @@
       "notes": "SceneComplexityTier measure+check; p3-foundation-draft numeric caps; compile default tier; unrelated frame_eval_scheduler ASan flake recorded."
     },
     "P8-016": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "All reference MP4 files pass automated validation, which fails on invalid metadata.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Reference V1 portrait MP4 clips pass automated conformance",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-016/suite-report.json",
+              "engine/tests/unit/export-apple/media_conformance_test.mm"
+            ]
+          },
+          {
+            "criterion": "Invalid or mismatched metadata fails with stable codes",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-016/suite-report.json",
+              "engine/native/export-apple/src/media_conformance.cpp"
+            ]
+          },
+          {
+            "criterion": "Validator covers metadata, silence, Rec.709, playability, PTS/frame count",
+            "met": true,
+            "evidence": "engine/native/export-apple/include/instantee/export_apple/media_conformance.hpp"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-016/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-016/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Media conformance suite",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T05:39:00Z",
+      "notes": "validate_mp4_conformance over inspect+timeline decode; suite positives/negatives; render-to-mp4 wired."
     },
     "P8-017": {
       "status": "todo",

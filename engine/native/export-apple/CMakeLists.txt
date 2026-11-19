@@ -9,6 +9,7 @@ add_library(instantee_export_apple STATIC
   src/pixel_buffer.mm
   src/color_path.mm
   src/video_writer.mm
+  src/media_conformance.cpp
   src/apple_video_sink.cpp)
 add_library(instantee::export_apple ALIAS instantee_export_apple)
 target_include_directories(instantee_export_apple PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

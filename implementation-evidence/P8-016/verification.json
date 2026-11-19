@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "verification": "Media conformance suite",
+  "acceptance": "All reference MP4 files pass automated validation, which fails on invalid metadata.",
+  "ctest": ["spike_apple_media_conformance", "spike_apple_render_to_mp4"],
+  "checks": [
+    "reference_a and reference_b V1 portrait clips pass",
+    "missing/garbage/truncated reject",
+    "frame_count_mismatch and conformance.width stable codes",
+    "render-to-mp4 uses validate_mp4_conformance"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

@@ -1,11 +1,11 @@
 #include <instantee/core_model/time.hpp>
 #include <instantee/export_apple/color_path.hpp>
+#include <instantee/export_apple/media_conformance.hpp>
 #include <instantee/export_apple/pixel_buffer.hpp>
 #include <instantee/export_apple/video_writer.hpp>
 #include <instantee/render_metal/device.hpp>
 #include <instantee/render_metal/test_pattern.hpp>
 
-#include <cmath>
 #include <filesystem>
 #include <string>
 #include <unistd.h>
@@ -17,16 +17,14 @@
 
 namespace {
 
-using instantee::core::FrameClock;
 using instantee::core::FrameIndex;
 using instantee::render_metal::Device;
 using instantee::render_metal::TestPatternRenderer;
-using instantee::spike::apple::extract_presentation_timeline;
 using instantee::spike::apple::flatten_straight_rgba8_to_opaque_bgra8;
-using instantee::spike::apple::inspect_media;
+using instantee::spike::apple::MediaConformanceExpect;
 using instantee::spike::apple::PixelBufferFormat;
 using instantee::spike::apple::PixelBufferPool;
-using instantee::spike::apple::validate_presentation_timeline;
+using instantee::spike::apple::validate_mp4_conformance;
 using instantee::spike::apple::VideoWriter;
 using instantee::spike::apple::VideoWriterConfig;
 
@@ -101,25 +99,10 @@ int main() {
       return 10;
     }
 
-    const auto info = inspect_media(output);
-    if (!info) {
+    if (!validate_mp4_conformance(output,
+                                  MediaConformanceExpect::media_v1_portrait(
+                                      FrameIndex{kFrameCount}))) {
       return 11;
-    }
-    if (!info->playable || !info->h264 || !info->rec709_primaries ||
-        !info->rec709_transfer || !info->rec709_ycbcr_matrix ||
-        info->video_track_count != 1 || info->audio_track_count != 0 ||
-        info->width != 1080 || info->height != 1920) {
-      return 12;
-    }
-    if (std::abs(info->nominal_frame_rate - 30.0) > 0.05) {
-      return 13;
-    }
-
-    const auto timeline = extract_presentation_timeline(output);
-    if (!timeline ||
-        !validate_presentation_timeline(*timeline, FrameClock::media_30_1(),
-                                        FrameIndex{kFrameCount})) {
-      return 14;
     }
 
     std::error_code ec;

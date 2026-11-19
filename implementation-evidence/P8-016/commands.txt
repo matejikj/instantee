@@ -1,0 +1,6 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target spike_apple_media_conformance_test spike_apple_render_to_mp4_test
+./build/release/engine/tests/unit/export-apple/spike_apple_media_conformance_test
+./build/release/engine/tests/unit/export-apple/spike_apple_render_to_mp4_test
+python3 tools/dev/check_cpp_api_surface.py --update-snapshot
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-016/checks.json

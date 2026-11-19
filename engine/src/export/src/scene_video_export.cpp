@@ -79,16 +79,17 @@ export_scene_video(runtime::RenderJob &job,
   txn_config.target_path = request.target_path;
   txn_config.mode = request.publish_mode;
   txn_config.durability = request.durability;
+  txn_config.faults = request.faults;
 
   auto txn = OutputTransaction::begin(std::move(txn_config));
   if (!txn) {
-    (void)job.fail();
+    (void)job.fail(txn.error());
     return std::unexpected(txn.error());
   }
 
   auto sink = make_sink(txn->staging_file());
   if (!sink) {
-    (void)job.fail();
+    (void)job.fail(sink.error());
     return std::unexpected(sink.error());
   }
 
@@ -97,7 +98,7 @@ export_scene_video(runtime::RenderJob &job,
                          .height = scene.canvas_height(),
                          .frame_rate = scene.frame_rate()};
   if (auto begun = (*sink)->begin(settings); !begun) {
-    (void)job.fail();
+    (void)job.fail(begun.error());
     return std::unexpected(begun.error());
   }
 
@@ -118,7 +119,7 @@ export_scene_video(runtime::RenderJob &job,
   auto clock = core::FrameClock::create(scene.frame_rate());
   if (!clock) {
     bridge.sink().cancel();
-    (void)job.fail();
+    (void)job.fail(clock.error());
     return std::unexpected(clock.error());
   }
 
@@ -135,17 +136,18 @@ export_scene_video(runtime::RenderJob &job,
     // exceed never partially appends beyond the declared ceiling.
     if (job.budget().max_output_frames != 0 &&
         job.frames_committed() >= job.budget().max_output_frames) {
+      auto error = make_error(ExitCode::resource_budget_exceeded,
+                              ErrorKind::resource_budget_exceeded,
+                              "render_job.frame_budget_exhausted",
+                              "max_output_frames budget exhausted");
       bridge.sink().cancel();
-      (void)job.fail();
-      return std::unexpected(make_error(ExitCode::resource_budget_exceeded,
-                                        ErrorKind::resource_budget_exceeded,
-                                        "render_job.frame_budget_exhausted",
-                                        "max_output_frames budget exhausted"));
+      (void)job.fail(error);
+      return std::unexpected(std::move(error));
     }
 
     if (auto slot = job.acquire_frame_slot(slot_bytes); !slot) {
       bridge.sink().cancel();
-      (void)job.fail();
+      (void)job.fail(slot.error());
       return std::unexpected(slot.error());
     }
 
@@ -154,7 +156,7 @@ export_scene_video(runtime::RenderJob &job,
     if (!preview) {
       job.release_frame_slot(slot_bytes);
       bridge.sink().cancel();
-      (void)job.fail();
+      (void)job.fail(preview.error());
       return std::unexpected(preview.error());
     }
 
@@ -162,7 +164,7 @@ export_scene_video(runtime::RenderJob &job,
     if (!image) {
       job.release_frame_slot(slot_bytes);
       bridge.sink().cancel();
-      (void)job.fail();
+      (void)job.fail(image.error());
       return std::unexpected(image.error());
     }
 
@@ -170,7 +172,7 @@ export_scene_video(runtime::RenderJob &job,
     if (!pts) {
       job.release_frame_slot(slot_bytes);
       bridge.sink().cancel();
-      (void)job.fail();
+      (void)job.fail(pts.error());
       return std::unexpected(pts.error());
     }
 
@@ -182,7 +184,7 @@ export_scene_video(runtime::RenderJob &job,
       if (published.error().kind == ErrorKind::cancelled) {
         (void)job.cancel(stop);
       } else {
-        (void)job.fail();
+        (void)job.fail(published.error());
       }
       return std::unexpected(published.error());
     }
@@ -190,7 +192,7 @@ export_scene_video(runtime::RenderJob &job,
     if (auto counted = job.note_frame_appended(); !counted) {
       job.release_frame_slot(slot_bytes);
       bridge.sink().cancel();
-      (void)job.fail();
+      (void)job.fail(counted.error());
       return std::unexpected(counted.error());
     }
     job.release_frame_slot(slot_bytes);
@@ -206,7 +208,7 @@ export_scene_video(runtime::RenderJob &job,
 
   auto summary = bridge.sink().finish();
   if (!summary) {
-    (void)job.fail();
+    (void)job.fail(summary.error());
     return std::unexpected(summary.error());
   }
 
@@ -217,7 +219,7 @@ export_scene_video(runtime::RenderJob &job,
 
   auto publish = txn->commit(stop);
   if (!publish) {
-    (void)job.fail();
+    (void)job.fail(publish.error());
     return std::unexpected(publish.error());
   }
 
@@ -225,8 +227,9 @@ export_scene_video(runtime::RenderJob &job,
       publish->durability == DurabilityState::confirmed ||
       publish->durability == DurabilityState::not_applicable;
   const bool report_failed = publish->post_publish_error.has_value();
-  if (auto noted = job.note_publish_outcome(publish->published, durability_ok,
-                                            report_failed);
+  if (auto noted =
+          job.note_publish_outcome(publish->published, durability_ok,
+                                   report_failed, publish->post_publish_error);
       !noted) {
     return std::unexpected(noted.error());
   }

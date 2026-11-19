@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <expected>
 #include <memory>
+#include <optional>
 #include <stop_token>
 #include <string_view>
 #include <utility>
@@ -94,8 +95,8 @@ struct ResourceBudget {
 };
 
 // Sole owner of a compiled scene for a render/evaluate job. Also tracks the
-// production phase machine, cancel gate, and accounted resource budget.
-// Workers and GPU resources stay outside this type.
+// production phase machine, cancel gate, first sticky error, and accounted
+// resource budget. Workers and GPU resources stay outside this type.
 class RenderJob {
 public:
   explicit RenderJob(std::unique_ptr<const CompiledScene> scene,
@@ -122,10 +123,19 @@ public:
   [[nodiscard]] std::uint64_t in_flight_frames() const noexcept {
     return in_flight_frames_;
   }
+  // First failure observed on this job. Later faults do not overwrite it.
+  [[nodiscard]] const std::optional<diagnostics::Error> &
+  first_error() const noexcept {
+    return first_error_;
+  }
 
   [[nodiscard]] std::unique_ptr<const CompiledScene> release_scene() noexcept {
     return std::move(scene_);
   }
+
+  // Latches the first error without changing phase. Used by orchestrators that
+  // observe a domain failure before calling fail()/note_publish_outcome().
+  void note_error(diagnostics::Error error) noexcept;
 
   // Advances the phase machine. Rejects illegal transitions and observes stop
   // before entering Publishing (cancel wins). After Publishing begins, stop
@@ -133,11 +143,14 @@ public:
   [[nodiscard]] std::expected<void, diagnostics::Error>
   enter(RenderJobPhase next, std::stop_token stop = {});
 
-  // Marks a terminal failure from the current non-terminal phase.
-  [[nodiscard]] std::expected<void, diagnostics::Error> fail() noexcept;
+  // Marks a terminal failure from the current non-terminal phase. Optional
+  // cause is latched as first_error when none is stored yet. From `published`
+  // this becomes published_report_failed (MP4 remains acknowledged).
+  [[nodiscard]] std::expected<void, diagnostics::Error>
+  fail(std::optional<diagnostics::Error> cause = std::nullopt) noexcept;
 
   // Cancel before Publishing. After the publish gate this returns an error and
-  // leaves the published* phase unchanged.
+  // leaves the published* phase unchanged (never claims the video is absent).
   [[nodiscard]] std::expected<void, diagnostics::Error>
   cancel(std::stop_token stop = {}) noexcept;
 
@@ -154,18 +167,22 @@ public:
   // Count a successfully appended output frame against max_output_frames.
   [[nodiscard]] std::expected<void, diagnostics::Error> note_frame_appended();
 
-  // Map OutputTransaction durability into published* phases.
-  [[nodiscard]] std::expected<void, diagnostics::Error>
-  note_publish_outcome(bool published, bool durability_confirmed,
-                       bool report_failed) noexcept;
+  // Map OutputTransaction durability into published* phases. Latches a sticky
+  // first_error for unpublished failure, durability-unknown, or report-failed.
+  [[nodiscard]] std::expected<void, diagnostics::Error> note_publish_outcome(
+      bool published, bool durability_confirmed, bool report_failed,
+      std::optional<diagnostics::Error> cause = std::nullopt) noexcept;
 
 private:
+  void latch_error(diagnostics::Error error) noexcept;
+
   std::unique_ptr<const CompiledScene> scene_;
   ResourceBudget budget_{};
   RenderJobPhase phase_ = RenderJobPhase::created;
   std::uint64_t frames_committed_ = 0;
   std::uint64_t accounted_bytes_ = 0;
   std::uint64_t in_flight_frames_ = 0;
+  std::optional<diagnostics::Error> first_error_{};
 };
 
 } // namespace instantee::runtime

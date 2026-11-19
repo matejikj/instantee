@@ -38,6 +38,8 @@ struct SceneVideoExportRequest {
   std::optional<std::uint64_t> frame_count_limit{};
   preview::FramePngRequest raster{};
   ProgressCallback on_progress{};
+  // Test-only OutputTransaction fault points. Production leaves defaults.
+  export_core::OutputTransactionFaults faults{};
 };
 
 struct SceneVideoExportResult {

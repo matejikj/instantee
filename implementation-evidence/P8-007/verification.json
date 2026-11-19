@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "verification": "Job state transition audit + fault tests",
+  "acceptance": "Failure before publication preserves the old target; failure after publication truthfully acknowledges the existing output and its durability without claiming a false rollback.",
+  "audit_report": "implementation-evidence/P8-007/audit-report.json",
+  "ctest": [
+    "spike_runtime_render_job",
+    "spike_runtime_render_job_audit"
+  ],
+  "checks": [
+    "pre-publish file-sync fault keeps original target",
+    "post-publish directory-sync fault yields published_durability_unknown",
+    "late cancel cannot undo published*",
+    "first_error sticky under multi-fault",
+    "published → published_durability_unknown legal",
+    "arbitration load 64 jobs"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "subject": "RenderJob phase machine vs CPP_RUNTIME_CONTRACTS publication contract",
+  "measurement": "none",
+  "certified_performance": false,
+  "gaps": [],
+  "coverage": [
+    {
+      "requirement": "Cancel wins only before Publishing",
+      "mechanism": "RenderJob::enter observes stop_token before preparing/rendering/finishing/publishing; cancel() rejected once publishing or published*",
+      "tests": [
+        "spike_runtime_render_job",
+        "spike_runtime_render_job_audit"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Failure before rename preserves old target",
+      "mechanism": "OutputTransaction file-sync fault + export_scene_video maps to RenderJobPhase::failed with first_error latched",
+      "tests": ["spike_runtime_render_job_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Failure after rename acknowledges published output and durability",
+      "mechanism": "Directory-sync fault yields published=true, durability=unknown, phase=published_durability_unknown; late cancel cannot claim absence",
+      "tests": ["spike_runtime_render_job_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Published → Completed | PublishedDurabilityUnknown | PublishedReportFailed",
+      "mechanism": "is_legal_transition(published, …) and note_publish_outcome priority (durability unknown before report failed)",
+      "tests": [
+        "spike_runtime_render_job",
+        "spike_runtime_render_job_audit"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "First-error propagation",
+      "mechanism": "RenderJob::first_error / note_error / fail(cause) / note_publish_outcome(cause) latch sticky first fault",
+      "tests": ["spike_runtime_render_job_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Publication/cancel arbitration under load",
+      "mechanism": "64 alternating cancel-vs-complete jobs; late cancel never clears published*",
+      "tests": ["spike_runtime_render_job_audit"],
+      "met": true
+    }
+  ],
+  "result": "passed"
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-19T01:41:35Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "ef66955",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "engine/src/export/include/instantee/export/scene_video_export.hpp",
+    "engine/src/export/src/scene_video_export.cpp",
+    "engine/src/runtime/include/instantee/runtime/render_job.hpp",
+    "engine/src/runtime/src/render_job.cpp",
+    "engine/tests/unit/runtime/CMakeLists.txt",
+    "engine/tests/unit/runtime/render_job_audit_test.cpp",
+    "engine/tests/unit/runtime/render_job_test.cpp"
+  ],
+  "risks": [
+    "native",
+    "concurrency"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/export/include/instantee/export/scene_video_export.hpp engine/src/export/src/scene_video_export.cpp engine/src/runtime/include/instantee/runtime/render_job.hpp engine/src/runtime/src/render_job.cpp engine/tests/unit/runtime/render_job_audit_test.cpp engine/tests/unit/runtime/render_job_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 15.9
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/src/export/src/scene_video_export.cpp engine/src/runtime/src/render_job.cpp engine/tests/unit/runtime/render_job_audit_test.cpp engine/tests/unit/runtime/render_job_test.cpp",
+      "tool_version": "23.1.5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 9.0
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 31.9,
+      "tests": {
+        "total": 318,
+        "passed": 318,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 405.0,
+      "tests": {
+        "total": 326,
+        "passed": 326,
+        "failed": 0
+      }
+    },
+    {
+      "name": "tsan",
+      "command": "cmake --workflow --preset tsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1388.4,
+      "tests": {
+        "total": 326,
+        "passed": 326,
+        "failed": 0
+      }
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

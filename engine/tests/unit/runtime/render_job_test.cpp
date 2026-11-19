@@ -147,6 +147,21 @@ int main() {
     expect(job.note_frame_appended().error().kind ==
                ErrorKind::resource_budget_exceeded,
            "budget kind");
+    expect(job.first_error().has_value(), "budget latches first error");
+  }
+
+  {
+    auto scene = sample_scene();
+    RenderJob job(std::move(scene));
+    expect(job.enter(RenderJobPhase::preparing).has_value(), "prep");
+    expect(job.enter(RenderJobPhase::rendering).has_value(), "render");
+    expect(job.enter(RenderJobPhase::finishing).has_value(), "finish");
+    expect(job.enter(RenderJobPhase::publishing).has_value(), "publishing");
+    expect(job.enter(RenderJobPhase::published).has_value(), "published");
+    expect(job.enter(RenderJobPhase::published_durability_unknown).has_value(),
+           "published → durability unknown");
+    expect(job.phase() == RenderJobPhase::published_durability_unknown,
+           "durability unknown terminal");
   }
 
   if (failures != 0) {

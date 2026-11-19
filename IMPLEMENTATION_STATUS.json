@@ -6814,14 +6814,45 @@
       "notes": "Production CLI adds render/benchmark, --json-log, progress NDJSON and published/durability on errors; e2e regression covers exit codes. Benchmark reports certified:false (no performance claim)."
     },
     "P8-007": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Failure before publication preserves the old target; failure after publication truthfully acknowledges the existing output and its durability without claiming a false rollback.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Failure before publication preserves the old target",
+            "met": true,
+            "evidence": "implementation-evidence/P8-007/audit-report.json"
+          },
+          {
+            "criterion": "Failure after publication truthfully acknowledges output and durability",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-007/audit-report.json",
+              "engine/tests/unit/runtime/render_job_audit_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Audit report has no gap against publication contract",
+            "met": true,
+            "evidence": "implementation-evidence/P8-007/audit-report.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-007/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-007/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Job state transition audit + fault tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T01:41:00Z",
+      "notes": "Audited RenderJob phases: sticky first_error, published->durability-unknown transition, durability-unknown priority over report-failed, export fault plumbing, pre/post-publish fault tests."
     },
     "P8-008": {
       "status": "todo",

@@ -31,6 +31,14 @@ add_test(NAME spike_runtime_render_job COMMAND spike_runtime_render_job_test)
 set_tests_properties(spike_runtime_render_job PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_runtime_render_job_audit_test render_job_audit_test.cpp)
+target_link_libraries(spike_runtime_render_job_audit_test PRIVATE
+  instantee::runtime instantee::export instantee_build_options)
+add_test(NAME spike_runtime_render_job_audit
+  COMMAND spike_runtime_render_job_audit_test)
+set_tests_properties(spike_runtime_render_job_audit PROPERTIES TIMEOUT 60
+  LABELS "cpu;smoke")
+
 add_executable(spike_runtime_compiled_scene_test compiled_scene_test.cpp)
 target_link_libraries(spike_runtime_compiled_scene_test PRIVATE
   instantee::runtime instantee_build_options)

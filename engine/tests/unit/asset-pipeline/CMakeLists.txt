@@ -12,6 +12,15 @@ add_test(NAME spike_svg_import COMMAND spike_svg_import_test)
 set_tests_properties(spike_svg_import PROPERTIES TIMEOUT 30 LABELS
   "cpu;smoke")
 
+add_executable(spike_asset_import_security_fuzz_test
+  asset_import_security_fuzz_test.cpp)
+target_link_libraries(spike_asset_import_security_fuzz_test PRIVATE
+  instantee::asset_pipeline instantee_build_options)
+add_test(NAME spike_asset_import_security_fuzz
+  COMMAND spike_asset_import_security_fuzz_test)
+set_tests_properties(spike_asset_import_security_fuzz PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")
+
 add_executable(spike_asset_cache_test asset_cache_test.cpp)
 target_link_libraries(spike_asset_cache_test PRIVATE
   instantee::asset_pipeline instantee_build_options)

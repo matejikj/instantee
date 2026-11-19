@@ -7038,14 +7038,43 @@
       "notes": "Expanded fuzz driver: corpus seeds + fixture walk, deterministic mutations, scene/authoring/graph/frame-arith; 420 inputs, exit 0."
     },
     "P8-013": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The importer permits no network access, traversal, arbitrary code execution or uncontrolled dimensions.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "SVG scripts/https/file URIs rejected; no network fetch",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/asset-pipeline/asset_import_security_fuzz_test.cpp",
+              "implementation-evidence/P8-013/asset-security-report.json"
+            ]
+          },
+          {
+            "criterion": "Oversized bitmap dimensions rejected; font/SVG corpus completes without crash",
+            "met": true,
+            "evidence": [
+              "engine/apps/fuzz-asset-import/main.cpp",
+              "implementation-evidence/P8-013/verification.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-013/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-013/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Asset security test report",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "A",
+      "completed_at_utc": "2026-11-19T04:56:00Z",
+      "notes": "fuzz-asset-import corpus+mutations; SVG security, bitmap budgets, sandboxed font open; 120 inputs, exit 0."
     },
     "P8-014": {
       "status": "todo",

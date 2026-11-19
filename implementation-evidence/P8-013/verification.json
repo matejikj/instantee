@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "verification": "Asset security test report",
+  "acceptance": "The importer permits no network access, traversal, arbitrary code execution or uncontrolled dimensions.",
+  "report": "implementation-evidence/P8-013/asset-security-report.json",
+  "ctest": [
+    "fuzz_asset_import_smoke",
+    "fuzz_asset_import_corpus",
+    "spike_asset_import_security_fuzz"
+  ],
+  "checks": [
+    "SVG script/https/file rejected",
+    "huge PNG IHDR rejected pre-alloc",
+    "corpus mutations complete without crash",
+    "decode time sampled; ctest TIMEOUT hang guard"
+  ],
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "verification": "Asset security test report",
+  "driver": "engine/apps/fuzz-asset-import",
+  "corpus": "engine/apps/fuzz-asset-import/corpus/{svg,bitmap,font}",
+  "mutations_per_seed": 10,
+  "limits": {
+    "svg_max_input_bytes": 262144,
+    "bitmap_max_pixels": 262144,
+    "font_max_bytes": 524288,
+    "hard_cap_bytes": 524288
+  },
+  "coverage": [
+    "validate_svg_security (script/https/file)",
+    "import_svg geometry subset",
+    "probe_bitmap_dimensions + decode_bitmap",
+    "FontStack::open on sandboxed temp files"
+  ],
+  "security_properties": [
+    "no network fetch from SVG href/css",
+    "scripts/handlers rejected",
+    "file: URIs rejected",
+    "oversized bitmap dimensions rejected before pixel alloc",
+    "malformed fonts return Error (no crash)"
+  ],
+  "stats": {
+    "inputs": 120,
+    "svg_ok": 4,
+    "svg_err": 46,
+    "svg_security_reject": 44,
+    "bitmap_ok": 4,
+    "bitmap_err": 36,
+    "font_ok": 0,
+    "font_err": 30,
+    "slow_ops": 0,
+    "max_decode_ms": 33
+  },
+  "result": "passed"
+}

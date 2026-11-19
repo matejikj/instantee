@@ -1,0 +1,10 @@
+{
+  "result": "passed",
+  "acceptance_met": true,
+  "measurement": "none",
+  "certified_performance": false,
+  "checks_report": "implementation-evidence/P8-006/checks.json",
+  "primary_regression": "instantee_cli_e2e_regression",
+  "sanitizers": ["asan-ubsan", "tsan"],
+  "notes": "CLI e2e covers validate/compile/frame/render/benchmark exit codes, --json-log, progress, and publication conflict."
+}

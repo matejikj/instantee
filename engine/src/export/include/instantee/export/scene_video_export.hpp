@@ -24,6 +24,11 @@ using VideoSinkFactory = std::function<
     std::expected<std::unique_ptr<export_core::VideoSink>, diagnostics::Error>(
         const std::filesystem::path &staging_file)>;
 
+// Invoked after each successfully appended frame. `completed` is 1-based;
+// `total` is the planned append count for this request. Must not throw.
+using ProgressCallback =
+    std::function<void(std::uint64_t completed, std::uint64_t total)>;
+
 struct SceneVideoExportRequest {
   std::filesystem::path target_path;
   export_core::PublishMode publish_mode = export_core::PublishMode::no_replace;
@@ -32,6 +37,7 @@ struct SceneVideoExportRequest {
   // Optional hard stop before scene duration (tests / short clips).
   std::optional<std::uint64_t> frame_count_limit{};
   preview::FramePngRequest raster{};
+  ProgressCallback on_progress{};
 };
 
 struct SceneVideoExportResult {

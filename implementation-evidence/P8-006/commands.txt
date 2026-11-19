@@ -1,0 +1,4 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target instantee
+python3 engine/tests/integration/cli_e2e_regression.py . build/release/instantee
+python3 tools/dev/check.py --asan --pts --report implementation-evidence/P8-006/checks.json

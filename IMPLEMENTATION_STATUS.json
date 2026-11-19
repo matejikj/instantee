@@ -6778,14 +6778,40 @@
       "notes": "Release asset lock pins fonts, textures, blueprints, Style Bible fixtures, nested style locks, licenses and build flags; offline verify + modified-asset detection."
     },
     "P8-006": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "The CLI works from shell scripts and CI without a UI; every error has a defined exit code.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "CLI usable from shell/CI without UI",
+            "met": true,
+            "evidence": "engine/apps/instantee/main.cpp"
+          },
+          {
+            "criterion": "Every error has a defined exit code",
+            "met": true,
+            "evidence": [
+              "engine/tests/integration/cli_e2e_regression.py",
+              "implementation-evidence/P8-006/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-006/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-006/checks.json"
+      ],
+      "blockers": [],
+      "verification": "CLI e2e regression",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T01:05:02Z",
+      "notes": "Production CLI adds render/benchmark, --json-log, progress NDJSON and published/durability on errors; e2e regression covers exit codes. Benchmark reports certified:false (no performance claim)."
     },
     "P8-007": {
       "status": "todo",

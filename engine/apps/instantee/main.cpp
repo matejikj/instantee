@@ -4,15 +4,23 @@
 #include <instantee/diagnostics/error.hpp>
 #include <instantee/diagnostics/exception_boundary.hpp>
 #include <instantee/direction/lint_policy.hpp>
+#include <instantee/export/scene_video_export.hpp>
+#include <instantee/export_apple/apple_video_sink.hpp>
+#include <instantee/export_core/output_transaction.hpp>
 #include <instantee/preview/frame_png.hpp>
 #include <instantee/runtime/frame_preview.hpp>
+#include <instantee/runtime/render_job.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
 
+#include <algorithm>
+#include <chrono>
 #include <cstdio>
+#include <cstdlib>
 #include <expected>
 #include <filesystem>
 #include <fstream>
+#include <memory>
 #include <optional>
 #include <span>
 #include <sstream>
@@ -25,6 +33,17 @@ namespace {
 
 using instantee::diagnostics::Error;
 using instantee::diagnostics::ExitCode;
+using instantee::export_apple::AppleVideoSink;
+using instantee::export_core::DurabilityState;
+using instantee::export_core::PublishMode;
+using instantee::runtime::AnimationProgram;
+using instantee::runtime::RenderJob;
+using instantee::video_export::export_scene_video;
+using instantee::video_export::SceneVideoExportRequest;
+
+struct CliFlags {
+  bool json_log = false;
+};
 
 [[nodiscard]] std::string json_escape(std::string_view text) {
   std::string out;
@@ -44,7 +63,24 @@ using instantee::diagnostics::ExitCode;
   return out;
 }
 
-int fail(const Error &error) {
+[[nodiscard]] const char *durability_label(DurabilityState state,
+                                           bool published) noexcept {
+  if (!published) {
+    return "not_published";
+  }
+  switch (state) {
+  case DurabilityState::confirmed:
+    return "confirmed";
+  case DurabilityState::unknown:
+    return "unknown";
+  case DurabilityState::not_applicable:
+    return "not_applicable";
+  }
+  return "not_published";
+}
+
+int fail(const Error &error, bool published = false,
+         DurabilityState durability = DurabilityState::not_applicable) {
   std::fprintf(stderr, "{\"code\":\"%s\",\"phase\":\"%s\",\"message\":\"%s\"",
                json_escape(error.code).c_str(),
                json_escape(error.phase).c_str(),
@@ -65,26 +101,51 @@ int fail(const Error &error) {
     std::fprintf(stderr, ",\"node\":\"%s\"",
                  json_escape(*error.context.node).c_str());
   }
-  std::fprintf(stderr, ",\"published\":false}\n");
+  std::fprintf(stderr, ",\"published\":%s,\"durability\":\"%s\"}\n",
+               published ? "true" : "false",
+               durability_label(durability, published));
   return static_cast<int>(error.exit_code);
+}
+
+void emit_log(const CliFlags &flags, std::string_view event,
+              std::string_view command, std::string_view body_fields) {
+  if (!flags.json_log) {
+    return;
+  }
+  std::fprintf(stderr,
+               "{\"event\":\"%s\",\"command\":\"%s\"%s,\"published\":false}\n",
+               json_escape(event).c_str(), json_escape(command).c_str(),
+               body_fields.empty() ? "" : std::string(body_fields).c_str());
 }
 
 void usage() {
   std::fputs(
       "usage:\n"
-      "  instantee validate <authoring.json> [--style-bible <bible.json>]\n"
-      "  instantee compile <authoring.json> --out <scene.json> "
+      "  instantee [--json-log] validate <authoring.json> "
+      "[--style-bible <bible.json>]\n"
+      "  instantee [--json-log] compile <authoring.json> --out <scene.json> "
       "[--direction-report <report.txt>] [--style-bible <bible.json>]\n"
-      "  instantee direction-report <authoring.json> [--out <report.txt>]\n"
-      "  instantee frame <scene.json> --at <N> [--out "
+      "  instantee [--json-log] direction-report <authoring.json> "
+      "[--out <report.txt>]\n"
+      "  instantee [--json-log] render <scene.json> --out <video.mp4> "
+      "[--report <report.json>] [--frames <N>] [--overwrite] [--progress]\n"
+      "  instantee [--json-log] frame <scene.json> --at <N> [--out "
       "<report.json|preview.png>]\n"
-      "  instantee lint <findings.json> [--policy off|warn|strict] "
-      "[--waivers <waivers.json>] [--report <report.json>]\n"
+      "  instantee [--json-log] benchmark <scene.json|authoring.json> "
+      "--preset m1-air [--out <report.json>] [--frames <N>]\n"
+      "  instantee [--json-log] lint <findings.json> "
+      "[--policy off|warn|strict] [--waivers <waivers.json>] "
+      "[--report <report.json>]\n"
       "  instantee help\n"
       "\n"
+      "Global --json-log emits NDJSON diagnostics on stderr (including "
+      "progress when requested). Exit codes are stable process boundaries; "
+      "errors always include code/phase/published/durability on stderr.\n"
       "Lint policy defaults to strict in release builds and warn otherwise. "
       "Strict rejects unwaived severity=error findings. Optional Style Bible "
-      "path loads tokens during CDS style resolve and timed lint.\n",
+      "path loads tokens during CDS style resolve and timed lint.\n"
+      "benchmark timings are scriptable harness output and are not a "
+      "certified M1 Air performance claim.\n",
       stdout);
 }
 
@@ -121,7 +182,7 @@ void print_ok(std::string_view command,
       static_cast<unsigned long long>(timing.ir_bytes));
 }
 
-int cmd_validate(const std::string &path,
+int cmd_validate(const CliFlags &flags, const std::string &path,
                  const std::string &style_bible_path = {}) {
   auto text = read_file(path);
   if (!text) {
@@ -137,6 +198,7 @@ int cmd_validate(const std::string &path,
     return fail(compiled.error());
   }
   print_ok("validate", timing, compiled->duration_frames.value());
+  emit_log(flags, "ok", "validate", "");
   return 0;
 }
 
@@ -154,7 +216,8 @@ int write_text_file(const std::string &path, std::string_view body) {
   return 0;
 }
 
-int cmd_compile(const std::string &path, const std::string &out_path,
+int cmd_compile(const CliFlags &flags, const std::string &path,
+                const std::string &out_path,
                 const std::optional<std::string> &direction_report_path,
                 const std::string &style_bible_path = {}) {
   auto text = read_file(path);
@@ -187,10 +250,12 @@ int cmd_compile(const std::string &path, const std::string &out_path,
     }
   }
   print_ok("compile", timing, compiled->duration_frames.value(), out_path);
+  emit_log(flags, "ok", "compile",
+           ",\"out\":\"" + json_escape(out_path) + "\"");
   return 0;
 }
 
-int cmd_direction_report(const std::string &path,
+int cmd_direction_report(const CliFlags &flags, const std::string &path,
                          const std::optional<std::string> &out_path) {
   auto text = read_file(path);
   if (!text) {
@@ -216,6 +281,7 @@ int cmd_direction_report(const std::string &path,
     return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
                       "Cannot write CLI output"});
   }
+  emit_log(flags, "ok", "direction-report", "");
   return 0;
 }
 
@@ -293,7 +359,7 @@ parse_frame_args(std::span<const std::string_view> args) {
   return suffix == ".png" || suffix == ".PNG";
 }
 
-int cmd_frame(const FrameArgs &args) {
+int cmd_frame(const CliFlags &flags, const FrameArgs &args) {
   instantee::scene_ir::LoadOptions load_options;
   auto document =
       instantee::scene_ir::load_scene_file(args.scene_path, load_options);
@@ -308,7 +374,7 @@ int cmd_frame(const FrameArgs &args) {
     return fail(scene.error());
   }
 
-  instantee::runtime::AnimationProgram program;
+  AnimationProgram program;
   const bool png_out = args.out_path && ends_with_png(*args.out_path);
   std::expected<instantee::runtime::FramePreview, Error> preview;
   if (png_out) {
@@ -328,7 +394,8 @@ int cmd_frame(const FrameArgs &args) {
       "{\"ok\":true,\"command\":\"frame\",\"at\":%llu,\"duration_frames\":%llu,"
       "\"seed\":%llu,\"nodes\":%llu,\"evaluations\":%llu,\"color_space\":\"%"
       "s\","
-      "\"out_kind\":\"%s\",\"published\":false}",
+      "\"out_kind\":\"%s\",\"published\":false,\"durability\":\"not_"
+      "published\"}",
       static_cast<unsigned long long>(args.at),
       static_cast<unsigned long long>((*scene)->duration_frames().value()),
       static_cast<unsigned long long>((*scene)->seed()),
@@ -358,10 +425,419 @@ int cmd_frame(const FrameArgs &args) {
     return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
                       "Cannot write CLI output"});
   }
+  emit_log(flags, "ok", "frame", "");
   return 0;
 }
 
-int cmd_lint(std::span<const std::string_view> args) {
+struct RenderArgs {
+  std::string scene_path;
+  std::string out_path;
+  std::optional<std::string> report_path;
+  std::optional<std::uint64_t> frame_limit;
+  bool overwrite = false;
+  bool progress = false;
+};
+
+std::expected<RenderArgs, Error>
+parse_render_args(std::span<const std::string_view> args) {
+  if (args.empty()) {
+    return std::unexpected(
+        Error{ExitCode::invalid_input, "invalid_arguments", "arguments",
+              "render requires <scene.json> --out <video.mp4>"});
+  }
+  RenderArgs out;
+  out.scene_path = std::string(args.front());
+  bool have_out = false;
+  for (std::size_t index = 1; index < args.size();) {
+    const std::string_view flag = args[index];
+    if (flag == "--out") {
+      if (have_out) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --out"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--out requires a path"});
+      }
+      out.out_path = std::string(args[index + 1]);
+      have_out = true;
+      index += 2;
+      continue;
+    }
+    if (flag == "--report") {
+      if (out.report_path.has_value()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --report"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--report requires a path"});
+      }
+      out.report_path = std::string(args[index + 1]);
+      index += 2;
+      continue;
+    }
+    if (flag == "--frames") {
+      if (out.frame_limit.has_value()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --frames"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--frames requires a count"});
+      }
+      auto parsed =
+          instantee::core::Uint64Encoding::parse_decimal(args[index + 1]);
+      if (!parsed || *parsed == 0) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Invalid --frames count"});
+      }
+      out.frame_limit = *parsed;
+      index += 2;
+      continue;
+    }
+    if (flag == "--overwrite") {
+      if (out.overwrite) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --overwrite"});
+      }
+      out.overwrite = true;
+      ++index;
+      continue;
+    }
+    if (flag == "--progress") {
+      if (out.progress) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --progress"});
+      }
+      out.progress = true;
+      ++index;
+      continue;
+    }
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments", "Unknown render option"});
+  }
+  if (!have_out || out.out_path.empty()) {
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments", "render requires --out <path>"});
+  }
+  return out;
+}
+
+void emit_progress(const CliFlags &flags, bool enabled, std::uint64_t completed,
+                   std::uint64_t total) {
+  if (!enabled && !flags.json_log) {
+    return;
+  }
+  if (flags.json_log || enabled) {
+    std::fprintf(
+        stderr,
+        "{\"event\":\"progress\",\"command\":\"render\",\"frame\":%llu,"
+        "\"total\":%llu,\"published\":false,\"durability\":\"not_"
+        "published\"}\n",
+        static_cast<unsigned long long>(completed),
+        static_cast<unsigned long long>(total));
+    return;
+  }
+}
+
+int cmd_render(const CliFlags &flags, const RenderArgs &args) {
+  instantee::scene_ir::LoadOptions load_options;
+  auto document =
+      instantee::scene_ir::load_scene_file(args.scene_path, load_options);
+  if (!document) {
+    return fail(document.error());
+  }
+  if (auto graph = instantee::scene_ir::validate_graph(*document); !graph) {
+    return fail(graph.error());
+  }
+  auto scene = instantee::compiler::compile_runtime_scene(*document);
+  if (!scene) {
+    return fail(scene.error());
+  }
+
+  RenderJob job(std::move(*scene));
+  AnimationProgram program;
+  SceneVideoExportRequest request;
+  request.target_path = args.out_path;
+  request.frame_count_limit = args.frame_limit;
+  request.publish_mode =
+      args.overwrite ? PublishMode::overwrite : PublishMode::no_replace;
+  request.durability = instantee::export_core::DurabilityClass::durable_local;
+  const bool want_progress = args.progress || flags.json_log;
+  if (want_progress) {
+    request.on_progress = [&flags, progress = args.progress](
+                              std::uint64_t completed, std::uint64_t total) {
+      emit_progress(flags, progress, completed, total);
+    };
+  }
+
+  auto factory = [](const std::filesystem::path &staging)
+      -> std::expected<std::unique_ptr<instantee::export_core::VideoSink>,
+                       Error> {
+    auto sink = AppleVideoSink::create(staging);
+    if (!sink) {
+      return std::unexpected(sink.error());
+    }
+    return std::unique_ptr<instantee::export_core::VideoSink>(std::move(*sink));
+  };
+
+  auto result = export_scene_video(job, program, request, factory);
+  if (!result) {
+    return fail(result.error());
+  }
+
+  const char *dur = durability_label(result->durability, result->published);
+  const std::string phase =
+      std::string(instantee::runtime::render_job_phase_id(result->phase));
+  char body[768];
+  const int written = std::snprintf(
+      body, sizeof(body),
+      "{\"ok\":true,\"command\":\"render\",\"out\":\"%s\",\"frames_appended\":%"
+      "llu,\"phase\":\"%s\",\"published\":%s,\"durability\":\"%s\"}",
+      json_escape(args.out_path).c_str(),
+      static_cast<unsigned long long>(result->frames_appended),
+      json_escape(phase).c_str(), result->published ? "true" : "false", dur);
+  if (written < 0 || static_cast<std::size_t>(written) >= sizeof(body)) {
+    return fail(Error{ExitCode::report_failure, "report_failure", "render",
+                      "Cannot format render report"},
+                result->published, result->durability);
+  }
+
+  if (args.report_path) {
+    if (const int wrote =
+            write_text_file(*args.report_path, std::string(body) + "\n");
+        wrote != 0) {
+      // Target may already be published; keep durability truthful.
+      return fail(Error{ExitCode::report_failure, "io_error", "render",
+                        "Cannot write render report"},
+                  result->published, result->durability);
+    }
+  }
+
+  if (result->post_publish_error) {
+    std::fprintf(stderr, "%s\n", body);
+    return fail(*result->post_publish_error, result->published,
+                result->durability);
+  }
+
+  if (std::fputs(body, stdout) == EOF || std::fputc('\n', stdout) == EOF ||
+      std::fflush(stdout) != 0) {
+    return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
+                      "Cannot write CLI output"},
+                result->published, result->durability);
+  }
+  emit_log(flags, "ok", "render",
+           ",\"out\":\"" + json_escape(args.out_path) + "\"");
+  return 0;
+}
+
+struct BenchmarkArgs {
+  std::string input_path;
+  std::string preset;
+  std::optional<std::string> out_path;
+  std::uint64_t frames = 1;
+};
+
+std::expected<BenchmarkArgs, Error>
+parse_benchmark_args(std::span<const std::string_view> args) {
+  if (args.empty()) {
+    return std::unexpected(
+        Error{ExitCode::invalid_input, "invalid_arguments", "arguments",
+              "benchmark requires <input.json> --preset m1-air"});
+  }
+  BenchmarkArgs out;
+  out.input_path = std::string(args.front());
+  bool have_preset = false;
+  for (std::size_t index = 1; index < args.size();) {
+    const std::string_view flag = args[index];
+    if (flag == "--preset") {
+      if (have_preset) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --preset"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--preset requires a name"});
+      }
+      out.preset = std::string(args[index + 1]);
+      have_preset = true;
+      index += 2;
+      continue;
+    }
+    if (flag == "--out") {
+      if (out.out_path.has_value()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Repeated --out"});
+      }
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--out requires a path"});
+      }
+      out.out_path = std::string(args[index + 1]);
+      index += 2;
+      continue;
+    }
+    if (flag == "--frames") {
+      if (index + 1 >= args.size()) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "--frames requires a count"});
+      }
+      auto parsed =
+          instantee::core::Uint64Encoding::parse_decimal(args[index + 1]);
+      if (!parsed || *parsed == 0) {
+        return std::unexpected(Error{ExitCode::invalid_input,
+                                     "invalid_arguments", "arguments",
+                                     "Invalid --frames count"});
+      }
+      out.frames = *parsed;
+      index += 2;
+      continue;
+    }
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments", "Unknown benchmark option"});
+  }
+  if (!have_preset) {
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments",
+                                 "benchmark requires --preset m1-air"});
+  }
+  if (out.preset != "m1-air") {
+    return std::unexpected(Error{ExitCode::invalid_input, "invalid_arguments",
+                                 "arguments",
+                                 "Only --preset m1-air is supported"});
+  }
+  return out;
+}
+
+[[nodiscard]] double ms_since(std::chrono::steady_clock::time_point start) {
+  return std::chrono::duration<double, std::milli>(
+             std::chrono::steady_clock::now() - start)
+      .count();
+}
+
+int cmd_benchmark(const CliFlags &flags, const BenchmarkArgs &args) {
+  using clock = std::chrono::steady_clock;
+  const auto wall_start = clock::now();
+
+  std::unique_ptr<const instantee::runtime::CompiledScene> scene;
+  std::string input_kind = "scene";
+  double load_ms = 0.0;
+  double compile_ms = 0.0;
+  instantee::compiler::CompileStageTiming authoring_timing{};
+
+  {
+    const auto t0 = clock::now();
+    instantee::scene_ir::LoadOptions load_options;
+    auto document =
+        instantee::scene_ir::load_scene_file(args.input_path, load_options);
+    load_ms = ms_since(t0);
+    if (document) {
+      if (auto graph = instantee::scene_ir::validate_graph(*document); !graph) {
+        return fail(graph.error());
+      }
+      const auto t1 = clock::now();
+      auto compiled = instantee::compiler::compile_runtime_scene(*document);
+      compile_ms = ms_since(t1);
+      if (!compiled) {
+        return fail(compiled.error());
+      }
+      scene = std::move(*compiled);
+    } else {
+      auto text = read_file(args.input_path);
+      if (!text) {
+        return fail(document.error());
+      }
+      input_kind = "authoring";
+      const auto *bytes = reinterpret_cast<const std::byte *>(text->data());
+      instantee::compiler::CompileOptions options;
+      const auto t1 = clock::now();
+      auto compiled = instantee::compiler::compile_authoring_json(
+          std::span<const std::byte>(bytes, text->size()), options,
+          &authoring_timing);
+      compile_ms = ms_since(t1);
+      if (!compiled) {
+        // Prefer authoring error when scene load failed on the same path.
+        return fail(compiled.error());
+      }
+      auto runtime = instantee::compiler::compile_runtime_scene(*compiled);
+      if (!runtime) {
+        return fail(runtime.error());
+      }
+      scene = std::move(*runtime);
+      load_ms = authoring_timing.parse_ms + authoring_timing.structural_ms;
+    }
+  }
+
+  AnimationProgram program;
+  const std::uint64_t duration = scene->duration_frames().value();
+  const std::uint64_t limit =
+      std::min(args.frames, duration == 0 ? 1 : duration);
+  const auto eval_start = clock::now();
+  std::uint64_t evaluations = 0;
+  for (std::uint64_t frame = 0; frame < limit; ++frame) {
+    auto preview = instantee::runtime::preview_frame_at(
+        *scene, program, instantee::core::FrameIndex{frame});
+    if (!preview) {
+      return fail(preview.error());
+    }
+    evaluations += preview->evaluations;
+  }
+  const double eval_ms = ms_since(eval_start);
+  const double wall_ms = ms_since(wall_start);
+
+  char body[1024];
+  const int written = std::snprintf(
+      body, sizeof(body),
+      "{\"ok\":true,\"command\":\"benchmark\",\"preset\":\"%s\",\"input_kind\":"
+      "\"%s\",\"certified\":false,\"frames\":%llu,\"duration_frames\":%llu,"
+      "\"evaluations\":%llu,\"timings_ms\":{\"load\":%.3f,\"compile\":%.3f,"
+      "\"evaluate\":%.3f,\"wall\":%.3f},\"published\":false,\"durability\":"
+      "\"not_published\"}",
+      json_escape(args.preset).c_str(), input_kind.c_str(),
+      static_cast<unsigned long long>(limit),
+      static_cast<unsigned long long>(duration),
+      static_cast<unsigned long long>(evaluations), load_ms, compile_ms,
+      eval_ms, wall_ms);
+  if (written < 0 || static_cast<std::size_t>(written) >= sizeof(body)) {
+    return fail(Error{ExitCode::report_failure, "report_failure", "benchmark",
+                      "Cannot format benchmark report"});
+  }
+
+  if (args.out_path) {
+    if (const int wrote =
+            write_text_file(*args.out_path, std::string(body) + "\n");
+        wrote != 0) {
+      return wrote;
+    }
+  }
+
+  if (std::fputs(body, stdout) == EOF || std::fputc('\n', stdout) == EOF ||
+      std::fflush(stdout) != 0) {
+    return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
+                      "Cannot write CLI output"});
+  }
+  emit_log(flags, "ok", "benchmark",
+           ",\"certified\":false,\"preset\":\"" + json_escape(args.preset) +
+               "\"");
+  return 0;
+}
+
+int cmd_lint(const CliFlags &flags, std::span<const std::string_view> args) {
   using instantee::direction::evaluate_lint_policy;
   using instantee::direction::lint_policy_exit_code;
   using instantee::direction::lint_policy_report_json;
@@ -421,107 +897,148 @@ int cmd_lint(std::span<const std::string_view> args) {
     return fail(Error{ExitCode::report_failure, "stdout_failed", "report",
                       "Cannot write CLI output"});
   }
+  emit_log(flags, "ok", "lint", "");
   return lint_policy_exit_code(*report);
 }
 
+[[nodiscard]] std::vector<std::string_view> collect_args(int argc, char **argv,
+                                                         int start) {
+  std::vector<std::string_view> args;
+  args.reserve(static_cast<std::size_t>(argc >= start ? argc - start : 0));
+  for (int index = start; index < argc; ++index) {
+    args.emplace_back(argv[index]);
+  }
+  return args;
+}
+
 int run(int argc, char **argv) {
-  if (argc < 2) {
+  CliFlags flags;
+  int index = 1;
+  while (index < argc) {
+    const std::string_view arg = argv[index];
+    if (arg == "--json-log") {
+      if (flags.json_log) {
+        usage();
+        return static_cast<int>(ExitCode::invalid_input);
+      }
+      flags.json_log = true;
+      ++index;
+      continue;
+    }
+    break;
+  }
+
+  if (index >= argc) {
     usage();
     return static_cast<int>(ExitCode::invalid_input);
   }
-  const std::string_view cmd = argv[1];
+
+  const std::string_view cmd = argv[index];
   if (cmd == "help" || cmd == "--help") {
     usage();
     return 0;
   }
+
   if (cmd == "validate") {
-    if (argc < 3) {
+    if (argc < index + 2) {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
     std::string style_bible;
-    if (argc == 5) {
-      if (std::string_view(argv[3]) != "--style-bible") {
+    if (argc == index + 4) {
+      if (std::string_view(argv[index + 2]) != "--style-bible") {
         usage();
         return static_cast<int>(ExitCode::invalid_input);
       }
-      style_bible = argv[4];
-    } else if (argc != 3) {
+      style_bible = argv[index + 3];
+    } else if (argc != index + 2) {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_validate(argv[2], style_bible);
+    return cmd_validate(flags, argv[index + 1], style_bible);
   }
+
   if (cmd == "compile") {
-    if (argc < 5 || std::string_view(argv[3]) != "--out") {
+    if (argc < index + 4 || std::string_view(argv[index + 2]) != "--out") {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
     std::optional<std::string> direction_report;
     std::string style_bible;
-    for (int index = 5; index < argc;) {
-      const std::string_view flag = argv[index];
+    for (int cursor = index + 4; cursor < argc;) {
+      const std::string_view flag = argv[cursor];
       if (flag == "--direction-report") {
-        if (direction_report.has_value() || index + 1 >= argc) {
+        if (direction_report.has_value() || cursor + 1 >= argc) {
           usage();
           return static_cast<int>(ExitCode::invalid_input);
         }
-        direction_report = argv[index + 1];
-        index += 2;
+        direction_report = argv[cursor + 1];
+        cursor += 2;
         continue;
       }
       if (flag == "--style-bible") {
-        if (!style_bible.empty() || index + 1 >= argc) {
+        if (!style_bible.empty() || cursor + 1 >= argc) {
           usage();
           return static_cast<int>(ExitCode::invalid_input);
         }
-        style_bible = argv[index + 1];
-        index += 2;
+        style_bible = argv[cursor + 1];
+        cursor += 2;
         continue;
       }
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_compile(argv[2], argv[4], direction_report, style_bible);
+    return cmd_compile(flags, argv[index + 1], argv[index + 3],
+                       direction_report, style_bible);
   }
+
   if (cmd == "direction-report") {
-    if (argc < 3) {
+    if (argc < index + 2) {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
     std::optional<std::string> out_path;
-    if (argc == 5) {
-      if (std::string_view(argv[3]) != "--out") {
+    if (argc == index + 4) {
+      if (std::string_view(argv[index + 2]) != "--out") {
         usage();
         return static_cast<int>(ExitCode::invalid_input);
       }
-      out_path = argv[4];
-    } else if (argc != 3) {
+      out_path = argv[index + 3];
+    } else if (argc != index + 2) {
       usage();
       return static_cast<int>(ExitCode::invalid_input);
     }
-    return cmd_direction_report(argv[2], out_path);
+    return cmd_direction_report(flags, argv[index + 1], out_path);
   }
-  if (cmd == "frame") {
-    std::vector<std::string_view> args;
-    args.reserve(static_cast<std::size_t>(argc >= 2 ? argc - 2 : 0));
-    for (int index = 2; index < argc; ++index) {
-      args.emplace_back(argv[index]);
-    }
-    auto parsed = parse_frame_args(args);
+
+  if (cmd == "render") {
+    auto parsed = parse_render_args(collect_args(argc, argv, index + 1));
     if (!parsed) {
       return fail(parsed.error());
     }
-    return cmd_frame(*parsed);
+    return cmd_render(flags, *parsed);
   }
-  if (cmd == "lint") {
-    std::vector<std::string_view> args;
-    args.reserve(static_cast<std::size_t>(argc >= 2 ? argc - 2 : 0));
-    for (int index = 2; index < argc; ++index) {
-      args.emplace_back(argv[index]);
+
+  if (cmd == "frame") {
+    auto parsed = parse_frame_args(collect_args(argc, argv, index + 1));
+    if (!parsed) {
+      return fail(parsed.error());
     }
-    return cmd_lint(args);
+    return cmd_frame(flags, *parsed);
   }
+
+  if (cmd == "benchmark") {
+    auto parsed = parse_benchmark_args(collect_args(argc, argv, index + 1));
+    if (!parsed) {
+      return fail(parsed.error());
+    }
+    return cmd_benchmark(flags, *parsed);
+  }
+
+  if (cmd == "lint") {
+    return cmd_lint(flags, collect_args(argc, argv, index + 1));
+  }
+
   usage();
   return static_cast<int>(ExitCode::invalid_input);
 }

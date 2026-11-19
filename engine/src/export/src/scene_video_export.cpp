@@ -194,6 +194,9 @@ export_scene_video(runtime::RenderJob &job,
       return std::unexpected(counted.error());
     }
     job.release_frame_slot(slot_bytes);
+    if (request.on_progress) {
+      request.on_progress(f + 1ULL, limit);
+    }
   }
 
   if (auto entered = job.enter(RenderJobPhase::finishing, stop); !entered) {

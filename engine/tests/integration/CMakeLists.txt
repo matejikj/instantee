@@ -31,6 +31,12 @@ add_test(NAME instantee_cli_validate_compile
 set_tests_properties(instantee_cli_validate_compile PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
 
+add_test(NAME instantee_cli_e2e_regression COMMAND "${Python3_EXECUTABLE}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/cli_e2e_regression.py"
+  "${PROJECT_SOURCE_DIR}" "$<TARGET_FILE:instantee>")
+set_tests_properties(instantee_cli_e2e_regression PROPERTIES TIMEOUT 240
+  LABELS "cpu;smoke;pts")
+
 add_executable(instantee_frame_seek_test frame_seek_test.cpp)
 target_link_libraries(instantee_frame_seek_test PRIVATE instantee_build_options)
 add_dependencies(instantee_frame_seek_test instantee)

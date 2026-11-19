@@ -149,6 +149,15 @@ int main() {
     request.durability =
         instantee::export_core::DurabilityClass::process_crash_visible;
 
+    std::uint64_t progress_calls = 0;
+    std::uint64_t last_completed = 0;
+    std::uint64_t last_total = 0;
+    request.on_progress = [&](std::uint64_t completed, std::uint64_t total) {
+      ++progress_calls;
+      last_completed = completed;
+      last_total = total;
+    };
+
     auto result = export_scene_video(job, program, request, factory);
     expect(result.has_value(), "export ok");
     if (result) {
@@ -156,6 +165,8 @@ int main() {
       expect(result->published, "published");
       expect(result->phase == RenderJobPhase::completed, "completed");
       expect(std::filesystem::exists(request.target_path), "target exists");
+      expect(progress_calls == 3, "progress once per frame");
+      expect(last_completed == 3 && last_total == 3, "progress totals");
     }
   }
 

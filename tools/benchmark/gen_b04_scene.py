@@ -39,19 +39,27 @@ SEGMENTS = (
 
 
 def opacity_track(track_id: str, target: str, start: int, end: int, fade: int = 20):
+    # Strictly increasing frames are required by Scene IR validation.
     mid = min(start + fade, end - 1)
+    if mid <= start:
+        mid = start + 1
+    hold = end - 1
+    if hold <= mid:
+        hold = mid + 1
+    keyframes = [
+        {"frame": start, "value": 0.0},
+        {"frame": mid, "value": 1.0},
+        {"frame": hold, "value": 1.0},
+    ]
     after = min(end + fade, DURATION - 1)
+    if after > hold:
+        keyframes.append({"frame": after, "value": 0.0})
     return {
         "id": track_id,
         "target_id": target,
         "property": "opacity",
         "interpolation": {"type": "linear"},
-        "keyframes": [
-            {"frame": start, "value": 0.0},
-            {"frame": mid, "value": 1.0},
-            {"frame": end - 1, "value": 1.0},
-            {"frame": after, "value": 0.0},
-        ],
+        "keyframes": keyframes,
     }
 
 
@@ -208,7 +216,7 @@ def main() -> int:
         "transition_spans": [],
         "provenance": {
             "project_sha256": hashlib.sha256(
-                b"B-04-mixed-300s-v1|seed=42|styles=editorial+notebook+paper"
+                b"B-04-mixed-300s-v2|seed=42|styles=editorial+notebook+paper"
             ).hexdigest(),
             "style_packages": [
                 {"id": "editorial", "version": "1.0.0"},
@@ -222,7 +230,7 @@ def main() -> int:
     OUT.write_text(json.dumps(scene, indent=2) + "\n", encoding="utf-8")
     scene_digest = hashlib.sha256(OUT.read_bytes()).hexdigest()
     lock = {
-        "workload_id": "B-04-mixed-300s-v1",
+        "workload_id": "B-04-mixed-300s-v2",
         "scene": "contracts/fixtures/b04-mixed/b04-mixed-300s.scene.json",
         "scene_sha256": scene_digest,
         "asset_lock": ASSET_LOCK[0],

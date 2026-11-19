@@ -1,0 +1,38 @@
+{
+  "decision": "accept_b04_threshold_gate_uncertified_runs",
+  "accepted": true,
+  "threshold_gate": true,
+  "cold_wall_within_1800s": true,
+  "certified_performance": false,
+  "workload_id": "B-04-mixed-300s-v2",
+  "thresholds_source": "ADR-0014/mixed-b04-v1",
+  "thresholds_used_for_series": {
+    "source_adr": "ADR-0014/mixed-b04-v1",
+    "export_wall_ms_max": 1800000,
+    "frame_latency_p99_ns_max": 500000000,
+    "rss_peak_bytes_max": 536870912,
+    "cpu_seconds_per_verified_frame_max": 0.25
+  },
+  "series_medians": {
+    "cold_median_export_wall_ms": 340074.74375,
+    "warm_median_export_wall_ms": 346380.228,
+    "cold_median_p99_ns": 47802750,
+    "warm_median_p99_ns": 47722875,
+    "cold_median_rss_peak_bytes": 128598016,
+    "warm_median_rss_peak_bytes": 128565248,
+    "cold_median_cpu_seconds_per_verified_frame": 0.03998781722222222,
+    "warm_median_cpu_seconds_per_verified_frame": 0.04089277888888889
+  },
+  "optimizations": [
+    "strictly increasing opacity keyframes for mixed beats",
+    "shared transparent-skip / opacity fade windows for inactive cards",
+    "editorial asset lock reuse for mixed digest stability"
+  ],
+  "notes": [
+    "Every cold trial met export_wall_ms \u2264 1800000",
+    "Unknown/null thresholds would FAIL",
+    "Run reports stay certified=false per BENCHMARK_PROTOCOL",
+    "Not an M1 Air product certificate; allowlisted machine facts only",
+    "Keyframe fix required workload_id bump to B-04-mixed-300s-v2 before measurement"
+  ]
+}

@@ -30,13 +30,16 @@ class WorkloadLockAuditTest(unittest.TestCase):
         self.assertEqual(len(report["workloads"]), 5)
         self.assertEqual(report["catalog_sha256"], load_catalog()["catalog_sha256"])
 
-    def test_locked_pre_measurement_for_mixed_and_worst(self):
+    def test_locked_status_for_mixed_and_worst(self):
         catalog = load_catalog()
         by_family = {row["family"]: row for row in catalog["workloads"]}
-        self.assertEqual(by_family["B-04"]["status"], "locked_pre_measurement")
+        self.assertEqual(
+            by_family["B-04"]["status"], "locked_measured_series_available"
+        )
         self.assertEqual(by_family["B-05"]["status"], "locked_pre_measurement")
         self.assertEqual(by_family["B-04"]["duration_frames"], 9000)
         self.assertEqual(by_family["B-05"]["duration_frames"], 9000)
+        self.assertEqual(by_family["B-04"]["id"], "B-04-mixed-300s-v2")
 
     def test_scene_digest_drift_requires_new_baseline(self):
         lock_path = REPO_ROOT / "contracts/fixtures/b01-editorial/b01-workload.lock.json"

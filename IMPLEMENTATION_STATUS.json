@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T18:09:05Z",
+  "updated_at_utc": "2026-11-19T20:30:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7325,14 +7325,25 @@
       "notes": "Catalog B-01..B-05 with offline checksum audit; B-04/B-05 locked pre-measurement; digest drift requires new workload_id."
     },
     "P8-021": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Every valid certification cold run has wall\u22641800 s, memory/p99 within the locked profile and complete CPU evidence; the working set is not unbounded.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-021/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-021/checks.json"
+      ],
+      "blockers": [],
+      "verification": "B-04 signed benchmark report",
+      "delivery_slice": null,
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "evidence_tier": "C",
+      "completed_at_utc": "2026-11-19T20:30:00Z",
+      "notes": "B-04 mixed 3+3 cold/warm series on B-04-mixed-300s-v2; cold wall median ~340s; threshold_gate true; certified=false."
     },
     "P8-022": {
       "status": "todo",

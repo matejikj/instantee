@@ -971,10 +971,6 @@
         {
           "frame": 8999,
           "value": 1.0
-        },
-        {
-          "frame": 8999,
-          "value": 0.0
         }
       ]
     },
@@ -997,10 +993,6 @@
         {
           "frame": 8999,
           "value": 1.0
-        },
-        {
-          "frame": 8999,
-          "value": 0.0
         }
       ]
     }
@@ -1117,7 +1109,7 @@
   ],
   "transition_spans": [],
   "provenance": {
-    "project_sha256": "26898bba70ebb7da5f96ac3e111000e1b9d0989f3c232827227536bdef18781a",
+    "project_sha256": "251be0464c4835680eb019e01291d7b8d97b837bc57aec38d0d2c4f33a4457bc",
     "style_packages": [
       {
         "id": "editorial",

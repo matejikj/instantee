@@ -212,8 +212,12 @@ def validate_structure(
 
     Returns metadata describing which structural backend ran.
     """
-    path = schema_path or default_schema_path()
-    meta: dict[str, Any] = {"schema_path": str(path.relative_to(REPO_ROOT)), "backend": None}
+    path = (schema_path or default_schema_path()).resolve()
+    try:
+        schema_display = str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        schema_display = str(path)
+    meta: dict[str, Any] = {"schema_path": schema_display, "backend": None}
     try:
         import jsonschema
     except ImportError:

@@ -1,0 +1,8 @@
+{
+  "verification": "B-04 signed benchmark report",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "series_pass": true,
+  "cold_wall_within_1800s": true,
+  "workload_id": "B-04-mixed-300s-v2"
+}

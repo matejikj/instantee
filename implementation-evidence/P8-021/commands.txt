@@ -1,0 +1,4 @@
+cmake --build --preset release --target spike-b04-mixed-export
+python3 tools/benchmark/make_b04_profile.py build/release/spike-b04-mixed-export /tmp/b04-profile.json
+python3 tools/benchmark/b04_baseline.py build/release/spike-b04-mixed-export /tmp/b04-series --profile /tmp/b04-profile.json --schema contracts/schemas/performance-report-v1.schema.json --timeout 2100
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-021/checks.json

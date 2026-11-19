@@ -185,3 +185,20 @@ python3 tools/benchmark/verify_workload_locks.py --json
 Regression must compare the same `workload_id` and pinned digests. Changing a
 scene, asset lock, style bible, or catalog digest without a new workload id
 fails closed. B-04/B-05 locks exist before their first measurement runs.
+
+### B-04 mixed 300 s reference series
+
+```sh
+cmake --build --preset release --target spike-b04-mixed-export
+python3 tools/benchmark/make_b04_profile.py \
+  build/release/spike-b04-mixed-export /tmp/b04-profile.json
+python3 tools/benchmark/b04_baseline.py \
+  build/release/spike-b04-mixed-export /tmp/b04-series \
+  --profile /tmp/b04-profile.json \
+  --schema contracts/schemas/performance-report-v1.schema.json \
+  --timeout 2100
+```
+
+Requires exactly 9000 frames, quality tier `mixed-b04-v1`, and non-null ADR
+thresholds. Every cold trial must meet `export_wall_ms ≤ 1800000`. Run reports
+remain `certified=false`.

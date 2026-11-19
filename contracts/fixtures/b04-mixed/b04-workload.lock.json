@@ -1,7 +1,7 @@
 {
-  "workload_id": "B-04-mixed-300s-v1",
+  "workload_id": "B-04-mixed-300s-v2",
   "scene": "contracts/fixtures/b04-mixed/b04-mixed-300s.scene.json",
-  "scene_sha256": "fb003f7a4538812208448601dd37099fd36d00e329eb662292ca8e4b50277178",
+  "scene_sha256": "8a6279ab7595a1b916d379fc4ee4392e0fa36e9ff6332eab72f14335e6ab9868",
   "asset_lock": "assets/editorial/editorial.lock.json",
   "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
   "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",

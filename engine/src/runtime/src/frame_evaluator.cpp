@@ -230,8 +230,11 @@ evaluate_frame(const CompiledScene &scene, const AnimationProgram &program,
   }
 
   std::vector<RuntimeNode> locals(base_nodes.begin(), base_nodes.end());
-  std::vector<core::LinearRgba> colors(locals.size(),
-                                       core::LinearRgba{1.0, 1.0, 1.0, 1.0});
+  std::vector<core::LinearRgba> colors;
+  colors.reserve(locals.size());
+  for (const RuntimeNode &node : locals) {
+    colors.push_back(node.base_color);
+  }
 
   for (const ScalarPropertyBinding &binding : program.scalar_bindings) {
     if (binding.node_index >= locals.size()) {

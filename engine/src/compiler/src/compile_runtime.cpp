@@ -1,10 +1,13 @@
 #include <instantee/compiler/compile_runtime.hpp>
 
 #include <instantee/compiler/validate_properties.hpp>
+#include <instantee/core_model/color.hpp>
 #include <instantee/core_model/properties.hpp>
 #include <instantee/core_model/time.hpp>
 #include <instantee/runtime/timeline.hpp>
 
+#include <algorithm>
+#include <cmath>
 #include <optional>
 #include <string_view>
 #include <unordered_map>
@@ -104,6 +107,18 @@ compile_runtime_scene(const scene_ir::SceneDocument &document) {
     camera_index.emplace(document.cameras[index].id, index);
   }
 
+  std::unordered_map<std::string, const scene_ir::Geometry *> geometry_by_id;
+  geometry_by_id.reserve(document.geometries.size());
+  for (const scene_ir::Geometry &geom : document.geometries) {
+    geometry_by_id.emplace(geom.id, &geom);
+  }
+
+  std::unordered_map<std::string, const scene_ir::Material *> material_by_id;
+  material_by_id.reserve(document.materials.size());
+  for (const scene_ir::Material &material : document.materials) {
+    material_by_id.emplace(material.id, &material);
+  }
+
   runtime::CompiledSceneDraft draft;
   draft.canvas_width = document.canvas_width;
   draft.canvas_height = document.canvas_height;
@@ -177,6 +192,52 @@ compile_runtime_scene(const scene_ir::SceneDocument &document) {
       }
       out.camera_index = it->second;
     }
+
+    // Preview proxy extents: geometry AABB, text estimate, else canvas fill for
+    // image/puppet until atlas payloads are wired through runtime.
+    if (node.kind == scene_ir::NodeKind::geometry && node.geometry_id) {
+      if (const auto it = geometry_by_id.find(*node.geometry_id);
+          it != geometry_by_id.end()) {
+        const scene_ir::Geometry &geom = *it->second;
+        const double width = std::max(1.0, geom.max_x - geom.min_x);
+        const double height = std::max(1.0, geom.max_y - geom.min_y);
+        out.local_x = static_cast<float>(geom.min_x);
+        out.local_y = static_cast<float>(geom.min_y);
+        out.local_width = static_cast<float>(width);
+        out.local_height = static_cast<float>(height);
+      }
+    } else if (node.kind == scene_ir::NodeKind::text &&
+               node.text_run_id.has_value()) {
+      if (const auto it = text_run_index.find(*node.text_run_id);
+          it != text_run_index.end()) {
+        const scene_ir::TextRun &run = document.text_runs[it->second];
+        const double size = std::max(run.font_size_px, 1.0);
+        const double width =
+            run.max_width_px.value_or(size * std::max<std::size_t>(run.text.size(), 1U) *
+                                      0.6);
+        out.local_x = 0;
+        out.local_y = 0;
+        out.local_width = static_cast<float>(std::max(width, size));
+        out.local_height = static_cast<float>(size * 1.2);
+      }
+    } else if (node.kind == scene_ir::NodeKind::image ||
+               node.kind == scene_ir::NodeKind::puppet) {
+      out.local_x = 0;
+      out.local_y = 0;
+      out.local_width = static_cast<float>(std::max(document.canvas_width, 1U));
+      out.local_height = static_cast<float>(std::max(document.canvas_height, 1U));
+    }
+
+    if (node.material_id) {
+      if (const auto it = material_by_id.find(*node.material_id);
+          it != material_by_id.end()) {
+        const scene_ir::Material &material = *it->second;
+        out.base_color = core::srgb_rgba_to_linear(
+            material.r, material.g, material.b,
+            std::clamp(material.a * material.opacity, 0.0, 1.0));
+      }
+    }
+
     draft.nodes.push_back(std::move(out));
   }
 

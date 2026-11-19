@@ -374,15 +374,19 @@ int cmd_frame(const CliFlags &flags, const FrameArgs &args) {
     return fail(scene.error());
   }
 
-  AnimationProgram program;
+  auto program =
+      instantee::compiler::compile_animation_program(*document, **scene);
+  if (!program) {
+    return fail(program.error());
+  }
   const bool png_out = args.out_path && ends_with_png(*args.out_path);
   std::expected<instantee::runtime::FramePreview, Error> preview;
   if (png_out) {
     preview = instantee::preview::export_preview_png(
-        **scene, program, instantee::core::FrameIndex{args.at}, *args.out_path);
+        **scene, *program, instantee::core::FrameIndex{args.at}, *args.out_path);
   } else {
     preview = instantee::runtime::preview_frame_at(
-        **scene, program, instantee::core::FrameIndex{args.at});
+        **scene, *program, instantee::core::FrameIndex{args.at});
   }
   if (!preview) {
     return fail(preview.error());
@@ -565,8 +569,13 @@ int cmd_render(const CliFlags &flags, const RenderArgs &args) {
     return fail(scene.error());
   }
 
+  auto program =
+      instantee::compiler::compile_animation_program(*document, **scene);
+  if (!program) {
+    return fail(program.error());
+  }
+
   RenderJob job(std::move(*scene));
-  AnimationProgram program;
   SceneVideoExportRequest request;
   request.target_path = args.out_path;
   request.frame_count_limit = args.frame_limit;
@@ -591,7 +600,7 @@ int cmd_render(const CliFlags &flags, const RenderArgs &args) {
     return std::unique_ptr<instantee::export_core::VideoSink>(std::move(*sink));
   };
 
-  auto result = export_scene_video(job, program, request, factory);
+  auto result = export_scene_video(job, *program, request, factory);
   if (!result) {
     return fail(result.error());
   }

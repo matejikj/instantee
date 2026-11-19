@@ -1,5 +1,6 @@
 #pragma once
 
+#include <instantee/core_model/color.hpp>
 #include <instantee/core_model/time.hpp>
 #include <instantee/diagnostics/error.hpp>
 
@@ -54,6 +55,14 @@ struct RuntimeNode {
   bool visible = true;
   std::optional<std::uint32_t> text_run_index;
   std::optional<std::uint32_t> camera_index;
+  // Local proxy rect for CPU preview raster (geometry AABB / image canvas /
+  // text estimate). Units are scene pixels before the node world matrix.
+  float local_x = 0;
+  float local_y = 0;
+  float local_width = 64;
+  float local_height = 64;
+  // Base material color in linear working space; color tracks override per frame.
+  core::LinearRgba base_color{1.0, 1.0, 1.0, 1.0};
 };
 
 struct RuntimeTextRun {

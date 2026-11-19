@@ -68,6 +68,10 @@ mat4_to_float(const core::Mat4 &m) noexcept {
 
 [[nodiscard]] Rect2f proxy_local_bounds(const runtime::CompiledScene &scene,
                                         const runtime::RuntimeNode &node) {
+  if (node.local_width > 0.f && node.local_height > 0.f) {
+    return Rect2f{node.local_x, node.local_y, node.local_width,
+                  node.local_height};
+  }
   if (node.kind == runtime::RuntimeNodeKind::text &&
       node.text_run_index.has_value()) {
     const auto runs = scene.text_runs();
@@ -81,7 +85,7 @@ mat4_to_float(const core::Mat4 &m) noexcept {
       return Rect2f{0, 0, std::max(width, size), size * 1.2f};
     }
   }
-  // Geometry/image/puppet placeholder until mesh/atlas payloads are wired.
+  // Fallback proxy until mesh/atlas payloads are wired.
   return Rect2f{0, 0, 64, 64};
 }
 

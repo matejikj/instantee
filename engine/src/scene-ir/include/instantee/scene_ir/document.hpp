@@ -36,6 +36,21 @@ struct Material {
   std::string id;
   std::string shader_feature;
   double opacity = 1.0;
+  // Optional authored solid-fill channels (typically sRGB 0..1). Defaults keep
+  // prior white proxy behavior when parameters are absent.
+  double r = 1.0;
+  double g = 1.0;
+  double b = 1.0;
+  double a = 1.0;
+};
+
+// Axis-aligned local bounds for preview/proxy raster until mesh payloads land.
+struct Geometry {
+  std::string id;
+  double min_x = 0.0;
+  double min_y = 0.0;
+  double max_x = 64.0;
+  double max_y = 64.0;
 };
 
 struct TextRun {
@@ -139,6 +154,7 @@ struct SceneDocument {
   std::vector<Asset> assets;
   std::vector<Material> materials;
   std::vector<std::string> geometry_ids;
+  std::vector<Geometry> geometries;
   std::vector<TextRun> text_runs;
   std::vector<Camera> cameras;
   std::vector<Rig> rigs;

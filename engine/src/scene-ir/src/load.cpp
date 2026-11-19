@@ -527,6 +527,44 @@ decode_scene(yyjson_val *root, const LoadOptions &options) {
     } else {
       material.opacity = *opacity;
     }
+    if (yyjson_val *params = yyjson_obj_get(mat_val, "parameters")) {
+      if (!yyjson_is_obj(params)) {
+        return std::unexpected(err("type_mismatch", "Expected object",
+                                   path_join(mpath, "parameters")));
+      }
+      auto channel = [&](const char *key, double &dst)
+          -> std::expected<void, diagnostics::Error> {
+        yyjson_val *value = yyjson_obj_get(params, key);
+        if (value == nullptr) {
+          return {};
+        }
+        if (!yyjson_is_num(value)) {
+          return std::unexpected(
+              err("type_mismatch", "Expected number",
+                  path_join(path_join(mpath, "parameters"), key)));
+        }
+        const double number = yyjson_get_num(value);
+        if (!std::isfinite(number)) {
+          return std::unexpected(
+              err("non_finite_number", "NaN/Infinity are rejected",
+                  path_join(path_join(mpath, "parameters"), key)));
+        }
+        dst = number;
+        return {};
+      };
+      if (auto ok = channel("r", material.r); !ok) {
+        return std::unexpected(ok.error());
+      }
+      if (auto ok = channel("g", material.g); !ok) {
+        return std::unexpected(ok.error());
+      }
+      if (auto ok = channel("b", material.b); !ok) {
+        return std::unexpected(ok.error());
+      }
+      if (auto ok = channel("a", material.a); !ok) {
+        return std::unexpected(ok.error());
+      }
+    }
     doc.materials.push_back(std::move(material));
   }
 
@@ -543,11 +581,95 @@ decode_scene(yyjson_val *root, const LoadOptions &options) {
     if (!yyjson_is_obj(geom_val)) {
       return std::unexpected(err("type_mismatch", "Expected object", gpath));
     }
+    Geometry geom;
     if (auto id = require_string(geom_val, "id", gpath, 128); !id) {
       return std::unexpected(id.error());
     } else {
-      doc.geometry_ids.push_back(*id);
+      geom.id = *id;
     }
+    if (yyjson_val *points = yyjson_obj_get(geom_val, "points")) {
+      if (!yyjson_is_arr(points)) {
+        return std::unexpected(
+            err("type_mismatch", "Expected array", path_join(gpath, "points")));
+      }
+      bool have = false;
+      double min_x = 0;
+      double min_y = 0;
+      double max_x = 0;
+      double max_y = 0;
+      yyjson_arr_iter point_iter;
+      yyjson_arr_iter_init(points, &point_iter);
+      yyjson_val *point_val;
+      std::size_t point_index = 0;
+      while ((point_val = yyjson_arr_iter_next(&point_iter)) != nullptr) {
+        const std::string ppath =
+            path_index(path_join(gpath, "points"), point_index++);
+        if (!yyjson_is_arr(point_val) || yyjson_arr_size(point_val) < 2) {
+          return std::unexpected(
+              err("type_mismatch", "Expected [x,y] point", ppath));
+        }
+        yyjson_val *x_val = yyjson_arr_get(point_val, 0);
+        yyjson_val *y_val = yyjson_arr_get(point_val, 1);
+        if (x_val == nullptr || y_val == nullptr || !yyjson_is_num(x_val) ||
+            !yyjson_is_num(y_val)) {
+          return std::unexpected(
+              err("type_mismatch", "Expected numeric point", ppath));
+        }
+        const double x = yyjson_get_num(x_val);
+        const double y = yyjson_get_num(y_val);
+        if (!std::isfinite(x) || !std::isfinite(y)) {
+          return std::unexpected(
+              err("non_finite_number", "NaN/Infinity are rejected", ppath));
+        }
+        if (!have) {
+          min_x = max_x = x;
+          min_y = max_y = y;
+          have = true;
+        } else {
+          min_x = std::min(min_x, x);
+          min_y = std::min(min_y, y);
+          max_x = std::max(max_x, x);
+          max_y = std::max(max_y, y);
+        }
+      }
+      if (have) {
+        geom.min_x = min_x;
+        geom.min_y = min_y;
+        geom.max_x = max_x;
+        geom.max_y = max_y;
+      }
+    } else if (yyjson_val *bounds = yyjson_obj_get(geom_val, "bounds")) {
+      if (!yyjson_is_arr(bounds) || yyjson_arr_size(bounds) != 4) {
+        return std::unexpected(err("type_mismatch", "Expected [x,y,w,h] bounds",
+                                   path_join(gpath, "bounds")));
+      }
+      yyjson_val *x_val = yyjson_arr_get(bounds, 0);
+      yyjson_val *y_val = yyjson_arr_get(bounds, 1);
+      yyjson_val *w_val = yyjson_arr_get(bounds, 2);
+      yyjson_val *h_val = yyjson_arr_get(bounds, 3);
+      if (x_val == nullptr || y_val == nullptr || w_val == nullptr ||
+          h_val == nullptr || !yyjson_is_num(x_val) || !yyjson_is_num(y_val) ||
+          !yyjson_is_num(w_val) || !yyjson_is_num(h_val)) {
+        return std::unexpected(err("type_mismatch", "Expected numeric bounds",
+                                   path_join(gpath, "bounds")));
+      }
+      const double x = yyjson_get_num(x_val);
+      const double y = yyjson_get_num(y_val);
+      const double w = yyjson_get_num(w_val);
+      const double h = yyjson_get_num(h_val);
+      if (!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(w) ||
+          !std::isfinite(h)) {
+        return std::unexpected(err("non_finite_number",
+                                   "NaN/Infinity are rejected",
+                                   path_join(gpath, "bounds")));
+      }
+      geom.min_x = x;
+      geom.min_y = y;
+      geom.max_x = x + w;
+      geom.max_y = y + h;
+    }
+    doc.geometry_ids.push_back(geom.id);
+    doc.geometries.push_back(std::move(geom));
   }
 
   auto text_runs = require_arr(root, "text_runs", "");

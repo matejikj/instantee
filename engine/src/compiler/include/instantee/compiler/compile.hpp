@@ -19,6 +19,9 @@ struct CompileOptions {
   // Optional Style Bible JSON path. When set, CDS style resolve loads the
   // bible and the timed lint stage runs motion/palette policy against it.
   std::string style_bible_path;
+  // Scene complexity tier id (default p3-foundation-draft). Empty skips the
+  // structural budget check; unknown ids fail closed.
+  std::string complexity_tier_id = "p3-foundation-draft";
 };
 
 // Wall times in milliseconds for the named stages. Zero when a stage is

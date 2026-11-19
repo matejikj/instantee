@@ -1,0 +1,5 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target spike_scene_ir_scene_complexity_test
+./build/release/engine/tests/unit/scene-ir/spike_scene_ir_scene_complexity_test
+python3 tools/dev/check_cpp_api_surface.py
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-015/checks.json

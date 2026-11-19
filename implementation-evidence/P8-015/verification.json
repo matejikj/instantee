@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "verification": "Complexity budget fixtures",
+  "acceptance": "Exceeding the declared profile produces a predictable error before OOM.",
+  "tier": "p3-foundation-draft",
+  "adr": "motion_framework_sas/adrs/0014-certification-thresholds-draft.md",
+  "ctest": ["spike_scene_ir_scene_complexity"],
+  "checks": [
+    "measure counts for nodes/depth/glyphs/layers",
+    "draw_items overflow → resource_budget_exceeded",
+    "canvas and node_depth overflow → predictable codes",
+    "compile options default tier id"
+  ],
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

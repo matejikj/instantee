@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T00:19:18Z",
+  "updated_at_utc": "2026-11-19T05:26:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7113,14 +7113,48 @@
       "notes": "lexically_relative containment; symlink escape matrix; load-time enforce_uri_sandbox audit."
     },
     "P8-015": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Exceeding the declared profile produces a predictable error before OOM.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Over-budget fixtures return resource_budget_exceeded with stable codes before alloc blow-up",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-015/fixture-report.json",
+              "engine/tests/unit/scene-ir/scene_complexity_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Compile path enforces default p3-foundation-draft tier after graph validation",
+            "met": true,
+            "evidence": [
+              "engine/src/compiler/src/compile.cpp",
+              "engine/src/compiler/include/instantee/compiler/compile.hpp"
+            ]
+          },
+          {
+            "criterion": "Numeric structural caps documented for draft tier",
+            "met": true,
+            "evidence": "motion_framework_sas/adrs/0014-certification-thresholds-draft.md"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-015/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-015/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Complexity budget fixtures",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T05:26:00Z",
+      "notes": "SceneComplexityTier measure+check; p3-foundation-draft numeric caps; compile default tier; unrelated frame_eval_scheduler ASan flake recorded."
     },
     "P8-016": {
       "status": "todo",

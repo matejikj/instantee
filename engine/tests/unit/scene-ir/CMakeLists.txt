@@ -40,6 +40,14 @@ add_test(NAME spike_scene_ir_uri_sandbox_audit
 set_tests_properties(spike_scene_ir_uri_sandbox_audit PROPERTIES TIMEOUT 60
   LABELS "cpu;smoke")
 
+add_executable(spike_scene_ir_scene_complexity_test scene_complexity_test.cpp)
+target_link_libraries(spike_scene_ir_scene_complexity_test PRIVATE
+  instantee::scene_ir instantee_build_options)
+add_test(NAME spike_scene_ir_scene_complexity
+  COMMAND spike_scene_ir_scene_complexity_test)
+set_tests_properties(spike_scene_ir_scene_complexity PROPERTIES TIMEOUT 30
+  LABELS "cpu;smoke")
+
 add_executable(spike_scene_ir_canonicalize_test canonicalize_test.cpp)
 target_link_libraries(spike_scene_ir_canonicalize_test PRIVATE
   instantee::scene_ir instantee_build_options)

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Frozen inventory of C++ public headers under engine/**/include.",
-  "header_count": 165,
+  "header_count": 166,
   "headers": [
     "engine/native/export-apple/include/instantee/export_apple/apple_video_sink.hpp",
     "engine/native/export-apple/include/instantee/export_apple/color_path.hpp",
@@ -163,6 +163,7 @@
     "engine/src/scene-ir/include/instantee/scene_ir/puppet_skin.hpp",
     "engine/src/scene-ir/include/instantee/scene_ir/puppet_walk.hpp",
     "engine/src/scene-ir/include/instantee/scene_ir/release_lock.hpp",
+    "engine/src/scene-ir/include/instantee/scene_ir/scene_complexity.hpp",
     "engine/src/scene-ir/include/instantee/scene_ir/uri_sandbox.hpp",
     "engine/src/typography/include/instantee/typography/glyph_atlas.hpp",
     "engine/src/typography/include/instantee/typography/glyph_transform.hpp",

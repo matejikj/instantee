@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "subject": "Complexity budget fixtures",
+  "tier_id": "p3-foundation-draft",
+  "enforcement": "check_scene_complexity → resource_budget_exceeded",
+  "fixtures": [
+    {
+      "name": "within_draft",
+      "result": "pass"
+    },
+    {
+      "name": "draw_items_over_tiny_tier",
+      "error_code": "complexity.draw_items",
+      "result": "reject"
+    },
+    {
+      "name": "canvas_width_over_1080",
+      "error_code": "complexity.canvas_width",
+      "result": "reject"
+    },
+    {
+      "name": "node_depth_over_24",
+      "error_code": "complexity.node_depth",
+      "result": "reject"
+    }
+  ],
+  "result": "passed"
+}

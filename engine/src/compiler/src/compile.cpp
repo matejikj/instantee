@@ -16,6 +16,7 @@
 #include <instantee/scene_ir/canonicalize.hpp>
 #include <instantee/scene_ir/graph_validate.hpp>
 #include <instantee/scene_ir/load.hpp>
+#include <instantee/scene_ir/scene_complexity.hpp>
 
 #include <chrono>
 #include <filesystem>
@@ -523,6 +524,15 @@ compile_authoring(const scene_ir::AuthoringDocument &authoring,
   }
   if (auto graph = scene_ir::validate_graph(doc); !graph) {
     return std::unexpected(graph.error());
+  }
+  if (!options.complexity_tier_id.empty()) {
+    auto tier = scene_ir::lookup_complexity_tier(options.complexity_tier_id);
+    if (!tier) {
+      return std::unexpected(tier.error());
+    }
+    if (auto budget = scene_ir::check_scene_complexity(doc, *tier); !budget) {
+      return std::unexpected(budget.error());
+    }
   }
 
   if (cds_timing != nullptr) {

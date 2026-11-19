@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "verification": "Color roundtrip suite",
+  "acceptance": "Colors and brightness stay within the defined tolerance on the target macOS.",
+  "defined_tolerance": {
+    "constant": "kRec709RoundtripMaxChannelDelta",
+    "max_channel_delta": 16
+  },
+  "ctest": ["spike_apple_color_accuracy_suite"],
+  "cases": [
+    "brightness_gray",
+    "alpha_flat",
+    "gradient",
+    "fine_text_like",
+    "alpha_overlay",
+    "preview_scene",
+    "strict_tolerance_reject"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

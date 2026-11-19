@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "subject": "Color roundtrip suite",
+  "tolerance_max_channel_delta": 16,
+  "patterns": [
+    {"name": "brightness_gray", "result": "pass"},
+    {"name": "alpha_flat", "result": "pass"},
+    {"name": "gradient", "result": "pass"},
+    {"name": "fine_text_like", "result": "pass"},
+    {"name": "alpha_overlay", "result": "pass"},
+    {"name": "preview_scene_geometry_text", "result": "pass"},
+    {"name": "strict_zero_tolerance", "result": "reject"}
+  ],
+  "result": "passed"
+}

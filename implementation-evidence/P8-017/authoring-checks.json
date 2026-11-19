@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "reason": "Public header snapshot was refreshed after the successful check.py matrix; authoring/contracts suites were re-run explicitly.",
+  "checks": [
+    {"name": "node-toolchain", "command": "npm run check:toolchain", "status": "passed"},
+    {"name": "contracts-check", "command": "npm run contracts:check", "status": "passed"},
+    {"name": "contracts-test", "command": "npm run contracts:test", "status": "passed"},
+    {"name": "authoring-typecheck", "command": "npm run check:authoring", "status": "passed"},
+    {"name": "authoring-build", "command": "npm run build:authoring", "status": "passed"},
+    {"name": "authoring-test", "command": "npm run test:authoring", "status": "passed"}
+  ],
+  "result": "passed"
+}

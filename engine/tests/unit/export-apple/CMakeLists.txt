@@ -62,6 +62,21 @@ add_test(NAME spike_apple_color_roundtrip
 set_tests_properties(spike_apple_color_roundtrip PROPERTIES TIMEOUT 180
   LABELS "cpu;smoke")
 
+add_executable(spike_apple_color_accuracy_suite_test
+  color_accuracy_suite_test.mm)
+target_compile_options(spike_apple_color_accuracy_suite_test PRIVATE -fobjc-arc)
+target_link_libraries(spike_apple_color_accuracy_suite_test PRIVATE
+  instantee::export_apple
+  instantee::preview
+  instantee::runtime
+  instantee::render_core
+  instantee::core_model
+  instantee_build_options)
+add_test(NAME spike_apple_color_accuracy_suite
+  COMMAND spike_apple_color_accuracy_suite_test)
+set_tests_properties(spike_apple_color_accuracy_suite PROPERTIES TIMEOUT 180
+  LABELS "cpu;smoke")
+
 add_executable(spike_apple_linear_overlay_roundtrip_test
   linear_overlay_roundtrip_test.mm)
 target_compile_options(spike_apple_linear_overlay_roundtrip_test PRIVATE

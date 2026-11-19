@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T05:39:00Z",
+  "updated_at_utc": "2026-11-19T06:03:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7201,14 +7201,45 @@
       "notes": "validate_mp4_conformance over inspect+timeline decode; suite positives/negatives; render-to-mp4 wired."
     },
     "P8-017": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Colors and brightness stay within the defined tolerance on the target macOS.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Preview vs decoded MP4 samples stay within kRec709RoundtripMaxChannelDelta",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-017/suite-report.json",
+              "engine/tests/unit/export-apple/color_accuracy_suite_test.mm"
+            ]
+          },
+          {
+            "criterion": "Patterns cover brightness, alpha, gradient, fine detail, and scene preview",
+            "met": true,
+            "evidence": "implementation-evidence/P8-017/suite-report.json"
+          },
+          {
+            "criterion": "Out-of-tolerance comparisons fail closed",
+            "met": true,
+            "evidence": "engine/native/export-apple/src/color_accuracy.cpp"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-017/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-017/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Color roundtrip suite",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T06:03:00Z",
+      "notes": "compare_preview_rgba8_to_decoded_bgra8; pattern+preview scene suite; defined delta 16."
     },
     "P8-018": {
       "status": "todo",

@@ -84,4 +84,26 @@ struct DecodedBgraFrame {
 [[nodiscard]] std::expected<std::vector<DecodedBgraFrame>, Error>
 decode_video_frames_bgra(const std::filesystem::path &path);
 
+// Discrete sample site in pixel coordinates (origin top-left).
+struct ColorAccuracySample {
+  std::uint32_t x = 0;
+  std::uint32_t y = 0;
+};
+
+struct ColorAccuracyStats {
+  std::uint32_t samples_checked = 0;
+  std::uint8_t max_channel_delta = 0;
+  std::uint32_t failing_samples = 0;
+};
+
+// Compares a direct preview / pre-encode straight RGBA8 frame (display-referred
+// Rec.709/sRGB transfer) to one decoded opaque BGRA8 frame after flatten-over-
+// black. Fails closed when any sample exceeds `max_channel_delta`.
+[[nodiscard]] std::expected<ColorAccuracyStats, Error>
+compare_preview_rgba8_to_decoded_bgra8(
+    std::span<const std::uint8_t> preview_rgba, std::uint32_t width,
+    std::uint32_t height, const DecodedBgraFrame &decoded,
+    std::span<const ColorAccuracySample> samples,
+    std::uint8_t max_channel_delta = kRec709RoundtripMaxChannelDelta);
+
 } // namespace instantee::spike::apple

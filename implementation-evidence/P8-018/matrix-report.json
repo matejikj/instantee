@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "subject": "macOS/Xcode adapter compatibility matrix",
+  "macos_product_version": "27.2.1",
+  "macos_build": "26B131",
+  "deployment_target": "27.2",
+  "selected_sdk_version": "MacOSX27.2.sdk",
+  "xcode_version_lock": "27.2",
+  "selected_append_api": "timed_sample_buffer",
+  "h264_mp4_writer_creatable": true,
+  "pixel_buffer_receiver_runtime_available": true,
+  "supported_configurations": [
+    "writer_append=timed_sample_buffer;codec=h264;file=mp4;audio=none;color=rec709-sdr;geometry=1080x1920;rate=30/1",
+    "deployment_target=27.2;sdk=MacOSX27.2.sdk"
+  ],
+  "unsupported_configurations": [
+    "writer_append=pixel_buffer_adaptor (deprecated; not selected for V1)",
+    "writer_append=pixel_buffer_receiver (runtime available; ObjC++ V1 binding not selected — use timed_sample_buffer)",
+    "writer_append=any;audio=present (video-only export)",
+    "writer_output_path_exists (AVAssetWriter requires a new path)"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T06:03:00Z",
+  "updated_at_utc": "2026-11-19T06:20:00Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7242,14 +7242,45 @@
       "notes": "compare_preview_rgba8_to_decoded_bgra8; pattern+preview scene suite; defined delta 16."
     },
     "P8-018": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Supported API configurations are listed explicitly; unsupported configurations are reported.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Supported timed_sample_buffer H.264/MP4 Rec.709 configuration listed",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-018/matrix-report.json",
+              "engine/native/export-apple/src/adapter_compatibility.mm"
+            ]
+          },
+          {
+            "criterion": "Unsupported adaptor/receiver/audio/existing-path configurations reported",
+            "met": true,
+            "evidence": "implementation-evidence/P8-018/matrix-report.json"
+          },
+          {
+            "criterion": "select_writer_append_api fails closed for unsupported APIs; writer failures coded",
+            "met": true,
+            "evidence": "engine/tests/unit/export-apple/adapter_compatibility_test.mm"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-018/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-018/checks.json"
+      ],
+      "blockers": [],
+      "verification": "macOS/Xcode matrix report",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T06:20:00Z",
+      "notes": "Adapter compatibility probe; V1 timed_sample_buffer; receiver detected but unbound; writer failure codes."
     },
     "P8-019": {
       "status": "todo",

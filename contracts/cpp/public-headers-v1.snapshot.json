@@ -1,8 +1,9 @@
 {
   "schema_version": "1.0.0",
   "description": "Frozen inventory of C++ public headers under engine/**/include.",
-  "header_count": 167,
+  "header_count": 168,
   "headers": [
+    "engine/native/export-apple/include/instantee/export_apple/adapter_compatibility.hpp",
     "engine/native/export-apple/include/instantee/export_apple/apple_video_sink.hpp",
     "engine/native/export-apple/include/instantee/export_apple/color_path.hpp",
     "engine/native/export-apple/include/instantee/export_apple/media_conformance.hpp",

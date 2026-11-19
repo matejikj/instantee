@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "verification": "macOS/Xcode matrix report",
+  "acceptance": "Supported API configurations are listed explicitly; unsupported configurations are reported.",
+  "ctest": ["spike_apple_adapter_compatibility"],
+  "matrix_report": "implementation-evidence/P8-018/matrix-report.json",
+  "selected_append_api": "timed_sample_buffer",
+  "checks": [
+    "supported_configurations non-empty",
+    "unsupported_configurations include adaptor and receiver-for-V1",
+    "select_writer_append_api accepts timed_sample_buffer only",
+    "writer failures: output_exists, invalid_writer_config"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

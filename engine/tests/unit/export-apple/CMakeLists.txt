@@ -77,6 +77,16 @@ add_test(NAME spike_apple_color_accuracy_suite
 set_tests_properties(spike_apple_color_accuracy_suite PROPERTIES TIMEOUT 180
   LABELS "cpu;smoke")
 
+add_executable(spike_apple_adapter_compatibility_test
+  adapter_compatibility_test.mm)
+target_compile_options(spike_apple_adapter_compatibility_test PRIVATE -fobjc-arc)
+target_link_libraries(spike_apple_adapter_compatibility_test PRIVATE
+  instantee::export_apple instantee_build_options)
+add_test(NAME spike_apple_adapter_compatibility
+  COMMAND spike_apple_adapter_compatibility_test)
+set_tests_properties(spike_apple_adapter_compatibility PROPERTIES TIMEOUT 120
+  LABELS "cpu;smoke")
+
 add_executable(spike_apple_linear_overlay_roundtrip_test
   linear_overlay_roundtrip_test.mm)
 target_compile_options(spike_apple_linear_overlay_roundtrip_test PRIVATE

@@ -1,0 +1,5 @@
+python3 tools/dev/sync_tracker.py
+cmake --build --preset release --target spike_apple_adapter_compatibility_test
+./build/release/engine/tests/unit/export-apple/spike_apple_adapter_compatibility_test implementation-evidence/P8-018
+python3 tools/dev/check_cpp_api_surface.py --update-snapshot
+python3 tools/dev/check.py --asan --report implementation-evidence/P8-018/checks.json

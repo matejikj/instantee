@@ -1,0 +1,7 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_cpp_api_surface.py --update-snapshot
+python3 tools/dev/check_cpp_api_surface.py --report implementation-evidence/P8-003/api-review-report.json
+python3 -m unittest discover -s tools/dev -p test_cpp_api_surface.py
+cmake --build --preset release
+ctest --preset release -R 'cpp_api_surface|module_boundaries' --output-on-failure
+python3 tools/dev/check.py --report implementation-evidence/P8-003/checks.json

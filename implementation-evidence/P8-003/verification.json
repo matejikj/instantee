@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "verification": "C++ header/dependency/API review report",
+  "acceptance": "API linter odhalí nechtěné veřejné typy a zakázané importy.",
+  "linter": "tools/dev/check_cpp_api_surface.py",
+  "snapshot": "contracts/cpp/public-headers-v1.snapshot.json",
+  "report": "implementation-evidence/P8-003/api-review-report.json",
+  "ctest": ["cpp_api_surface", "module_boundaries"],
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

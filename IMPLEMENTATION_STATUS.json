@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T23:48:46Z",
+  "updated_at_utc": "2026-11-18T23:54:13Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6653,14 +6653,47 @@
       "notes": "Frozen @instantee/authoring 1.0.0: namespaced film/direction/sceneGraph/time/styles/api, AuthoringError, deprecation policy, public-api snapshot, three-styles example."
     },
     "P8-003": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The API linter detects unintended public types and forbidden imports.",
-        "met": null
+        "criterion": "API linter odhal\u00ed necht\u011bn\u00e9 ve\u0159ejn\u00e9 typy a zak\u00e1zan\u00e9 importy.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "linter fails on forbidden Metal include and Apple token in domain public headers",
+            "met": true,
+            "evidence": "tools/dev/test_cpp_api_surface.py"
+          },
+          {
+            "criterion": "linter fails on unintended impl public header and PUBLIC Apple framework link",
+            "met": true,
+            "evidence": "tools/dev/test_cpp_api_surface.py"
+          },
+          {
+            "criterion": "frozen public-header inventory and API review report",
+            "met": true,
+            "evidence": "implementation-evidence/P8-003/api-review-report.json"
+          },
+          {
+            "criterion": "check.py change-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P8-003/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-003/",
+        "contracts/cpp/public-headers-v1.snapshot.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-003/checks.json"
+      ],
+      "blockers": [],
+      "verification": "C++ header/dependency/API review report",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-18T23:54:13Z",
+      "notes": "Frozen C++ public header surface (163 headers): API linter covers forbidden imports, domain platform-token leaks, unintended impl headers, PRIVATE Apple/metal-cpp CMake visibility, and snapshot drift."
     },
     "P8-004": {
       "status": "todo",

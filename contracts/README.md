@@ -33,9 +33,13 @@ contracts/
   adrs/         Published data-contract ADRs
   VERSIONING.md Schema semver + pure migration policy
   invariants-sas6.json  Coverage map for SAS §6.2 invariants
+  cpp/          Frozen C++ public-header inventory and API-surface fixtures
   INTEGER_ENCODING.md
   README.md
 ```
+
+C++ public headers are listed in `cpp/public-headers-v1.snapshot.json` and
+enforced by `tools/dev/check_cpp_api_surface.py` (CTest `cpp_api_surface`).
 
 
 Keep language-specific serializers in `engine/` and `authoring/`. Do not

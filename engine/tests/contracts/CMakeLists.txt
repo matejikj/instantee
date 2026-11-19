@@ -46,3 +46,11 @@ add_test(NAME module_boundaries
           "${PROJECT_SOURCE_DIR}/tools/dev/check_module_boundaries.py"
           "--repo" "${PROJECT_SOURCE_DIR}")
 set_tests_properties(module_boundaries PROPERTIES TIMEOUT 30 LABELS "cpu;boundaries")
+
+add_test(NAME cpp_api_surface
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/dev/check_cpp_api_surface.py"
+          "--repo" "${PROJECT_SOURCE_DIR}"
+          "--snapshot"
+          "${PROJECT_SOURCE_DIR}/contracts/cpp/public-headers-v1.snapshot.json")
+set_tests_properties(cpp_api_surface PROPERTIES TIMEOUT 30 LABELS "cpu;boundaries;api")

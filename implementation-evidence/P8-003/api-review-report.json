@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "result": "passed",
+  "public_header_count": 163,
+  "platform_modules": [
+    "export-apple",
+    "render-metal",
+    "telemetry-apple",
+    "transfer-apple"
+  ],
+  "checks": [
+    "forbidden Apple/Metal/third-party includes in public headers",
+    "Apple/Metal tokens in domain public headers",
+    "unintended impl/native/owner/detail public headers",
+    "Apple frameworks and metal-cpp kept PRIVATE in CMake",
+    "locked public-header snapshot"
+  ],
+  "error_count": 0,
+  "errors": []
+}

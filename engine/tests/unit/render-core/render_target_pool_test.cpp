@@ -139,6 +139,28 @@ int main() {
     }
   }
 
+  // Pressure: unused incompatible free-list residents are retired so a new
+  // exact-size allocation can proceed without downscale.
+  {
+    RenderTargetPoolConfig cfg{};
+    cfg.registry_capacity = 4;
+    cfg.max_pooled_bytes = 64; // one 4x4 target at a time
+    cfg.max_allocation_bytes = 64;
+    auto pressure = RenderTargetPool::create(cfg);
+    expect(pressure.has_value(), "pressure pool");
+    {
+      auto stale = pressure->acquire(other); // 8x2 = 64 bytes
+      expect(stale.has_value(), "stale size");
+    } // recycled onto free list
+    expect(pressure->stats().free_list_size == 1, "stale on free list");
+    expect(pressure->stats().bytes_currently_pooled == 64, "bytes held");
+    auto next = pressure->acquire(small); // 4x4 = 64 bytes, different size
+    expect(next.has_value(), "evict frees room for exact size");
+    expect(pressure->stats().free_list_evictions >= 1, "eviction counted");
+    expect(next->desc().width_px == 4 && next->desc().height_px == 4,
+           "requested size preserved");
+  }
+
   // Clear-to-color policy.
   {
     RenderTargetPoolConfig colored{};

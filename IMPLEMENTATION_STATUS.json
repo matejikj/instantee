@@ -6963,14 +6963,43 @@
       "notes": "BoundedQueue::try_push WouldBlock; composed K/queue/oldest-frame/slow-sink/E audit; single pipeline queue confirmed."
     },
     "P8-011": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Memory pressure causes controlled rejection rather than OOM or a silent quality downgrade.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Memory pressure yields ResourceBudgetExceeded without OOM or silent quality downgrade",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-011/audit-report.json",
+              "engine/tests/unit/runtime/memory_pressure_audit_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Safe free-list eviction under pool pressure; requested extents preserved",
+            "met": true,
+            "evidence": [
+              "engine/src/render-core/src/render_target_pool.cpp",
+              "implementation-evidence/P8-011/verification.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-011/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-011/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Memory pressure audit tests",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T04:00:00Z",
+      "notes": "estimate_rgba8_bytes + job preflight; RenderTargetPool free-list eviction under pressure; composed pressure audit."
     },
     "P8-012": {
       "status": "todo",

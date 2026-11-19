@@ -42,6 +42,8 @@ struct RenderTargetPoolStats {
   std::uint64_t acquires_reused = 0;
   std::uint64_t releases_total = 0;
   std::uint64_t clears_performed = 0;
+  // Safe free-list retirements performed to reclaim bytes under pressure.
+  std::uint64_t free_list_evictions = 0;
   std::uint64_t bytes_currently_pooled = 0;
   std::uint64_t bytes_high_water = 0;
   std::uint32_t free_list_size = 0;
@@ -111,7 +113,8 @@ public:
   }
 
   // Acquires a cleared target. Prefers a free-list match; otherwise allocates
-  // when budget and registry capacity allow. Never resizes to fit budget.
+  // when budget and registry capacity allow. Under pressure, unused free-list
+  // residents may be retired to reclaim bytes. Never resizes to fit budget.
   [[nodiscard]] std::expected<RenderTargetLease, diagnostics::Error>
   acquire(GpuResourceDesc desc);
 
@@ -128,6 +131,9 @@ private:
                             std::unique_ptr<GpuResourceRegistry> registry);
 
   void recycle(GpuResourceHandle handle, GpuResourceDesc desc) noexcept;
+  // Retires free-list entries (never in-use leases) until `needed` fits or the
+  // free list is empty. Does not change requested dimensions.
+  void evict_free_until(std::uint64_t needed) noexcept;
   [[nodiscard]] static std::expected<std::uint64_t, diagnostics::Error>
   rgba_bytes(GpuResourceDesc desc);
   void apply_clear(PooledTarget &target) noexcept;

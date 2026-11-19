@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "verification": "Memory pressure audit tests",
+  "acceptance": "Memory pressure causes controlled rejection rather than OOM or a silent quality downgrade.",
+  "audit_report": "implementation-evidence/P8-011/audit-report.json",
+  "ctest": [
+    "spike_runtime_memory_pressure_audit",
+    "spike_render_target_pool",
+    "spike_runtime_render_job"
+  ],
+  "checks": [
+    "estimate_rgba8_bytes overflow-safe",
+    "job preflight would_exceed_accounted",
+    "free-list eviction under pool pressure",
+    "live budget reject without downscale",
+    "composed job+pool pressure"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

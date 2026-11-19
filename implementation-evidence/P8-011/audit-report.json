@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "subject": "Memory / resource budget enforcement under pressure",
+  "measurement": "none",
+  "certified_performance": false,
+  "gaps": [],
+  "coverage": [
+    {
+      "requirement": "Estimated RGBA8 frame bytes preflight before allocation",
+      "mechanism": "estimate_rgba8_bytes + RenderJob::would_exceed_accounted / remaining_accounted_bytes",
+      "tests": ["spike_runtime_memory_pressure_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Safe cache eviction under pool pressure",
+      "mechanism": "RenderTargetPool::evict_free_until retires unused free-list residents only",
+      "tests": [
+        "spike_render_target_pool",
+        "spike_runtime_memory_pressure_audit"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Controlled ResourceBudgetExceeded; no OOM path / silent quality downgrade",
+      "mechanism": "acquire_frame_slot and pool acquire return resource_budget_exceeded; messages state quality is not reduced; requested extents preserved",
+      "tests": [
+        "spike_runtime_memory_pressure_audit",
+        "spike_render_target_pool",
+        "spike_runtime_render_job"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Glyph atlas safe eviction (pinned entries retained)",
+      "mechanism": "existing GlyphAtlas::evict_if_needed (P3 typography evidence)",
+      "tests": ["referenced: spike_glyph_atlas / implementation-evidence/P3-005 sibling"],
+      "met": true
+    }
+  ],
+  "result": "passed"
+}

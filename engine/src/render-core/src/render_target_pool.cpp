@@ -148,6 +148,34 @@ void RenderTargetPool::note_bytes_delta(std::int64_t delta) noexcept {
       std::max(stats_.bytes_high_water, stats_.bytes_currently_pooled);
 }
 
+void RenderTargetPool::evict_free_until(std::uint64_t needed) noexcept {
+  if (registry_ == nullptr || needed == 0U) {
+    return;
+  }
+  auto over_budget = [&]() noexcept {
+    return stats_.bytes_currently_pooled >
+               std::numeric_limits<std::uint64_t>::max() - needed ||
+           stats_.bytes_currently_pooled + needed > config_.max_pooled_bytes;
+  };
+  while (over_budget() && !free_list_.empty()) {
+    const GpuResourceHandle handle = free_list_.back();
+    free_list_.pop_back();
+    stats_.free_list_size = static_cast<std::uint32_t>(free_list_.size());
+
+    std::uint64_t freed = 0;
+    if (auto desc = registry_->desc(handle)) {
+      if (auto bytes = rgba_bytes(*desc)) {
+        freed = *bytes;
+      }
+    }
+    (void)registry_->request_retire(handle);
+    if (freed != 0U) {
+      note_bytes_delta(-static_cast<std::int64_t>(freed));
+    }
+    ++stats_.free_list_evictions;
+  }
+}
+
 void RenderTargetPool::apply_clear(PooledTarget &target) noexcept {
   switch (config_.clear_policy) {
   case RenderTargetClearPolicy::clear_to_transparent:
@@ -235,7 +263,9 @@ RenderTargetPool::acquire(GpuResourceDesc desc) {
     return RenderTargetLease{this, candidate, desc};
   }
 
-  // New allocation: preflight budget (no silent size downgrade).
+  // New allocation: reclaim unused free-list residents first, then preflight
+  // budget. Never silently shrink the requested extent.
+  evict_free_until(*needed);
   if (stats_.bytes_currently_pooled >
           std::numeric_limits<std::uint64_t>::max() - *needed ||
       stats_.bytes_currently_pooled + *needed > config_.max_pooled_bytes) {

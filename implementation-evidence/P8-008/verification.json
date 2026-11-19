@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "verification": "Cancellation fault matrix audit",
+  "acceptance": "Stop in every state and late callbacks cause no use-after-free or deadlock; cancellation after publication must not pretend that the video does not exist.",
+  "audit_report": "implementation-evidence/P8-008/audit-report.json",
+  "ctest": [
+    "spike_runtime_cancellation_matrix_audit",
+    "spike_runtime_cancellation",
+    "spike_cancellation_subprocess"
+  ],
+  "checks": [
+    "stop/cancel every pre-publish phase",
+    "cancel at publishing gate keeps old target",
+    "mid-render cancel + late callback without UAF",
+    "post-publish cancel rejected; target remains",
+    "scheduler abort wakes and joins",
+    "queue abort + stop_callback"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

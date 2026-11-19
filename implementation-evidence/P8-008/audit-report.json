@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "subject": "Cancellation fault matrix across job phases, queues, scheduler and export",
+  "measurement": "none",
+  "certified_performance": false,
+  "gaps": [],
+  "coverage": [
+    {
+      "requirement": "Stop in every pre-publish RenderJob phase",
+      "mechanism": "enter(phase, stop) and cancel() from created/preparing/rendering/finishing",
+      "tests": ["spike_runtime_cancellation_matrix_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Cancel at publish gate keeps old target",
+      "mechanism": "stop armed from sink finish(); enter(publishing) cancels; OutputTransaction destructor drops staging",
+      "tests": ["spike_runtime_cancellation_matrix_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Mid-render cancel + late sink callback without UAF",
+      "mechanism": "shared LateCallbackContext outlives sink; cancel() joins deferred completion before destructor returns",
+      "tests": ["spike_runtime_cancellation_matrix_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Post-publish cancel must not pretend video is absent",
+      "mechanism": "RenderJob::cancel rejected with cancel_after_publish_gate; target file remains",
+      "tests": ["spike_runtime_cancellation_matrix_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Scheduler abort wakes workers and joins cleanly",
+      "mechanism": "FrameEvalScheduler::abort request_stop + queue abort; evaluate observes stop_token",
+      "tests": ["spike_runtime_cancellation_matrix_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Bounded queue abort wakes blocked push; stop_callback safe",
+      "mechanism": "BoundedQueue::abort + std::stop_callback while queue still alive",
+      "tests": [
+        "spike_runtime_cancellation_matrix_audit",
+        "spike_runtime_cancellation"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Process supervisor bounds hung native work",
+      "mechanism": "Existing tools/workspace/supervise.py + cancellation_subprocess (P0)",
+      "tests": ["spike_cancellation_subprocess"],
+      "met": true
+    }
+  ],
+  "result": "passed"
+}

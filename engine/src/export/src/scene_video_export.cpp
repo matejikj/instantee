@@ -212,8 +212,10 @@ export_scene_video(runtime::RenderJob &job,
     return std::unexpected(summary.error());
   }
 
-  // Observe stop before the irrevocable publish gate.
+  // Observe stop before the irrevocable publish gate. Cancel here still wins
+  // over rename; wake the sink so any native waiter cannot outlive the job.
   if (auto entered = job.enter(RenderJobPhase::publishing, stop); !entered) {
+    bridge.sink().cancel();
     return std::unexpected(entered.error());
   }
 

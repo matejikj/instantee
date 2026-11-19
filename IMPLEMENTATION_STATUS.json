@@ -6855,14 +6855,40 @@
       "notes": "Audited RenderJob phases: sticky first_error, published->durability-unknown transition, durability-unknown priority over report-failed, export fault plumbing, pre/post-publish fault tests."
     },
     "P8-008": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Stop in every state and late callbacks cause no use-after-free or deadlock; cancellation after publication must not pretend that the video does not exist.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Stop in every state without UAF/deadlock",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-008/audit-report.json",
+              "engine/tests/unit/runtime/cancellation_matrix_audit_test.cpp"
+            ]
+          },
+          {
+            "criterion": "Late callbacks safe; post-publish cancel does not claim absence",
+            "met": true,
+            "evidence": "implementation-evidence/P8-008/audit-report.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-008/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-008/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Cancellation fault matrix audit",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T02:15:00Z",
+      "notes": "Cancellation fault matrix across job phases, queues, scheduler and export; sink cancel on publish-gate stop; late callback shared context; post-publish cancel rejected."
     },
     "P8-009": {
       "status": "todo",

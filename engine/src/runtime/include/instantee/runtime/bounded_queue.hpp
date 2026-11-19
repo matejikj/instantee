@@ -56,6 +56,11 @@ public:
        std::optional<std::chrono::steady_clock::time_point> deadline =
            std::nullopt);
 
+  // Non-blocking insert. On WouldBlock/Closed/Cancelled the caller's value is
+  // left untouched (not moved). Prefer this over spinning on a full queue.
+  [[nodiscard]] std::expected<void, diagnostics::Error>
+  try_push(T &&value, std::stop_token stop = {});
+
   [[nodiscard]] std::expected<T, diagnostics::Error>
   pop(std::stop_token stop = {},
       std::optional<std::chrono::steady_clock::time_point> deadline =
@@ -214,6 +219,38 @@ BoundedQueue<T>::push(T &&value, std::stop_token stop,
     state_->metrics.blocked_wait_ns += static_cast<std::uint64_t>(
         std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count());
   }
+}
+
+template <typename T>
+std::expected<void, diagnostics::Error>
+BoundedQueue<T>::try_push(T &&value, std::stop_token stop) {
+  if (!state_) {
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::export_failure, "queue_not_ready", kPhase,
+        "Bounded queue is not ready"});
+  }
+  std::lock_guard lock(state_->mutex);
+  if (state_->aborted || stop.stop_requested()) {
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::cancelled, diagnostics::ErrorKind::cancelled,
+        "cancelled", kPhase, "Bounded queue try_push was cancelled"});
+  }
+  if (state_->closed) {
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::closed, diagnostics::ErrorKind::closed, "closed",
+        kPhase, "Bounded queue is closed"});
+  }
+  if (state_->items->size() >= state_->capacity) {
+    return std::unexpected(diagnostics::Error{
+        diagnostics::ExitCode::would_block, diagnostics::ErrorKind::would_block,
+        "would_block", kPhase, "Bounded queue is full"});
+  }
+  state_->items->push_back(std::move(value));
+  if (state_->items->size() > state_->metrics.high_water) {
+    state_->metrics.high_water = state_->items->size();
+  }
+  state_->not_empty.notify_one();
+  return {};
 }
 
 template <typename T>

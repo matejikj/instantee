@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-19T03:27:18Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "89d38a7",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "engine/src/runtime/include/instantee/runtime/bounded_queue.hpp",
+    "engine/tests/unit/runtime/CMakeLists.txt",
+    "engine/tests/unit/runtime/backpressure_load_audit_test.cpp"
+  ],
+  "risks": [
+    "native",
+    "concurrency"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/runtime/include/instantee/runtime/bounded_queue.hpp engine/tests/unit/runtime/backpressure_load_audit_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/tests/unit/runtime/backpressure_load_audit_test.cpp",
+      "tool_version": "23.1.5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 2.3
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 31.9,
+      "tests": {
+        "total": 322,
+        "passed": 322,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 403.8,
+      "tests": {
+        "total": 330,
+        "passed": 330,
+        "failed": 0
+      }
+    },
+    {
+      "name": "tsan",
+      "command": "cmake --workflow --preset tsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1384.9,
+      "tests": {
+        "total": 330,
+        "passed": 330,
+        "failed": 0
+      }
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

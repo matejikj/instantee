@@ -6927,14 +6927,40 @@
       "notes": "Export workspace inspect/recover APIs; live marker flock; orphan staging cleanup without touching published targets or foreign entries."
     },
     "P8-010": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Slow-sink/oldest-frame faults do not increase limits, drop export frames or cause busy-spinning.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Slow-sink/oldest-frame keep K/E/queue plateaus without drops or busy-spin",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-010/audit-report.json",
+              "engine/tests/unit/runtime/backpressure_load_audit_test.cpp"
+            ]
+          },
+          {
+            "criterion": "No parallel pipeline queue; try_push non-consuming WouldBlock",
+            "met": true,
+            "evidence": "implementation-evidence/P8-010/audit-report.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-010/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-010/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Backpressure load audit",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "B",
+      "completed_at_utc": "2026-11-19T03:25:00Z",
+      "notes": "BoundedQueue::try_push WouldBlock; composed K/queue/oldest-frame/slow-sink/E audit; single pipeline queue confirmed."
     },
     "P8-011": {
       "status": "todo",

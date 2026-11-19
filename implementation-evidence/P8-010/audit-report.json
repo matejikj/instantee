@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "subject": "Bounded-queue / backpressure audit across pipeline stages",
+  "measurement": "none",
+  "certified_performance": false,
+  "gaps": [],
+  "single_queue_implementation": {
+    "pipeline_queue": "engine/src/runtime/include/instantee/runtime/bounded_queue.hpp",
+    "parallel_pipeline_queue_found": false,
+    "notes": "Render-graph uses std::queue only for DAG readiness, not frame backpressure."
+  },
+  "coverage": [
+    {
+      "requirement": "Global K admission before allocation/evaluation",
+      "mechanism": "FrameCreditPool + FrameEvalScheduler credit_capacity (ADR-0012 K=2 in composed audit)",
+      "tests": [
+        "spike_runtime_backpressure",
+        "spike_runtime_backpressure_load_audit"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Bounded eval queue + reorder slots; delayed oldest frame",
+      "mechanism": "queue_capacity=1, ReorderBuffer window = K; oldest frame held until later frames complete",
+      "tests": [
+        "spike_runtime_frame_eval_scheduler",
+        "spike_runtime_backpressure_load_audit"
+      ],
+      "met": true
+    },
+    {
+      "requirement": "Separate encoder pool limit E",
+      "mechanism": "Independent FrameCreditPool E=2 in audit (mirrors CVPixelBufferPool allocation threshold)",
+      "tests": ["spike_runtime_backpressure_load_audit"],
+      "met": true
+    },
+    {
+      "requirement": "try_push returns WouldBlock without consuming caller value",
+      "mechanism": "BoundedQueue::try_push",
+      "tests": ["spike_runtime_backpressure_load_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Failed/cancelled push preserves lease (non-consuming)",
+      "mechanism": "FrameEvalScheduler::submit_lease restores lease on push failure",
+      "tests": ["spike_runtime_backpressure_load_audit"],
+      "met": true
+    },
+    {
+      "requirement": "Slow sink / oldest-frame do not raise limits, drop frames, or busy-spin",
+      "mechanism": "Peak K/E/queue high-water asserted; blocked_wait_ns or observed wait required; full ordered delivery",
+      "tests": ["spike_runtime_backpressure_load_audit"],
+      "met": true
+    },
+    {
+      "requirement": "GPU completion registry remains bounded",
+      "mechanism": "GpuResourceRegistry fixed capacity (existing P3 evidence)",
+      "tests": ["referenced: implementation-evidence/P3-004/"],
+      "met": true
+    }
+  ],
+  "result": "passed"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "verification": "Backpressure load audit",
+  "acceptance": "Slow-sink/oldest-frame faults do not increase limits, drop export frames or cause busy-spinning.",
+  "audit_report": "implementation-evidence/P8-010/audit-report.json",
+  "ctest": [
+    "spike_runtime_backpressure_load_audit",
+    "spike_runtime_backpressure",
+    "spike_runtime_frame_eval_scheduler"
+  ],
+  "checks": [
+    "try_push WouldBlock non-consuming",
+    "K=2 / queue=1 / oldest-frame / slow sink plateau",
+    "separate E limit plateau",
+    "no dropped frames; order preserved",
+    "failed push retains lease credit",
+    "no parallel pipeline queue implementation"
+  ],
+  "measurement": "none",
+  "evidence_tier": "B",
+  "result": "passed"
+}

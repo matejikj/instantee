@@ -1,0 +1,6 @@
+python3 tools/dev/sync_tracker.py
+node tools/contracts/check_schema_compatibility.mjs
+npm run contracts:check
+cmake --build --preset release --target spike_scene_ir_compatibility_suite_test
+ctest --preset release -R 'spike_scene_ir_compatibility_suite|spike_scene_ir_migrate' --output-on-failure
+python3 tools/dev/check.py --report implementation-evidence/P8-004/checks.json

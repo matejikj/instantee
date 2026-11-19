@@ -34,12 +34,18 @@ contracts/
   VERSIONING.md Schema semver + pure migration policy
   invariants-sas6.json  Coverage map for SAS §6.2 invariants
   cpp/          Frozen C++ public-header inventory and API-surface fixtures
+  compatibility/ Supported-version matrix and locked load/migrate examples
   INTEGER_ENCODING.md
+  VERSIONING.md
   README.md
 ```
 
 C++ public headers are listed in `cpp/public-headers-v1.snapshot.json` and
 enforced by `tools/dev/check_cpp_api_surface.py` (CTest `cpp_api_surface`).
+
+Schema compatibility policy: `compatibility/schema-version-matrix-v1.json`,
+`VERSIONING.md` (unknown fields = reject), and CTest
+`spike_scene_ir_compatibility_suite`.
 
 
 Keep language-specific serializers in `engine/` and `authoring/`. Do not

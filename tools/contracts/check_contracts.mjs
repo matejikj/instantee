@@ -244,6 +244,8 @@ async function checkCleanClonePresence() {
   const required = [
     "contracts/README.md",
     "contracts/VERSIONING.md",
+    "contracts/compatibility/schema-version-matrix-v1.json",
+    "contracts/compatibility/locked-examples-v1.json",
     "contracts/schemas/authoring-v1.schema.json",
     "contracts/schemas/scene-ir-v1.schema.json",
     "contracts/schemas/asset-lockfile-v1.schema.json",
@@ -315,6 +317,17 @@ await checkFixtures();
 }
 await checkCleanClonePresence();
 await checkDefaults();
+{
+  const { spawnSync } = await import("node:child_process");
+  const result = spawnSync(
+    process.execPath,
+    [path.join(repoRoot, "tools/contracts/check_schema_compatibility.mjs")],
+    { encoding: "utf8" },
+  );
+  if (result.status !== 0) {
+    fail(result.stderr || result.stdout || "schema compatibility check failed");
+  }
+}
 if (process.exitCode) {
   process.exit(process.exitCode);
 }

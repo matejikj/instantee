@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Locked compatibility examples. Each entry must either load (after any declared migration) or fail with a clear unsupported_schema / unknown_field error.",
+  "examples": [
+    {
+      "id": "authoring-minimal-current",
+      "path": "contracts/fixtures/authoring/positive/minimal.authoring.json",
+      "family": "authoring",
+      "expect": "load"
+    },
+    {
+      "id": "authoring-nested-hierarchy",
+      "path": "contracts/fixtures/authoring/positive/nested-hierarchy.authoring.json",
+      "family": "authoring",
+      "expect": "load"
+    },
+    {
+      "id": "authoring-legacy-0.9.0",
+      "path": "contracts/fixtures/authoring/migrations/from-0.9.0/input.authoring.json",
+      "family": "authoring",
+      "expect": "migrate_and_load",
+      "from_version": "0.9.0",
+      "to_version": "1.0.0"
+    },
+    {
+      "id": "authoring-unsupported-major",
+      "path": "contracts/fixtures/authoring/negative/unsupported-schema.authoring.json",
+      "family": "authoring",
+      "expect": "unsupported_schema",
+      "error_code": "unsupported_schema"
+    },
+    {
+      "id": "authoring-unsupported-0.8.0",
+      "path": "contracts/fixtures/compatibility/authoring-unsupported-0.8.0.authoring.json",
+      "family": "authoring",
+      "expect": "unsupported_schema",
+      "error_code": "unsupported_schema"
+    },
+    {
+      "id": "authoring-unknown-field",
+      "path": "contracts/fixtures/authoring/negative/unknown-field.authoring.json",
+      "family": "authoring",
+      "expect": "unknown_field",
+      "error_code": "unknown_field"
+    },
+    {
+      "id": "scene-ir-minimal-current",
+      "path": "contracts/fixtures/scene-ir/positive/minimal.scene.json",
+      "family": "scene-ir",
+      "expect": "load"
+    },
+    {
+      "id": "scene-ir-unsupported-0.9.0",
+      "path": "contracts/fixtures/compatibility/scene-ir-unsupported-0.9.0.scene.json",
+      "family": "scene-ir",
+      "expect": "unsupported_schema",
+      "error_code": "unsupported_schema"
+    }
+  ]
+}

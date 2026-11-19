@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.8.0",
+  "film_id": "legacy-locked",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "color": "rec709-sdr"
+  },
+  "frame_rate": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "seed": 42,
+  "style_package": "editorial@1",
+  "shots": [
+    {
+      "id": "intro",
+      "duration_frames": 30,
+      "nodes": [
+        {
+          "id": "headline",
+          "type": "text",
+          "text": "unsupported legacy"
+        }
+      ]
+    }
+  ]
+}

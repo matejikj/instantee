@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Normative supported-version matrix for Instantee data contracts. Loaders must accept current, migrate listed legacy versions, and reject everything else with unsupported_schema.",
+  "unknown_fields": {
+    "policy": "reject",
+    "error_code": "unknown_field",
+    "notes": "JSON Schema uses additionalProperties:false. C++ loaders reject unknown object keys before semantic validation."
+  },
+  "families": {
+    "authoring": {
+      "current": "1.0.0",
+      "schema": "schemas/authoring-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        },
+        {
+          "version": "0.9.0",
+          "status": "migratable",
+          "migrator": "migrate_authoring_json",
+          "fixture": "fixtures/authoring/migrations/from-0.9.0"
+        }
+      ],
+      "rejected_examples": [
+        "0.8.0",
+        "1.1.0",
+        "2.0.0",
+        "99.0.0"
+      ]
+    },
+    "scene-ir": {
+      "current": "1.0.0",
+      "schema": "schemas/scene-ir-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        }
+      ],
+      "rejected_examples": [
+        "0.9.0",
+        "1.1.0",
+        "2.0.0"
+      ],
+      "notes": "Older Scene IR documents are rejected until an explicit migrator and fixtures are added."
+    },
+    "style-bible": {
+      "current": "1.0.0",
+      "schema": "schemas/style-bible-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        }
+      ],
+      "rejected_examples": [
+        "0.9.0",
+        "1.1.0",
+        "2.0.0"
+      ]
+    },
+    "asset-lockfile": {
+      "current": "1.0.0",
+      "schema": "schemas/asset-lockfile-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        }
+      ],
+      "rejected_examples": [
+        "0.9.0",
+        "2.0.0"
+      ]
+    },
+    "puppet-rig": {
+      "current": "1.0.0",
+      "schema": "schemas/puppet-rig-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        }
+      ],
+      "rejected_examples": [
+        "0.9.0",
+        "2.0.0"
+      ]
+    },
+    "paper-material-params": {
+      "current": "1.0.0",
+      "schema": "schemas/paper-material-params-v1.schema.json",
+      "error_code": "unsupported_schema",
+      "supported": [
+        {
+          "version": "1.0.0",
+          "status": "current"
+        }
+      ],
+      "rejected_examples": [
+        "0.9.0",
+        "2.0.0"
+      ]
+    }
+  }
+}

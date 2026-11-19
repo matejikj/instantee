@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-18T23:54:13Z",
+  "updated_at_utc": "2026-11-19T00:07:15Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -6696,14 +6696,48 @@
       "notes": "Frozen C++ public header surface (163 headers): API linter covers forbidden imports, domain platform-token leaks, unintended impl headers, PRIVATE Apple/metal-cpp CMake visibility, and snapshot drift."
     },
     "P8-004": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Older locked examples load or fail with a clear unsupported-version error.",
-        "met": null
+        "criterion": "Star\u00e9 zam\u010den\u00e9 p\u0159\u00edklady se na\u010dtou nebo skon\u010d\u00ed jasnou unsupported-version chybou.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "locked-examples catalog load/migrate/unsupported/unknown_field outcomes",
+            "met": true,
+            "evidence": "contracts/compatibility/locked-examples-v1.json"
+          },
+          {
+            "criterion": "C++ compatibility suite drives catalog expectations",
+            "met": true,
+            "evidence": "implementation-evidence/P8-004/verification.json"
+          },
+          {
+            "criterion": "supported-version matrix and unknown_fields=reject policy",
+            "met": true,
+            "evidence": "contracts/compatibility/schema-version-matrix-v1.json"
+          },
+          {
+            "criterion": "check.py change-risk matrix",
+            "met": true,
+            "evidence": "implementation-evidence/P8-004/checks.json"
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-004/",
+        "contracts/compatibility/schema-version-matrix-v1.json",
+        "contracts/compatibility/locked-examples-v1.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-004/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Migration compatibility suite",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "completed_at_utc": "2026-11-19T00:07:15Z",
+      "notes": "Schema compatibility policy: version matrix, locked-examples catalog, authoring unknown_field rejection, classify_authoring_schema_version, C++/JS compatibility suites."
     },
     "P8-005": {
       "status": "todo",

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-19T00:15:08Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "6b0da29",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/README.md",
+    "contracts/VERSIONING.md",
+    "contracts/compatibility/locked-examples-v1.json",
+    "contracts/compatibility/schema-version-matrix-v1.json",
+    "contracts/fixtures/compatibility/authoring-unsupported-0.8.0.authoring.json",
+    "contracts/fixtures/compatibility/scene-ir-unsupported-0.9.0.scene.json",
+    "engine/src/scene-ir/include/instantee/scene_ir/migrate.hpp",
+    "engine/src/scene-ir/src/authoring_load.cpp",
+    "engine/src/scene-ir/src/migrate.cpp",
+    "engine/tests/unit/scene-ir/CMakeLists.txt",
+    "engine/tests/unit/scene-ir/compatibility_suite_test.cpp",
+    "tools/contracts/check_contracts.mjs",
+    "tools/contracts/check_schema_compatibility.mjs"
+  ],
+  "risks": [
+    "native",
+    "authoring"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/src/scene-ir/include/instantee/scene_ir/migrate.hpp engine/src/scene-ir/src/authoring_load.cpp engine/src/scene-ir/src/migrate.cpp engine/tests/unit/scene-ir/compatibility_suite_test.cpp",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 11.7
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/src/scene-ir/src/authoring_load.cpp engine/src/scene-ir/src/migrate.cpp engine/tests/unit/scene-ir/compatibility_suite_test.cpp",
+      "tool_version": "23.1.5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 6.6
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 36.1,
+      "tests": {
+        "total": 315,
+        "passed": 315,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 398.5,
+      "tests": {
+        "total": 322,
+        "passed": 322,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.2
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.1
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

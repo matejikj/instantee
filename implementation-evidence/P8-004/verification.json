@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "verification": "Migration compatibility suite",
+  "acceptance": "Staré zamčené příklady se načtou nebo skončí jasnou unsupported-version chybou.",
+  "matrix": "contracts/compatibility/schema-version-matrix-v1.json",
+  "catalog": "contracts/compatibility/locked-examples-v1.json",
+  "ctest": [
+    "spike_scene_ir_compatibility_suite",
+    "spike_scene_ir_migrate"
+  ],
+  "contracts_check": "tools/contracts/check_schema_compatibility.mjs",
+  "unknown_fields_policy": "reject",
+  "measurement": "none",
+  "evidence_tier": "A",
+  "result": "passed"
+}

@@ -157,6 +157,21 @@ parse_schema_semver(std::string_view text) {
   return SemVer{*major, *minor, *patch};
 }
 
+std::expected<SchemaVersionSupport, diagnostics::Error>
+classify_authoring_schema_version(std::string_view version) {
+  auto semver = parse_schema_semver(version);
+  if (!semver) {
+    return std::unexpected(semver.error());
+  }
+  if (version == kAuthoringSchemaCurrent) {
+    return SchemaVersionSupport::current;
+  }
+  if (version == kAuthoringSchemaLegacy090) {
+    return SchemaVersionSupport::migratable;
+  }
+  return SchemaVersionSupport::unsupported;
+}
+
 std::expected<std::string, diagnostics::Error>
 migrate_authoring_json(std::span<const std::byte> bytes) {
   if (bytes.empty()) {
@@ -183,21 +198,20 @@ migrate_authoring_json(std::span<const std::byte> bytes) {
   }
   const std::string_view version(yyjson_get_str(version_val),
                                  yyjson_get_len(version_val));
-  auto semver = parse_schema_semver(version);
-  if (!semver) {
-    return std::unexpected(semver.error());
+  auto support = classify_authoring_schema_version(version);
+  if (!support) {
+    return std::unexpected(support.error());
   }
-  if (semver->major != 0 && semver->major != 1) {
-    return std::unexpected(
-        err("unsupported_schema", "Unsupported authoring schema major version",
-            "/schema_version", diagnostics::ExitCode::incompatible_schema));
-  }
-  if (version == kAuthoringSchemaCurrent) {
+  switch (*support) {
+  case SchemaVersionSupport::current:
     return std::string(reinterpret_cast<const char *>(bytes.data()),
                        bytes.size());
-  }
-  if (version == kAuthoringSchemaLegacy090) {
+  case SchemaVersionSupport::migratable:
     return migrate_legacy_090(root);
+  case SchemaVersionSupport::unsupported:
+    return std::unexpected(
+        err("unsupported_schema", "Unsupported authoring schema_version",
+            "/schema_version", diagnostics::ExitCode::incompatible_schema));
   }
   return std::unexpected(
       err("unsupported_schema", "Unsupported authoring schema_version",

@@ -6,8 +6,11 @@
 
 #include <yyjson.h>
 
+#include <algorithm>
 #include <cmath>
+#include <span>
 #include <string>
+#include <string_view>
 #include <utility>
 
 namespace instantee::scene_ir {
@@ -28,6 +31,28 @@ std::string join(std::string_view base, std::string_view child) {
   }
   out.append(child);
   return out;
+}
+
+bool key_allowed(std::string_view key,
+                 std::span<const std::string_view> allowed) {
+  return std::find(allowed.begin(), allowed.end(), key) != allowed.end();
+}
+
+std::expected<void, diagnostics::Error>
+reject_unknown_keys(yyjson_val *obj, std::string_view json_path,
+                    std::span<const std::string_view> allowed) {
+  yyjson_obj_iter iter;
+  yyjson_obj_iter_init(obj, &iter);
+  yyjson_val *key = nullptr;
+  while ((key = yyjson_obj_iter_next(&iter)) != nullptr) {
+    const char *text = yyjson_get_str(key);
+    const std::string_view name = text != nullptr ? text : "";
+    if (!key_allowed(name, allowed)) {
+      return std::unexpected(
+          err("unknown_field", "Unknown object field", join(json_path, name)));
+    }
+  }
+  return {};
 }
 
 struct DocGuard {
@@ -69,6 +94,12 @@ req_uint(yyjson_val *obj, std::string_view key, std::string_view path,
 
 std::expected<AuthoringNode, diagnostics::Error>
 parse_node(yyjson_val *obj, std::string_view path) {
+  static constexpr std::string_view kNodeKeys[] = {
+      "id",        "type",     "text", "asset_id", "rig_id",   "shape",
+      "transform", "material", "role", "visible",  "children", "animations"};
+  if (auto unknown = reject_unknown_keys(obj, path, kNodeKeys); !unknown) {
+    return std::unexpected(unknown.error());
+  }
   AuthoringNode node;
   if (auto id = req_str(obj, "id", path); !id) {
     return std::unexpected(id.error());
@@ -94,8 +125,21 @@ parse_node(yyjson_val *obj, std::string_view path) {
   }
   if (yyjson_val *transform = yyjson_obj_get(obj, "transform");
       transform && yyjson_is_obj(transform)) {
+    static constexpr std::string_view kTransformKeys[] = {
+        "translate", "scale", "rotation_z_rad", "opacity", "pivot"};
+    if (auto unknown = reject_unknown_keys(transform, join(path, "transform"),
+                                           kTransformKeys);
+        !unknown) {
+      return std::unexpected(unknown.error());
+    }
     if (yyjson_val *translate = yyjson_obj_get(transform, "translate");
         translate && yyjson_is_obj(translate)) {
+      static constexpr std::string_view kVecKeys[] = {"x", "y", "z"};
+      if (auto unknown = reject_unknown_keys(
+              translate, join(path, "transform/translate"), kVecKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
       if (yyjson_val *x = yyjson_obj_get(translate, "x");
           x && yyjson_is_num(x)) {
         node.translate_x = yyjson_get_num(x);
@@ -124,6 +168,11 @@ parse_node(yyjson_val *obj, std::string_view path) {
       }
       const std::string anim_path =
           join(path, "animations/" + std::to_string(index));
+      static constexpr std::string_view kAnimKeys[] = {"property", "keyframes"};
+      if (auto unknown = reject_unknown_keys(anim, anim_path, kAnimKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
       AuthoringAnimation animation;
       if (auto property = req_str(anim, "property", anim_path); !property) {
         return std::unexpected(property.error());
@@ -149,6 +198,11 @@ parse_node(yyjson_val *obj, std::string_view path) {
         }
         const std::string kf_path =
             join(anim_path, "keyframes/" + std::to_string(kf_index));
+        static constexpr std::string_view kKeyframeKeys[] = {"frame", "value"};
+        if (auto unknown = reject_unknown_keys(kf, kf_path, kKeyframeKeys);
+            !unknown) {
+          return std::unexpected(unknown.error());
+        }
         AuthoringKeyframe keyframe;
         if (auto frame = req_uint(kf, "frame", kf_path, 0, 1000000); !frame) {
           return std::unexpected(frame.error());
@@ -198,6 +252,12 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
   if (!yyjson_is_obj(root)) {
     return std::unexpected(err("type_mismatch", "Root must be an object", "/"));
   }
+  static constexpr std::string_view kRootKeys[] = {
+      "schema_version", "film_id", "canvas", "frame_rate",  "seed",
+      "style",          "assets",  "rigs",   "transitions", "shots"};
+  if (auto unknown = reject_unknown_keys(root, "/", kRootKeys); !unknown) {
+    return std::unexpected(unknown.error());
+  }
   AuthoringDocument doc;
   if (auto schema = req_str(root, "schema_version", ""); !schema) {
     return std::unexpected(schema.error());
@@ -220,6 +280,12 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
     return std::unexpected(
         err("missing_field", "canvas is required", "/canvas"));
   }
+  static constexpr std::string_view kCanvasKeys[] = {"width", "height",
+                                                     "color"};
+  if (auto unknown = reject_unknown_keys(canvas, "/canvas", kCanvasKeys);
+      !unknown) {
+    return std::unexpected(unknown.error());
+  }
   if (auto w = req_uint(canvas, "width", "/canvas", 1, 16384); !w) {
     return std::unexpected(w.error());
   } else {
@@ -240,6 +306,11 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
   if (rate == nullptr || !yyjson_is_obj(rate)) {
     return std::unexpected(
         err("missing_field", "frame_rate is required", "/frame_rate"));
+  }
+  static constexpr std::string_view kRateKeys[] = {"numerator", "denominator"};
+  if (auto unknown = reject_unknown_keys(rate, "/frame_rate", kRateKeys);
+      !unknown) {
+    return std::unexpected(unknown.error());
   }
   auto num = req_uint(rate, "numerator", "/frame_rate", 1, 240000);
   auto den = req_uint(rate, "denominator", "/frame_rate", 1, 1001);
@@ -301,6 +372,12 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
       if (!yyjson_is_obj(tr_val)) {
         return std::unexpected(err("type_mismatch", "Expected object", tpath));
       }
+      static constexpr std::string_view kTransitionKeys[] = {
+          "id", "from_shot_id", "to_shot_id", "overlap_frames", "blend"};
+      if (auto unknown = reject_unknown_keys(tr_val, tpath, kTransitionKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
       AuthoringTransition transition;
       if (auto id = req_str(tr_val, "id", tpath); !id) {
         return std::unexpected(id.error());
@@ -347,6 +424,12 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
     if (!yyjson_is_obj(shot_val)) {
       return std::unexpected(err("type_mismatch", "Expected object", spath));
     }
+    static constexpr std::string_view kShotKeys[] = {
+        "id", "duration_frames", "style_override", "intent", "camera", "nodes"};
+    if (auto unknown = reject_unknown_keys(shot_val, spath, kShotKeys);
+        !unknown) {
+      return std::unexpected(unknown.error());
+    }
     AuthoringShot shot;
     if (auto id = req_str(shot_val, "id", spath); !id) {
       return std::unexpected(id.error());
@@ -365,8 +448,29 @@ std::expected<AuthoringDocument, diagnostics::Error> decode(yyjson_val *root) {
       shot.style_override = std::string(yyjson_get_str(style_override),
                                         yyjson_get_len(style_override));
     }
+    if (yyjson_val *camera = yyjson_obj_get(shot_val, "camera");
+        camera != nullptr) {
+      if (!yyjson_is_obj(camera)) {
+        return std::unexpected(err("type_mismatch", "camera must be an object",
+                                   join(spath, "camera")));
+      }
+      static constexpr std::string_view kCameraKeys[] = {
+          "projection", "near", "far", "fov_y_rad", "preset", "transform"};
+      if (auto unknown =
+              reject_unknown_keys(camera, join(spath, "camera"), kCameraKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
+    }
     if (yyjson_val *intent = yyjson_obj_get(shot_val, "intent");
         intent && yyjson_is_obj(intent)) {
+      static constexpr std::string_view kIntentKeys[] = {
+          "type", "intensity", "importance", "target_ids"};
+      if (auto unknown =
+              reject_unknown_keys(intent, join(spath, "intent"), kIntentKeys);
+          !unknown) {
+        return std::unexpected(unknown.error());
+      }
       AuthoringIntent value;
       if (auto type = req_str(intent, "type", join(spath, "intent")); !type) {
         return std::unexpected(type.error());

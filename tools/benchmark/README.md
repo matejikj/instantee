@@ -39,7 +39,7 @@ set them explicitly in a run profile for longer exports.
 python3 tools/benchmark/measure.py build/release/spike-export-metrics \
   /tmp/instantee-measured-run --profile /tmp/measurement-profile.json \
   --frames 30 --telemetry on \
-  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+  --schema contracts/schemas/performance-report-v1.schema.json
 ```
 
 The profile must contain exactly the allowlisted `machine_profile`,
@@ -47,8 +47,10 @@ The profile must contain exactly the allowlisted `machine_profile`,
 verified technical values without personal paths or device identifiers, and pin
 the real binary hash, compiler flags, dependency/shader hashes and dirty source
 identity before measurement. No ambient machine identity or environment is
-collected. A schema check requires Python `jsonschema`; the optional local design
-pack supplies the schema. Regular workspace tests do not require that pack.
+collected. Structural checks prefer `contracts/schemas/performance-report-v1.schema.json`
+(with a design-pack fallback) and use Python `jsonschema` when installed; the
+semantic harness in `performance_report.py` always applies protocol invariants.
+Regular workspace tests do not require `jsonschema`.
 The child emits its actual sanitizer mode. A sanitizer build is a diagnostic run;
 no standalone report certifies performance. RSS budget and p99/CPU thresholds in
 this feasibility profile remain proposed/unlocked.
@@ -126,7 +128,7 @@ Run three alternating overhead pairs with:
 ```sh
 python3 tools/benchmark/compare.py build/release/spike-export-metrics \
   /tmp/instantee-overhead --profile /tmp/measurement-profile.json --frames 30 \
-  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+  --schema contracts/schemas/performance-report-v1.schema.json
 ```
 
 All six bundles remain available. The comparison refuses sanitized or incomplete
@@ -140,7 +142,7 @@ Lock a B-00 profile (`workload.id=B-00-test-pattern-60s-v1`, 1800 frames,
 ```sh
 python3 tools/benchmark/baseline.py build/release/spike-export-metrics \
   /tmp/instantee-b00-baseline --profile /tmp/b00-profile.json \
-  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+  --schema contracts/schemas/performance-report-v1.schema.json
 ```
 
 The series executes at least three cold and three warm measured processes with
@@ -161,7 +163,7 @@ same feasibility-baseline quality tier) before the first endurance series:
 ```sh
 python3 tools/benchmark/endurance.py build/release/spike-export-metrics \
   /tmp/instantee-b00-endurance --profile /tmp/b00-300-profile.json \
-  --schema motion_framework_sas/schemas/performance-report-v1.schema.json
+  --schema contracts/schemas/performance-report-v1.schema.json
 ```
 
 Each measured process keeps telemetry on and records RSS/footprint/CPU resource

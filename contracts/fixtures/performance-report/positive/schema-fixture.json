@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "1.0.0",
+  "run_id": "unmeasured-schema-fixture",
+  "evidence_kind": "schema_fixture",
+  "result": "not_run",
+  "certified": false,
+  "machine_profile": null,
+  "build_profile": null,
+  "workload": {
+    "id": "B-00-planned",
+    "scene_sha256": null,
+    "asset_lock_sha256": null,
+    "duration_frames": 1800,
+    "width": 1080,
+    "height": 1920,
+    "frame_rate": {
+      "numerator": 30,
+      "denominator": 1
+    },
+    "seed_decimal": "42",
+    "quality_tier": "proposed-not-certified",
+    "encoder_profile": "h264-rec709-sdr-proposed"
+  },
+  "runtime_config": {
+    "workers": 2,
+    "frame_credits_k": 3,
+    "encoder_pool_e": 3,
+    "queue_capacity": 3,
+    "p99_limit_ns": null,
+    "rss_budget_bytes": 6442450944,
+    "cpu_baseline_seconds_per_frame": null,
+    "durability_mode": "atomic_visibility",
+    "conformance_mode": "full_decode",
+    "validation_mode": "disabled",
+    "telemetry_period_ms": 100
+  },
+  "cache_mode": "cold",
+  "frames": {
+    "scheduled": 0,
+    "admitted": 0,
+    "accepted": 0,
+    "verified": 0,
+    "failed": 0,
+    "cancelled": 0
+  },
+  "metrics": null,
+  "output": {
+    "published": false,
+    "achieved_durability": "not_requested",
+    "video_uri": null
+  },
+  "child_exit_code": null,
+  "artifacts": []
+}

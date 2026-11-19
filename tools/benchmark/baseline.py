@@ -37,32 +37,15 @@ def thermal_snapshot():
 
 
 def validate_report_structure(report, schema_path=None):
-    """Prefer jsonschema when available; otherwise check required report shape."""
-    if schema_path is not None:
-        try:
-            from jsonschema import Draft202012Validator
-        except ImportError:
-            Draft202012Validator = None
-        if Draft202012Validator is not None:
-            if not Draft202012Validator(read_json(schema_path)).is_valid(report):
-                raise ValueError("performance report schema validation failed")
-            return
-    required = ("schema_version", "protocol_version", "run_id", "evidence_kind",
-                "result", "certified", "machine_profile", "build_profile", "workload",
-                "runtime_config", "cache_mode", "frames", "metrics", "output",
-                "child_exit_code", "artifacts")
-    if any(key not in report for key in required):
-        raise ValueError("performance report missing required fields")
-    if report["schema_version"] != "1.0.0" or report["protocol_version"] != "1.0.0":
-        raise ValueError("unexpected performance report version")
-    if report["certified"] is not False or report["evidence_kind"] != "measured":
+    """Structural + semantic harness checks; baselines must stay measured/uncertified."""
+    from performance_report import PerformanceReportError, validate_performance_report
+
+    try:
+        validate_performance_report(report, schema_path=schema_path)
+    except PerformanceReportError as exc:
+        raise ValueError(str(exc)) from exc
+    if report.get("evidence_kind") != "measured" or report.get("certified") is not False:
         raise ValueError("baseline reports must be measured and uncertified")
-    if report["cache_mode"] not in ("cold", "warm"):
-        raise ValueError("invalid cache_mode")
-    frames = report["frames"]
-    for key in ("scheduled", "admitted", "accepted", "verified", "failed", "cancelled"):
-        if type(frames.get(key)) is not int:
-            raise ValueError("frame counters must be integers")
 
 
 def trial_pass(report, expected):

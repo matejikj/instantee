@@ -1,0 +1,868 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://instantee.local/contracts/schemas/performance-report-v1.schema.json",
+  "title": "Instantee performance run report v1",
+  "description": "Structural run report only. Arithmetic, sample completeness, artifact integrity and series release certification require semantic/harness checks. A single report cannot self-certify.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "run_id",
+    "evidence_kind",
+    "result",
+    "certified",
+    "machine_profile",
+    "build_profile",
+    "workload",
+    "runtime_config",
+    "cache_mode",
+    "frames",
+    "metrics",
+    "output",
+    "child_exit_code",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "protocol_version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_kind": {
+      "enum": [
+        "schema_fixture",
+        "measured"
+      ]
+    },
+    "result": {
+      "enum": [
+        "not_run",
+        "success",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "certified": {
+      "const": false
+    },
+    "machine_profile": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "os_build",
+            "logical_cpu_count",
+            "gpu_cores",
+            "ram_bytes",
+            "filesystem",
+            "power_mode",
+            "thermal_state_start",
+            "thermal_state_end"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "os_build": {
+              "type": "string",
+              "minLength": 1
+            },
+            "logical_cpu_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "gpu_cores": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "ram_bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "filesystem": {
+              "type": "string",
+              "minLength": 1
+            },
+            "power_mode": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thermal_state_start": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thermal_state_end": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "build_profile": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_revision",
+            "source_dirty",
+            "source_diff_sha256",
+            "binary_sha256",
+            "toolchain_id",
+            "compiler_flags",
+            "dependency_lock_sha256",
+            "shaders_sha256"
+          ],
+          "properties": {
+            "source_revision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_dirty": {
+              "type": "boolean"
+            },
+            "source_diff_sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "binary_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "toolchain_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "compiler_flags": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "dependency_lock_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "shaders_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "workload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "scene_sha256",
+        "asset_lock_sha256",
+        "duration_frames",
+        "width",
+        "height",
+        "frame_rate",
+        "seed_decimal",
+        "quality_tier",
+        "encoder_profile"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scene_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "asset_lock_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration_frames": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "frame_rate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "numerator",
+            "denominator"
+          ],
+          "properties": {
+            "numerator": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "seed_decimal": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "quality_tier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "encoder_profile": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "runtime_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workers",
+        "frame_credits_k",
+        "encoder_pool_e",
+        "queue_capacity",
+        "p99_limit_ns",
+        "rss_budget_bytes",
+        "cpu_baseline_seconds_per_frame",
+        "durability_mode",
+        "conformance_mode",
+        "validation_mode",
+        "telemetry_period_ms"
+      ],
+      "properties": {
+        "workers": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "frame_credits_k": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "encoder_pool_e": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "queue_capacity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "p99_limit_ns": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rss_budget_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cpu_baseline_seconds_per_frame": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durability_mode": {
+          "enum": [
+            "atomic_visibility",
+            "durable_local"
+          ]
+        },
+        "conformance_mode": {
+          "enum": [
+            "metadata",
+            "full_decode"
+          ]
+        },
+        "validation_mode": {
+          "enum": [
+            "disabled",
+            "metal_validation",
+            "sanitizer"
+          ]
+        },
+        "telemetry_period_ms": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "cache_mode": {
+      "enum": [
+        "cold",
+        "warm"
+      ]
+    },
+    "frames": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheduled",
+        "admitted",
+        "accepted",
+        "verified",
+        "failed",
+        "cancelled"
+      ],
+      "properties": {
+        "scheduled": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "admitted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "accepted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "verified": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cancelled": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "metrics": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "export_wall_ms",
+            "effective_fps",
+            "frame_latency_ns",
+            "cpu",
+            "memory",
+            "in_flight_peak",
+            "encoder_pool_peak",
+            "queue_peak",
+            "lost_samples",
+            "gpu_device_time_ns",
+            "finalize_ms",
+            "phase_times_ms"
+          ],
+          "properties": {
+            "export_wall_ms": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "effective_fps": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "frame_latency_ns": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "sample_count",
+                    "min",
+                    "p50",
+                    "p95",
+                    "p99",
+                    "max",
+                    "method",
+                    "interval",
+                    "unit"
+                  ],
+                  "properties": {
+                    "sample_count": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "min": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "p50": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "p95": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "p99": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "max": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "method": {
+                      "const": "exact_nearest_rank"
+                    },
+                    "interval": {
+                      "const": "request_before_admission_to_sink_accepted"
+                    },
+                    "unit": {
+                      "const": "ns"
+                    }
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cpu": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "user_ns",
+                "system_ns",
+                "source",
+                "scope",
+                "core_equivalents",
+                "percent_one_core",
+                "percent_machine",
+                "seconds_per_verified_frame"
+              ],
+              "properties": {
+                "user_ns": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "system_ns": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "scope": {
+                  "const": "renderer_process_all_threads"
+                },
+                "core_equivalents": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "percent_one_core": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "percent_machine": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "seconds_per_verified_frame": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            },
+            "memory": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "rss_peak_bytes",
+                "rss_source",
+                "unit",
+                "physical_footprint_peak_bytes",
+                "gpu_allocated_estimate_bytes"
+              ],
+              "properties": {
+                "rss_peak_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "rss_source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit": {
+                  "const": "bytes"
+                },
+                "physical_footprint_peak_bytes": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "gpu_allocated_estimate_bytes": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            },
+            "in_flight_peak": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "encoder_pool_peak": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "queue_peak": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lost_samples": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "gpu_device_time_ns": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "finalize_ms": {
+              "type": "number",
+              "minimum": 0
+            },
+            "phase_times_ms": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "published",
+        "achieved_durability",
+        "video_uri"
+      ],
+      "properties": {
+        "published": {
+          "type": "boolean"
+        },
+        "achieved_durability": {
+          "enum": [
+            "not_requested",
+            "atomic_visibility",
+            "durable_local",
+            "unknown"
+          ]
+        },
+        "video_uri": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?:reports|output)/[a-zA-Z0-9_./-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "child_exit_code": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "uri",
+          "sha256"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "latency_samples",
+              "resource_samples",
+              "child_report"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "pattern": "^(?:reports|output)/[a-zA-Z0-9_./-]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "const": "schema_fixture"
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "const": "not_run"
+          },
+          "metrics": {
+            "type": "null"
+          },
+          "machine_profile": {
+            "type": "null"
+          },
+          "build_profile": {
+            "type": "null"
+          },
+          "child_exit_code": {
+            "type": "null"
+          },
+          "output": {
+            "type": "object",
+            "properties": {
+              "published": {
+                "const": false
+              },
+              "achieved_durability": {
+                "const": "not_requested"
+              },
+              "video_uri": {
+                "type": "null"
+              }
+            }
+          },
+          "artifacts": {
+            "type": "array",
+            "maxItems": 0
+          },
+          "frames": {
+            "type": "object",
+            "properties": {
+              "scheduled": {
+                "const": 0
+              },
+              "admitted": {
+                "const": 0
+              },
+              "accepted": {
+                "const": 0
+              },
+              "verified": {
+                "const": 0
+              },
+              "failed": {
+                "const": 0
+              },
+              "cancelled": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "const": "measured"
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "enum": [
+              "success",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "machine_profile": {
+            "type": "object"
+          },
+          "build_profile": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "success"
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "evidence_kind": {
+            "const": "measured"
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "effective_fps": {
+                "type": "number"
+              },
+              "frame_latency_ns": {
+                "type": "object"
+              },
+              "lost_samples": {
+                "const": 0
+              }
+            }
+          },
+          "child_exit_code": {
+            "const": 0
+          },
+          "output": {
+            "type": "object",
+            "properties": {
+              "published": {
+                "const": true
+              },
+              "achieved_durability": {
+                "enum": [
+                  "atomic_visibility",
+                  "durable_local"
+                ]
+              },
+              "video_uri": {
+                "type": "string"
+              }
+            }
+          },
+          "workload": {
+            "type": "object",
+            "properties": {
+              "scene_sha256": {
+                "type": "string"
+              },
+              "asset_lock_sha256": {
+                "type": "string"
+              }
+            }
+          },
+          "artifacts": {
+            "type": "array",
+            "minItems": 2
+          }
+        }
+      }
+    }
+  ]
+}

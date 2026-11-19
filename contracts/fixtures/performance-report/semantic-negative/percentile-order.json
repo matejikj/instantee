@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "1.0.0",
+  "run_id": "measured-success-min",
+  "evidence_kind": "measured",
+  "result": "success",
+  "certified": false,
+  "machine_profile": {
+    "model": "Apple M1",
+    "os_build": "24A335",
+    "logical_cpu_count": 8,
+    "gpu_cores": 8,
+    "ram_bytes": 17179869184,
+    "filesystem": "apfs",
+    "power_mode": "ac",
+    "thermal_state_start": "nominal",
+    "thermal_state_end": "nominal"
+  },
+  "build_profile": {
+    "source_revision": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+    "source_dirty": false,
+    "source_diff_sha256": null,
+    "binary_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "toolchain_id": "appleclang-15-macosx-arm64",
+    "compiler_flags": [
+      "-O3",
+      "-std=c++23"
+    ],
+    "dependency_lock_sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+    "shaders_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "workload": {
+    "id": "B-00-test-pattern-60s-v1",
+    "scene_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "asset_lock_sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+    "duration_frames": 1800,
+    "width": 1080,
+    "height": 1920,
+    "frame_rate": {
+      "numerator": 30,
+      "denominator": 1
+    },
+    "seed_decimal": "42",
+    "quality_tier": "proposed-not-certified",
+    "encoder_profile": "h264-rec709-sdr-proposed"
+  },
+  "runtime_config": {
+    "workers": 1,
+    "frame_credits_k": 2,
+    "encoder_pool_e": 8,
+    "queue_capacity": 1,
+    "p99_limit_ns": 200000000,
+    "rss_budget_bytes": 6442450944,
+    "cpu_baseline_seconds_per_frame": 0.05,
+    "durability_mode": "atomic_visibility",
+    "conformance_mode": "full_decode",
+    "validation_mode": "disabled",
+    "telemetry_period_ms": 100
+  },
+  "cache_mode": "cold",
+  "frames": {
+    "scheduled": 1800,
+    "admitted": 1800,
+    "accepted": 1800,
+    "verified": 1800,
+    "failed": 0,
+    "cancelled": 0
+  },
+  "metrics": {
+    "export_wall_ms": 60000.0,
+    "effective_fps": 30.0,
+    "frame_latency_ns": {
+      "sample_count": 1800,
+      "min": 1000000,
+      "p50": 16000000,
+      "p95": 12000000,
+      "p99": 15000000,
+      "max": 20000000,
+      "method": "exact_nearest_rank",
+      "interval": "request_before_admission_to_sink_accepted",
+      "unit": "ns"
+    },
+    "cpu": {
+      "user_ns": 90000000000,
+      "system_ns": 30000000000,
+      "source": "Darwin wait4 rusage timeval",
+      "scope": "renderer_process_all_threads",
+      "core_equivalents": 2.0,
+      "percent_one_core": 200.0,
+      "percent_machine": 25.0,
+      "seconds_per_verified_frame": 0.06666666666666667
+    },
+    "memory": {
+      "rss_peak_bytes": 512000000,
+      "rss_source": "Darwin wait4 ru_maxrss",
+      "unit": "bytes",
+      "physical_footprint_peak_bytes": 480000000,
+      "gpu_allocated_estimate_bytes": null
+    },
+    "in_flight_peak": 2,
+    "encoder_pool_peak": 8,
+    "queue_peak": 1,
+    "lost_samples": 0,
+    "gpu_device_time_ns": null,
+    "finalize_ms": 12.5,
+    "phase_times_ms": {
+      "encode": 10.0
+    }
+  },
+  "output": {
+    "published": true,
+    "achieved_durability": "atomic_visibility",
+    "video_uri": "output/output.mp4"
+  },
+  "child_exit_code": 0,
+  "artifacts": [
+    {
+      "kind": "latency_samples",
+      "uri": "output/frames.json",
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    },
+    {
+      "kind": "resource_samples",
+      "uri": "output/resources.json",
+      "sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+    },
+    {
+      "kind": "child_report",
+      "uri": "output/child.json",
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    }
+  ]
+}

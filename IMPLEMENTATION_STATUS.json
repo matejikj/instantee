@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T06:20:00Z",
+  "updated_at_utc": "2026-11-19T17:54:43Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7283,14 +7283,25 @@
       "notes": "Adapter compatibility probe; V1 timed_sample_buffer; receiver detected but unbound; writer failure codes."
     },
     "P8-019": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Measured evidence is distinguished from design fixtures; inconsistent counts/formulas/quantiles or missing mandatory metrics invalidate certification.",
-        "met": null
+        "met": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-019/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-019/checks.json"
+      ],
+      "blockers": [],
+      "verification": "Report schema fixture",
+      "delivery_slice": null,
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "evidence_tier": "A",
+      "completed_at_utc": "2026-11-19T17:54:43Z",
+      "notes": "Production performance-report schema under contracts/; semantic harness distinguishes schema fixtures from measured reports and rejects inconsistent counts/formulas/quantiles for certification eligibility."
     },
     "P8-020": {
       "status": "todo",

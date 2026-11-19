@@ -130,11 +130,18 @@ async function checkFixtures() {
   const puppetRigSchema = JSON.parse(
     await readFile(path.join(schemasDir, "puppet-rig-v1.schema.json"), "utf8"),
   );
+  const performanceReportSchema = JSON.parse(
+    await readFile(
+      path.join(schemasDir, "performance-report-v1.schema.json"),
+      "utf8",
+    ),
+  );
   const validateAuthoring = ajv.compile(authoringSchema);
   const validateScene = ajv.compile(sceneSchema);
   const validateStyleBible = ajv.compile(styleBibleSchema);
   const validatePaperMaterial = ajv.compile(paperMaterialSchema);
   const validatePuppetRig = ajv.compile(puppetRigSchema);
+  const validatePerformanceReport = ajv.compile(performanceReportSchema);
 
   const suites = [
     {
@@ -172,6 +179,17 @@ async function checkFixtures() {
       positive: path.join(fixturesRoot, "puppet-rig/positive"),
       negative: path.join(fixturesRoot, "puppet-rig/negative"),
       semanticNegative: path.join(fixturesRoot, "puppet-rig/semantic-negative"),
+    },
+    {
+      kind: "performance-report",
+      validate: validatePerformanceReport,
+      requireSeed: false,
+      positive: path.join(fixturesRoot, "performance-report/positive"),
+      negative: path.join(fixturesRoot, "performance-report/negative"),
+      semanticNegative: path.join(
+        fixturesRoot,
+        "performance-report/semantic-negative",
+      ),
     },
   ];
 
@@ -252,10 +270,15 @@ async function checkCleanClonePresence() {
     "contracts/schemas/release-asset-lock-v1.schema.json",
     "contracts/release/release-asset-lock-v1.json",
     "contracts/schemas/puppet-rig-v1.schema.json",
+    "contracts/schemas/performance-report-v1.schema.json",
     "contracts/defaults/v1.defaults.json",
     "contracts/fixtures/puppet-rig/positive/paper-human-basic.json",
     "contracts/fixtures/puppet-rig/negative/unsupported-retarget.json",
     "contracts/fixtures/puppet-rig/semantic-negative/cyclic-parent.json",
+    "contracts/fixtures/performance-report/positive/schema-fixture.json",
+    "contracts/fixtures/performance-report/positive/measured-success-min.json",
+    "contracts/fixtures/performance-report/negative/missing-metrics.json",
+    "contracts/fixtures/performance-report/semantic-negative/throughput-mismatch.json",
     "contracts/fixtures/authoring/positive/minimal.authoring.json",
     "contracts/fixtures/authoring/positive/cds-sdk-intents.authoring.json",
     "contracts/fixtures/authoring/positive/unicode-ids.authoring.json",

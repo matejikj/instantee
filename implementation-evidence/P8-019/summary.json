@@ -1,0 +1,12 @@
+{
+  "verification": "Report schema fixture",
+  "measurement": "none",
+  "schema": "contracts/schemas/performance-report-v1.schema.json",
+  "fixtures_root": "contracts/fixtures/performance-report",
+  "harness": "tools/benchmark/performance_report.py",
+  "notes": [
+    "Measured vs schema_fixture distinguished; single-run certified=false.",
+    "Semantic negatives remain schema-valid and invalidate certification eligibility.",
+    "Ajv strictTypes finalized on conditional then-branches (type object/array)."
+  ]
+}

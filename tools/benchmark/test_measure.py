@@ -193,11 +193,15 @@ class MetricOracleTests(unittest.TestCase):
         self.assertEqual(derive_metrics(child, frames, resources, outer, 3, 8), (None, False))
 
     @unittest.skipUnless(importlib.util.find_spec('jsonschema') and
-                         (ROOT / 'motion_framework_sas/schemas/performance-report-v1.schema.json').is_file(),
+                         ((ROOT / 'contracts/schemas/performance-report-v1.schema.json').is_file() or
+                          (ROOT / 'motion_framework_sas/schemas/performance-report-v1.schema.json').is_file()),
                          'optional local report schema and jsonschema required')
     def test_metrics_schema(self):
         import jsonschema
-        schema = json.loads((ROOT / 'motion_framework_sas/schemas/performance-report-v1.schema.json').read_text())
+        schema_path = ROOT / 'contracts/schemas/performance-report-v1.schema.json'
+        if not schema_path.is_file():
+            schema_path = ROOT / 'motion_framework_sas/schemas/performance-report-v1.schema.json'
+        schema = json.loads(schema_path.read_text())
         metrics, _ = derive_metrics(*fixture(), 3, 8)
         jsonschema.Draft202012Validator(schema['properties']['metrics']).validate(metrics)
         metrics['gpu_device_time_ns'] = -1

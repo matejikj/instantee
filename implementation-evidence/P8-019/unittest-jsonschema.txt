@@ -1,0 +1,15 @@
+test_default_schema_prefers_contracts_copy (test_performance_report.PerformanceReportHarnessTest.test_default_schema_prefers_contracts_copy) ... ok
+test_jsonschema_backend_accepts_positive_fixtures (test_performance_report.PerformanceReportHarnessTest.test_jsonschema_backend_accepts_positive_fixtures) ... ok
+test_jsonschema_backend_rejects_schema_negative (test_performance_report.PerformanceReportHarnessTest.test_jsonschema_backend_rejects_schema_negative) ... ok
+test_measured_distinguished_from_fixture_mutation (test_performance_report.PerformanceReportHarnessTest.test_measured_distinguished_from_fixture_mutation) ... ok
+test_measured_success_is_semantically_consistent (test_performance_report.PerformanceReportHarnessTest.test_measured_success_is_semantically_consistent) ... ok
+test_schema_fixture_is_not_certification_evidence (test_performance_report.PerformanceReportHarnessTest.test_schema_fixture_is_not_certification_evidence) ... ok
+test_schema_negative_missing_metrics (test_performance_report.PerformanceReportHarnessTest.test_schema_negative_missing_metrics) ... ok
+test_semantic_negatives_invalidate_certification (test_performance_report.PerformanceReportHarnessTest.test_semantic_negatives_invalidate_certification) ... ok
+test_semantic_negatives_remain_schema_valid (test_performance_report.PerformanceReportHarnessTest.test_semantic_negatives_remain_schema_valid) ... ok
+test_single_run_cannot_self_certify (test_performance_report.PerformanceReportHarnessTest.test_single_run_cannot_self_certify) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.090s
+
+OK

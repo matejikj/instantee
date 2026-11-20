@@ -1,0 +1,8 @@
+{
+  "verification": "B-01/B-02/B-03 certificate",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "certificate_pass": true,
+  "threshold_gate": true,
+  "run_reports_certified": false
+}

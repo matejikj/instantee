@@ -1,0 +1,58 @@
+{
+  "machine_profile": {
+    "model": "MacBookAir10,1",
+    "os_build": "27.2.1",
+    "logical_cpu_count": 8,
+    "gpu_cores": 7,
+    "ram_bytes": 17179869184,
+    "filesystem": "apfs",
+    "power_mode": "normal",
+    "thermal_state_start": "nominal",
+    "thermal_state_end": "unobserved_per_trial"
+  },
+  "build_profile": {
+    "source_revision": "2f3b6372da4ab0a1c1493e17c0a9437faa3f3592",
+    "source_dirty": true,
+    "source_diff_sha256": "b8a82efa56c802e8e8d0df00d36fccc9b3673d34c1112741a8d25305db7f5df3",
+    "binary_sha256": "65c8c35fd44d991e04eb8326db12991bd396eb9c8bfce22bbe8ebc026e727f3c",
+    "toolchain_id": "pinned-native-arm64-cpp23",
+    "compiler_flags": [
+      "-DINSTANTEE_METRICS_VALIDATION=\"disabled\"",
+      "-fobjc-arc",
+      "-O2",
+      "-g",
+      "-DNDEBUG",
+      "-std=c++23",
+      "-arch=arm64",
+      "-mmacosx-version-min=27.2.1",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pedantic-errors"
+    ],
+    "dependency_lock_sha256": "49fdb39f04a03439dfba43e325fb32750e78228e7524c331021d1c2df838c980",
+    "shaders_sha256": "50e8fe463e42e5232d27e53145587e14aeafd7a993d3e45b00d9c4bbfa3037ab"
+  },
+  "workload": {
+    "id": "B-01-editorial-news-reel-60s-v1",
+    "scene_sha256": "73d1acf8bfb2fa462c8bbd04cd57684f543131ca1443407cb03b732f4a55d910",
+    "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
+    "duration_frames": 1800,
+    "width": 1080,
+    "height": 1920,
+    "frame_rate": {
+      "numerator": 30,
+      "denominator": 1
+    },
+    "seed_decimal": "42",
+    "quality_tier": "editorial-b01-v1",
+    "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder"
+  },
+  "thresholds": {
+    "source_adr": "ADR-0014/editorial-b01-v1",
+    "export_wall_ms_max": 360000,
+    "frame_latency_p99_ns_max": 180000000,
+    "rss_peak_bytes_max": 268435456,
+    "cpu_seconds_per_verified_frame_max": 0.12
+  }
+}

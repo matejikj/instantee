@@ -186,6 +186,31 @@ Regression must compare the same `workload_id` and pinned digests. Changing a
 scene, asset lock, style bible, or catalog digest without a new workload id
 fails closed. B-04/B-05 locks exist before their first measurement runs.
 
+### B-01/B-02/B-03 60 s style certificate
+
+Run a fresh 3+3 cold/warm series for each locked style reel, then assemble the
+shared threshold certificate (individual run reports stay `certified=false`):
+
+```sh
+cmake --build --preset release --target \
+  spike-b01-editorial-export spike-b02-notebook-export spike-b03-paper-export
+python3 tools/benchmark/make_b01_profile.py \
+  build/release/spike-b01-editorial-export /tmp/b01-profile.json
+python3 tools/benchmark/b01_baseline.py \
+  build/release/spike-b01-editorial-export /tmp/b01-series \
+  --profile /tmp/b01-profile.json \
+  --schema contracts/schemas/performance-report-v1.schema.json
+# …repeat for B-02 and B-03 with their binaries/profiles…
+python3 tools/benchmark/style_certificate.py \
+  --b01 /tmp/b01-series/baseline.json \
+  --b02 /tmp/b02-series/baseline.json \
+  --b03 /tmp/b03-series/baseline.json \
+  --out /tmp/b01-b03-certificate.json
+```
+
+Every valid cold trial must meet `export_wall_ms ≤ 360000`. Null p99, RSS, or
+CPU ceilings FAIL. Median/min/max are summary only; slow runs are retained.
+
 ### B-04 mixed 300 s reference series
 
 ```sh

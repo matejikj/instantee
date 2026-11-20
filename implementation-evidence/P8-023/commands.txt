@@ -1,0 +1,9 @@
+cmake --build --preset release --target spike-b01-editorial-export spike-b02-notebook-export spike-b03-paper-export
+python3 tools/benchmark/make_b01_profile.py build/release/spike-b01-editorial-export /tmp/b01-profile.json
+python3 tools/benchmark/b01_baseline.py build/release/spike-b01-editorial-export /tmp/b01-series --profile /tmp/b01-profile.json --schema contracts/schemas/performance-report-v1.schema.json --timeout 900
+python3 tools/benchmark/make_b02_profile.py build/release/spike-b02-notebook-export /tmp/b02-profile.json
+python3 tools/benchmark/b02_baseline.py build/release/spike-b02-notebook-export /tmp/b02-series --profile /tmp/b02-profile.json --schema contracts/schemas/performance-report-v1.schema.json --timeout 900
+python3 tools/benchmark/make_b03_profile.py build/release/spike-b03-paper-export /tmp/b03-profile.json
+python3 tools/benchmark/b03_baseline.py build/release/spike-b03-paper-export /tmp/b03-series --profile /tmp/b03-profile.json --schema contracts/schemas/performance-report-v1.schema.json --timeout 900
+python3 tools/benchmark/style_certificate.py --b01 /tmp/b01-series/baseline.json --b02 /tmp/b02-series/baseline.json --b03 /tmp/b03-series/baseline.json --out /tmp/b01-b03-certificate.json
+python3 tools/dev/check.py --report implementation-evidence/P8-023/checks.json

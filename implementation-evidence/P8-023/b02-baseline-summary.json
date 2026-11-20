@@ -1,0 +1,123 @@
+{
+  "evidence_kind": "b02_60s_cold_warm_reference_series",
+  "certified": false,
+  "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+  "frames_per_trial": 1800,
+  "profile_sha256": "f082a1a7a451f6ac17ea21f567a4a6aad53e5665ee21fccf73d25293a5aff1cf",
+  "thresholds": {
+    "source_adr": "ADR-0014/notebook-b02-v1",
+    "export_wall_ms_max": 360000,
+    "frame_latency_p99_ns_max": 280000000,
+    "rss_peak_bytes_max": 268435456,
+    "cpu_seconds_per_verified_frame_max": 0.18
+  },
+  "series_pass": true,
+  "cold_wall_within_360s": true,
+  "cold_pass_count": 3,
+  "warm_pass_count": 3,
+  "summary": {
+    "cold_median_export_wall_ms": 249674.9195,
+    "warm_median_export_wall_ms": 250476.919542,
+    "cold_median_p99_ns": 174245167,
+    "warm_median_p99_ns": 173100750,
+    "cold_median_rss_peak_bytes": 120061952,
+    "warm_median_rss_peak_bytes": 120078336,
+    "cold_median_cpu_seconds_per_verified_frame": 0.14061696944444443,
+    "warm_median_cpu_seconds_per_verified_frame": 0.14096762055555556
+  },
+  "decision": {
+    "demo_render": "framework-native Scene IR \u2192 preview raster \u2192 Apple VideoSink MP4",
+    "external_video_assembly": false,
+    "threshold_gate": true,
+    "throughput_claim": "notebook-b02-v1 ceilings from ADR-0014; run reports remain certified=false",
+    "notes": [
+      "Every cold trial must meet export_wall_ms \u2264 360000",
+      "Unknown/null thresholds FAIL",
+      "Machine identity fields are allowlisted model/OS facts only"
+    ]
+  },
+  "runs": [
+    {
+      "run_id": "cold-00",
+      "cache_mode": "cold",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 249426.8775,
+      "effective_fps": 7.216543854621281,
+      "frame_latency_p99_ns": 174245167,
+      "rss_peak_bytes": 120061952,
+      "cpu_seconds_per_verified_frame": 0.14037526388888888,
+      "threshold_reason": "within_thresholds"
+    },
+    {
+      "run_id": "cold-01",
+      "cache_mode": "cold",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 249710.818208,
+      "effective_fps": 7.208338080493836,
+      "frame_latency_p99_ns": 173840041,
+      "rss_peak_bytes": 119980032,
+      "cpu_seconds_per_verified_frame": 0.14061696944444443,
+      "threshold_reason": "within_thresholds"
+    },
+    {
+      "run_id": "cold-02",
+      "cache_mode": "cold",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 249674.9195,
+      "effective_fps": 7.209374508279355,
+      "frame_latency_p99_ns": 176638375,
+      "rss_peak_bytes": 120061952,
+      "cpu_seconds_per_verified_frame": 0.14064398166666667,
+      "threshold_reason": "within_thresholds"
+    },
+    {
+      "run_id": "warm-00",
+      "cache_mode": "warm",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 250812.318334,
+      "effective_fps": 7.176681001779938,
+      "frame_latency_p99_ns": 172879542,
+      "rss_peak_bytes": 120209408,
+      "cpu_seconds_per_verified_frame": 0.14119071055555557,
+      "threshold_reason": "within_thresholds"
+    },
+    {
+      "run_id": "warm-01",
+      "cache_mode": "warm",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 250054.700875,
+      "effective_fps": 7.198424959424391,
+      "frame_latency_p99_ns": 173100750,
+      "rss_peak_bytes": 119996416,
+      "cpu_seconds_per_verified_frame": 0.14072743055555556,
+      "threshold_reason": "within_thresholds"
+    },
+    {
+      "run_id": "warm-02",
+      "cache_mode": "warm",
+      "pass": true,
+      "measurement_complete": true,
+      "export_wall_ms": 250476.919542,
+      "effective_fps": 7.186290869798787,
+      "frame_latency_p99_ns": 174575250,
+      "rss_peak_bytes": 120078336,
+      "cpu_seconds_per_verified_frame": 0.14096762055555556,
+      "threshold_reason": "within_thresholds"
+    }
+  ],
+  "thermal_preconditions": {
+    "before_thermal_state": "fair",
+    "after_thermal_state": "fair",
+    "logical_cpu_count": 8
+  },
+  "notes": [
+    "All trials retained; no best-run selection",
+    "Pass/fail is measurement completeness plus locked ADR thresholds",
+    "Individual run reports stay certified=false per protocol"
+  ]
+}

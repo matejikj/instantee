@@ -7394,14 +7394,56 @@
       "notes": "B-05 worst-accepted 3+3 cold/warm series on B-05-worst-accepted-300s-v2; cold wall median ~510s; threshold_gate true; oom_observed false; certified=false. Style visual goldens refreshed after prior preview color wiring so release/ASan/TSan matrices pass."
     },
     "P8-023": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "Every valid certification cold run of 60 s takes ≤360 s; the p99/memory threshold and CPU baseline are explicit, otherwise FAIL.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every valid cold trial for B-01/B-02/B-03 met export_wall_ms ≤ 360000",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-023/certificate.json",
+              "implementation-evidence/P8-023/b01-baseline-summary.json",
+              "implementation-evidence/P8-023/b02-baseline-summary.json",
+              "implementation-evidence/P8-023/b03-baseline-summary.json"
+            ]
+          },
+          {
+            "criterion": "p99, RSS, and CPU ceilings were explicit non-null ADR values for each style",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-023/certificate.json",
+              "implementation-evidence/P8-023/decision.json",
+              "implementation-evidence/P8-023/b01-measurement-profile.json",
+              "implementation-evidence/P8-023/b02-measurement-profile.json",
+              "implementation-evidence/P8-023/b03-measurement-profile.json"
+            ]
+          },
+          {
+            "criterion": "Style certificate threshold_gate PASS with run reports certified=false",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-023/certificate.json",
+              "implementation-evidence/P8-023/decision.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-023/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-023/checks.json"
+      ],
+      "blockers": [],
+      "measurement": "reference-series",
+      "evidence_tier_min": "C",
+      "verification": "B-01/B-02/B-03 certificate",
+      "delivery_slice": null,
+      "evidence_tier": "C",
+      "completed_at_utc": "2026-11-20T03:44:52Z",
+      "notes": "Fresh B-01/B-02/B-03 3+3 cold/warm series after preview color wiring; style certificate threshold_gate true (cold medians ~166/250/274 s); explicit ADR p99/RSS/CPU; run reports certified=false."
     },
     "P8-024": {
       "status": "todo",

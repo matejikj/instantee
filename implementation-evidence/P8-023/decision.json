@@ -1,0 +1,70 @@
+{
+  "decision": "accept_b01_b02_b03_style_certificate_threshold_gate",
+  "accepted": true,
+  "threshold_gate": true,
+  "certificate_pass": true,
+  "run_reports_certified": false,
+  "product_v1_certificate": false,
+  "protocol_hard_wall_ms": 360000,
+  "styles": {
+    "B-01": {
+      "pass": true,
+      "workload_id": "B-01-editorial-news-reel-60s-v1",
+      "thresholds": {
+        "source_adr": "ADR-0014/editorial-b01-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 180000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.12
+      },
+      "cold_median_export_wall_ms": 166442.160667,
+      "cold_median_p99_ns": 159294083.0,
+      "cold_median_rss_peak_bytes": 128598016.0,
+      "cold_median_cpu_seconds_per_verified_frame": 0.09444809500000001,
+      "cold_min_export_wall_ms": 156768.284416,
+      "cold_max_export_wall_ms": 167637.30175
+    },
+    "B-02": {
+      "pass": true,
+      "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "thresholds": {
+        "source_adr": "ADR-0014/notebook-b02-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 280000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.18
+      },
+      "cold_median_export_wall_ms": 249674.9195,
+      "cold_median_p99_ns": 174245167.0,
+      "cold_median_rss_peak_bytes": 120061952.0,
+      "cold_median_cpu_seconds_per_verified_frame": 0.14061696944444443,
+      "cold_min_export_wall_ms": 249426.8775,
+      "cold_max_export_wall_ms": 249710.818208
+    },
+    "B-03": {
+      "pass": true,
+      "workload_id": "B-03-paper-historical-reel-60s-v1",
+      "thresholds": {
+        "source_adr": "ADR-0014/paper-b03-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 280000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.18
+      },
+      "cold_median_export_wall_ms": 273535.980167,
+      "cold_median_p99_ns": 170944417.0,
+      "cold_median_rss_peak_bytes": 120455168.0,
+      "cold_median_cpu_seconds_per_verified_frame": 0.15368846166666666,
+      "cold_min_export_wall_ms": 272808.890042,
+      "cold_max_export_wall_ms": 273900.320708
+    }
+  },
+  "notes": [
+    "Every valid cold trial met export_wall_ms \u2264 360000",
+    "p99, RSS, and CPU ceilings were explicit non-null ADR values",
+    "All trials retained; median/min/max are summary only",
+    "Individual run reports stay certified=false",
+    "Fresh series after preview material-color wiring; not the V1 product dossier",
+    "Allowlisted machine/OS facts only"
+  ]
+}

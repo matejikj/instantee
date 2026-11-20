@@ -1,0 +1,58 @@
+{
+  "machine_profile": {
+    "model": "MacBookAir10,1",
+    "os_build": "27.2.1",
+    "logical_cpu_count": 8,
+    "gpu_cores": 7,
+    "ram_bytes": 17179869184,
+    "filesystem": "apfs",
+    "power_mode": "normal",
+    "thermal_state_start": "nominal",
+    "thermal_state_end": "unobserved_per_trial"
+  },
+  "build_profile": {
+    "source_revision": "2f3b6372da4ab0a1c1493e17c0a9437faa3f3592",
+    "source_dirty": true,
+    "source_diff_sha256": "b8a82efa56c802e8e8d0df00d36fccc9b3673d34c1112741a8d25305db7f5df3",
+    "binary_sha256": "d236ac76c1906630c24e13eb01f8cc25284800b0ed920ab73f23e34dd6369205",
+    "toolchain_id": "pinned-native-arm64-cpp23",
+    "compiler_flags": [
+      "-DINSTANTEE_METRICS_VALIDATION=\"disabled\"",
+      "-fobjc-arc",
+      "-O2",
+      "-g",
+      "-DNDEBUG",
+      "-std=c++23",
+      "-arch=arm64",
+      "-mmacosx-version-min=27.2.1",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pedantic-errors"
+    ],
+    "dependency_lock_sha256": "d7f98ec9dcc64e9a489c5701d634543df1cb0f14e805d42f6e80fbb18fb9f8a3",
+    "shaders_sha256": "50e8fe463e42e5232d27e53145587e14aeafd7a993d3e45b00d9c4bbfa3037ab"
+  },
+  "workload": {
+    "id": "B-02-notebook-pythagoras-explainer-60s-v1",
+    "scene_sha256": "0016f7df602b11f02ca96cf6685bd4791ca17ba72616e164059d1531ef958abd",
+    "asset_lock_sha256": "26ac08f54d839e5ac8ed25e8209f2fda127184e4305a55c54a21346691263a7c",
+    "duration_frames": 1800,
+    "width": 1080,
+    "height": 1920,
+    "frame_rate": {
+      "numerator": 30,
+      "denominator": 1
+    },
+    "seed_decimal": "42",
+    "quality_tier": "notebook-b02-v1",
+    "encoder_profile": "h264-high-6mbps-rec709-video-range-no-reorder"
+  },
+  "thresholds": {
+    "source_adr": "ADR-0014/notebook-b02-v1",
+    "export_wall_ms_max": 360000,
+    "frame_latency_p99_ns_max": 280000000,
+    "rss_peak_bytes_max": 268435456,
+    "cpu_seconds_per_verified_frame_max": 0.18
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "evidence_kind": "b01_b02_b03_60s_style_certificate",
+  "certificate_kind": "style_reference_series_threshold_gate",
+  "pass": true,
+  "run_reports_certified": false,
+  "product_v1_certificate": false,
+  "protocol_hard_wall_ms": 360000,
+  "required_repeats": {
+    "cold": 3,
+    "warm": 3
+  },
+  "policy": {
+    "null_thresholds": "FAIL",
+    "best_run_selection": false,
+    "median_role": "summary_only",
+    "every_valid_cold_must_meet_wall": true,
+    "cpu_baseline": "explicit_seconds_per_verified_frame_ceiling"
+  },
+  "styles": {
+    "B-01": {
+      "style": "B-01",
+      "workload_id": "B-01-editorial-news-reel-60s-v1",
+      "quality_tier": "editorial-b01-v1",
+      "pass": true,
+      "reasons": [],
+      "thresholds_explicit": true,
+      "thresholds_reason": "explicit",
+      "thresholds": {
+        "source_adr": "ADR-0014/editorial-b01-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 180000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.12
+      },
+      "cold_repeats": 3,
+      "warm_repeats": 3,
+      "cold_wall_within_360s": true,
+      "series_pass": true,
+      "profile_sha256": "ddfcbc11736257c518313e43c871fb4dac21a53fc5b6c80044ec4377092f2d65",
+      "summary": {
+        "cold_median_export_wall_ms": 166442.160667,
+        "cold_median_p99_ns": 159294083.0,
+        "cold_median_rss_peak_bytes": 128598016.0,
+        "cold_median_cpu_seconds_per_verified_frame": 0.09444809500000001,
+        "cold_min_export_wall_ms": 156768.284416,
+        "cold_max_export_wall_ms": 167637.30175
+      },
+      "runs": [
+        {
+          "run_id": "cold-00",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 156768.284416,
+          "frame_latency_p99_ns": 157760250,
+          "rss_peak_bytes": 128827392,
+          "cpu_seconds_per_verified_frame": 0.08900025166666667,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-01",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 166442.160667,
+          "frame_latency_p99_ns": 159294083,
+          "rss_peak_bytes": 128598016,
+          "cpu_seconds_per_verified_frame": 0.09444809500000001,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-02",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 167637.30175,
+          "frame_latency_p99_ns": 159913125,
+          "rss_peak_bytes": 128565248,
+          "cpu_seconds_per_verified_frame": 0.09517637,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-00",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 168388.835416,
+          "frame_latency_p99_ns": 160084584,
+          "rss_peak_bytes": 128598016,
+          "cpu_seconds_per_verified_frame": 0.09555663111111111,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-01",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 168546.373791,
+          "frame_latency_p99_ns": 160956125,
+          "rss_peak_bytes": 128630784,
+          "cpu_seconds_per_verified_frame": 0.0956175938888889,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-02",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 169271.072583,
+          "frame_latency_p99_ns": 161780250,
+          "rss_peak_bytes": 128630784,
+          "cpu_seconds_per_verified_frame": 0.096045805,
+          "threshold_reason": "within_thresholds"
+        }
+      ]
+    },
+    "B-02": {
+      "style": "B-02",
+      "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "quality_tier": "notebook-b02-v1",
+      "pass": true,
+      "reasons": [],
+      "thresholds_explicit": true,
+      "thresholds_reason": "explicit",
+      "thresholds": {
+        "source_adr": "ADR-0014/notebook-b02-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 280000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.18
+      },
+      "cold_repeats": 3,
+      "warm_repeats": 3,
+      "cold_wall_within_360s": true,
+      "series_pass": true,
+      "profile_sha256": "f082a1a7a451f6ac17ea21f567a4a6aad53e5665ee21fccf73d25293a5aff1cf",
+      "summary": {
+        "cold_median_export_wall_ms": 249674.9195,
+        "cold_median_p99_ns": 174245167.0,
+        "cold_median_rss_peak_bytes": 120061952.0,
+        "cold_median_cpu_seconds_per_verified_frame": 0.14061696944444443,
+        "cold_min_export_wall_ms": 249426.8775,
+        "cold_max_export_wall_ms": 249710.818208
+      },
+      "runs": [
+        {
+          "run_id": "cold-00",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 249426.8775,
+          "frame_latency_p99_ns": 174245167,
+          "rss_peak_bytes": 120061952,
+          "cpu_seconds_per_verified_frame": 0.14037526388888888,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-01",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 249710.818208,
+          "frame_latency_p99_ns": 173840041,
+          "rss_peak_bytes": 119980032,
+          "cpu_seconds_per_verified_frame": 0.14061696944444443,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-02",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 249674.9195,
+          "frame_latency_p99_ns": 176638375,
+          "rss_peak_bytes": 120061952,
+          "cpu_seconds_per_verified_frame": 0.14064398166666667,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-00",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 250812.318334,
+          "frame_latency_p99_ns": 172879542,
+          "rss_peak_bytes": 120209408,
+          "cpu_seconds_per_verified_frame": 0.14119071055555557,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-01",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 250054.700875,
+          "frame_latency_p99_ns": 173100750,
+          "rss_peak_bytes": 119996416,
+          "cpu_seconds_per_verified_frame": 0.14072743055555556,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-02",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 250476.919542,
+          "frame_latency_p99_ns": 174575250,
+          "rss_peak_bytes": 120078336,
+          "cpu_seconds_per_verified_frame": 0.14096762055555556,
+          "threshold_reason": "within_thresholds"
+        }
+      ]
+    },
+    "B-03": {
+      "style": "B-03",
+      "workload_id": "B-03-paper-historical-reel-60s-v1",
+      "quality_tier": "paper-b03-v1",
+      "pass": true,
+      "reasons": [],
+      "thresholds_explicit": true,
+      "thresholds_reason": "explicit",
+      "thresholds": {
+        "source_adr": "ADR-0014/paper-b03-v1",
+        "export_wall_ms_max": 360000,
+        "frame_latency_p99_ns_max": 280000000,
+        "rss_peak_bytes_max": 268435456,
+        "cpu_seconds_per_verified_frame_max": 0.18
+      },
+      "cold_repeats": 3,
+      "warm_repeats": 3,
+      "cold_wall_within_360s": true,
+      "series_pass": true,
+      "profile_sha256": "f649f7510c7a9f5fa15a39a45d61131113b6454dc33ff0881622909667511a35",
+      "summary": {
+        "cold_median_export_wall_ms": 273535.980167,
+        "cold_median_p99_ns": 170944417.0,
+        "cold_median_rss_peak_bytes": 120455168.0,
+        "cold_median_cpu_seconds_per_verified_frame": 0.15368846166666666,
+        "cold_min_export_wall_ms": 272808.890042,
+        "cold_max_export_wall_ms": 273900.320708
+      },
+      "runs": [
+        {
+          "run_id": "cold-00",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 272808.890042,
+          "frame_latency_p99_ns": 170944417,
+          "rss_peak_bytes": 120455168,
+          "cpu_seconds_per_verified_frame": 0.15318451555555554,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-01",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 273535.980167,
+          "frame_latency_p99_ns": 168444958,
+          "rss_peak_bytes": 120504320,
+          "cpu_seconds_per_verified_frame": 0.15368846166666666,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "cold-02",
+          "cache_mode": "cold",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 273900.320708,
+          "frame_latency_p99_ns": 178066083,
+          "rss_peak_bytes": 120389632,
+          "cpu_seconds_per_verified_frame": 0.15379490277777777,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-00",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 274173.90425,
+          "frame_latency_p99_ns": 183705916,
+          "rss_peak_bytes": 120258560,
+          "cpu_seconds_per_verified_frame": 0.15383995777777779,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-01",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 275579.311792,
+          "frame_latency_p99_ns": 184865917,
+          "rss_peak_bytes": 120356864,
+          "cpu_seconds_per_verified_frame": 0.15474793944444445,
+          "threshold_reason": "within_thresholds"
+        },
+        {
+          "run_id": "warm-02",
+          "cache_mode": "warm",
+          "pass": true,
+          "measurement_complete": true,
+          "export_wall_ms": 274516.5315,
+          "frame_latency_p99_ns": 170321750,
+          "rss_peak_bytes": 120356864,
+          "cpu_seconds_per_verified_frame": 0.15422426777777778,
+          "threshold_reason": "within_thresholds"
+        }
+      ]
+    }
+  },
+  "decision": {
+    "threshold_gate": true,
+    "notes": [
+      "Every valid cold trial must meet export_wall_ms \u2264 360000",
+      "p99, RSS, and CPU ceilings must be explicit non-null values",
+      "Individual run reports remain certified=false",
+      "This certificate is the B-01/B-02/B-03 threshold gate, not the V1 product dossier",
+      "Allowlisted machine/OS facts only; no owner or device identity"
+    ]
+  },
+  "notes": [
+    "All trials retained across styles; no filtering of slow runs",
+    "Fresh series required after renderer/preview changes that affect export cost"
+  ]
+}

@@ -3,7 +3,7 @@
   "status": "approved",
   "approved_by_role": "editorial-visual-reviewer",
   "approved_at_utc": "2026-11-18T00:00:00Z",
-  "golden_manifest_sha256": "a3054e342aaa1959f8075b14e46a750f2a7b6f8c4e1cfb342ecdf207f5d4305f",
+  "golden_manifest_sha256": "1e824d90bc86973cf18da151efc29c57c696dd3eb783ce7e2dfd657072fcdca0",
   "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
   "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
   "checklist_results": [

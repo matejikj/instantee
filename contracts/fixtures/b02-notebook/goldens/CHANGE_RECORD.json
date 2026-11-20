@@ -5,15 +5,15 @@
       "artifact_id": "problem_statement.structural.txt",
       "previous_sha256": "",
       "next_sha256": "76242244a32109704505001fd9017633c3b84b1ddc9e8861eeaae157d4389efc",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
     {
       "artifact_id": "problem_statement.png",
       "previous_sha256": "",
-      "next_sha256": "c0940324ac2e95254e2ff9050ba68f964527f1b417ed1ca9613ce37b988ea9d8",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "next_sha256": "c90a4b7d8b2063abd6c7920177441114b0cf2c1b7b88117f106f808ca4f2c360",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
@@ -21,15 +21,15 @@
       "artifact_id": "construction.structural.txt",
       "previous_sha256": "",
       "next_sha256": "05f1aae9314ed624bdacb8ac3b4f9d75412277c926e67fd5659885462b93c3da",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
     {
       "artifact_id": "construction.png",
       "previous_sha256": "",
-      "next_sha256": "7ede61a44262434a993f4dc42d7415c96bb18f8688e106f0b2f11cbdf18285cd",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "next_sha256": "4f44acdec84000f7da3a34839b9edda243261288061f1ff27bda0ea3c0631913",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
@@ -37,15 +37,15 @@
       "artifact_id": "derivation.structural.txt",
       "previous_sha256": "",
       "next_sha256": "c97fc330bae4cd565be3bee7ce1fe983d4a70dc47e92bffb6c427cd2d434a4b4",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
     {
       "artifact_id": "derivation.png",
       "previous_sha256": "",
-      "next_sha256": "f04483dfb106aedc6beb48d7acf37889a209d7c693c0e911ea19cd37df209a48",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "next_sha256": "778f85754ca5cae184c72c22cc7e8a5f49b2f838297c6c1a4be7edb0d7619921",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
@@ -53,15 +53,15 @@
       "artifact_id": "visual_intuition.structural.txt",
       "previous_sha256": "",
       "next_sha256": "76f05296a7fa85661cab1a8e69d63f6761fb7e803e52a6cc0a248958e85f36f3",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
     {
       "artifact_id": "visual_intuition.png",
       "previous_sha256": "",
-      "next_sha256": "f4f49d123e88284177e6bdf0ce735c39fe59d3b205a08d40bcef2b04f4320883",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "next_sha256": "149df8ba1be3f63b6f8707fbdf0a95e426cf8714673265ac1bb63bf2d0b16cf4",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
@@ -69,15 +69,15 @@
       "artifact_id": "summary.structural.txt",
       "previous_sha256": "",
       "next_sha256": "114f5951912b306185ea2decd57155dde0fc73dc033a98110e0001cf78e18e38",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     },
     {
       "artifact_id": "summary.png",
       "previous_sha256": "",
-      "next_sha256": "77eb6cdbb85ce20a375e12eb2abad02e6b6e79693a3c412ccf5b3b720736fe4e",
-      "reason": "notebook reference after post-shot opacity fade-out",
+      "next_sha256": "34b6036ec2b12b6b4f9e68d806b25c710c80e3ce0f693e52d9061fe681d786cb",
+      "reason": "initial notebook reference approval",
       "approved_by_role": "notebook-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
     }

@@ -1,0 +1,78 @@
+{
+  "decision": "accept_b05_threshold_gate_uncertified_runs",
+  "accepted": true,
+  "threshold_gate": true,
+  "cold_wall_within_1800s": true,
+  "oom_observed": false,
+  "certified_performance": false,
+  "workload_id": "B-05-worst-accepted-300s-v2",
+  "complexity_tier": "worst-accepted-b05-v1",
+  "thresholds_source": "ADR-0014/worst-accepted-b05-v1",
+  "thresholds_used_for_series": {
+    "source_adr": "ADR-0014/worst-accepted-b05-v1",
+    "export_wall_ms_max": 1800000,
+    "frame_latency_p99_ns_max": 500000000,
+    "rss_peak_bytes_max": 536870912,
+    "cpu_seconds_per_verified_frame_max": 0.25
+  },
+  "series_medians": {
+    "cold_median_export_wall_ms": 509508.118,
+    "warm_median_export_wall_ms": 497077.194958,
+    "cold_median_p99_ns": 85514291,
+    "warm_median_p99_ns": 83760375,
+    "cold_median_rss_peak_bytes": 130646016,
+    "warm_median_rss_peak_bytes": 129236992,
+    "cold_median_cpu_seconds_per_verified_frame": 0.05884661844444444,
+    "warm_median_cpu_seconds_per_verified_frame": 0.05731787888888889
+  },
+  "published_complexity": {
+    "tier_id": "worst-accepted-b05-v1",
+    "structural_limits": {
+      "max_nodes": 2048,
+      "max_node_depth": 24,
+      "max_assets": 256,
+      "max_geometry": 1024,
+      "max_text_runs": 512,
+      "max_text_codepoints": 50000,
+      "max_draw_items": 1536,
+      "max_mask_materials": 128,
+      "max_pixel_layers": 512,
+      "max_animation_tracks": 2048,
+      "max_keyframes": 32768,
+      "max_shots": 128,
+      "max_canvas_width_px": 1080,
+      "max_canvas_height_px": 1920
+    },
+    "certified_content_ceilings": {
+      "max_effects_materials": 12,
+      "max_geometry_panels": 48,
+      "max_text_labels": 48,
+      "max_concurrent_visible_panels": 3,
+      "max_concurrent_visible_text_labels": 3,
+      "max_shots": 15,
+      "max_animation_opacity_tracks": 90,
+      "max_text_codepoints": 50000,
+      "canvas_px": [
+        1080,
+        1920
+      ],
+      "notes": [
+        "Authored inventory stresses IR/complexity caps.",
+        "Concurrent visibility is gated by opacity fade windows and transparent-skip."
+      ]
+    }
+  },
+  "optimizations": [
+    "authored inventory of 48 panels + 48 labels under structural caps",
+    "per-shot opacity fade windows (3 panels + 3 labels concurrent)",
+    "transparent-skip for inactive proxies",
+    "workload_id bump to B-05-worst-accepted-300s-v2 after opacity redesign"
+  ],
+  "notes": [
+    "Every cold trial met export_wall_ms \u2264 1800000",
+    "No OOM: RSS stayed within the locked 512 MiB ceiling",
+    "Unknown/null thresholds would FAIL",
+    "Run reports stay certified=false per BENCHMARK_PROTOCOL",
+    "Not an M1 Air product certificate; allowlisted machine facts only"
+  ]
+}

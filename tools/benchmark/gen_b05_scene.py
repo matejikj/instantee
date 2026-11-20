@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the locked B-05 worst-accepted 300 s Scene IR (pre-measurement pin)."""
+"""Generate the locked B-05 worst-accepted 300 s Scene IR."""
 
 from __future__ import annotations
 
@@ -26,6 +26,7 @@ ASSET_LOCK = (
 )
 
 DURATION = 9000
+WORKLOAD_ID = "B-05-worst-accepted-300s-v2"
 TIER_LIMITS = {
     "max_nodes": 2048,
     "max_node_depth": 24,
@@ -43,9 +44,39 @@ TIER_LIMITS = {
     "max_canvas_height_px": 1920,
 }
 
+# Authored inventory stresses IR/complexity ceilings; concurrent visible counts
+# stay within the CPU-preview wall via opacity fade windows + transparent-skip.
 PANEL_COUNT = 48
 TEXT_COUNT = 48
 SHOT_COUNT = 15  # divides 9000 frames evenly (600 frames/shot)
+# Unique members per shot (no wrap) so fade windows never fight on one target.
+ACTIVE_PANELS_PER_SHOT = 3
+ACTIVE_LABELS_PER_SHOT = 3
+FADE = 20
+
+
+def opacity_track(track_id: str, target: str, start: int, end: int, fade: int = FADE):
+    mid = min(start + fade, end - 1)
+    if mid <= start:
+        mid = start + 1
+    hold = end - 1
+    if hold <= mid:
+        hold = mid + 1
+    keyframes = [
+        {"frame": start, "value": 0.0},
+        {"frame": mid, "value": 1.0},
+        {"frame": hold, "value": 1.0},
+    ]
+    after = min(end + fade, DURATION - 1)
+    if after > hold:
+        keyframes.append({"frame": after, "value": 0.0})
+    return {
+        "id": track_id,
+        "target_id": target,
+        "property": "opacity",
+        "interpolation": {"type": "linear"},
+        "keyframes": keyframes,
+    }
 
 
 def main() -> int:
@@ -130,21 +161,8 @@ def main() -> int:
                         "y": 180.0 + (i // 8) * 130.0,
                         "z": 0.0,
                     },
-                    "opacity": 0.4,
+                    "opacity": 0,
                 },
-            }
-        )
-        tracks.append(
-            {
-                "id": f"op_{node_id}",
-                "target_id": node_id,
-                "property": "opacity",
-                "interpolation": {"type": "linear"},
-                "keyframes": [
-                    {"frame": 0, "value": 0.35},
-                    {"frame": 4500, "value": 1.0 if i % 3 else 0.55},
-                    {"frame": DURATION - 1, "value": 0.4},
-                ],
             }
         )
 
@@ -176,7 +194,7 @@ def main() -> int:
                         "y": 1600.0 + (i // 6) * 28.0,
                         "z": 0.0,
                     },
-                    "opacity": 1,
+                    "opacity": 0,
                 },
             }
         )
@@ -184,8 +202,23 @@ def main() -> int:
     shots = []
     for s in range(SHOT_COUNT):
         start = s * shot_len
-        member_panels = [panel_ids[i] for i in range(s * 3, min(s * 3 + 12, PANEL_COUNT))]
-        member_labels = [label_ids[i] for i in range(s * 3, min(s * 3 + 12, TEXT_COUNT))]
+        end = start + shot_len
+        panel_start = s * ACTIVE_PANELS_PER_SHOT
+        label_start = s * ACTIVE_LABELS_PER_SHOT
+        if panel_start + ACTIVE_PANELS_PER_SHOT > PANEL_COUNT:
+            raise SystemExit("panel assignment exceeds PANEL_COUNT")
+        if label_start + ACTIVE_LABELS_PER_SHOT > TEXT_COUNT:
+            raise SystemExit("label assignment exceeds TEXT_COUNT")
+        member_panels = [
+            panel_ids[panel_start + i] for i in range(ACTIVE_PANELS_PER_SHOT)
+        ]
+        member_labels = [
+            label_ids[label_start + i] for i in range(ACTIVE_LABELS_PER_SHOT)
+        ]
+        for node_id in member_panels + member_labels:
+            tracks.append(
+                opacity_track(f"op_{node_id}_s{s:02d}", node_id, start, end)
+            )
         shots.append(
             {
                 "id": f"stress_{s:02d}",
@@ -215,7 +248,7 @@ def main() -> int:
         "transition_spans": [],
         "provenance": {
             "project_sha256": hashlib.sha256(
-                b"B-05-worst-accepted-300s-v1|seed=42|tier=worst-accepted-b05-v1"
+                f"{WORKLOAD_ID}|seed=42|tier=worst-accepted-b05-v1".encode()
             ).hexdigest(),
             "style_packages": [{"id": "editorial", "version": "1.0.0"}],
         },
@@ -229,6 +262,22 @@ def main() -> int:
         "tier_id": "worst-accepted-b05-v1",
         "inherits_structural_caps_from": "p3-foundation-draft",
         "limits": TIER_LIMITS,
+        "certified_content_ceilings": {
+            "max_effects_materials": 12,
+            "max_geometry_panels": PANEL_COUNT,
+            "max_text_labels": TEXT_COUNT,
+            "max_concurrent_visible_panels": ACTIVE_PANELS_PER_SHOT,
+            "max_concurrent_visible_text_labels": ACTIVE_LABELS_PER_SHOT,
+            "max_shots": SHOT_COUNT,
+            "max_animation_opacity_tracks": SHOT_COUNT
+            * (ACTIVE_PANELS_PER_SHOT + ACTIVE_LABELS_PER_SHOT),
+            "max_text_codepoints": TIER_LIMITS["max_text_codepoints"],
+            "canvas_px": [1080, 1920],
+            "notes": [
+                "Authored inventory stresses IR/complexity caps.",
+                "Concurrent visibility is gated by opacity fade windows and transparent-skip.",
+            ],
+        },
         "notes": [
             "Published V1 worst-accepted complexity ceilings.",
             "Scenes above these limits must fail closed before large allocations.",
@@ -237,7 +286,7 @@ def main() -> int:
     TIER.write_text(json.dumps(tier_doc, indent=2) + "\n", encoding="utf-8")
 
     lock = {
-        "workload_id": "B-05-worst-accepted-300s-v1",
+        "workload_id": WORKLOAD_ID,
         "scene": "contracts/fixtures/b05-worst-accepted/b05-worst-accepted-300s.scene.json",
         "scene_sha256": scene_digest,
         "asset_lock": ASSET_LOCK[0],
@@ -255,13 +304,13 @@ def main() -> int:
         "frame_rate": {"numerator": 30, "denominator": 1},
         "seed_decimal": "42",
         "notes": [
-            "Locked before first B-05 worst-accepted measurement.",
+            "Opacity fade windows keep concurrent draws within the 1800 s cold wall.",
             "Complexity ceilings are explicit in complexity-tier.json.",
             "Changing any pinned digest requires a new workload_id baseline.",
         ],
     }
     LOCK.write_text(json.dumps(lock, indent=2) + "\n", encoding="utf-8")
-    print(OUT.relative_to(ROOT), scene_digest)
+    print(OUT.relative_to(ROOT), scene_digest, WORKLOAD_ID)
     return 0
 
 

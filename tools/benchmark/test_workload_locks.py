@@ -36,10 +36,13 @@ class WorkloadLockAuditTest(unittest.TestCase):
         self.assertEqual(
             by_family["B-04"]["status"], "locked_measured_series_available"
         )
-        self.assertEqual(by_family["B-05"]["status"], "locked_pre_measurement")
+        self.assertEqual(
+            by_family["B-05"]["status"], "locked_measured_series_available"
+        )
         self.assertEqual(by_family["B-04"]["duration_frames"], 9000)
         self.assertEqual(by_family["B-05"]["duration_frames"], 9000)
         self.assertEqual(by_family["B-04"]["id"], "B-04-mixed-300s-v2")
+        self.assertEqual(by_family["B-05"]["id"], "B-05-worst-accepted-300s-v2")
 
     def test_scene_digest_drift_requires_new_baseline(self):
         lock_path = REPO_ROOT / "contracts/fixtures/b01-editorial/b01-workload.lock.json"

@@ -3,7 +3,7 @@
   "status": "approved",
   "approved_by_role": "notebook-visual-reviewer",
   "approved_at_utc": "2026-11-18T00:00:00Z",
-  "golden_manifest_sha256": "6bf4e24ee1f9670e94b2f64a7ed1dde2f915d5120310217bd9fee3c69cdf34e2",
+  "golden_manifest_sha256": "1a3eb42b8e6cdaa912c375eed6f798bcf19a48c75e0e84b0dbb13b3a9867cb1e",
   "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
   "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
   "checklist_results": [

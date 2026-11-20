@@ -44,19 +44,19 @@
       "quality_tier": "mixed-b04-v1"
     },
     {
-      "id": "B-05-worst-accepted-300s-v1",
+      "id": "B-05-worst-accepted-300s-v2",
       "family": "B-05",
       "lock": "contracts/fixtures/b05-worst-accepted/b05-workload.lock.json",
-      "status": "locked_pre_measurement",
+      "status": "locked_measured_series_available",
       "measurement_gate": "reference-series-300s",
       "duration_frames": 9000,
       "quality_tier": "worst-accepted-b05-v1"
     }
   ],
-  "catalog_sha256": "1b9fc9413c25f269c6e638a97e9834efa90f64ab9dbdf5fcca35fc6b348bbb5a",
+  "catalog_sha256": "72c54e597ae7c80e9178a704300c30941074ab3fb518816ad9e7ac39bc021109",
   "notes": [
     "B-01..B-03 were locked before their first P5/P6/P7 reference series.",
-    "B-04/B-05 are locked here before their first measurement runs.",
+    "B-04/B-05 locks existed before their first measurement runs; both now have measured series available.",
     "A fixture or profile digest change without a new workload_id is a failed audit."
   ]
 }

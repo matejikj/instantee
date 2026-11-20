@@ -3,14 +3,14 @@
   "workload": "B-01-editorial-news-reel-60s-v1",
   "artifacts": [
     {"id": "hook.structural.txt", "kind": "structural", "sha256": "af9c679c0ba8384c67d009cdb0e06b037ae7793f60c63d6ac24051e7dccc2896"},
-    {"id": "hook.png", "kind": "png", "sha256": "ad74fbadbb1864a837c345d7a6e92abab26d0f647bd5d81f5484bf41a8cb35d8"},
+    {"id": "hook.png", "kind": "png", "sha256": "605d820fb136e76a1bd7e4805e543be0a130baeed4b949585d668f880aa75cee"},
     {"id": "hero_claim.structural.txt", "kind": "structural", "sha256": "5a85af3889378fe1a5a8ae2e3dad70dc82f763b0b1e734332f798f8883732fa7"},
-    {"id": "hero_claim.png", "kind": "png", "sha256": "83758c71b525d94a9bdab09cf5d5fa7eba2031faa2bd9c7c247de5c7e6f986bf"},
+    {"id": "hero_claim.png", "kind": "png", "sha256": "3e042da53748aef6a25be36aea2fc09362f4ec17a9be4c3c195fbbaa8afe56dd"},
     {"id": "data_comparison.structural.txt", "kind": "structural", "sha256": "d0984e43e662315917e5a6bb22b49c5843550f063a880ec66b70083cf5d264be"},
-    {"id": "data_comparison.png", "kind": "png", "sha256": "d6583d35b336046ad38edc599c53a2ac7406acc5806e17e84272136854856605"},
+    {"id": "data_comparison.png", "kind": "png", "sha256": "25ced3205189ec86febd32e291d70a9d7cf46b942e0a78a86b456c7a00ae3eac"},
     {"id": "source_screenshot_crop.structural.txt", "kind": "structural", "sha256": "e4a5c3921e20f55c2481323dc277a3202274a291717e39def5c5bcf71556a4ed"},
-    {"id": "source_screenshot_crop.png", "kind": "png", "sha256": "8419b0bef03ab156fe7b624505fab23200cf2a41bdd9d9215b7c31241ef7cf73"},
+    {"id": "source_screenshot_crop.png", "kind": "png", "sha256": "5cdf54b03014111950c44553e38cdfc6d74be54e03ffe97ba2290298c5939ef7"},
     {"id": "closing_cta.structural.txt", "kind": "structural", "sha256": "07e20112c328821de7e8d1e69b98ec81158a7228c0ff298b606001e5245f584e"},
-    {"id": "closing_cta.png", "kind": "png", "sha256": "9f0c331e8da65ca7b069a8d448c4e3af8fddf254cc7227b6a5602b79ab298fcb"}
+    {"id": "closing_cta.png", "kind": "png", "sha256": "63c404b04d8eecd01e5030b1f9d783daa7873e9052d8c163807e3ae4234ed4d2"}
   ]
 }

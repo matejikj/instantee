@@ -1685,7 +1685,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1701,7 +1701,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1717,7 +1717,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1733,7 +1733,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1749,7 +1749,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1765,7 +1765,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1781,7 +1781,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1797,7 +1797,7 @@
           "y": 180.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1813,7 +1813,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1829,7 +1829,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1845,7 +1845,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1861,7 +1861,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1877,7 +1877,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1893,7 +1893,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1909,7 +1909,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1925,7 +1925,7 @@
           "y": 310.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1941,7 +1941,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1957,7 +1957,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1973,7 +1973,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -1989,7 +1989,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2005,7 +2005,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2021,7 +2021,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2037,7 +2037,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2053,7 +2053,7 @@
           "y": 440.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2069,7 +2069,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2085,7 +2085,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2101,7 +2101,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2117,7 +2117,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2133,7 +2133,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2149,7 +2149,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2165,7 +2165,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2181,7 +2181,7 @@
           "y": 570.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2197,7 +2197,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2213,7 +2213,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2229,7 +2229,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2245,7 +2245,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2261,7 +2261,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2277,7 +2277,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2293,7 +2293,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2309,7 +2309,7 @@
           "y": 700.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2325,7 +2325,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2341,7 +2341,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2357,7 +2357,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2373,7 +2373,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2389,7 +2389,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2405,7 +2405,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2421,7 +2421,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2437,7 +2437,7 @@
           "y": 830.0,
           "z": 0.0
         },
-        "opacity": 0.4
+        "opacity": 0
       }
     },
     {
@@ -2453,7 +2453,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2469,7 +2469,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2485,7 +2485,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2501,7 +2501,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2517,7 +2517,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2533,7 +2533,7 @@
           "y": 1600.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2549,7 +2549,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2565,7 +2565,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2581,7 +2581,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2597,7 +2597,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2613,7 +2613,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2629,7 +2629,7 @@
           "y": 1628.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2645,7 +2645,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2661,7 +2661,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2677,7 +2677,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2693,7 +2693,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2709,7 +2709,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2725,7 +2725,7 @@
           "y": 1656.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2741,7 +2741,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2757,7 +2757,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2773,7 +2773,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2789,7 +2789,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2805,7 +2805,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2821,7 +2821,7 @@
           "y": 1684.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2837,7 +2837,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2853,7 +2853,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2869,7 +2869,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2885,7 +2885,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2901,7 +2901,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2917,7 +2917,7 @@
           "y": 1712.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2933,7 +2933,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2949,7 +2949,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2965,7 +2965,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2981,7 +2981,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -2997,7 +2997,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3013,7 +3013,7 @@
           "y": 1740.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3029,7 +3029,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3045,7 +3045,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3061,7 +3061,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3077,7 +3077,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3093,7 +3093,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3109,7 +3109,7 @@
           "y": 1768.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3125,7 +3125,7 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3141,7 +3141,7 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3157,7 +3157,7 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3173,7 +3173,7 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3189,7 +3189,7 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -3205,13 +3205,13 @@
           "y": 1796.0,
           "z": 0.0
         },
-        "opacity": 1
+        "opacity": 0
       }
     }
   ],
   "animation_tracks": [
     {
-      "id": "op_panel_0",
+      "id": "op_panel_0_s00",
       "target_id": "panel_0",
       "property": "opacity",
       "interpolation": {
@@ -3220,20 +3220,24 @@
       "keyframes": [
         {
           "frame": 0,
-          "value": 0.35
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 20,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_1",
+      "id": "op_panel_1_s00",
       "target_id": "panel_1",
       "property": "opacity",
       "interpolation": {
@@ -3242,20 +3246,24 @@
       "keyframes": [
         {
           "frame": 0,
-          "value": 0.35
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 20,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_2",
+      "id": "op_panel_2_s00",
       "target_id": "panel_2",
       "property": "opacity",
       "interpolation": {
@@ -3264,20 +3272,102 @@
       "keyframes": [
         {
           "frame": 0,
-          "value": 0.35
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 20,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_3",
+      "id": "op_label_0_s00",
+      "target_id": "label_0",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 20,
+          "value": 1.0
+        },
+        {
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_1_s00",
+      "target_id": "label_1",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 20,
+          "value": 1.0
+        },
+        {
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_2_s00",
+      "target_id": "label_2",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 0,
+          "value": 0.0
+        },
+        {
+          "frame": 20,
+          "value": 1.0
+        },
+        {
+          "frame": 599,
+          "value": 1.0
+        },
+        {
+          "frame": 620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_3_s01",
       "target_id": "panel_3",
       "property": "opacity",
       "interpolation": {
@@ -3285,21 +3375,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 620,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_4",
+      "id": "op_panel_4_s01",
       "target_id": "panel_4",
       "property": "opacity",
       "interpolation": {
@@ -3307,21 +3401,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_5",
+      "id": "op_panel_5_s01",
       "target_id": "panel_5",
       "property": "opacity",
       "interpolation": {
@@ -3329,21 +3427,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_6",
+      "id": "op_label_3_s01",
+      "target_id": "label_3",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 600,
+          "value": 0.0
+        },
+        {
+          "frame": 620,
+          "value": 1.0
+        },
+        {
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_4_s01",
+      "target_id": "label_4",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 600,
+          "value": 0.0
+        },
+        {
+          "frame": 620,
+          "value": 1.0
+        },
+        {
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_5_s01",
+      "target_id": "label_5",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 600,
+          "value": 0.0
+        },
+        {
+          "frame": 620,
+          "value": 1.0
+        },
+        {
+          "frame": 1199,
+          "value": 1.0
+        },
+        {
+          "frame": 1220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_6_s02",
       "target_id": "panel_6",
       "property": "opacity",
       "interpolation": {
@@ -3351,21 +3531,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 1220,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_7",
+      "id": "op_panel_7_s02",
       "target_id": "panel_7",
       "property": "opacity",
       "interpolation": {
@@ -3373,21 +3557,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 1220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_8",
+      "id": "op_panel_8_s02",
       "target_id": "panel_8",
       "property": "opacity",
       "interpolation": {
@@ -3395,21 +3583,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 1220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_9",
+      "id": "op_label_6_s02",
+      "target_id": "label_6",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1200,
+          "value": 0.0
+        },
+        {
+          "frame": 1220,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_7_s02",
+      "target_id": "label_7",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1200,
+          "value": 0.0
+        },
+        {
+          "frame": 1220,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_8_s02",
+      "target_id": "label_8",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1200,
+          "value": 0.0
+        },
+        {
+          "frame": 1220,
+          "value": 1.0
+        },
+        {
+          "frame": 1799,
+          "value": 1.0
+        },
+        {
+          "frame": 1820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_9_s03",
       "target_id": "panel_9",
       "property": "opacity",
       "interpolation": {
@@ -3417,21 +3687,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 1820,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_10",
+      "id": "op_panel_10_s03",
       "target_id": "panel_10",
       "property": "opacity",
       "interpolation": {
@@ -3439,21 +3713,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 1820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_11",
+      "id": "op_panel_11_s03",
       "target_id": "panel_11",
       "property": "opacity",
       "interpolation": {
@@ -3461,21 +3739,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 1800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 1820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_12",
+      "id": "op_label_9_s03",
+      "target_id": "label_9",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1800,
+          "value": 0.0
+        },
+        {
+          "frame": 1820,
+          "value": 1.0
+        },
+        {
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_10_s03",
+      "target_id": "label_10",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1800,
+          "value": 0.0
+        },
+        {
+          "frame": 1820,
+          "value": 1.0
+        },
+        {
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_11_s03",
+      "target_id": "label_11",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 1800,
+          "value": 0.0
+        },
+        {
+          "frame": 1820,
+          "value": 1.0
+        },
+        {
+          "frame": 2399,
+          "value": 1.0
+        },
+        {
+          "frame": 2420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_12_s04",
       "target_id": "panel_12",
       "property": "opacity",
       "interpolation": {
@@ -3483,21 +3843,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 2400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 2420,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_13",
+      "id": "op_panel_13_s04",
       "target_id": "panel_13",
       "property": "opacity",
       "interpolation": {
@@ -3505,21 +3869,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 2400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 2420,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_14",
+      "id": "op_panel_14_s04",
       "target_id": "panel_14",
       "property": "opacity",
       "interpolation": {
@@ -3527,21 +3895,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 2400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 2420,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_15",
+      "id": "op_label_12_s04",
+      "target_id": "label_12",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 2400,
+          "value": 0.0
+        },
+        {
+          "frame": 2420,
+          "value": 1.0
+        },
+        {
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_13_s04",
+      "target_id": "label_13",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 2400,
+          "value": 0.0
+        },
+        {
+          "frame": 2420,
+          "value": 1.0
+        },
+        {
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_14_s04",
+      "target_id": "label_14",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 2400,
+          "value": 0.0
+        },
+        {
+          "frame": 2420,
+          "value": 1.0
+        },
+        {
+          "frame": 2999,
+          "value": 1.0
+        },
+        {
+          "frame": 3020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_15_s05",
       "target_id": "panel_15",
       "property": "opacity",
       "interpolation": {
@@ -3549,21 +3999,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 3020,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_16",
+      "id": "op_panel_16_s05",
       "target_id": "panel_16",
       "property": "opacity",
       "interpolation": {
@@ -3571,21 +4025,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 3020,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_17",
+      "id": "op_panel_17_s05",
       "target_id": "panel_17",
       "property": "opacity",
       "interpolation": {
@@ -3593,21 +4051,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 3020,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_18",
+      "id": "op_label_15_s05",
+      "target_id": "label_15",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3000,
+          "value": 0.0
+        },
+        {
+          "frame": 3020,
+          "value": 1.0
+        },
+        {
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_16_s05",
+      "target_id": "label_16",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3000,
+          "value": 0.0
+        },
+        {
+          "frame": 3020,
+          "value": 1.0
+        },
+        {
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_17_s05",
+      "target_id": "label_17",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3000,
+          "value": 0.0
+        },
+        {
+          "frame": 3020,
+          "value": 1.0
+        },
+        {
+          "frame": 3599,
+          "value": 1.0
+        },
+        {
+          "frame": 3620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_18_s06",
       "target_id": "panel_18",
       "property": "opacity",
       "interpolation": {
@@ -3615,21 +4155,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 3620,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_19",
+      "id": "op_panel_19_s06",
       "target_id": "panel_19",
       "property": "opacity",
       "interpolation": {
@@ -3637,21 +4181,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 3620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_20",
+      "id": "op_panel_20_s06",
       "target_id": "panel_20",
       "property": "opacity",
       "interpolation": {
@@ -3659,21 +4207,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 3600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 3620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_21",
+      "id": "op_label_18_s06",
+      "target_id": "label_18",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3600,
+          "value": 0.0
+        },
+        {
+          "frame": 3620,
+          "value": 1.0
+        },
+        {
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_19_s06",
+      "target_id": "label_19",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3600,
+          "value": 0.0
+        },
+        {
+          "frame": 3620,
+          "value": 1.0
+        },
+        {
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_20_s06",
+      "target_id": "label_20",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 3600,
+          "value": 0.0
+        },
+        {
+          "frame": 3620,
+          "value": 1.0
+        },
+        {
+          "frame": 4199,
+          "value": 1.0
+        },
+        {
+          "frame": 4220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_21_s07",
       "target_id": "panel_21",
       "property": "opacity",
       "interpolation": {
@@ -3681,21 +4311,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 4220,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_22",
+      "id": "op_panel_22_s07",
       "target_id": "panel_22",
       "property": "opacity",
       "interpolation": {
@@ -3703,21 +4337,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 4220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_23",
+      "id": "op_panel_23_s07",
       "target_id": "panel_23",
       "property": "opacity",
       "interpolation": {
@@ -3725,21 +4363,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 4220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_24",
+      "id": "op_label_21_s07",
+      "target_id": "label_21",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4200,
+          "value": 0.0
+        },
+        {
+          "frame": 4220,
+          "value": 1.0
+        },
+        {
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_22_s07",
+      "target_id": "label_22",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4200,
+          "value": 0.0
+        },
+        {
+          "frame": 4220,
+          "value": 1.0
+        },
+        {
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_23_s07",
+      "target_id": "label_23",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4200,
+          "value": 0.0
+        },
+        {
+          "frame": 4220,
+          "value": 1.0
+        },
+        {
+          "frame": 4799,
+          "value": 1.0
+        },
+        {
+          "frame": 4820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_24_s08",
       "target_id": "panel_24",
       "property": "opacity",
       "interpolation": {
@@ -3747,21 +4467,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 4820,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_25",
+      "id": "op_panel_25_s08",
       "target_id": "panel_25",
       "property": "opacity",
       "interpolation": {
@@ -3769,21 +4493,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 4820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_26",
+      "id": "op_panel_26_s08",
       "target_id": "panel_26",
       "property": "opacity",
       "interpolation": {
@@ -3791,21 +4519,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 4800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 4820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_27",
+      "id": "op_label_24_s08",
+      "target_id": "label_24",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4800,
+          "value": 0.0
+        },
+        {
+          "frame": 4820,
+          "value": 1.0
+        },
+        {
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_25_s08",
+      "target_id": "label_25",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4800,
+          "value": 0.0
+        },
+        {
+          "frame": 4820,
+          "value": 1.0
+        },
+        {
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_26_s08",
+      "target_id": "label_26",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 4800,
+          "value": 0.0
+        },
+        {
+          "frame": 4820,
+          "value": 1.0
+        },
+        {
+          "frame": 5399,
+          "value": 1.0
+        },
+        {
+          "frame": 5420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_27_s09",
       "target_id": "panel_27",
       "property": "opacity",
       "interpolation": {
@@ -3813,21 +4623,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 5400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 5420,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_28",
+      "id": "op_panel_28_s09",
       "target_id": "panel_28",
       "property": "opacity",
       "interpolation": {
@@ -3835,21 +4649,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 5400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 5420,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_29",
+      "id": "op_panel_29_s09",
       "target_id": "panel_29",
       "property": "opacity",
       "interpolation": {
@@ -3857,21 +4675,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 5400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 5420,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_30",
+      "id": "op_label_27_s09",
+      "target_id": "label_27",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 5400,
+          "value": 0.0
+        },
+        {
+          "frame": 5420,
+          "value": 1.0
+        },
+        {
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_28_s09",
+      "target_id": "label_28",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 5400,
+          "value": 0.0
+        },
+        {
+          "frame": 5420,
+          "value": 1.0
+        },
+        {
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_29_s09",
+      "target_id": "label_29",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 5400,
+          "value": 0.0
+        },
+        {
+          "frame": 5420,
+          "value": 1.0
+        },
+        {
+          "frame": 5999,
+          "value": 1.0
+        },
+        {
+          "frame": 6020,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_30_s10",
       "target_id": "panel_30",
       "property": "opacity",
       "interpolation": {
@@ -3879,21 +4779,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 6020,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_31",
+      "id": "op_panel_31_s10",
       "target_id": "panel_31",
       "property": "opacity",
       "interpolation": {
@@ -3901,21 +4805,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 6020,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_32",
+      "id": "op_panel_32_s10",
       "target_id": "panel_32",
       "property": "opacity",
       "interpolation": {
@@ -3923,21 +4831,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6000,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 6020,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_33",
+      "id": "op_label_30_s10",
+      "target_id": "label_30",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6000,
+          "value": 0.0
+        },
+        {
+          "frame": 6020,
+          "value": 1.0
+        },
+        {
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_31_s10",
+      "target_id": "label_31",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6000,
+          "value": 0.0
+        },
+        {
+          "frame": 6020,
+          "value": 1.0
+        },
+        {
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_32_s10",
+      "target_id": "label_32",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6000,
+          "value": 0.0
+        },
+        {
+          "frame": 6020,
+          "value": 1.0
+        },
+        {
+          "frame": 6599,
+          "value": 1.0
+        },
+        {
+          "frame": 6620,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_33_s11",
       "target_id": "panel_33",
       "property": "opacity",
       "interpolation": {
@@ -3945,21 +4935,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 6620,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_34",
+      "id": "op_panel_34_s11",
       "target_id": "panel_34",
       "property": "opacity",
       "interpolation": {
@@ -3967,21 +4961,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 6620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_35",
+      "id": "op_panel_35_s11",
       "target_id": "panel_35",
       "property": "opacity",
       "interpolation": {
@@ -3989,21 +4987,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 6600,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 6620,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_36",
+      "id": "op_label_33_s11",
+      "target_id": "label_33",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6600,
+          "value": 0.0
+        },
+        {
+          "frame": 6620,
+          "value": 1.0
+        },
+        {
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_34_s11",
+      "target_id": "label_34",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6600,
+          "value": 0.0
+        },
+        {
+          "frame": 6620,
+          "value": 1.0
+        },
+        {
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_35_s11",
+      "target_id": "label_35",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 6600,
+          "value": 0.0
+        },
+        {
+          "frame": 6620,
+          "value": 1.0
+        },
+        {
+          "frame": 7199,
+          "value": 1.0
+        },
+        {
+          "frame": 7220,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_36_s12",
       "target_id": "panel_36",
       "property": "opacity",
       "interpolation": {
@@ -4011,21 +5091,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 7220,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_37",
+      "id": "op_panel_37_s12",
       "target_id": "panel_37",
       "property": "opacity",
       "interpolation": {
@@ -4033,21 +5117,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 7220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_38",
+      "id": "op_panel_38_s12",
       "target_id": "panel_38",
       "property": "opacity",
       "interpolation": {
@@ -4055,21 +5143,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7200,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 7220,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_39",
+      "id": "op_label_36_s12",
+      "target_id": "label_36",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7200,
+          "value": 0.0
+        },
+        {
+          "frame": 7220,
+          "value": 1.0
+        },
+        {
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_37_s12",
+      "target_id": "label_37",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7200,
+          "value": 0.0
+        },
+        {
+          "frame": 7220,
+          "value": 1.0
+        },
+        {
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_38_s12",
+      "target_id": "label_38",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7200,
+          "value": 0.0
+        },
+        {
+          "frame": 7220,
+          "value": 1.0
+        },
+        {
+          "frame": 7799,
+          "value": 1.0
+        },
+        {
+          "frame": 7820,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_39_s13",
       "target_id": "panel_39",
       "property": "opacity",
       "interpolation": {
@@ -4077,21 +5247,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 7820,
+          "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_40",
+      "id": "op_panel_40_s13",
       "target_id": "panel_40",
       "property": "opacity",
       "interpolation": {
@@ -4099,21 +5273,25 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 7820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_41",
+      "id": "op_panel_41_s13",
       "target_id": "panel_41",
       "property": "opacity",
       "interpolation": {
@@ -4121,21 +5299,103 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 7800,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 7820,
           "value": 1.0
         },
         {
-          "frame": 8999,
-          "value": 0.4
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
         }
       ]
     },
     {
-      "id": "op_panel_42",
+      "id": "op_label_39_s13",
+      "target_id": "label_39",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7800,
+          "value": 0.0
+        },
+        {
+          "frame": 7820,
+          "value": 1.0
+        },
+        {
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_40_s13",
+      "target_id": "label_40",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7800,
+          "value": 0.0
+        },
+        {
+          "frame": 7820,
+          "value": 1.0
+        },
+        {
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_label_41_s13",
+      "target_id": "label_41",
+      "property": "opacity",
+      "interpolation": {
+        "type": "linear"
+      },
+      "keyframes": [
+        {
+          "frame": 7800,
+          "value": 0.0
+        },
+        {
+          "frame": 7820,
+          "value": 1.0
+        },
+        {
+          "frame": 8399,
+          "value": 1.0
+        },
+        {
+          "frame": 8420,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "id": "op_panel_42_s14",
       "target_id": "panel_42",
       "property": "opacity",
       "interpolation": {
@@ -4143,21 +5403,21 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 8420,
+          "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     },
     {
-      "id": "op_panel_43",
+      "id": "op_panel_43_s14",
       "target_id": "panel_43",
       "property": "opacity",
       "interpolation": {
@@ -4165,21 +5425,21 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 8420,
           "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     },
     {
-      "id": "op_panel_44",
+      "id": "op_panel_44_s14",
       "target_id": "panel_44",
       "property": "opacity",
       "interpolation": {
@@ -4187,82 +5447,82 @@
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 8420,
           "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     },
     {
-      "id": "op_panel_45",
-      "target_id": "panel_45",
+      "id": "op_label_42_s14",
+      "target_id": "label_42",
       "property": "opacity",
       "interpolation": {
         "type": "linear"
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
-          "value": 0.55
+          "frame": 8420,
+          "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     },
     {
-      "id": "op_panel_46",
-      "target_id": "panel_46",
+      "id": "op_label_43_s14",
+      "target_id": "label_43",
       "property": "opacity",
       "interpolation": {
         "type": "linear"
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 8420,
           "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     },
     {
-      "id": "op_panel_47",
-      "target_id": "panel_47",
+      "id": "op_label_44_s14",
+      "target_id": "label_44",
       "property": "opacity",
       "interpolation": {
         "type": "linear"
       },
       "keyframes": [
         {
-          "frame": 0,
-          "value": 0.35
+          "frame": 8400,
+          "value": 0.0
         },
         {
-          "frame": 4500,
+          "frame": 8420,
           "value": 1.0
         },
         {
           "frame": 8999,
-          "value": 0.4
+          "value": 1.0
         }
       ]
     }
@@ -4277,27 +5537,9 @@
         "panel_0",
         "panel_1",
         "panel_2",
-        "panel_3",
-        "panel_4",
-        "panel_5",
-        "panel_6",
-        "panel_7",
-        "panel_8",
-        "panel_9",
-        "panel_10",
-        "panel_11",
         "label_0",
         "label_1",
-        "label_2",
-        "label_3",
-        "label_4",
-        "label_5",
-        "label_6",
-        "label_7",
-        "label_8",
-        "label_9",
-        "label_10",
-        "label_11"
+        "label_2"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4310,27 +5552,9 @@
         "panel_3",
         "panel_4",
         "panel_5",
-        "panel_6",
-        "panel_7",
-        "panel_8",
-        "panel_9",
-        "panel_10",
-        "panel_11",
-        "panel_12",
-        "panel_13",
-        "panel_14",
         "label_3",
         "label_4",
-        "label_5",
-        "label_6",
-        "label_7",
-        "label_8",
-        "label_9",
-        "label_10",
-        "label_11",
-        "label_12",
-        "label_13",
-        "label_14"
+        "label_5"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4343,27 +5567,9 @@
         "panel_6",
         "panel_7",
         "panel_8",
-        "panel_9",
-        "panel_10",
-        "panel_11",
-        "panel_12",
-        "panel_13",
-        "panel_14",
-        "panel_15",
-        "panel_16",
-        "panel_17",
         "label_6",
         "label_7",
-        "label_8",
-        "label_9",
-        "label_10",
-        "label_11",
-        "label_12",
-        "label_13",
-        "label_14",
-        "label_15",
-        "label_16",
-        "label_17"
+        "label_8"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4376,27 +5582,9 @@
         "panel_9",
         "panel_10",
         "panel_11",
-        "panel_12",
-        "panel_13",
-        "panel_14",
-        "panel_15",
-        "panel_16",
-        "panel_17",
-        "panel_18",
-        "panel_19",
-        "panel_20",
         "label_9",
         "label_10",
-        "label_11",
-        "label_12",
-        "label_13",
-        "label_14",
-        "label_15",
-        "label_16",
-        "label_17",
-        "label_18",
-        "label_19",
-        "label_20"
+        "label_11"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4409,27 +5597,9 @@
         "panel_12",
         "panel_13",
         "panel_14",
-        "panel_15",
-        "panel_16",
-        "panel_17",
-        "panel_18",
-        "panel_19",
-        "panel_20",
-        "panel_21",
-        "panel_22",
-        "panel_23",
         "label_12",
         "label_13",
-        "label_14",
-        "label_15",
-        "label_16",
-        "label_17",
-        "label_18",
-        "label_19",
-        "label_20",
-        "label_21",
-        "label_22",
-        "label_23"
+        "label_14"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4442,27 +5612,9 @@
         "panel_15",
         "panel_16",
         "panel_17",
-        "panel_18",
-        "panel_19",
-        "panel_20",
-        "panel_21",
-        "panel_22",
-        "panel_23",
-        "panel_24",
-        "panel_25",
-        "panel_26",
         "label_15",
         "label_16",
-        "label_17",
-        "label_18",
-        "label_19",
-        "label_20",
-        "label_21",
-        "label_22",
-        "label_23",
-        "label_24",
-        "label_25",
-        "label_26"
+        "label_17"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4475,27 +5627,9 @@
         "panel_18",
         "panel_19",
         "panel_20",
-        "panel_21",
-        "panel_22",
-        "panel_23",
-        "panel_24",
-        "panel_25",
-        "panel_26",
-        "panel_27",
-        "panel_28",
-        "panel_29",
         "label_18",
         "label_19",
-        "label_20",
-        "label_21",
-        "label_22",
-        "label_23",
-        "label_24",
-        "label_25",
-        "label_26",
-        "label_27",
-        "label_28",
-        "label_29"
+        "label_20"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4508,27 +5642,9 @@
         "panel_21",
         "panel_22",
         "panel_23",
-        "panel_24",
-        "panel_25",
-        "panel_26",
-        "panel_27",
-        "panel_28",
-        "panel_29",
-        "panel_30",
-        "panel_31",
-        "panel_32",
         "label_21",
         "label_22",
-        "label_23",
-        "label_24",
-        "label_25",
-        "label_26",
-        "label_27",
-        "label_28",
-        "label_29",
-        "label_30",
-        "label_31",
-        "label_32"
+        "label_23"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4541,27 +5657,9 @@
         "panel_24",
         "panel_25",
         "panel_26",
-        "panel_27",
-        "panel_28",
-        "panel_29",
-        "panel_30",
-        "panel_31",
-        "panel_32",
-        "panel_33",
-        "panel_34",
-        "panel_35",
         "label_24",
         "label_25",
-        "label_26",
-        "label_27",
-        "label_28",
-        "label_29",
-        "label_30",
-        "label_31",
-        "label_32",
-        "label_33",
-        "label_34",
-        "label_35"
+        "label_26"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4574,27 +5672,9 @@
         "panel_27",
         "panel_28",
         "panel_29",
-        "panel_30",
-        "panel_31",
-        "panel_32",
-        "panel_33",
-        "panel_34",
-        "panel_35",
-        "panel_36",
-        "panel_37",
-        "panel_38",
         "label_27",
         "label_28",
-        "label_29",
-        "label_30",
-        "label_31",
-        "label_32",
-        "label_33",
-        "label_34",
-        "label_35",
-        "label_36",
-        "label_37",
-        "label_38"
+        "label_29"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4607,27 +5687,9 @@
         "panel_30",
         "panel_31",
         "panel_32",
-        "panel_33",
-        "panel_34",
-        "panel_35",
-        "panel_36",
-        "panel_37",
-        "panel_38",
-        "panel_39",
-        "panel_40",
-        "panel_41",
         "label_30",
         "label_31",
-        "label_32",
-        "label_33",
-        "label_34",
-        "label_35",
-        "label_36",
-        "label_37",
-        "label_38",
-        "label_39",
-        "label_40",
-        "label_41"
+        "label_32"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4640,27 +5702,9 @@
         "panel_33",
         "panel_34",
         "panel_35",
-        "panel_36",
-        "panel_37",
-        "panel_38",
-        "panel_39",
-        "panel_40",
-        "panel_41",
-        "panel_42",
-        "panel_43",
-        "panel_44",
         "label_33",
         "label_34",
-        "label_35",
-        "label_36",
-        "label_37",
-        "label_38",
-        "label_39",
-        "label_40",
-        "label_41",
-        "label_42",
-        "label_43",
-        "label_44"
+        "label_35"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4673,27 +5717,9 @@
         "panel_36",
         "panel_37",
         "panel_38",
-        "panel_39",
-        "panel_40",
-        "panel_41",
-        "panel_42",
-        "panel_43",
-        "panel_44",
-        "panel_45",
-        "panel_46",
-        "panel_47",
         "label_36",
         "label_37",
-        "label_38",
-        "label_39",
-        "label_40",
-        "label_41",
-        "label_42",
-        "label_43",
-        "label_44",
-        "label_45",
-        "label_46",
-        "label_47"
+        "label_38"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4706,21 +5732,9 @@
         "panel_39",
         "panel_40",
         "panel_41",
-        "panel_42",
-        "panel_43",
-        "panel_44",
-        "panel_45",
-        "panel_46",
-        "panel_47",
         "label_39",
         "label_40",
-        "label_41",
-        "label_42",
-        "label_43",
-        "label_44",
-        "label_45",
-        "label_46",
-        "label_47"
+        "label_41"
       ],
       "camera_node_id": "main_cam"
     },
@@ -4733,22 +5747,16 @@
         "panel_42",
         "panel_43",
         "panel_44",
-        "panel_45",
-        "panel_46",
-        "panel_47",
         "label_42",
         "label_43",
-        "label_44",
-        "label_45",
-        "label_46",
-        "label_47"
+        "label_44"
       ],
       "camera_node_id": "main_cam"
     }
   ],
   "transition_spans": [],
   "provenance": {
-    "project_sha256": "dc8a847652ab87543af53c8c67519c100b961f27ad922768354ed30593ddde86",
+    "project_sha256": "a1ee62423b5617ad4d304d9773e50ec63284fb63a5349ee800ee9a1be7e23141",
     "style_packages": [
       {
         "id": "editorial",

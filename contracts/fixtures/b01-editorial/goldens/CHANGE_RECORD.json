@@ -12,7 +12,7 @@
     {
       "artifact_id": "hook.png",
       "previous_sha256": "",
-      "next_sha256": "ad74fbadbb1864a837c345d7a6e92abab26d0f647bd5d81f5484bf41a8cb35d8",
+      "next_sha256": "605d820fb136e76a1bd7e4805e543be0a130baeed4b949585d668f880aa75cee",
       "reason": "initial editorial reference approval",
       "approved_by_role": "editorial-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -28,7 +28,7 @@
     {
       "artifact_id": "hero_claim.png",
       "previous_sha256": "",
-      "next_sha256": "83758c71b525d94a9bdab09cf5d5fa7eba2031faa2bd9c7c247de5c7e6f986bf",
+      "next_sha256": "3e042da53748aef6a25be36aea2fc09362f4ec17a9be4c3c195fbbaa8afe56dd",
       "reason": "initial editorial reference approval",
       "approved_by_role": "editorial-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -44,7 +44,7 @@
     {
       "artifact_id": "data_comparison.png",
       "previous_sha256": "",
-      "next_sha256": "d6583d35b336046ad38edc599c53a2ac7406acc5806e17e84272136854856605",
+      "next_sha256": "25ced3205189ec86febd32e291d70a9d7cf46b942e0a78a86b456c7a00ae3eac",
       "reason": "initial editorial reference approval",
       "approved_by_role": "editorial-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -60,7 +60,7 @@
     {
       "artifact_id": "source_screenshot_crop.png",
       "previous_sha256": "",
-      "next_sha256": "8419b0bef03ab156fe7b624505fab23200cf2a41bdd9d9215b7c31241ef7cf73",
+      "next_sha256": "5cdf54b03014111950c44553e38cdfc6d74be54e03ffe97ba2290298c5939ef7",
       "reason": "initial editorial reference approval",
       "approved_by_role": "editorial-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -76,7 +76,7 @@
     {
       "artifact_id": "closing_cta.png",
       "previous_sha256": "",
-      "next_sha256": "9f0c331e8da65ca7b069a8d448c4e3af8fddf254cc7227b6a5602b79ab298fcb",
+      "next_sha256": "63c404b04d8eecd01e5030b1f9d783daa7873e9052d8c163807e3ae4234ed4d2",
       "reason": "initial editorial reference approval",
       "approved_by_role": "editorial-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"

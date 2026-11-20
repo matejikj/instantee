@@ -12,7 +12,7 @@
     {
       "artifact_id": "reveal_stage.png",
       "previous_sha256": "",
-      "next_sha256": "8b8f7729d3effe8fcd4bd3d9298909588a2fa419537683efb19a2dc9788c5372",
+      "next_sha256": "d2ee4147c4df10e70f721dcf8a63570116a720d6cd8ee7a4e0d7925bd15283a7",
       "reason": "initial paper cinema reference approval",
       "approved_by_role": "paper-cinema-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -28,7 +28,7 @@
     {
       "artifact_id": "object_closeup.png",
       "previous_sha256": "",
-      "next_sha256": "a116a71f3535b4652916a1f23ec5c93083c7f6b078a3caf9a5615bd49522865b",
+      "next_sha256": "c9454857217938cfb6798d6ae2b5036c577cd5c9da84363ab2cc720de90ca1e6",
       "reason": "initial paper cinema reference approval",
       "approved_by_role": "paper-cinema-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -44,7 +44,7 @@
     {
       "artifact_id": "puppet_dialogue.png",
       "previous_sha256": "",
-      "next_sha256": "f9721ce69912eab09e040071fd31d03d23cdf79684518ec384a66fb1b74085a3",
+      "next_sha256": "7ab5d6a8fc1bf08a6e6e0b3ead3c6f5ea22e2182fe94b4b45ce192c541ed84b6",
       "reason": "initial paper cinema reference approval",
       "approved_by_role": "paper-cinema-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -60,7 +60,7 @@
     {
       "artifact_id": "technical_explanation.png",
       "previous_sha256": "",
-      "next_sha256": "e84f8a500059c652981f5f6d75181995a888dce86a18a52fd85977593fbd857a",
+      "next_sha256": "074cbee73ef1b4acc9551026c2c7cb8c402e6196e41078c9674d846d1ad307d4",
       "reason": "initial paper cinema reference approval",
       "approved_by_role": "paper-cinema-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"
@@ -76,7 +76,7 @@
     {
       "artifact_id": "atmospheric_dissolve.png",
       "previous_sha256": "",
-      "next_sha256": "eb8abb127f2f8818b6c61df9f4d33b4e2854a0590a3c1c7f2583f1f4211f003f",
+      "next_sha256": "ca3eb17a2e83f2f9a44e3bd0fd9d50fa03215e82519764deb8992169445d04cb",
       "reason": "initial paper cinema reference approval",
       "approved_by_role": "paper-cinema-visual-reviewer",
       "approved_at_utc": "2026-11-18T00:00:00Z"

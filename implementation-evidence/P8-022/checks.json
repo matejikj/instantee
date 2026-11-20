@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-20T01:55:57Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "89d6f6f",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/fixtures/b01-editorial/goldens/CHANGE_RECORD.json",
+    "contracts/fixtures/b01-editorial/goldens/closing_cta.png",
+    "contracts/fixtures/b01-editorial/goldens/data_comparison.png",
+    "contracts/fixtures/b01-editorial/goldens/hero_claim.png",
+    "contracts/fixtures/b01-editorial/goldens/hook.png",
+    "contracts/fixtures/b01-editorial/goldens/manifest.json",
+    "contracts/fixtures/b01-editorial/goldens/source_screenshot_crop.png",
+    "contracts/fixtures/b01-editorial/visual-review/review-record.json",
+    "contracts/fixtures/b02-notebook/goldens/CHANGE_RECORD.json",
+    "contracts/fixtures/b02-notebook/goldens/construction.png",
+    "contracts/fixtures/b02-notebook/goldens/derivation.png",
+    "contracts/fixtures/b02-notebook/goldens/manifest.json",
+    "contracts/fixtures/b02-notebook/goldens/problem_statement.png",
+    "contracts/fixtures/b02-notebook/goldens/summary.png",
+    "contracts/fixtures/b02-notebook/goldens/visual_intuition.png",
+    "contracts/fixtures/b02-notebook/visual-review/review-record.json",
+    "contracts/fixtures/b03-paper/goldens/CHANGE_RECORD.json",
+    "contracts/fixtures/b03-paper/goldens/atmospheric_dissolve.png",
+    "contracts/fixtures/b03-paper/goldens/manifest.json",
+    "contracts/fixtures/b03-paper/goldens/object_closeup.png",
+    "contracts/fixtures/b03-paper/goldens/puppet_dialogue.png",
+    "contracts/fixtures/b03-paper/goldens/reveal_stage.png",
+    "contracts/fixtures/b03-paper/goldens/technical_explanation.png",
+    "contracts/fixtures/b03-paper/visual-review/review-record.json",
+    "contracts/fixtures/b05-worst-accepted/README.md",
+    "contracts/fixtures/b05-worst-accepted/b05-workload.lock.json",
+    "contracts/fixtures/b05-worst-accepted/b05-worst-accepted-300s.scene.json",
+    "contracts/fixtures/b05-worst-accepted/complexity-tier.json",
+    "contracts/fixtures/benchmark-workloads/catalog-v1.json",
+    "engine/apps/CMakeLists.txt",
+    "engine/apps/b05-worst-accepted-export/CMakeLists.txt",
+    "engine/apps/b05-worst-accepted-export/main.mm",
+    "tools/benchmark/README.md",
+    "tools/benchmark/b05_baseline.py",
+    "tools/benchmark/gen_b05_scene.py",
+    "tools/benchmark/make_b05_profile.py",
+    "tools/benchmark/test_b05_baseline.py",
+    "tools/benchmark/test_workload_locks.py"
+  ],
+  "risks": [
+    "native",
+    "concurrency",
+    "authoring",
+    "python:tools/benchmark"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-format",
+      "command": "xcrun clang-format --dry-run --Werror engine/apps/b05-worst-accepted-export/main.mm",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.2
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/apps/b05-worst-accepted-export/main.mm",
+      "status": "unavailable",
+      "reason": "clang-tidy not found"
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 28.6,
+      "tests": {
+        "total": 335,
+        "passed": 335,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 563.5,
+      "tests": {
+        "total": 343,
+        "passed": 343,
+        "failed": 0
+      }
+    },
+    {
+      "name": "tsan",
+      "command": "cmake --workflow --preset tsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1891.4,
+      "tests": {
+        "total": 343,
+        "passed": 343,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.5
+    },
+    {
+      "name": "python:tools/benchmark",
+      "command": "python3 -m unittest discover -s tools/benchmark -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.5
+    }
+  ],
+  "result": "incomplete",
+  "certified_performance": false
+}

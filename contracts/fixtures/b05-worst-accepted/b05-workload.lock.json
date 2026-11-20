@@ -1,7 +1,7 @@
 {
-  "workload_id": "B-05-worst-accepted-300s-v1",
+  "workload_id": "B-05-worst-accepted-300s-v2",
   "scene": "contracts/fixtures/b05-worst-accepted/b05-worst-accepted-300s.scene.json",
-  "scene_sha256": "2f900e8efa9429cbbecaf73b93c246ed6d0270dc466e08f64fa146ea76651f3b",
+  "scene_sha256": "1c7e3c1604d6c563b1f7bc0eedd721564514d98080e4fe3d10ec8fe7686f8a18",
   "asset_lock": "assets/editorial/editorial.lock.json",
   "asset_lock_sha256": "809028d61f6263751fceaa80409e8c632768200b6a61c18f6c98ae578557c62a",
   "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
@@ -20,7 +20,7 @@
   },
   "seed_decimal": "42",
   "notes": [
-    "Locked before first B-05 worst-accepted measurement.",
+    "Opacity fade windows keep concurrent draws within the 1800 s cold wall.",
     "Complexity ceilings are explicit in complexity-tier.json.",
     "Changing any pinned digest requires a new workload_id baseline."
   ]

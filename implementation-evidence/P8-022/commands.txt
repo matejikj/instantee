@@ -1,0 +1,4 @@
+cmake --build --preset release --target spike-b05-worst-accepted-export
+python3 tools/benchmark/make_b05_profile.py build/release/spike-b05-worst-accepted-export /tmp/b05-profile.json
+python3 tools/benchmark/b05_baseline.py build/release/spike-b05-worst-accepted-export /tmp/b05-series --profile /tmp/b05-profile.json --schema contracts/schemas/performance-report-v1.schema.json --timeout 2100
+python3 tools/dev/check.py --asan --tsan --report implementation-evidence/P8-022/checks.json

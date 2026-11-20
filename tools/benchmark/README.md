@@ -202,3 +202,21 @@ python3 tools/benchmark/b04_baseline.py \
 Requires exactly 9000 frames, quality tier `mixed-b04-v1`, and non-null ADR
 thresholds. Every cold trial must meet `export_wall_ms ≤ 1800000`. Run reports
 remain `certified=false`.
+
+### B-05 worst-accepted 300 s reference series
+
+```sh
+cmake --build --preset release --target spike-b05-worst-accepted-export
+python3 tools/benchmark/make_b05_profile.py \
+  build/release/spike-b05-worst-accepted-export /tmp/b05-profile.json
+python3 tools/benchmark/b05_baseline.py \
+  build/release/spike-b05-worst-accepted-export /tmp/b05-series \
+  --profile /tmp/b05-profile.json \
+  --schema contracts/schemas/performance-report-v1.schema.json \
+  --timeout 2100
+```
+
+Requires exactly 9000 frames, quality/complexity tier `worst-accepted-b05-v1`,
+and non-null ADR thresholds. Publishes the supported complexity ceilings and
+performance limits; every cold trial must meet `export_wall_ms ≤ 1800000` with
+no OOM. Run reports remain `certified=false`.

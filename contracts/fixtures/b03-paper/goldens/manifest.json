@@ -3,14 +3,14 @@
   "workload": "B-03-paper-historical-reel-60s-v1",
   "artifacts": [
     {"id": "reveal_stage.structural.txt", "kind": "structural", "sha256": "fa4af532132a35dad8c2622c4be8bece27c396a2f27d7e7681761a3885bd3db6"},
-    {"id": "reveal_stage.png", "kind": "png", "sha256": "8b8f7729d3effe8fcd4bd3d9298909588a2fa419537683efb19a2dc9788c5372"},
+    {"id": "reveal_stage.png", "kind": "png", "sha256": "d2ee4147c4df10e70f721dcf8a63570116a720d6cd8ee7a4e0d7925bd15283a7"},
     {"id": "object_closeup.structural.txt", "kind": "structural", "sha256": "b4be49e4e412fec654ff60a9050be9fe5ca623293eb8bf257f18f04f78ae2b41"},
-    {"id": "object_closeup.png", "kind": "png", "sha256": "a116a71f3535b4652916a1f23ec5c93083c7f6b078a3caf9a5615bd49522865b"},
+    {"id": "object_closeup.png", "kind": "png", "sha256": "c9454857217938cfb6798d6ae2b5036c577cd5c9da84363ab2cc720de90ca1e6"},
     {"id": "puppet_dialogue.structural.txt", "kind": "structural", "sha256": "39652f456280cdc0a44168517e998ac1c0aec8603f96675e6da7e78ac3626dba"},
-    {"id": "puppet_dialogue.png", "kind": "png", "sha256": "f9721ce69912eab09e040071fd31d03d23cdf79684518ec384a66fb1b74085a3"},
+    {"id": "puppet_dialogue.png", "kind": "png", "sha256": "7ab5d6a8fc1bf08a6e6e0b3ead3c6f5ea22e2182fe94b4b45ce192c541ed84b6"},
     {"id": "technical_explanation.structural.txt", "kind": "structural", "sha256": "71c4e73f8a98406f4b6a1e0c38a3e167dbbd96a9ccf168ecf7213862d47074e0"},
-    {"id": "technical_explanation.png", "kind": "png", "sha256": "e84f8a500059c652981f5f6d75181995a888dce86a18a52fd85977593fbd857a"},
+    {"id": "technical_explanation.png", "kind": "png", "sha256": "074cbee73ef1b4acc9551026c2c7cb8c402e6196e41078c9674d846d1ad307d4"},
     {"id": "atmospheric_dissolve.structural.txt", "kind": "structural", "sha256": "5fbf9ff8f85dd65bab741935e9bb3b14a7a4d0744512b4f6c31ece623b657b59"},
-    {"id": "atmospheric_dissolve.png", "kind": "png", "sha256": "eb8abb127f2f8818b6c61df9f4d33b4e2854a0590a3c1c7f2583f1f4211f003f"}
+    {"id": "atmospheric_dissolve.png", "kind": "png", "sha256": "ca3eb17a2e83f2f9a44e3bd0fd9d50fa03215e82519764deb8992169445d04cb"}
   ]
 }

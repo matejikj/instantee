@@ -3,7 +3,7 @@
   "status": "approved",
   "approved_by_role": "paper-cinema-visual-reviewer",
   "approved_at_utc": "2026-11-18T00:00:00Z",
-  "golden_manifest_sha256": "6b129ee8b667c990f7f2d150036c45706f21e2b63f6ba9c599fec05a6f97ca2c",
+  "golden_manifest_sha256": "15f15aeda08541b18aa4101b1167773d1a991082b90312b9585f80fabf923e3e",
   "tolerances": {"max_channel_delta": 0, "max_mismatch_ratio": 0.0},
   "method": "checklist+reference-frames+tolerance; subjective impression insufficient",
   "checklist_results": [

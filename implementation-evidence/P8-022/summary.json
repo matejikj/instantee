@@ -1,0 +1,10 @@
+{
+  "verification": "B-05 tier report",
+  "measurement": "reference-series",
+  "evidence_tier": "C",
+  "series_pass": true,
+  "cold_wall_within_1800s": true,
+  "oom_observed": false,
+  "workload_id": "B-05-worst-accepted-300s-v2",
+  "complexity_tier": "worst-accepted-b05-v1"
+}

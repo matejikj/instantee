@@ -211,6 +211,32 @@ python3 tools/benchmark/style_certificate.py \
 Every valid cold trial must meet `export_wall_ms ≤ 360000`. Null p99, RSS, or
 CPU ceilings FAIL. Median/min/max are summary only; slow runs are retained.
 
+### B-04/B-05 300 s thermal endurance suite
+
+Stability-only suite (`measurement=none`): fps buckets over time, allowlisted
+thermal samples, K/E/queue peaks, error counts, and RAM plateau / growth gates.
+Default is one cold and one warm process per locked 300 s family:
+
+```sh
+python3 tools/benchmark/make_b04_profile.py \
+  build/release/spike-b04-mixed-export /tmp/b04-profile.json
+python3 tools/benchmark/make_b05_profile.py \
+  build/release/spike-b05-worst-accepted-export /tmp/b05-profile.json
+python3 tools/benchmark/style_endurance.py \
+  --b04-binary build/release/spike-b04-mixed-export \
+  --b04-profile /tmp/b04-profile.json \
+  --b05-binary build/release/spike-b05-worst-accepted-export \
+  --b05-profile /tmp/b05-profile.json \
+  --directory /tmp/b04-b05-endurance \
+  --schema contracts/schemas/performance-report-v1.schema.json \
+  --timeout 2100
+```
+
+Pass/fail rejects fatal post-warmup latency slowdown, capacity overflow, silent
+drops, and working-set growth beyond the declared RSS peak/growth budgets. It
+does **not** certify throughput, p99, or CPU SLOs. Artifacts: `suite.json` and
+`endurance-plot.md`.
+
 ### B-04 mixed 300 s reference series
 
 ```sh

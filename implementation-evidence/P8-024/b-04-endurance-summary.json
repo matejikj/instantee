@@ -1,0 +1,128 @@
+{
+  "evidence_kind": "b04_300s_cold_warm_endurance",
+  "certified": false,
+  "performance_claim": false,
+  "family": "B-04",
+  "workload_id": "B-04-mixed-300s-v2",
+  "frames_per_trial": 9000,
+  "profile_sha256": "1fd2e2e43b3ae9fa6c7546397ec2e0c0cedfb1bb034759f9d51ee582bc5c8064",
+  "declared_budgets": {
+    "frame_credits_k": 2,
+    "queue_capacity": 1,
+    "encoder_pool_e": 8,
+    "rss_soft_budget_bytes": 4294967296,
+    "rss_hard_budget_bytes": 6442450944,
+    "rss_declared_peak_budget_bytes": 268435456,
+    "rss_growth_limit_bytes": 2147483648,
+    "slowdown_ratio_max": 3.0
+  },
+  "series_pass": true,
+  "cold_pass_count": 1,
+  "warm_pass_count": 1,
+  "thermal_preconditions": {
+    "before_thermal_state": "nominal",
+    "after_thermal_state": "fair",
+    "logical_cpu_count": 8
+  },
+  "runs": [
+    {
+      "run_id": "cold-00",
+      "cache_mode": "cold",
+      "pass": true,
+      "export_wall_ms": 810893.845417,
+      "effective_fps": 11.098863372642537,
+      "rss_peak_bytes": 120225792,
+      "in_flight_peak": 1,
+      "queue_peak": 1,
+      "encoder_pool_peak": 8,
+      "working_set_reason": "within_budget",
+      "fps_series": {
+        "warmup_fraction": 0.2,
+        "bucket_frames": 300,
+        "early_median_latency_ns": 88260271.5,
+        "late_median_latency_ns": 88979687.5,
+        "late_over_early_latency_ratio": 1.0081510739517723,
+        "fatal_slowdown": false
+      },
+      "thermal_states_observed": [
+        "fair",
+        "nominal"
+      ],
+      "error_count": {
+        "failed_frames": 0,
+        "cancelled_frames": 0,
+        "frame_lost_samples": 0,
+        "resource_lost_samples": 0
+      },
+      "resource_series": {
+        "sample_count": 8108,
+        "rss_peak_max_bytes": 120225792,
+        "rss_current_min_bytes": 17285120,
+        "rss_current_max_bytes": 120225792,
+        "post_warmup_rss_projected_growth_bytes": -1743883.836950914
+      },
+      "oldest_slow_frame": {
+        "frame_index": 5957,
+        "latency_ns": 236198500
+      },
+      "shutdown": {
+        "child_exit_code": 0,
+        "published": true,
+        "timed_out": false,
+        "cancelled": false
+      }
+    },
+    {
+      "run_id": "warm-00",
+      "cache_mode": "warm",
+      "pass": true,
+      "export_wall_ms": 835024.793459,
+      "effective_fps": 10.778123081493751,
+      "rss_peak_bytes": 120242176,
+      "in_flight_peak": 1,
+      "queue_peak": 1,
+      "encoder_pool_peak": 8,
+      "working_set_reason": "within_budget",
+      "fps_series": {
+        "warmup_fraction": 0.2,
+        "bucket_frames": 300,
+        "early_median_latency_ns": 89919166.5,
+        "late_median_latency_ns": 89583729.5,
+        "late_over_early_latency_ratio": 0.9962695717380787,
+        "fatal_slowdown": false
+      },
+      "thermal_states_observed": [
+        "fair"
+      ],
+      "error_count": {
+        "failed_frames": 0,
+        "cancelled_frames": 0,
+        "frame_lost_samples": 0,
+        "resource_lost_samples": 0
+      },
+      "resource_series": {
+        "sample_count": 8351,
+        "rss_peak_max_bytes": 120242176,
+        "rss_current_min_bytes": 17317888,
+        "rss_current_max_bytes": 120242176,
+        "post_warmup_rss_projected_growth_bytes": 782785.3595142474
+      },
+      "oldest_slow_frame": {
+        "frame_index": 8326,
+        "latency_ns": 269549458
+      },
+      "shutdown": {
+        "child_exit_code": 0,
+        "published": true,
+        "timed_out": false,
+        "cancelled": false
+      }
+    }
+  ],
+  "notes": [
+    "measurement=none: anti-leak / thermal / capacity endurance only",
+    "No throughput, p99, or CPU certification claim",
+    "All trials retained; no best-run selection",
+    "Declared RSS peak budget comes from the locked profile when present"
+  ]
+}

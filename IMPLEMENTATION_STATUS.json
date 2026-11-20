@@ -7446,14 +7446,52 @@
       "notes": "Fresh B-01/B-02/B-03 3+3 cold/warm series after preview color wiring; style certificate threshold_gate true (cold medians ~166/250/274 s); explicit ADR p99/RSS/CPU; run reports certified=false."
     },
     "P8-024": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "There is no fatal slowdown or working-set growth beyond the declared budget.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "No fatal post-warmup latency slowdown on B-04/B-05 endurance trials",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-024/suite.json",
+              "implementation-evidence/P8-024/b-04-endurance-summary.json",
+              "implementation-evidence/P8-024/b-05-endurance-summary.json"
+            ]
+          },
+          {
+            "criterion": "Working set within declared RSS peak/growth budgets; capacities and no silent drops",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-024/suite.json",
+              "implementation-evidence/P8-024/decision.json"
+            ]
+          },
+          {
+            "criterion": "Endurance plot and report artifacts present",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-024/endurance-plot.md",
+              "implementation-evidence/P8-024/suite.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-024/"
+      ],
+      "checks": [
+        "implementation-evidence/P8-024/checks.json"
+      ],
+      "blockers": [],
+      "measurement": "none",
+      "evidence_tier_min": "A",
+      "verification": "Endurance plot + report",
+      "delivery_slice": null,
+      "evidence_tier": "A",
+      "completed_at_utc": "2026-11-20T04:56:59Z",
+      "notes": "B-04/B-05 300s thermal endurance suite (1 cold+1 warm each); no fatal slowdown; RSS within declared budgets; performance_claim=false."
     },
     "P8-025": {
       "status": "todo",

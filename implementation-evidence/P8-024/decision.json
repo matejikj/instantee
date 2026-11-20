@@ -1,0 +1,144 @@
+{
+  "decision": "accept_b04_b05_thermal_endurance_suite",
+  "accepted": true,
+  "endurance_gate": true,
+  "performance_claim": false,
+  "measurement": "none",
+  "families": {
+    "B-04": {
+      "pass": true,
+      "workload_id": "B-04-mixed-300s-v2",
+      "runs": [
+        {
+          "run_id": "cold-00",
+          "cache_mode": "cold",
+          "pass": true,
+          "export_wall_ms": 810893.845417,
+          "effective_fps": 11.098863372642537,
+          "rss_peak_bytes": 120225792,
+          "in_flight_peak": 1,
+          "queue_peak": 1,
+          "encoder_pool_peak": 8,
+          "working_set_reason": "within_budget",
+          "fatal_slowdown": false,
+          "late_over_early_latency_ratio": 1.0081510739517723,
+          "thermal_states_observed": [
+            "fair",
+            "nominal"
+          ],
+          "error_count": {
+            "failed_frames": 0,
+            "cancelled_frames": 0,
+            "frame_lost_samples": 0,
+            "resource_lost_samples": 0
+          },
+          "resource_series": {
+            "sample_count": 8108,
+            "rss_peak_max_bytes": 120225792,
+            "rss_current_max_bytes": 120225792,
+            "post_warmup_rss_projected_growth_bytes": -1743883.836950914
+          }
+        },
+        {
+          "run_id": "warm-00",
+          "cache_mode": "warm",
+          "pass": true,
+          "export_wall_ms": 835024.793459,
+          "effective_fps": 10.778123081493751,
+          "rss_peak_bytes": 120242176,
+          "in_flight_peak": 1,
+          "queue_peak": 1,
+          "encoder_pool_peak": 8,
+          "working_set_reason": "within_budget",
+          "fatal_slowdown": false,
+          "late_over_early_latency_ratio": 0.9962695717380787,
+          "thermal_states_observed": [
+            "fair"
+          ],
+          "error_count": {
+            "failed_frames": 0,
+            "cancelled_frames": 0,
+            "frame_lost_samples": 0,
+            "resource_lost_samples": 0
+          },
+          "resource_series": {
+            "sample_count": 8351,
+            "rss_peak_max_bytes": 120242176,
+            "rss_current_max_bytes": 120242176,
+            "post_warmup_rss_projected_growth_bytes": 782785.3595142474
+          }
+        }
+      ]
+    },
+    "B-05": {
+      "pass": true,
+      "workload_id": "B-05-worst-accepted-300s-v2",
+      "runs": [
+        {
+          "run_id": "cold-00",
+          "cache_mode": "cold",
+          "pass": true,
+          "export_wall_ms": 518853.777792,
+          "effective_fps": 17.345927475559314,
+          "rss_peak_bytes": 130744320,
+          "in_flight_peak": 1,
+          "queue_peak": 1,
+          "encoder_pool_peak": 8,
+          "working_set_reason": "within_budget",
+          "fatal_slowdown": false,
+          "late_over_early_latency_ratio": 0.9981602149216411,
+          "thermal_states_observed": [
+            "fair"
+          ],
+          "error_count": {
+            "failed_frames": 0,
+            "cancelled_frames": 0,
+            "frame_lost_samples": 0,
+            "resource_lost_samples": 0
+          },
+          "resource_series": {
+            "sample_count": 5188,
+            "rss_peak_max_bytes": 129384448,
+            "rss_current_max_bytes": 129384448,
+            "post_warmup_rss_projected_growth_bytes": 1120237.8209528541
+          }
+        },
+        {
+          "run_id": "warm-00",
+          "cache_mode": "warm",
+          "pass": true,
+          "export_wall_ms": 521065.521166,
+          "effective_fps": 17.272299997628895,
+          "rss_peak_bytes": 129318912,
+          "in_flight_peak": 1,
+          "queue_peak": 1,
+          "encoder_pool_peak": 8,
+          "working_set_reason": "within_budget",
+          "fatal_slowdown": false,
+          "late_over_early_latency_ratio": 0.987365990283118,
+          "thermal_states_observed": [
+            "fair"
+          ],
+          "error_count": {
+            "failed_frames": 0,
+            "cancelled_frames": 0,
+            "frame_lost_samples": 0,
+            "resource_lost_samples": 0
+          },
+          "resource_series": {
+            "sample_count": 5212,
+            "rss_peak_max_bytes": 129318912,
+            "rss_current_max_bytes": 129318912,
+            "post_warmup_rss_projected_growth_bytes": -1008056.3788970505
+          }
+        }
+      ]
+    }
+  },
+  "notes": [
+    "No fatal post-warmup latency slowdown on B-04/B-05 cold/warm trials",
+    "Working set stayed within declared RSS peak and growth budgets",
+    "K/E/queue peaks respected; no silent frame/resource sample loss",
+    "Not a throughput/p99/CPU certificate (measurement=none)"
+  ]
+}

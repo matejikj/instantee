@@ -1,0 +1,4 @@
+python3 tools/benchmark/make_b04_profile.py build/release/spike-b04-mixed-export /tmp/b04-endurance-profile.json
+python3 tools/benchmark/make_b05_profile.py build/release/spike-b05-worst-accepted-export /tmp/b05-endurance-profile.json
+python3 tools/benchmark/style_endurance.py --b04-binary build/release/spike-b04-mixed-export --b04-profile /tmp/b04-endurance-profile.json --b05-binary build/release/spike-b05-worst-accepted-export --b05-profile /tmp/b05-endurance-profile.json --directory /tmp/b04-b05-endurance --schema contracts/schemas/performance-report-v1.schema.json --timeout 2100 --cold-repeats 1 --warm-repeats 1
+python3 tools/dev/check.py --report implementation-evidence/P8-024/checks.json

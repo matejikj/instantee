@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "description": "CPU/GPU constant-buffer and instance-stride contracts for offline MSL modules. Hosted CI fails when a metal struct drifts without a matching sizeof static_assert.",
+  "layouts": [
+    {
+      "id": "primitives.CanvasUniforms",
+      "metal_source": "engine/shaders/spike/primitives.metal",
+      "metal_struct": "CanvasUniforms",
+      "cpu_sources": [
+        "engine/src/render-metal/src/primitive_renderer.cpp",
+        "engine/src/render-metal/src/clip_mask_renderer.cpp"
+      ],
+      "cpu_type": "CanvasUniforms",
+      "size_bytes": 16
+    },
+    {
+      "id": "primitives.InstanceData",
+      "metal_source": "engine/shaders/spike/primitives.metal",
+      "metal_struct": "InstanceData",
+      "cpu_sources": [
+        "engine/src/render-metal/src/primitive_renderer.cpp",
+        "engine/src/render-metal/src/clip_mask_renderer.cpp"
+      ],
+      "cpu_type": "InstanceGpu",
+      "size_bytes": 64,
+      "notes": "MSL name InstanceData; CPU packing type InstanceGpu."
+    }
+  ]
+}

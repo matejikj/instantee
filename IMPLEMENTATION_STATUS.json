@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-20T06:58:05Z",
+  "updated_at_utc": "2026-11-20T07:27:27Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7534,14 +7534,45 @@
       ]
     },
     "P8-026": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "A shader change without the correct layout or golden image blocks the PR.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Offline MSL PIN drift or CPU/GPU layout break blocks CI",
+            "met": true,
+            "evidence": [
+              "tools/dev/check_shader_pin.py",
+              "tools/dev/check_shader_layouts.py",
+              "contracts/shaders/cpu-gpu-layouts-v1.json",
+              "implementation-evidence/P8-026/gpu-artifacts/summary.json"
+            ]
+          },
+          {
+            "criterion": "Metal golden/retirement/video-stress failures block the PR via gpu-integration",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "implementation-evidence/P8-026/required-checks.json",
+              "implementation-evidence/P8-026/gpu-artifacts/summary.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-026/",
+        "implementation-evidence/P8-026/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-026/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "GPU integration profile sets certified_performance=false; not a release timing gate.",
+        "Fifteen CTest cases labeled gpu including golden, retirement and video-stress."
+      ]
     },
     "P8-027": {
       "status": "todo",

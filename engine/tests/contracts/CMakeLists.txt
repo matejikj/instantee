@@ -54,3 +54,18 @@ add_test(NAME cpp_api_surface
           "--snapshot"
           "${PROJECT_SOURCE_DIR}/contracts/cpp/public-headers-v1.snapshot.json")
 set_tests_properties(cpp_api_surface PROPERTIES TIMEOUT 30 LABELS "cpu;boundaries;api")
+
+add_test(NAME shader_pin
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/dev/check_shader_pin.py"
+          "--pin"
+          "${PROJECT_SOURCE_DIR}/engine/shaders/modules/PIN.json")
+set_tests_properties(shader_pin PROPERTIES TIMEOUT 30 LABELS "cpu;gpu;shader")
+
+add_test(NAME shader_layouts
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/dev/check_shader_layouts.py"
+          "--repo" "${PROJECT_SOURCE_DIR}"
+          "--contract"
+          "${PROJECT_SOURCE_DIR}/contracts/shaders/cpu-gpu-layouts-v1.json")
+set_tests_properties(shader_layouts PROPERTIES TIMEOUT 30 LABELS "cpu;gpu;shader")

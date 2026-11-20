@@ -33,7 +33,7 @@ target_link_libraries(spike_apple_render_to_mp4_test PRIVATE
   instantee::export_apple instantee::render_metal instantee_build_options)
 add_test(NAME spike_apple_render_to_mp4 COMMAND spike_apple_render_to_mp4_test)
 set_tests_properties(spike_apple_render_to_mp4 PROPERTIES TIMEOUT 180
-  LABELS "cpu;smoke")
+  LABELS "cpu;smoke;gpu;video-stress")
 
 add_executable(spike_apple_pts_timeline_test pts_timeline_test.mm)
 target_compile_options(spike_apple_pts_timeline_test PRIVATE -fobjc-arc)

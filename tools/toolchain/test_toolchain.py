@@ -45,12 +45,14 @@ class ToolchainTests(unittest.TestCase):
         workspace_tools.mkdir(parents=True)
         shutil.copy2(ROOT / "tools/workspace/supervise.py", workspace_tools)
         shutil.copytree(ROOT / "tools/benchmark", self.source / "tools/benchmark")
-        # Boundary and API-surface CTests invoke these scripts in the sandbox.
+        # Boundary, API-surface and shader-gate CTests invoke these scripts.
         dev_tools = self.source / "tools/dev"
         dev_tools.mkdir(parents=True)
         for script in (
             "check_module_boundaries.py",
             "check_cpp_api_surface.py",
+            "check_shader_pin.py",
+            "check_shader_layouts.py",
         ):
             shutil.copy2(ROOT / "tools/dev" / script, dev_tools)
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)

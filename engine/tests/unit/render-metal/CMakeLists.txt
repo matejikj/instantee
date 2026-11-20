@@ -2,14 +2,15 @@ add_executable(spike_metal_device_test device_test.cpp)
 target_link_libraries(spike_metal_device_test PRIVATE instantee::render_metal
   instantee_build_options)
 add_test(NAME spike_metal_device COMMAND spike_metal_device_test)
-set_tests_properties(spike_metal_device PROPERTIES TIMEOUT 30 LABELS "cpu;smoke")
+set_tests_properties(spike_metal_device PROPERTIES TIMEOUT 30 LABELS
+  "cpu;smoke;gpu")
 
 add_executable(spike_metal_backend_test metal_backend_test.cpp)
 target_link_libraries(spike_metal_backend_test PRIVATE instantee::render_metal
   instantee_build_options)
 add_test(NAME spike_metal_backend COMMAND spike_metal_backend_test)
 set_tests_properties(spike_metal_backend PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")
 
 add_executable(spike_metal_owner_test owner_test.cpp)
 target_include_directories(spike_metal_owner_test PRIVATE
@@ -18,14 +19,15 @@ target_include_directories(spike_metal_owner_test SYSTEM PRIVATE
   "${PROJECT_SOURCE_DIR}/third_party/metal-cpp")
 target_link_libraries(spike_metal_owner_test PRIVATE instantee_build_options)
 add_test(NAME spike_metal_owner COMMAND spike_metal_owner_test)
-set_tests_properties(spike_metal_owner PROPERTIES TIMEOUT 10 LABELS cpu)
+set_tests_properties(spike_metal_owner PROPERTIES TIMEOUT 10 LABELS "cpu;gpu")
 
 find_library(INSTANTEE_COMPRESSION_FRAMEWORK Compression REQUIRED)
 add_executable(spike_metal_pattern_test pattern_test.cpp)
 target_link_libraries(spike_metal_pattern_test PRIVATE instantee::render_metal
   instantee_build_options "${INSTANTEE_COMPRESSION_FRAMEWORK}")
 add_test(NAME spike_metal_pattern COMMAND spike_metal_pattern_test)
-set_tests_properties(spike_metal_pattern PROPERTIES TIMEOUT 60 LABELS "cpu;smoke")
+set_tests_properties(spike_metal_pattern PROPERTIES TIMEOUT 60 LABELS
+  "cpu;smoke;gpu;golden")
 
 add_executable(spike_metal_readback_lifetime_test readback_lifetime_test.cpp)
 target_link_libraries(spike_metal_readback_lifetime_test PRIVATE
@@ -33,28 +35,28 @@ target_link_libraries(spike_metal_readback_lifetime_test PRIVATE
 add_test(NAME spike_metal_readback_lifetime
   COMMAND spike_metal_readback_lifetime_test)
 set_tests_properties(spike_metal_readback_lifetime PROPERTIES TIMEOUT 60
-  LABELS "cpu;smoke")
+  LABELS "cpu;smoke;gpu;retirement")
 
 add_executable(spike_shader_module_test shader_module_test.cpp)
 target_link_libraries(spike_shader_module_test PRIVATE instantee::render_metal
   instantee_build_options)
 add_test(NAME spike_shader_module COMMAND spike_shader_module_test)
 set_tests_properties(spike_shader_module PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")
 
 add_executable(spike_metal_pipeline_cache_test pipeline_cache_test.cpp)
 target_link_libraries(spike_metal_pipeline_cache_test PRIVATE
   instantee::render_metal instantee_build_options)
 add_test(NAME spike_metal_pipeline_cache COMMAND spike_metal_pipeline_cache_test)
 set_tests_properties(spike_metal_pipeline_cache PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")
 
 add_executable(spike_metal_primitives_test primitives_test.cpp)
 target_link_libraries(spike_metal_primitives_test PRIVATE
   instantee::render_metal instantee_build_options)
 add_test(NAME spike_metal_primitives COMMAND spike_metal_primitives_test)
 set_tests_properties(spike_metal_primitives PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu;golden")
 
 add_executable(spike_metal_glyph_atlas_test metal_glyph_atlas_test.cpp)
 target_link_libraries(spike_metal_glyph_atlas_test PRIVATE
@@ -63,11 +65,11 @@ target_compile_definitions(spike_metal_glyph_atlas_test PRIVATE
   "INSTANTEE_PINNED_FONT_DIR=\"${PROJECT_SOURCE_DIR}/third_party/fonts\"")
 add_test(NAME spike_metal_glyph_atlas COMMAND spike_metal_glyph_atlas_test)
 set_tests_properties(spike_metal_glyph_atlas PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")
 
 add_executable(spike_metal_clip_mask_test clip_mask_test.cpp)
 target_link_libraries(spike_metal_clip_mask_test PRIVATE
   instantee::render_metal instantee_build_options)
 add_test(NAME spike_metal_clip_mask COMMAND spike_metal_clip_mask_test)
 set_tests_properties(spike_metal_clip_mask PROPERTIES TIMEOUT 60 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")

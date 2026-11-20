@@ -1,0 +1,45 @@
+Test project <repo>/build/release
+      Start 144: spike_shader_features
+ 1/15 Test #144: spike_shader_features ............   Passed    0.00 sec
+      Start 175: spike_apple_render_to_mp4
+ 2/15 Test #175: spike_apple_render_to_mp4 ........   Passed    0.81 sec
+      Start 182: spike_metal_device
+ 3/15 Test #182: spike_metal_device ...............   Passed    0.07 sec
+      Start 183: spike_metal_backend
+ 4/15 Test #183: spike_metal_backend ..............   Passed    0.07 sec
+      Start 184: spike_metal_owner
+ 5/15 Test #184: spike_metal_owner ................   Passed    0.00 sec
+      Start 185: spike_metal_pattern
+ 6/15 Test #185: spike_metal_pattern ..............   Passed    0.14 sec
+      Start 186: spike_metal_readback_lifetime
+ 7/15 Test #186: spike_metal_readback_lifetime ....   Passed    0.14 sec
+      Start 187: spike_shader_module
+ 8/15 Test #187: spike_shader_module ..............   Passed    0.07 sec
+      Start 188: spike_metal_pipeline_cache
+ 9/15 Test #188: spike_metal_pipeline_cache .......   Passed    0.07 sec
+      Start 189: spike_metal_primitives
+10/15 Test #189: spike_metal_primitives ...........   Passed    0.08 sec
+      Start 190: spike_metal_glyph_atlas
+11/15 Test #190: spike_metal_glyph_atlas ..........   Passed    0.07 sec
+      Start 191: spike_metal_clip_mask
+12/15 Test #191: spike_metal_clip_mask ............   Passed    0.07 sec
+      Start 331: shader_pin
+13/15 Test #331: shader_pin .......................   Passed    0.07 sec
+      Start 332: shader_layouts
+14/15 Test #332: shader_layouts ...................   Passed    0.06 sec
+      Start 340: instantee_scene_video_mp4
+15/15 Test #340: instantee_scene_video_mp4 ........   Passed    0.46 sec
+
+100% tests passed, 0 tests failed out of 15
+
+Label Time Summary:
+cpu             =   2.19 sec*proc (15 tests)
+golden          =   0.22 sec*proc (2 tests)
+gpu             =   2.19 sec*proc (15 tests)
+pts             =   0.46 sec*proc (1 test)
+retirement      =   0.14 sec*proc (1 test)
+shader          =   0.13 sec*proc (2 tests)
+smoke           =   2.06 sec*proc (12 tests)
+video-stress    =   1.28 sec*proc (2 tests)
+
+Total Test time (real) =   2.22 sec

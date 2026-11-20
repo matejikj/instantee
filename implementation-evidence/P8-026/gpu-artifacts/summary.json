@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-20T07:02:00Z",
+  "profile": "gpu-integration-correctness",
+  "certified_performance": false,
+  "notes": [
+    "Offline MSL pin + CPU/GPU layout + Metal golden/retirement/video stress.",
+    "Do not treat durations from this profile as release certification timings."
+  ],
+  "build_dir": "build/release",
+  "ctest_label": "gpu",
+  "steps": [
+    {
+      "name": "shader-pin",
+      "command": [
+        "python3",
+        "tools/dev/check_shader_pin.py"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "log": "shader-pin.log"
+    },
+    {
+      "name": "shader-layouts",
+      "command": [
+        "python3",
+        "tools/dev/check_shader_layouts.py"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "log": "shader-layouts.log"
+    },
+    {
+      "name": "ctest-gpu",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build/release",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-L",
+        "gpu"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "log": "ctest-gpu.log"
+    }
+  ],
+  "result": "passed"
+}

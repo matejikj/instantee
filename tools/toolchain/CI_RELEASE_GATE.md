@@ -16,6 +16,7 @@ check names (exact `jobs.<id>.name` values from `.github/workflows/ci.yml`):
 | `native-tsan` | TSan regression on the development sanitizer preset |
 | `contracts-authoring` | Node/TypeScript lock drift, schema/codegen mismatch, authoring typecheck or SDK test failure |
 | `dependency-policy` | Module-boundary violation, public API/header inventory failure, unexpected vcpkg/npm dependency |
+| `gpu-integration` | Offline MSL PIN drift, CPU/GPU layout contract break, Metal golden/retirement/video-stress failure |
 
 Do not require certification-preset jobs (`release`, `asan-ubsan`, `tsan` with
 `INSTANTEE_TOOLCHAIN_MODE=certification`) on hosted runners: those presets
@@ -64,7 +65,16 @@ npm run check:authoring && npm run test:authoring
 python3 tools/dev/check_module_boundaries.py
 python3 tools/dev/check_cpp_api_surface.py
 python3 tools/dev/check_dependency_audit.py
+python3 tools/dev/run_gpu_integration.py -p build/dev --artifact-dir /tmp/gpu-artifacts
 ```
+
+A `.metal` source change must update `engine/shaders/modules/PIN.json` (via
+`tools/dev/check_shader_pin.py --write` after intentional edits) and keep
+`contracts/shaders/cpu-gpu-layouts-v1.json` aligned with `sizeof` static_asserts.
+Golden PNG/hash expectations in Metal tests must be refreshed deliberately; an
+unreviewed shader output change fails `gpu-integration`. Artifact
+`summary.json` always sets `certified_performance: false` — this gate is not a
+release timing profile.
 
 On the reference machine, prefer the certification sanitizer presets when
 collecting evidence that must match the toolchain lock.

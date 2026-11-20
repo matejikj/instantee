@@ -64,7 +64,7 @@ target_link_libraries(instantee_scene_video_mp4_test PRIVATE
 add_test(NAME instantee_scene_video_mp4
   COMMAND instantee_scene_video_mp4_test "${PROJECT_SOURCE_DIR}")
 set_tests_properties(instantee_scene_video_mp4 PROPERTIES TIMEOUT 120 LABELS
-  "cpu;smoke;pts")
+  "cpu;smoke;pts;gpu;video-stress")
 
 add_executable(instantee_b01_editorial_demo_test b01_editorial_demo_test.cpp)
 target_link_libraries(instantee_b01_editorial_demo_test PRIVATE

@@ -1,0 +1,9 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_shader_pin.py
+python3 tools/dev/check_shader_layouts.py
+python3 -m unittest discover -s tools/dev -p 'test_shader_pin.py' -v
+python3 -m unittest discover -s tools/dev -p 'test_shader_layouts.py' -v
+cmake --preset release
+cmake --build --preset release
+python3 tools/dev/run_gpu_integration.py -p build/release --artifact-dir implementation-evidence/P8-026/gpu-artifacts
+tools/dev/check.py --keep-going --report implementation-evidence/P8-026/checks.json

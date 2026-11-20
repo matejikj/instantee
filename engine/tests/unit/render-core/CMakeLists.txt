@@ -38,7 +38,7 @@ target_link_libraries(spike_shader_features_test PRIVATE
   instantee::render_core instantee_build_options)
 add_test(NAME spike_shader_features COMMAND spike_shader_features_test)
 set_tests_properties(spike_shader_features PROPERTIES TIMEOUT 30 LABELS
-  "cpu;smoke")
+  "cpu;smoke;gpu")
 
 add_executable(spike_pipeline_cache_test pipeline_cache_test.cpp)
 target_link_libraries(spike_pipeline_cache_test PRIVATE

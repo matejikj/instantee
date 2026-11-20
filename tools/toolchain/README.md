@@ -15,8 +15,12 @@ Certification presets (`toolchain`, `release`, sanitizers) set
 `INSTANTEE_TOOLCHAIN_MODE=certification` and enforce the exact pin below plus
 the Node/TypeScript lock. The `dev` preset sets `development` mode: same
 Darwin/arm64/Ninja/AppleClang and feature probes, without exact version or Node
-requirements. Use `dev` for local iteration and CI smoke; use certification
-presets for reference evidence.
+requirements. Development sanitizer presets `dev-asan-ubsan` and `dev-tsan`
+mirror the certification sanitizer flags for CI and other non-locked runners.
+Use `dev` / `dev-asan-ubsan` / `dev-tsan` for local iteration and the release-gate
+CI; use certification presets for reference evidence. See
+[CI_RELEASE_GATE.md](CI_RELEASE_GATE.md) for required checks, coverage limits
+and the branch-protection checklist.
 
 `cmake/ToolchainLock.cmake` pins CMake 4.3.0, Ninja 1.13.2,
 Apple Clang 21.0.0.21000401, Xcode 27.2 / 27B52 and macOS SDK 27.2 / 26B118.

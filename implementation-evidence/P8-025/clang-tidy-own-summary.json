@@ -1,0 +1,9 @@
+{
+  "tool": "tools/dev/run_clang_tidy_own.py",
+  "compile_commands_dir": "build/dev",
+  "own_translation_units": 374,
+  "result": "passed",
+  "warnings_as_errors": true,
+  "generated_at_utc": "2026-11-20T05:14:56Z",
+  "certified_performance": false
+}

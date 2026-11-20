@@ -308,7 +308,17 @@ def main(argv: list[str]) -> int:
     configured = (REPO_ROOT / "build/release/CMakeCache.txt").is_file()
     tidy_paths = None
     if (REPO_ROOT / ".clang-tidy").is_file():
-        tidy_paths = tidy_sources(git_lines("ls-files", "engine") if args.gate else paths)
+        if args.gate:
+            from own_translation_units import list_own_translation_units
+
+            compile_commands = REPO_ROOT / "build/release/compile_commands.json"
+            tidy_paths = (
+                list_own_translation_units(compile_commands=compile_commands)
+                if compile_commands.is_file()
+                else tidy_sources(git_lines("ls-files", "engine"))
+            )
+        else:
+            tidy_paths = tidy_sources(paths)
     steps = plan_steps(
         paths, risks, gate=args.gate, configured=configured, tidy_paths=tidy_paths
     )

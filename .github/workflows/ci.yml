@@ -5,9 +5,16 @@ on:
     branches: [main]
   pull_request:
 
+# Required branch-protection checks (see tools/toolchain/CI_RELEASE_GATE.md):
+#   native-dev
+#   native-asan-ubsan
+#   native-tsan
+#   contracts-authoring
+#   dependency-policy
+
 jobs:
-  native-smoke:
-    name: native-smoke
+  native-dev:
+    name: native-dev
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
@@ -23,26 +30,95 @@ jobs:
       - name: Development configure, build and test
         run: cmake --workflow --preset dev
 
-      - name: Module boundary check
-        run: python3 tools/dev/check_module_boundaries.py
-
       - name: clang-format dry-run on native sources
         run: |
-          files="$(git ls-files engine | grep -E '\.(cpp|hpp|h|mm)$' || true)"
+          files="$(git ls-files engine | grep -E '\.(cpp|hpp|h|mm|m)$' || true)"
           if [ -n "$files" ]; then
             # shellcheck disable=SC2086
             xcrun clang-format --dry-run --Werror $files
           fi
 
-      - name: clang-tidy on production libraries
+      - name: clang-tidy on all own translation units
+        run: python3 tools/dev/run_clang_tidy_own.py -p build/dev
+
+  native-asan-ubsan:
+    name: native-asan-ubsan
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ninja and CMake
+        run: brew install ninja cmake
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Development ASan+UBSan workflow
+        run: cmake --workflow --preset dev-asan-ubsan
+
+  native-tsan:
+    name: native-tsan
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ninja and CMake
+        run: brew install ninja cmake
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Development TSan workflow
+        run: cmake --workflow --preset dev-tsan
+
+  contracts-authoring:
+    name: contracts-authoring
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install locked npm dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Node/TypeScript toolchain lock
+        run: npm run check:toolchain
+
+      - name: Contracts schema and codegen check
+        run: npm run contracts:check
+
+      - name: Contracts tests
+        run: npm run contracts:test
+
+      - name: Authoring typecheck
+        run: npm run check:authoring
+
+      - name: Authoring build and SDK tests
+        run: npm run test:authoring
+
+  dependency-policy:
+    name: dependency-policy
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Module boundary check
+        run: python3 tools/dev/check_module_boundaries.py
+
+      - name: C++ public API surface check
+        run: python3 tools/dev/check_cpp_api_surface.py
+
+      - name: Dependency manifest audit
+        run: python3 tools/dev/check_dependency_audit.py
+
+      - name: Policy unit tests
         run: |
-          files="$(git ls-files \
-            engine/src/diagnostics \
-            engine/src/core-model \
-            engine/src/runtime \
-            engine/src/export-core \
-            engine/native/telemetry-apple | grep -E '\.cpp$' || true)"
-          if [ -n "$files" ]; then
-            # shellcheck disable=SC2086
-            "$CLANG_TIDY" -p build/dev --quiet --warnings-as-errors=* $files
-          fi
+          python3 -m unittest discover -s tools/dev -p 'test_module_boundaries.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_cpp_api_surface.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_dependency_audit.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_own_translation_units.py' -v

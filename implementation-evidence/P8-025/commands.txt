@@ -1,0 +1,12 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_module_boundaries.py
+python3 tools/dev/check_cpp_api_surface.py
+python3 tools/dev/check_dependency_audit.py
+python3 -m unittest discover -s tools/dev -p 'test_own_translation_units.py' -v
+python3 -m unittest discover -s tools/dev -p 'test_dependency_audit.py' -v
+cmake --preset dev-asan-ubsan
+cmake --preset dev-tsan
+python3 tools/dev/run_clang_tidy_own.py -p build/dev -j 8
+npm run check:toolchain
+npm run contracts:check
+tools/dev/check.py --keep-going --report implementation-evidence/P8-025/checks.json

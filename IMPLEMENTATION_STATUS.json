@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-19T20:30:00Z",
+  "updated_at_utc": "2026-11-20T06:58:05Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7494,14 +7494,44 @@
       "notes": "B-04/B-05 300s thermal endurance suite (1 cold+1 warm each); no fatal slowdown; RSS within declared budgets; performance_claim=false."
     },
     "P8-025": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Invalid headers/imports/schemas and sanitizer/concurrency regressions block the PR; native coverage limits are documented.",
-        "met": null
+        "criterion": "Invalid headers/imports/schemas and sanitizer/concurrency regressions block the PR; native coverage limits and dev-vs-cert presets are documented.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Invalid headers/imports/schemas and sanitizer/concurrency regressions block the PR",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "implementation-evidence/P8-025/required-checks.json",
+              "implementation-evidence/P8-025/clang-tidy-own-summary.json"
+            ]
+          },
+          {
+            "criterion": "Native coverage limits and development-versus-certification presets are documented",
+            "met": true,
+            "evidence": [
+              "tools/toolchain/CI_RELEASE_GATE.md",
+              "tools/toolchain/README.md",
+              "CONTRIBUTING.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-025/",
+        "implementation-evidence/P8-025/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-025/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "CI uses development sanitizer presets; certification sanitizer presets remain local to the reference lock.",
+        "Full-own-code clang-tidy: 374 translation units passed with warnings as errors."
+      ]
     },
     "P8-026": {
       "status": "todo",

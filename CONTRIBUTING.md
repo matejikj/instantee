@@ -117,6 +117,14 @@ System Apple frameworks are not fully instrumented by the project's sanitizers.
 When only rerunning an existing configuration, use `cmake --build --preset NAME`
 and `ctest --preset NAME`.
 
+Release-gate CI (`.github/workflows/ci.yml`) is stricter than the P1 smoke path:
+full-own-code clang-tidy, development ASan+UBSan and TSan workflows, contracts
+and authoring checks, plus dependency/API policy jobs. Required check names,
+dev-versus-certification preset rules and native coverage limits are documented
+in [tools/toolchain/CI_RELEASE_GATE.md](tools/toolchain/CI_RELEASE_GATE.md).
+Own targets already compile and link with `-Werror` through
+`instantee_build_options`.
+
 Format changed C++/Objective-C++ headers and sources using `xcrun clang-format`;
 verify them with `--dry-run --Werror`. Use Clang static analysis or the project's
 available lint tooling and report unavailable checks. Run relevant behavioral

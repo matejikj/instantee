@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "document": "Required GitHub branch-protection checks for the release gate",
+  "workflow": ".github/workflows/ci.yml",
+  "documentation": "tools/toolchain/CI_RELEASE_GATE.md",
+  "required_checks": [
+    {
+      "id": "native-dev",
+      "check_name": "native-dev"
+    },
+    {
+      "id": "native-asan-ubsan",
+      "check_name": "native-asan-ubsan"
+    },
+    {
+      "id": "native-tsan",
+      "check_name": "native-tsan"
+    },
+    {
+      "id": "contracts-authoring",
+      "check_name": "contracts-authoring"
+    },
+    {
+      "id": "dependency-policy",
+      "check_name": "dependency-policy"
+    }
+  ],
+  "notes": [
+    "Enable these exact check names on main branch protection.",
+    "Certification presets stay local to the reference toolchain lock."
+  ]
+}

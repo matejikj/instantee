@@ -55,6 +55,28 @@
         "INSTANTEE_SANITIZER": "none",
         "INSTANTEE_TOOLCHAIN_MODE": "development"
       }
+    },
+    {
+      "name": "dev-asan-ubsan",
+      "displayName": "Development ASan+UBSan (CI / non-cert runners)",
+      "inherits": "dev",
+      "binaryDir": "${sourceDir}/build/dev-asan-ubsan",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "INSTANTEE_SANITIZER": "address-undefined",
+        "INSTANTEE_TOOLCHAIN_MODE": "development"
+      }
+    },
+    {
+      "name": "dev-tsan",
+      "displayName": "Development TSan (CI / non-cert runners)",
+      "inherits": "dev",
+      "binaryDir": "${sourceDir}/build/dev-tsan",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "INSTANTEE_SANITIZER": "thread",
+        "INSTANTEE_TOOLCHAIN_MODE": "development"
+      }
     }
   ],
   "buildPresets": [
@@ -77,6 +99,14 @@
     {
       "name": "dev",
       "configurePreset": "dev"
+    },
+    {
+      "name": "dev-asan-ubsan",
+      "configurePreset": "dev-asan-ubsan"
+    },
+    {
+      "name": "dev-tsan",
+      "configurePreset": "dev-tsan"
     }
   ],
   "testPresets": [
@@ -133,6 +163,33 @@
       "execution": {
         "noTestsAction": "error"
       }
+    },
+    {
+      "name": "dev-asan-ubsan",
+      "configurePreset": "dev-asan-ubsan",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      },
+      "environment": {
+        "ASAN_OPTIONS": "halt_on_error=1",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+      }
+    },
+    {
+      "name": "dev-tsan",
+      "configurePreset": "dev-tsan",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      },
+      "environment": {
+        "TSAN_OPTIONS": "halt_on_error=1"
+      }
     }
   ],
   "workflowPresets": [
@@ -167,6 +224,40 @@
         {
           "type": "test",
           "name": "dev"
+        }
+      ]
+    },
+    {
+      "name": "dev-asan-ubsan",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-asan-ubsan"
+        },
+        {
+          "type": "build",
+          "name": "dev-asan-ubsan"
+        },
+        {
+          "type": "test",
+          "name": "dev-asan-ubsan"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan"
+        },
+        {
+          "type": "build",
+          "name": "dev-tsan"
+        },
+        {
+          "type": "test",
+          "name": "dev-tsan"
         }
       ]
     },

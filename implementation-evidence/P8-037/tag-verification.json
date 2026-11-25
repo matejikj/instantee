@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "kind": "v1_tag_verification",
-  "generated_at_utc": "2026-11-25T21:56:18Z",
+  "generated_at_utc": "2026-11-25T21:56:38Z",
   "git_tag": "v1.0.0",
   "framework_semver": "1.0.0",
   "measurement": "none",
   "certified_performance": false,
-  "acceptance": "Annotated tag v1.0.0 must point at the release commit that carries this evidence package; package digests must match gate-report.json.",
+  "acceptance": "Annotated tag v1.0.0 points at the release commit that carries the package digests in gate-report.json.",
   "package": {
     "package_name": "instantee-macos-1.0.0-arm64",
     "cli_sha256": "a3c375bd94367d9e485c7119a365dbc7fe6c77fc30c3c7bae973c364913b6d0a",
@@ -17,13 +17,14 @@
   "install_smoke_ok": true,
   "full_gate_checks": "implementation-evidence/P8-037/checks.json",
   "gate_checks_result": "passed",
-  "tagged_commit": null,
-  "tag_object": null,
-  "matches_release_commit": null,
+  "tagged_commit": "850ebee97dae6cfe5ad1d54190800628e313e788",
+  "tag_object": "d2b14a12d95f29f7407c3e1167da51f4320231ec",
+  "matches_release_commit": true,
+  "release_commit_subject": "release: close P8 with verified v1.0.0 package digests",
   "pushed": false,
-  "status": "pending_annotated_tag",
+  "status": "verified_local",
   "notes": [
-    "This file is completed immediately after creating the local annotated tag on the release commit.",
-    "Remotes are not pushed."
+    "Local annotated tag only; remotes were not pushed.",
+    "Package digests certify the staged artifact, not notarization."
   ]
 }

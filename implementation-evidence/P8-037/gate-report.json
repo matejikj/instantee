@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "v1_release_gate_report",
-  "generated_at_utc": "2026-11-25T21:55:52Z",
+  "generated_at_utc": "2026-11-25T21:56:38Z",
   "measurement": "none",
   "certified_performance": false,
   "git_tag": "v1.0.0",
@@ -45,5 +45,12 @@
     "Annotated tag is created locally; remotes are not pushed by this gate.",
     "Package digests certify the staged artifact, not notarization.",
     "No new B-0x performance series is measured by this gate."
-  ]
+  ],
+  "tag": {
+    "git_tag": "v1.0.0",
+    "tag_object": "d2b14a12d95f29f7407c3e1167da51f4320231ec",
+    "tagged_commit": "850ebee97dae6cfe5ad1d54190800628e313e788",
+    "matches_head": true,
+    "pushed": false
+  }
 }

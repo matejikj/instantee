@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "kind": "v1_release_checklist",
+  "generated_at_utc": "2026-11-25T20:19:34Z",
+  "pass": true,
+  "signed": true,
+  "product_v1_certificate": true,
+  "git_tag_created": false,
+  "items": [
+    {
+      "id": "reference_films",
+      "title": "Three publishable silent 1080x1920/30 reference MP4s",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-035/export-report.json",
+        "implementation-evidence/P8-035/reference-films-check.json",
+        "contracts/release/reference-films/catalog-v1.json"
+      ]
+    },
+    {
+      "id": "b01_b02_b03_walls",
+      "title": "B-01/B-02/B-03 cold export_wall_ms \u2264 360000 with explicit thresholds",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-023/certificate.json",
+        "implementation-evidence/P8-023/decision.json"
+      ]
+    },
+    {
+      "id": "b04_mixed_wall",
+      "title": "B-04 mixed 5 min cold export_wall_ms \u2264 1800000 with locked profile",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-021/decision.json",
+        "implementation-evidence/P8-021/baseline-summary.json"
+      ]
+    },
+    {
+      "id": "b05_complexity_tier",
+      "title": "B-05 worst-accepted complexity tier published without OOM",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-022/decision.json",
+        "implementation-evidence/P8-022/complexity-tier.json"
+      ]
+    },
+    {
+      "id": "video_conformance",
+      "title": "Reference MP4 conformance (PTS, frame count, Rec.709, no audio)",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-016/suite-report.json",
+        "implementation-evidence/P8-035/reference-films-check.json"
+      ]
+    },
+    {
+      "id": "endurance_no_fatal_growth",
+      "title": "B-04/B-05 endurance without fatal slowdown or unbounded working set",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-024/decision.json",
+        "implementation-evidence/P8-024/suite.json"
+      ]
+    },
+    {
+      "id": "security_and_licenses",
+      "title": "Asset security, licenses, and dependency pins without critical findings",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-029/security-audit-artifacts/security-audit-report.json",
+        "contracts/security-audit/allowed-licenses-v1.json"
+      ]
+    },
+    {
+      "id": "docs_and_tutorials",
+      "title": "Clean tutorial install produces all three style videos",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-031/tutorial-artifacts/tutorial-e2e-report.json",
+        "tutorials/README.md"
+      ]
+    },
+    {
+      "id": "ownership_raii_audit",
+      "title": "Ownership/RAII/async lifetime audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-038/ownership-audit-check.json",
+        "implementation-evidence/P8-038/ownership-lifetime-note.md"
+      ]
+    },
+    {
+      "id": "concurrency_backpressure_audit",
+      "title": "Concurrency/backpressure/shutdown audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-039/overload-report.json",
+        "implementation-evidence/P8-039/concurrency-note.md"
+      ]
+    },
+    {
+      "id": "crash_durability_audit",
+      "title": "Crash consistency and durability class audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-040/crash-matrix.json",
+        "implementation-evidence/P8-040/decision.md",
+        "implementation-evidence/P8-040/capability-report.json"
+      ]
+    },
+    {
+      "id": "measurement_reproducibility_audit",
+      "title": "Metric reproducibility audit PASS (fixtures/lost samples cannot PASS)",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-041/audit-report.json",
+        "implementation-evidence/P8-041/decision.md"
+      ]
+    },
+    {
+      "id": "fr_nfr_coverage",
+      "title": "SAS FR/NFR coverage matrix has no uncovered MUST",
+      "pass": true,
+      "evidence": [
+        "contracts/traceability/requirements-coverage-v1.json",
+        "implementation-evidence/P8-001/decision.json"
+      ]
+    }
+  ],
+  "blocking_defects": [],
+  "known_limitations": [
+    "Individual performance run reports remain certified=false; series certificates are threshold gates, not a self-certifying single run.",
+    "SIGKILL / process-crash tests are not power-loss durability evidence.",
+    "Telemetry overhead experiments are not performance PASS and are never subtracted from official results.",
+    "The P8 phase gate and Git tag v1.0.0 remain a separate release step after this dossier.",
+    "Sanitized or non-reference hardware timings are not M1 Air certification claims."
+  ]
+}

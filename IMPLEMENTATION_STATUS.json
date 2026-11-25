@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T19:41:37Z",
+  "updated_at_utc": "2026-11-25T20:19:34Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -8118,14 +8118,53 @@
       ]
     },
     "P8-036": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Every MUST gate has actual evidence and PASS; ownership/concurrency/crash/measurement audits pass, with no blocking defect or unexplained missing metric.",
-        "met": null
+        "criterion": "Každý MUST gate má reálnou evidence a PASS; ownership/concurrency/crash/measurement audity jsou zelené, žádný blocking defect nebo nevysvětlená chybějící metrika.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every MUST checklist gate has real evidence and PASS",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-036/checklist.json",
+              "implementation-evidence/P8-036/dossier.json"
+            ]
+          },
+          {
+            "criterion": "Ownership/concurrency/crash/measurement audits are green",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-036/dossier.json",
+              "implementation-evidence/P8-038/",
+              "implementation-evidence/P8-039/",
+              "implementation-evidence/P8-040/",
+              "implementation-evidence/P8-041/"
+            ]
+          },
+          {
+            "criterion": "No blocking defect or unexplained missing metric",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-036/decision.md",
+              "implementation-evidence/P8-036/dossier.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-036/",
+        "implementation-evidence/P8-036/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-036/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier C. measurement=none — aggregates committed evidence; no new M1 Air performance claim.",
+        "Signed V1 checklist pass; product_v1_certificate=true; git_tag_created=false.",
+        "P8 phase gate remains open until the verified v1.0.0 tag delivery."
+      ]
     },
     "P8-037": {
       "status": "todo",

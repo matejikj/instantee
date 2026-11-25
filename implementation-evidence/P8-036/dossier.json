@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "kind": "v1_release_certification_dossier",
+  "generated_at_utc": "2026-11-25T20:19:34Z",
+  "measurement": "none",
+  "certified_performance": false,
+  "product_v1_certificate": true,
+  "git_tag_created": false,
+  "decision": "accept_v1_release_certification_dossier",
+  "accepted": true,
+  "blocking_defects": [],
+  "unexplained_missing_metrics": false,
+  "dependencies": {
+    "pass": true,
+    "tasks": {
+      "P8-023": {
+        "task_id": "P8-023",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-024": {
+        "task_id": "P8-024",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-016": {
+        "task_id": "P8-016",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-029": {
+        "task_id": "P8-029",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-031": {
+        "task_id": "P8-031",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-035": {
+        "task_id": "P8-035",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-038": {
+        "task_id": "P8-038",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-039": {
+        "task_id": "P8-039",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-040": {
+        "task_id": "P8-040",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-041": {
+        "task_id": "P8-041",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      }
+    }
+  },
+  "phase_gates": {
+    "prior_phases_pass": true,
+    "gates": {
+      "P0": {
+        "status": "done",
+        "decision": "GO",
+        "gate_task_id": "P0-020",
+        "pass": true
+      },
+      "P1": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P1-020",
+        "pass": true
+      },
+      "P2": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P2-020",
+        "pass": true
+      },
+      "P3": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P3-025",
+        "pass": true
+      },
+      "P4": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P4-020",
+        "pass": true
+      },
+      "P5": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P5-020",
+        "pass": true
+      },
+      "P6": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P6-021",
+        "pass": true
+      },
+      "P7": {
+        "status": "done",
+        "decision": "PASS",
+        "gate_task_id": "P7-025",
+        "pass": true
+      },
+      "P8": {
+        "status": "todo",
+        "decision": null,
+        "gate_task_id": "P8-037",
+        "pass": false,
+        "note": "Phase gate remains open until the verified v1.0.0 tag step"
+      }
+    }
+  },
+  "fr_nfr_coverage": {
+    "pass": true,
+    "path": "contracts/traceability/requirements-coverage-v1.json",
+    "counts": {
+      "requirements": 35,
+      "must": 33,
+      "should": 1,
+      "stretch": 1,
+      "mapped": 35,
+      "release_gates": 9,
+      "tracked_gates": 9
+    },
+    "uncovered_must": []
+  },
+  "runtime_audits": {
+    "pass": true,
+    "tasks": {
+      "P8-038": {
+        "task_id": "P8-038",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-039": {
+        "task_id": "P8-039",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-040": {
+        "task_id": "P8-040",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      },
+      "P8-041": {
+        "task_id": "P8-041",
+        "status": "done",
+        "acceptance_met": true,
+        "evidenced": true,
+        "has_checks": true,
+        "pass": true
+      }
+    }
+  },
+  "checklist": [
+    {
+      "id": "reference_films",
+      "title": "Three publishable silent 1080x1920/30 reference MP4s",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-035/export-report.json",
+        "implementation-evidence/P8-035/reference-films-check.json",
+        "contracts/release/reference-films/catalog-v1.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-035",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "b01_b02_b03_walls",
+      "title": "B-01/B-02/B-03 cold export_wall_ms \u2264 360000 with explicit thresholds",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-023/certificate.json",
+        "implementation-evidence/P8-023/decision.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-023",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "b04_mixed_wall",
+      "title": "B-04 mixed 5 min cold export_wall_ms \u2264 1800000 with locked profile",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-021/decision.json",
+        "implementation-evidence/P8-021/baseline-summary.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-021",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "b05_complexity_tier",
+      "title": "B-05 worst-accepted complexity tier published without OOM",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-022/decision.json",
+        "implementation-evidence/P8-022/complexity-tier.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-022",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "video_conformance",
+      "title": "Reference MP4 conformance (PTS, frame count, Rec.709, no audio)",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-016/suite-report.json",
+        "implementation-evidence/P8-035/reference-films-check.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-016",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        },
+        {
+          "task_id": "P8-035",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "endurance_no_fatal_growth",
+      "title": "B-04/B-05 endurance without fatal slowdown or unbounded working set",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-024/decision.json",
+        "implementation-evidence/P8-024/suite.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-024",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "security_and_licenses",
+      "title": "Asset security, licenses, and dependency pins without critical findings",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-029/security-audit-artifacts/security-audit-report.json",
+        "contracts/security-audit/allowed-licenses-v1.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-029",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "docs_and_tutorials",
+      "title": "Clean tutorial install produces all three style videos",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-031/tutorial-artifacts/tutorial-e2e-report.json",
+        "tutorials/README.md"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-031",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "ownership_raii_audit",
+      "title": "Ownership/RAII/async lifetime audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-038/ownership-audit-check.json",
+        "implementation-evidence/P8-038/ownership-lifetime-note.md"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-038",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "concurrency_backpressure_audit",
+      "title": "Concurrency/backpressure/shutdown audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-039/overload-report.json",
+        "implementation-evidence/P8-039/concurrency-note.md"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-039",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "crash_durability_audit",
+      "title": "Crash consistency and durability class audit PASS",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-040/crash-matrix.json",
+        "implementation-evidence/P8-040/decision.md",
+        "implementation-evidence/P8-040/capability-report.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-040",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "measurement_reproducibility_audit",
+      "title": "Metric reproducibility audit PASS (fixtures/lost samples cannot PASS)",
+      "pass": true,
+      "evidence": [
+        "implementation-evidence/P8-041/audit-report.json",
+        "implementation-evidence/P8-041/decision.md"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-041",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "fr_nfr_coverage",
+      "title": "SAS FR/NFR coverage matrix has no uncovered MUST",
+      "pass": true,
+      "evidence": [
+        "contracts/traceability/requirements-coverage-v1.json",
+        "implementation-evidence/P8-001/decision.json"
+      ],
+      "missing_evidence": [],
+      "tasks": [
+        {
+          "task_id": "P8-001",
+          "status": "done",
+          "acceptance_met": true,
+          "evidenced": true,
+          "has_checks": true,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "known_limitations": [
+    "Individual performance run reports remain certified=false; series certificates are threshold gates, not a self-certifying single run.",
+    "SIGKILL / process-crash tests are not power-loss durability evidence.",
+    "Telemetry overhead experiments are not performance PASS and are never subtracted from official results.",
+    "The P8 phase gate and Git tag v1.0.0 remain a separate release step after this dossier.",
+    "Sanitized or non-reference hardware timings are not M1 Air certification claims."
+  ],
+  "sources": {
+    "tracker": "IMPLEMENTATION_STATUS.json",
+    "coverage": "contracts/traceability/requirements-coverage-v1.json",
+    "milestones": "motion_framework_sas/MILESTONES_AND_RELEASE_GATES.md"
+  },
+  "notes": [
+    "This dossier aggregates committed evidence; it does not re-measure B-0x series.",
+    "Tagging v1.0.0 remains a subsequent release action after dossier acceptance."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-25T20:20:04Z",
+  "mode": "change",
+  "base": "HEAD",
+  "head": "b1af038",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "tools/release/test_v1_certification_dossier.py",
+    "tools/release/v1_certification_dossier.py"
+  ],
+  "risks": [
+    "python:tools/release"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release -LE pts",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 26.9,
+      "tests": {
+        "total": 343,
+        "passed": 343,
+        "failed": 0
+      }
+    },
+    {
+      "name": "python:tools/release",
+      "command": "python3 -m unittest discover -s tools/release -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.2
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

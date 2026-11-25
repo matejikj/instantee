@@ -1,0 +1,9 @@
+# Verification commands (repo-relative)
+
+python3 tools/release/test_v1_certification_dossier.py -v
+
+python3 tools/release/v1_certification_dossier.py \
+  --report implementation-evidence/P8-036/dossier.json \
+  --checklist implementation-evidence/P8-036/checklist.json
+
+python3 tools/dev/check.py --report implementation-evidence/P8-036/checks.json

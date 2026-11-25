@@ -7940,14 +7940,44 @@
       ]
     },
     "P8-038": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "There is no premature release/reuse, double deletion or callback into a destroyed job; every resource has an owner/borrow/completion/limit contract.",
-        "met": null
+        "criterion": "Žádný předčasný release/reuse, double-delete ani callback do zaniklého jobu; každý resource má owner/borrow/completion/limit kontrakt.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Every exclusive resource declares owner/borrow/completion/limit/stop contracts",
+            "met": true,
+            "evidence": [
+              "contracts/ownership/resource-inventory-v1.json",
+              "tools/dev/check_ownership_audit.py",
+              "implementation-evidence/P8-038/ownership-audit-check.json"
+            ]
+          },
+          {
+            "criterion": "Partial-init, borrow, cancel, late-callback, and stress paths have no UAF/double-delete",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp",
+              "implementation-evidence/P8-038/ownership-lifetime-note.md",
+              "implementation-evidence/P8-038/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-038/",
+        "implementation-evidence/P8-038/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-038/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier B. measurement=none — sanitizer/stress runs are not certified performance.",
+        "Inventory covers GPU handles, submission context, staging leases, frame credits, bounded queues, RenderJob, output transactions, CF owners, Apple video sink.",
+        "ASan/UBSan and TSan forced and passed. PTS excluded (-LE pts) on release ctest."
+      ]
     },
     "P8-039": {
       "status": "todo",

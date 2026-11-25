@@ -15,6 +15,11 @@ the planning pack is present. This page is the implementation map.
 - Apple frameworks and `metal-cpp` stay behind private adapter/backends. Public
   headers expose C++ types only (`tools/dev/check_cpp_api_surface.py`).
 
+The machine-checked inventory of exclusive resources (owner / borrow /
+completion / limit / stop-or-error + evidence tests) lives in
+`contracts/ownership/resource-inventory-v1.json` and is validated by
+`tools/dev/check_ownership_audit.py`.
+
 ## `RenderJob` phase machine
 
 Owner: `engine/src/runtime/` (`instantee::runtime::RenderJob`). Workers and GPU

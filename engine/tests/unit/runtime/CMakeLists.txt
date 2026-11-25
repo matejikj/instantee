@@ -30,6 +30,15 @@ add_test(NAME spike_runtime_cancellation_matrix_audit
 set_tests_properties(spike_runtime_cancellation_matrix_audit PROPERTIES
   TIMEOUT 60 LABELS "cpu;smoke")
 
+add_executable(spike_runtime_ownership_lifetime_audit_test
+  ownership_lifetime_audit_test.cpp)
+target_link_libraries(spike_runtime_ownership_lifetime_audit_test PRIVATE
+  instantee::runtime instantee::render_core instantee_build_options)
+add_test(NAME spike_runtime_ownership_lifetime_audit
+  COMMAND spike_runtime_ownership_lifetime_audit_test)
+set_tests_properties(spike_runtime_ownership_lifetime_audit PROPERTIES
+  TIMEOUT 60 LABELS "cpu;smoke")
+
 add_executable(spike_frame_samples_test frame_samples_test.cpp)
 target_link_libraries(spike_frame_samples_test PRIVATE instantee::runtime instantee_build_options)
 add_test(NAME spike_frame_samples COMMAND spike_frame_samples_test)

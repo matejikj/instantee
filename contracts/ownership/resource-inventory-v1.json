@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "description": "Normative inventory of exclusive runtime resources. Every entry must declare owner, borrow scope, completion point, capacity/limit, and stop/error behaviour, with at least one fault/stress evidence test.",
+  "normative_docs": [
+    "motion_framework_sas/CPP_RUNTIME_CONTRACTS.md",
+    "architecture/ownership-and-jobs.md"
+  ],
+  "required_fields": [
+    "id",
+    "module",
+    "owner",
+    "borrow",
+    "completion",
+    "limit",
+    "stop_or_error",
+    "move_only",
+    "evidence_tests"
+  ],
+  "resources": [
+    {
+      "id": "gpu-resource-handle",
+      "module": "render-core",
+      "header": "engine/src/render-core/include/instantee/render_core/resource_registry.hpp",
+      "owner": "GpuResourceRegistry slot + GpuResourcePayload",
+      "borrow": "GpuResourceHandle is generational; resolve/state fails on stale generation",
+      "completion": "SubmissionContext complete/cancel/destructor drains holds; retiring payload destroyed once when holds hit zero",
+      "limit": "Fixed registry capacity; create fails when full",
+      "stop_or_error": "Failed slots are terminal; partial init (null/throwing payload) publishes no handle",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/render-core/resource_registry_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "submission-context",
+      "module": "render-core",
+      "header": "engine/src/render-core/include/instantee/render_core/resource_registry.hpp",
+      "owner": "SubmissionContext retains handles for one GPU submission",
+      "borrow": "retain() pins uploading/resident handles only for this context lifetime",
+      "completion": "complete() or cancel(); destructor cancels if unfinished",
+      "limit": "Bounded by registry capacity and retained handle list",
+      "stop_or_error": "Cancel/destructor release holds without double-destroy",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/render-core/resource_registry_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "staging-lease",
+      "module": "render-core",
+      "header": "engine/src/render-core/include/instantee/render_core/staging_pool.hpp",
+      "owner": "StagingBufferPool slot via StagingLease",
+      "borrow": "pixels() only while writable; frozen_bytes() under GPU/sink holds until recycle",
+      "completion": "complete_gpu/complete_sink and release recycle when idle",
+      "limit": "Fixed E-style capacity; try_acquire returns would_block without fallback growth",
+      "stop_or_error": "cancel() never clears busy bytes; delayed completion after cancel preserves frozen data",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/render-core/staging_pool_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "frame-credit",
+      "module": "runtime",
+      "header": "engine/src/runtime/include/instantee/runtime/frame_credits.hpp",
+      "owner": "FrameCreditPool admission token",
+      "borrow": "No borrowed view; credit is an exclusive move-only lease",
+      "completion": "Destructor or release() returns credit to the pool",
+      "limit": "in_flight never exceeds pool capacity (K)",
+      "stop_or_error": "close() wakes blocked acquire; held credits remain owned by holders",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/runtime/backpressure_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "bounded-queue",
+      "module": "runtime",
+      "header": "engine/src/runtime/include/instantee/runtime/bounded_queue.hpp",
+      "owner": "BoundedQueue storage until successful pop or abort retirement",
+      "borrow": "No views across the queue; values are moved in/out",
+      "completion": "pop transfers ownership to consumer; abort retires pending items outside the mutex",
+      "limit": "Fixed capacity; try_push leaves caller value untouched on WouldBlock",
+      "stop_or_error": "close drains; abort cancels waiters and retires pending ownership",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/runtime/cancellation_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "render-job",
+      "module": "runtime",
+      "header": "engine/src/runtime/include/instantee/runtime/render_job.hpp",
+      "owner": "RenderJob owns CompiledScene and phase/error budget",
+      "borrow": "scene() returns borrowed view valid while the job lives",
+      "completion": "Terminal published*/failed/cancelled phases; export advances phases",
+      "limit": "Resource budget tracked on the job; workers/GPU stay outside the type",
+      "stop_or_error": "Cancel wins only before publishing; late callbacks use shared contexts that outlive stack frames",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/runtime/render_job_audit_test.cpp",
+        "engine/tests/unit/runtime/cancellation_matrix_audit_test.cpp",
+        "engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp"
+      ]
+    },
+    {
+      "id": "output-transaction",
+      "module": "export-core",
+      "header": "engine/src/export-core/include/instantee/export_core/output_transaction.hpp",
+      "owner": "OutputTransaction owns staging directory beside the target",
+      "borrow": "staging_file path is valid until publish or abort cleanup",
+      "completion": "commit() publishes via rename; destructor cleans only unpublished staging",
+      "limit": "Single staging job nonce; no_replace refuses existing targets",
+      "stop_or_error": "Stop before publish gate aborts without renaming; never deletes a published target",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/export-core/transaction_test.cpp"
+      ]
+    },
+    {
+      "id": "apple-cf-owner",
+      "module": "export-apple",
+      "header": "engine/native/export-apple/src/cf_owner.hpp",
+      "owner": "CfOwner retained CF wrapper (ARC/autorelease pool at call sites)",
+      "borrow": "get() is a borrowed CFTypeRef valid while the owner retains it",
+      "completion": "reset/destructor CFRelease; explicit second retain survives retirement of the first owner",
+      "limit": "One CFTypeRef per owner instance",
+      "stop_or_error": "Moved-from owner is empty; autorelease pool drains Objective-C temporaries at scope end",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/export-apple/apple_owner_test.mm"
+      ]
+    },
+    {
+      "id": "apple-video-sink",
+      "module": "export-apple",
+      "header": "engine/native/export-apple/include/instantee/export_apple/apple_video_sink.hpp",
+      "owner": "AppleVideoSink State owning AVAssetWriter path and pixel-buffer pool",
+      "borrow": "Domain callers never see AVFoundation types; EncodableFrame is consumed on append",
+      "completion": "finish() or cancel(); destructor joins deferred cancel completion",
+      "limit": "Pixel-buffer pool capacity argument (default 4)",
+      "stop_or_error": "cancel() is noexcept; late cancel completion must not outlive joined destructor",
+      "move_only": true,
+      "evidence_tests": [
+        "engine/tests/unit/runtime/cancellation_matrix_audit_test.cpp",
+        "engine/tests/unit/export-apple/video_writer_test.mm"
+      ]
+    }
+  ]
+}

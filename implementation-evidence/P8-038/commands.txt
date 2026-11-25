@@ -1,0 +1,7 @@
+# Verification commands (repo-relative)
+
+python3 tools/dev/check_ownership_audit.py --json
+python3 -m unittest discover -s tools/dev -p 'test_ownership_audit.py' -v
+cmake --build --preset release --target spike_runtime_ownership_lifetime_audit_test
+ctest --preset release -R ownership_lifetime_audit --output-on-failure
+python3 tools/dev/check.py --asan --tsan --report implementation-evidence/P8-038/checks.json

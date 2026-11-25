@@ -1,0 +1,7 @@
+# Playbook dry-run transcript
+
+playbook dry-run ok (cases=6, benchmark=present)
+
+## Sample reproduction: missing Scene IR
+exit=2
+{"code": "io_error", "phase": "scene_ir", "message": "Cannot open Scene IR file", "json_path": "<missing-scene>", "published": false, "durability": "not_published"}

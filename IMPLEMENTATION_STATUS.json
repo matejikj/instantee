@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T11:18:32Z",
+  "updated_at_utc": "2026-11-25T11:34:01Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7777,14 +7777,44 @@
       ]
     },
     "P8-032": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Every documented common failure has reproduction steps and diagnostic information.",
-        "met": null
+        "criterion": "Každé dokumentované běžné selhání má reprodukční postup a diagnostické informace.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Each common failure case documents reproduction and diagnostics",
+            "met": true,
+            "evidence": [
+              "playbooks/troubleshooting.md",
+              "tools/dev/check_playbooks.py",
+              "implementation-evidence/P8-032/playbook-dry-run.txt"
+            ]
+          },
+          {
+            "criterion": "Benchmark playbook separates smoke from certification measurement",
+            "met": true,
+            "evidence": [
+              "playbooks/benchmark.md",
+              "tools/benchmark/README.md",
+              "implementation-evidence/P8-032/playbook-dry-run.txt"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-032/",
+        "implementation-evidence/P8-032/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-032/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "Playbook dry-run is structural plus one anonymized CLI reproduction.",
+        "ASan/UBSan and TSan were not selected by path risk (docs/Python-only change)."
+      ]
     },
     "P8-033": {
       "status": "todo",

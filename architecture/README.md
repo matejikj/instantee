@@ -14,6 +14,7 @@ and in `CPP_RUNTIME_CONTRACTS.md` / `BENCHMARK_PROTOCOL.md`.
 | [ADR index](adr-index.md) | Locate architecture decision records |
 | [Tutorials](../tutorials/README.md) | Produce Editorial / Notebook / Paper Cinema MP4s |
 | [Authoring API](../authoring/API.md) | SDK + CLI command map |
+| [Playbooks](../playbooks/README.md) | Troubleshooting cases and benchmark measurement |
 
 The dependency graph in `cmake/module_graph.json` is enforced by
 `tools/dev/check_module_boundaries.py`. Architecture doc coverage is checked by

@@ -123,6 +123,9 @@ jobs:
       - name: Architecture documentation coverage
         run: python3 tools/dev/check_architecture_docs.py
 
+      - name: Playbook dry-run
+        run: python3 tools/dev/check_playbooks.py
+
       - name: Policy unit tests
         run: |
           python3 -m unittest discover -s tools/dev -p 'test_module_boundaries.py' -v
@@ -136,6 +139,7 @@ jobs:
           python3 -m unittest discover -s tools/dev -p 'test_security_audit.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_architecture_docs.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_tutorial_e2e.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_playbooks.py' -v
 
   security-audit:
     name: security-audit

@@ -1,5 +1,9 @@
 # Export measurement
 
+Operator playbook (smoke vs certification, common measurement failures):
+[`playbooks/benchmark.md`](../../playbooks/benchmark.md). Troubleshooting for
+export/GPU/memory faults: [`playbooks/troubleshooting.md`](../../playbooks/troubleshooting.md).
+
 The native `spike-export-metrics` executable composes the existing Metal test
 pattern, bounded pipeline, Apple H.264 sink and private output transaction.
 It exports 1–9000 frames at 1080×1920, 30/1 fps. The producer uses K=2 credits,

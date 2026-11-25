@@ -120,6 +120,9 @@ jobs:
       - name: Dependency manifest audit
         run: python3 tools/dev/check_dependency_audit.py
 
+      - name: Architecture documentation coverage
+        run: python3 tools/dev/check_architecture_docs.py
+
       - name: Policy unit tests
         run: |
           python3 -m unittest discover -s tools/dev -p 'test_module_boundaries.py' -v
@@ -131,6 +134,7 @@ jobs:
           python3 -m unittest discover -s tools/dev -p 'test_visual_baseline.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_quality_release.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_security_audit.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_architecture_docs.py' -v
 
   security-audit:
     name: security-audit

@@ -15,7 +15,7 @@ check names (exact `jobs.<id>.name` values from `.github/workflows/ci.yml`):
 | `native-asan-ubsan` | ASan/UBSan regression on the development sanitizer preset |
 | `native-tsan` | TSan regression on the development sanitizer preset |
 | `contracts-authoring` | Node/TypeScript lock drift, schema/codegen mismatch, authoring typecheck or SDK test failure |
-| `dependency-policy` | Module-boundary violation, public API/header inventory failure, unexpected vcpkg/npm dependency |
+| `dependency-policy` | Module-boundary violation, public API/header inventory failure, unexpected vcpkg/npm dependency, architecture doc drift |
 | `gpu-integration` | Offline MSL PIN drift, CPU/GPU layout contract break, Metal golden/retirement/video-stress failure |
 | `visual-regression` | Unreviewed Style Bible golden drift, rejected/missing approval, or failed readability checklist items |
 | `quality-lint` | Unapproved lint errors on released examples, failed safe-area/mobile legibility, or unused waivers |
@@ -68,6 +68,7 @@ npm run check:authoring && npm run test:authoring
 python3 tools/dev/check_module_boundaries.py
 python3 tools/dev/check_cpp_api_surface.py
 python3 tools/dev/check_dependency_audit.py
+python3 tools/dev/check_architecture_docs.py
 python3 tools/dev/run_gpu_integration.py -p build/dev --artifact-dir /tmp/gpu-artifacts
 python3 tools/dev/run_visual_regression.py -p build/dev --artifact-dir /tmp/visual-artifacts --enforce-platform
 python3 tools/dev/check_quality_release.py --write-report /tmp/quality-lint-report.json

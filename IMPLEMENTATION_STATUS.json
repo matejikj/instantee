@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T10:32:48Z",
+  "updated_at_utc": "2026-11-25T10:49:35Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7696,14 +7696,45 @@
       ]
     },
     "P8-030": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A new developer can locate the module owner and extend a style without consulting internal GPU handles.",
-        "met": null
+        "criterion": "Nový vývojář dokáže vyhledat owner modulu a rozšířit styl bez dotazu na vnitřní GPU handle.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Module catalog lists every module_graph owner with path and include prefix",
+            "met": true,
+            "evidence": [
+              "architecture/modules.md",
+              "tools/dev/check_architecture_docs.py",
+              "implementation-evidence/P8-030/architecture-docs-check.txt"
+            ]
+          },
+          {
+            "criterion": "Style extension guide does not require GPU/metal-cpp handles; ADR index present",
+            "met": true,
+            "evidence": [
+              "architecture/extending-styles.md",
+              "architecture/adr-index.md",
+              "ARCHITECTURE.md",
+              "implementation-evidence/P8-030/architecture-docs-check.txt"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-030/",
+        "implementation-evidence/P8-030/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-030/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "Architecture doc coverage is enforced in dependency-policy CI.",
+        "ASan/UBSan and TSan were not selected by path risk (docs/Python-only change)."
+      ]
     },
     "P8-031": {
       "status": "todo",

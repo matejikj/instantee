@@ -136,8 +136,10 @@ have it locally. It is not required to configure, build or test this workspace.
 
 ## Adding code
 
-Follow [the repository structure and dependency rules](ARCHITECTURE.md). Keep
-the root build short and define targets in their owning directory. Use
+Follow [the repository structure and dependency rules](ARCHITECTURE.md) and the
+[implementation architecture guides](architecture/README.md) (module
+owners, data flow, style extension without GPU handles, ADR index). Keep the
+root build short and define targets in their owning directory. Use
 target-specific include paths and explicit public/private dependencies.
 Public library headers belong under `include/instantee/<module>/`; native
 implementation headers stay in the module's `src/` directory.

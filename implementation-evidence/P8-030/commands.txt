@@ -1,0 +1,4 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_architecture_docs.py
+python3 -m unittest discover -s tools/dev -p 'test_architecture_docs.py' -v
+tools/dev/check.py --keep-going --report implementation-evidence/P8-030/checks.json

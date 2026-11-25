@@ -1,0 +1,1 @@
+architecture docs ok (modules=18, adrs=15)

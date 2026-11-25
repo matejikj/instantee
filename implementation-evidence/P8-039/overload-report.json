@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "subject": "backpressure and shutdown without deadlock",
+  "measurement": "none",
+  "certified_performance": false,
+  "backend": "cpu-fake",
+  "scenarios": {
+    "native_timeouts": true,
+    "full_empty_stop": true,
+    "close_drain_abort": true,
+    "spurious_wakeup_predicate_storm": true,
+    "controlled_load_k2_k3": true
+  },
+  "loads": [
+    {
+      "profile": "k2-queue1-slow-sink-oldest",
+      "k": 2,
+      "e": 2,
+      "frames": 20,
+      "peak_k": 2,
+      "peak_e": 1,
+      "queue_high_water": 1,
+      "blocked_wait_ns": 78855459,
+      "delivered": 20,
+      "accounted_peak_bytes": 4096,
+      "ordered": true,
+      "no_spin_only": true,
+      "dropped_frames": 0
+    },
+    {
+      "profile": "k3-queue1-slow-sink-oldest",
+      "k": 3,
+      "e": 2,
+      "frames": 24,
+      "peak_k": 3,
+      "peak_e": 1,
+      "queue_high_water": 1,
+      "blocked_wait_ns": 85383628,
+      "delivered": 24,
+      "accounted_peak_bytes": 4096,
+      "ordered": true,
+      "no_spin_only": true,
+      "dropped_frames": 0
+    }
+  ]
+}

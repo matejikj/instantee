@@ -1,0 +1,7 @@
+# Verification commands (repo-relative)
+
+cmake --build --preset release --target spike_runtime_backpressure_shutdown_audit_test
+./build/release/engine/tests/unit/runtime/spike_runtime_backpressure_shutdown_audit_test \
+  --report implementation-evidence/P8-039/overload-report.json
+ctest --preset release -R backpressure_shutdown_audit --output-on-failure
+python3 tools/dev/check.py --asan --tsan --report implementation-evidence/P8-039/checks.json

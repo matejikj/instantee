@@ -7980,14 +7980,44 @@
       ]
     },
     "P8-039": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "K/E and the memory plateau are respected, with no dropped export frames, spin waits or deadlocks; every waiting path can be terminated.",
-        "met": null
+        "criterion": "K/E a memory plateau dodrženy, žádný dropped export frame, spin wait nebo deadlock; všechny čekající cesty lze ukončit.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Controlled load K=2/3 queue=1 slow-sink delayed-oldest respects K/E and memory plateau without drops/spin",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/runtime/backpressure_shutdown_audit_test.cpp",
+              "implementation-evidence/P8-039/overload-report.json"
+            ]
+          },
+          {
+            "criterion": "Full/empty stop, close/drain/abort, native deadlines, and notify-storm waits all terminate",
+            "met": true,
+            "evidence": [
+              "engine/tests/unit/runtime/backpressure_shutdown_audit_test.cpp",
+              "implementation-evidence/P8-039/concurrency-note.md",
+              "implementation-evidence/P8-039/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-039/",
+        "implementation-evidence/P8-039/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-039/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier B. measurement=none — overload report is not certified M1 Air performance.",
+        "CPU fake backend audit: timeouts, full/empty stop, close/drain/abort, spurious-wakeup predicate storm, K=2 and K=3 controlled loads.",
+        "ASan/UBSan and TSan passed (348 tests each). Initial check.py clang-tidy was unavailable on PATH; re-verified with CLANG_TIDY override.",
+        "PTS excluded (-LE pts) on release ctest."
+      ]
     },
     "P8-040": {
       "status": "todo",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T20:19:34Z",
+  "updated_at_utc": "2026-11-25T21:55:51Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -8163,18 +8163,54 @@
       "notes": [
         "Evidence tier C. measurement=none — aggregates committed evidence; no new M1 Air performance claim.",
         "Signed V1 checklist pass; product_v1_certificate=true; git_tag_created=false.",
-        "P8 phase gate remains open until the verified v1.0.0 tag delivery."
+        "P8 phase gate closes with the verified v1.0.0 tag delivery."
       ]
     },
     "P8-037": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Git tag v1.0.0 matches the tested build and package checksums.",
-        "met": null
+        "criterion": "Git tag v1.0.0 odpovídá přezkoušenému buildu a package checksumům.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Annotated git tag v1.0.0 matches the tested release commit",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-037/tag-verification.json",
+              "implementation-evidence/P8-037/gate-report.json",
+              "implementation-evidence/P8-037/decision.md"
+            ]
+          },
+          {
+            "criterion": "macOS package checksums bind the staged 1.0.0 artifact",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-037/gate-report.json",
+              "implementation-evidence/P8-037/checks.json"
+            ]
+          },
+          {
+            "criterion": "Full check.py --gate matrix passed",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-037/checks.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-037/",
+        "implementation-evidence/P8-037/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-037/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier C. measurement=none — packaging, install smoke, and gate matrix only.",
+        "Annotated tag v1.0.0 is local; remotes are not pushed.",
+        "Package digests certify the staged artifact, not notarization; no new B-0x series."
+      ]
     }
   },
   "phase_gates": {
@@ -8397,17 +8433,30 @@
     },
     "P8": {
       "gate_task_id": "P8-037",
-      "status": "todo",
-      "decision": null,
+      "status": "done",
+      "decision": "PASS",
       "acceptance": {
-        "all_phase_tasks_done_and_evidenced": false,
-        "gate_task_acceptance_met": false,
-        "architecture_risks_reviewed": false,
-        "previous_phase_passed": false
+        "all_phase_tasks_done_and_evidenced": true,
+        "gate_task_acceptance_met": true,
+        "architecture_risks_reviewed": true,
+        "previous_phase_passed": true
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-037/",
+        "implementation-evidence/P8-037/gate-report.json",
+        "implementation-evidence/P8-037/decision.md",
+        "implementation-evidence/P8-037/tag-verification.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-037/checks.json"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Annotated tag v1.0.0 is local until an operator publishes remotes.",
+        "Package digests are not Apple notarization.",
+        "No new certified M1 Air performance series is claimed by this gate.",
+        "Generated milestones checklist template is not the authoritative gate status."
+      ]
     }
   },
   "maintenance": {

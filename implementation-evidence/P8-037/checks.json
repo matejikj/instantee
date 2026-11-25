@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/dev/check.py",
+  "generated_at_utc": "2026-11-25T21:54:07Z",
+  "mode": "gate",
+  "base": "HEAD",
+  "head": "a4bbb53",
+  "changed_paths": [
+    "IMPLEMENTATION_STATUS.json",
+    "contracts/release/version-manifest-v1.json",
+    "tools/release/test_v1_release_gate.py",
+    "tools/release/v1_release_gate.py"
+  ],
+  "risks": [
+    "authoring",
+    "python:tools/release"
+  ],
+  "checks": [
+    {
+      "name": "whitespace",
+      "command": "git diff --check HEAD",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.0
+    },
+    {
+      "name": "tracker-sync",
+      "command": "python3 tools/dev/sync_tracker.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "build-release",
+      "command": "cmake --build --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.1
+    },
+    {
+      "name": "clang-tidy",
+      "command": "clang-tidy -p build/release --quiet --warnings-as-errors=* engine/apps/b01-editorial-export/main.mm engine/apps/b02-notebook-export/main.mm engine/apps/b03-paper-export/main.mm engine/apps/b04-mixed-export/main.mm engine/apps/b05-worst-accepted-export/main.mm engine/apps/cli/cli.cpp engine/apps/cli/main.cpp engine/apps/contract-seed-check/main.cpp engine/apps/font-atlas-bench/main.cpp engine/apps/frame-eval-bench/main.cpp engine/apps/fuzz-asset-import/main.cpp engine/apps/fuzz-scene-ir/main.cpp engine/apps/instance-batch-bench/main.cpp engine/apps/instantee/main.cpp engine/apps/metrics/main.mm engine/apps/p3-gate-metrics/main.mm engine/apps/paper-curvature-bench/main.cpp engine/apps/texture-atlas-bench/main.cpp engine/apps/transfer-compare/main.mm engine/native/export-apple/src/adapter_compatibility.mm engine/native/export-apple/src/apple_video_sink.cpp engine/native/export-apple/src/color_accuracy.cpp engine/native/export-apple/src/color_path.mm engine/native/export-apple/src/media_conformance.cpp engine/native/export-apple/src/pixel_buffer.mm engine/native/export-apple/src/video_writer.mm engine/native/export-apple/src/workspace.mm engine/native/telemetry-apple/src/process_sampler.cpp engine/native/transfer-apple/src/feature_matrix.mm engine/native/transfer-apple/src/shared_surface.mm engine/src/asset-pipeline/src/asset_cache.cpp engine/src/asset-pipeline/src/bitmap_decode.cpp engine/src/asset-pipeline/src/nanosvg_impl.cpp engine/src/asset-pipeline/src/stb_image_impl.cpp engine/src/asset-pipeline/src/svg_import.cpp engine/src/asset-pipeline/src/svg_security.cpp engine/src/asset-pipeline/src/texture_atlas.cpp engine/src/compiler/src/compile.cpp engine/src/compiler/src/compile_runtime.cpp engine/src/compiler/src/validate_properties.cpp engine/src/core-model/src/color.cpp engine/src/core-model/src/ids.cpp engine/src/core-model/src/integer_encoding.cpp engine/src/core-model/src/orientation.cpp engine/src/core-model/src/properties.cpp engine/src/core-model/src/time.cpp engine/src/core-model/src/time_convert.cpp engine/src/diagnostics/src/error.cpp engine/src/diagnostics/src/exception_boundary.cpp engine/src/direction/src/camera_language.cpp engine/src/direction/src/cinematic_camera.cpp engine/src/direction/src/composition_constraints.cpp engine/src/direction/src/creative_variation.cpp engine/src/direction/src/directed_film.cpp engine/src/direction/src/direction_report.cpp engine/src/direction/src/editorial_asym_layout.cpp engine/src/direction/src/editorial_beats.cpp engine/src/direction/src/editorial_reels_composition.cpp engine/src/direction/src/editorial_transitions.cpp engine/src/direction/src/editorial_visual_acceptance.cpp engine/src/direction/src/handwriting.cpp engine/src/direction/src/headline_reveal.cpp engine/src/direction/src/layout_lint.cpp engine/src/direction/src/lint_policy.cpp engine/src/direction/src/motion_grammar.cpp engine/src/direction/src/motion_palette_lint.cpp engine/src/direction/src/news_scene_templates.cpp engine/src/direction/src/notebook_composition_templates.cpp engine/src/direction/src/paper_cinematic_templates.cpp engine/src/direction/src/safe_area.cpp engine/src/direction/src/semantic_intent.cpp engine/src/direction/src/shot_planner.cpp engine/src/direction/src/style_bible.cpp engine/src/direction/src/style_package_registry.cpp engine/src/direction/src/track_precedence.cpp engine/src/direction/src/transition_planner.cpp engine/src/direction/src/typography_lint.cpp engine/src/export-core/src/durability_capability.cpp engine/src/export-core/src/export_recovery.cpp engine/src/export-core/src/frame_bridge.cpp engine/src/export-core/src/output_transaction.cpp engine/src/export-core/src/rec709_handoff.cpp engine/src/export-core/src/video_sink.cpp engine/src/export-core/src/write_all.cpp engine/src/export/src/scene_video_export.cpp engine/src/geometry/arc_length.cpp engine/src/geometry/ink_stroke.cpp engine/src/geometry/paper_cut.cpp engine/src/geometry/path.cpp engine/src/geometry/path_cache.cpp engine/src/geometry/stroke.cpp engine/src/geometry/tessellate.cpp engine/src/math/src/ast.cpp engine/src/math/src/grammar.cpp engine/src/math/src/layout.cpp engine/src/math/src/morph.cpp engine/src/math/src/parse.cpp engine/src/math/src/semantic.cpp engine/src/preview/src/frame_png.cpp engine/src/preview/src/png_encode.cpp engine/src/render-core/src/clip_compositor.cpp engine/src/render-core/src/diagram.cpp engine/src/render-core/src/diagram_animation.cpp engine/src/render-core/src/editorial_charts.cpp engine/src/render-core/src/frame_primitives.cpp engine/src/render-core/src/graphic_shapes.cpp engine/src/render-core/src/halftone.cpp engine/src/render-core/src/ink_stroke.cpp engine/src/render-core/src/instance_batch.cpp engine/src/render-core/src/linear_compositor.cpp engine/src/render-core/src/notebook_accessories.cpp engine/src/render-core/src/paper_background_kit.cpp engine/src/render-core/src/paper_cinematic_lighting.cpp engine/src/render-core/src/paper_curvature.cpp engine/src/render-core/src/paper_fold.cpp engine/src/render-core/src/paper_layered_shadow.cpp engine/src/render-core/src/paper_material.cpp engine/src/render-core/src/paper_notes.cpp engine/src/render-core/src/paper_prop_blueprint.cpp engine/src/render-core/src/paper_sheet.cpp engine/src/render-core/src/photo_crop.cpp engine/src/render-core/src/pipeline_cache.cpp engine/src/render-core/src/plot_axes.cpp engine/src/render-core/src/plot_curve.cpp engine/src/render-core/src/primitives.cpp engine/src/render-core/src/print_grain.cpp engine/src/render-core/src/render_graph.cpp engine/src/render-core/src/render_target_pool.cpp engine/src/render-core/src/renderer.cpp engine/src/render-core/src/resource_registry.cpp engine/src/render-core/src/shader_features.cpp engine/src/render-core/src/shadow.cpp engine/src/render-core/src/staging_pool.cpp engine/src/render-core/src/visibility.cpp engine/src/render-metal/src/clip_mask_renderer.cpp engine/src/render-metal/src/device.cpp engine/src/render-metal/src/metal_backend.cpp engine/src/render-metal/src/metal_glyph_atlas.cpp engine/src/render-metal/src/metal_impl.cpp engine/src/render-metal/src/primitive_renderer.cpp engine/src/render-metal/src/readback.cpp engine/src/render-metal/src/shader_module.cpp engine/src/render-metal/src/test_pattern.cpp engine/src/runtime/src/clip_mask.cpp engine/src/runtime/src/compiled_scene.cpp engine/src/runtime/src/easing.cpp engine/src/runtime/src/frame_credits.cpp engine/src/runtime/src/frame_eval_scheduler.cpp engine/src/runtime/src/frame_evaluator.cpp engine/src/runtime/src/frame_preview.cpp engine/src/runtime/src/frame_samples.cpp engine/src/runtime/src/hot_path_telemetry.cpp engine/src/runtime/src/layering.cpp engine/src/runtime/src/render_job.cpp engine/src/runtime/src/shot_timeline.cpp engine/src/runtime/src/spring.cpp engine/src/runtime/src/stop_signals.cpp engine/src/runtime/src/timeline.cpp engine/src/runtime/src/transforms.cpp engine/src/runtime/src/transition_schedule.cpp engine/src/scene-ir/src/authoring_load.cpp engine/src/scene-ir/src/canonicalize.cpp engine/src/scene-ir/src/graph_edit.cpp engine/src/scene-ir/src/graph_validate.cpp engine/src/scene-ir/src/load.cpp engine/src/scene-ir/src/lockfile.cpp engine/src/scene-ir/src/migrate.cpp engine/src/scene-ir/src/puppet_expression.cpp engine/src/scene-ir/src/puppet_fk.cpp engine/src/scene-ir/src/puppet_gesture.cpp engine/src/scene-ir/src/puppet_ik.cpp engine/src/scene-ir/src/puppet_reference_pack.cpp engine/src/scene-ir/src/puppet_rig.cpp engine/src/scene-ir/src/puppet_secondary.cpp engine/src/scene-ir/src/puppet_skin.cpp engine/src/scene-ir/src/puppet_walk.cpp engine/src/scene-ir/src/release_lock.cpp engine/src/scene-ir/src/scene_complexity.cpp engine/src/scene-ir/src/uri_sandbox.cpp engine/src/typography/src/glyph_atlas.cpp engine/src/typography/src/glyph_transform.cpp engine/src/typography/src/kinetic_layout.cpp engine/src/typography/src/text_shape.cpp engine/tests/contracts/public_headers.cpp engine/tests/integration/b01_editorial_demo_test.cpp engine/tests/integration/b02_notebook_demo_test.cpp engine/tests/integration/b03_paper_demo_test.cpp engine/tests/integration/cancellation_child.mm engine/tests/integration/cds_sdk_e2e_test.cpp engine/tests/integration/cli_validate_compile_test.cpp engine/tests/integration/crash_consistency_child.cpp engine/tests/integration/frame_seek_test.cpp engine/tests/integration/p3_gate_metrics_smoke_test.cpp engine/tests/integration/scene_video_mp4_test.cpp engine/tests/integration/walking_skeleton_test.cpp engine/tests/unit/asset-pipeline/asset_cache_test.cpp engine/tests/unit/asset-pipeline/asset_import_security_fuzz_test.cpp engine/tests/unit/asset-pipeline/bitmap_decode_test.cpp engine/tests/unit/asset-pipeline/svg_import_test.cpp engine/tests/unit/asset-pipeline/texture_atlas_test.cpp engine/tests/unit/cli/cli_test.cpp engine/tests/unit/compiler/cds_compile_test.cpp engine/tests/unit/compiler/identity_test.cpp engine/tests/unit/compiler/multi_style_compile_test.cpp engine/tests/unit/compiler/properties_validate_test.cpp engine/tests/unit/compiler/runtime_scene_test.cpp engine/tests/unit/compiler/track_conflict_test.cpp engine/tests/unit/compiler/transition_compile_test.cpp engine/tests/unit/core-model/camera_depth_test.cpp engine/tests/unit/core-model/camera_test.cpp engine/tests/unit/core-model/deterministic_rng_test.cpp engine/tests/unit/core-model/ids_test.cpp engine/tests/unit/core-model/integer_encoding_test.cpp engine/tests/unit/core-model/orientation_color_test.cpp engine/tests/unit/core-model/properties_test.cpp engine/tests/unit/core-model/stage_depth_scene_test.cpp engine/tests/unit/core-model/time_convert_test.cpp engine/tests/unit/core-model/time_test.cpp engine/tests/unit/core-model/transform_test.cpp engine/tests/unit/diagnostics/error_test.cpp engine/tests/unit/direction/camera_language_test.cpp engine/tests/unit/direction/cinematic_camera_test.cpp engine/tests/unit/direction/composition_constraints_test.cpp engine/tests/unit/direction/composition_typography_metrics_test.cpp engine/tests/unit/direction/creative_variation_test.cpp engine/tests/unit/direction/direction_report_test.cpp engine/tests/unit/direction/editorial_asym_layout_test.cpp engine/tests/unit/direction/editorial_beats_test.cpp engine/tests/unit/direction/editorial_multi_seed_test.cpp engine/tests/unit/direction/editorial_reels_composition_test.cpp engine/tests/unit/direction/editorial_style_review_test.cpp engine/tests/unit/direction/editorial_transitions_test.cpp engine/tests/unit/direction/editorial_visual_acceptance_test.cpp engine/tests/unit/direction/handwriting_timing_test.cpp engine/tests/unit/direction/headline_reveal_test.cpp engine/tests/unit/direction/layout_lint_test.cpp engine/tests/unit/direction/lint_policy_test.cpp engine/tests/unit/direction/motion_grammar_test.cpp engine/tests/unit/direction/motion_palette_lint_test.cpp engine/tests/unit/direction/news_scene_templates_test.cpp engine/tests/unit/direction/notebook_composition_templates_test.cpp engine/tests/unit/direction/notebook_style_review_test.cpp engine/tests/unit/direction/notebook_visual_acceptance_test.cpp engine/tests/unit/direction/paper_cinema_style_review_test.cpp engine/tests/unit/direction/paper_cinema_visual_acceptance_test.cpp engine/tests/unit/direction/paper_cinematic_templates_test.cpp engine/tests/unit/direction/safe_area_test.cpp engine/tests/unit/direction/semantic_intent_test.cpp engine/tests/unit/direction/shot_planner_test.cpp engine/tests/unit/direction/style_bible_test.cpp engine/tests/unit/direction/style_package_registry_test.cpp engine/tests/unit/direction/track_precedence_test.cpp engine/tests/unit/direction/transition_planner_test.cpp engine/tests/unit/direction/typography_lint_test.cpp engine/tests/unit/export-apple/adapter_compatibility_test.mm engine/tests/unit/export-apple/apple_owner_test.mm engine/tests/unit/export-apple/color_accuracy_suite_test.mm engine/tests/unit/export-apple/color_roundtrip_test.mm engine/tests/unit/export-apple/linear_overlay_roundtrip_test.mm engine/tests/unit/export-apple/media_conformance_test.mm engine/tests/unit/export-apple/pixel_buffer_pool_test.mm engine/tests/unit/export-apple/pts_timeline_test.mm engine/tests/unit/export-apple/render_to_mp4_test.mm engine/tests/unit/export-apple/video_writer_test.mm engine/tests/unit/export-core/durability_capability_test.cpp engine/tests/unit/export-core/export_recovery_test.cpp engine/tests/unit/export-core/rec709_handoff_test.cpp engine/tests/unit/export-core/transaction_test.cpp engine/tests/unit/export-core/video_sink_test.cpp engine/tests/unit/export/scene_video_export_test.cpp engine/tests/unit/geometry/arc_length_test.cpp engine/tests/unit/geometry/ink_stroke_test.cpp engine/tests/unit/geometry/paper_cut_test.cpp engine/tests/unit/geometry/path_tessellation_test.cpp engine/tests/unit/math/math_grammar_test.cpp engine/tests/unit/math/math_layout_test.cpp engine/tests/unit/math/math_morph_test.cpp engine/tests/unit/math/math_parser_test.cpp engine/tests/unit/math/math_semantic_test.cpp engine/tests/unit/preview/frame_png_test.cpp engine/tests/unit/render-core/clip_compositor_test.cpp engine/tests/unit/render-core/diagram_animation_test.cpp engine/tests/unit/render-core/diagram_test.cpp engine/tests/unit/render-core/editorial_charts_test.cpp engine/tests/unit/render-core/graphic_shapes_test.cpp engine/tests/unit/render-core/halftone_test.cpp engine/tests/unit/render-core/ink_stroke_feature_test.cpp engine/tests/unit/render-core/instance_batch_test.cpp engine/tests/unit/render-core/linear_compositor_test.cpp engine/tests/unit/render-core/notebook_accessories_test.cpp engine/tests/unit/render-core/paper_background_kit_test.cpp engine/tests/unit/render-core/paper_curvature_test.cpp engine/tests/unit/render-core/paper_fold_test.cpp engine/tests/unit/render-core/paper_layered_shadow_test.cpp engine/tests/unit/render-core/paper_material_test.cpp engine/tests/unit/render-core/paper_notes_test.cpp engine/tests/unit/render-core/paper_prop_blueprint_test.cpp engine/tests/unit/render-core/paper_sheet_test.cpp engine/tests/unit/render-core/photo_crop_test.cpp engine/tests/unit/render-core/pipeline_cache_test.cpp engine/tests/unit/render-core/plot_axes_test.cpp engine/tests/unit/render-core/plot_curve_test.cpp engine/tests/unit/render-core/primitives_test.cpp engine/tests/unit/render-core/print_grain_test.cpp engine/tests/unit/render-core/render_core_port_test.cpp engine/tests/unit/render-core/render_graph_test.cpp engine/tests/unit/render-core/render_target_pool_test.cpp engine/tests/unit/render-core/resource_registry_test.cpp engine/tests/unit/render-core/shader_features_test.cpp engine/tests/unit/render-core/shadow_test.cpp engine/tests/unit/render-core/staging_pool_test.cpp engine/tests/unit/render-core/visibility_test.cpp engine/tests/unit/render-metal/clip_mask_test.cpp engine/tests/unit/render-metal/device_test.cpp engine/tests/unit/render-metal/metal_backend_test.cpp engine/tests/unit/render-metal/metal_glyph_atlas_test.cpp engine/tests/unit/render-metal/owner_test.cpp engine/tests/unit/render-metal/pattern_test.cpp engine/tests/unit/render-metal/pipeline_cache_test.cpp engine/tests/unit/render-metal/primitives_test.cpp engine/tests/unit/render-metal/readback_lifetime_test.cpp engine/tests/unit/render-metal/shader_module_test.cpp engine/tests/unit/runtime/backpressure_load_audit_test.cpp engine/tests/unit/runtime/backpressure_shutdown_audit_test.cpp engine/tests/unit/runtime/backpressure_test.cpp engine/tests/unit/runtime/cancellation_matrix_audit_test.cpp engine/tests/unit/runtime/cancellation_test.cpp engine/tests/unit/runtime/clip_mask_test.cpp engine/tests/unit/runtime/compiled_scene_test.cpp engine/tests/unit/runtime/determinism_phase_gate_test.cpp engine/tests/unit/runtime/easing_test.cpp engine/tests/unit/runtime/frame_eval_scheduler_test.cpp engine/tests/unit/runtime/frame_evaluator_test.cpp engine/tests/unit/runtime/frame_preview_test.cpp engine/tests/unit/runtime/frame_samples_test.cpp engine/tests/unit/runtime/hot_path_telemetry_test.cpp engine/tests/unit/runtime/layering_test.cpp engine/tests/unit/runtime/memory_pressure_audit_test.cpp engine/tests/unit/runtime/ownership_lifetime_audit_test.cpp engine/tests/unit/runtime/render_job_audit_test.cpp engine/tests/unit/runtime/render_job_test.cpp engine/tests/unit/runtime/shot_timeline_test.cpp engine/tests/unit/runtime/spring_test.cpp engine/tests/unit/runtime/timeline_test.cpp engine/tests/unit/runtime/transforms_test.cpp engine/tests/unit/runtime/transition_schedule_test.cpp engine/tests/unit/scene-ir/canonicalize_test.cpp engine/tests/unit/scene-ir/compatibility_suite_test.cpp engine/tests/unit/scene-ir/editorial_asset_lock_test.cpp engine/tests/unit/scene-ir/graph_edit_test.cpp engine/tests/unit/scene-ir/graph_test.cpp engine/tests/unit/scene-ir/load_test.cpp engine/tests/unit/scene-ir/lockfile_test.cpp engine/tests/unit/scene-ir/migrate_test.cpp engine/tests/unit/scene-ir/notebook_asset_lock_test.cpp engine/tests/unit/scene-ir/paper_cinema_asset_lock_test.cpp engine/tests/unit/scene-ir/puppet_expression_test.cpp engine/tests/unit/scene-ir/puppet_fk_test.cpp engine/tests/unit/scene-ir/puppet_gesture_test.cpp engine/tests/unit/scene-ir/puppet_ik_test.cpp engine/tests/unit/scene-ir/puppet_reference_pack_test.cpp engine/tests/unit/scene-ir/puppet_rig_test.cpp engine/tests/unit/scene-ir/puppet_secondary_test.cpp engine/tests/unit/scene-ir/puppet_skin_test.cpp engine/tests/unit/scene-ir/puppet_walk_test.cpp engine/tests/unit/scene-ir/release_lock_test.cpp engine/tests/unit/scene-ir/scene_complexity_test.cpp engine/tests/unit/scene-ir/security_test.cpp engine/tests/unit/scene-ir/semantic_fixture_test.cpp engine/tests/unit/scene-ir/uri_sandbox_audit_test.cpp engine/tests/unit/telemetry-apple/process_sampler_test.cpp engine/tests/unit/transfer-apple/feature_matrix_test.mm engine/tests/unit/transfer-apple/path_compare_test.mm engine/tests/unit/transfer-apple/shared_surface_lifetime_test.mm engine/tests/unit/typography/glyph_atlas_test.cpp engine/tests/unit/typography/glyph_transform_test.cpp engine/tests/unit/typography/kinetic_layout_test.cpp engine/tests/unit/typography/notebook_demo_typography_test.cpp engine/tests/unit/typography/text_shape_test.cpp",
+      "tool_version": "23.1.5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 711.2
+    },
+    {
+      "name": "ctest-release",
+      "command": "ctest --preset release",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 111.8,
+      "tests": {
+        "total": 351,
+        "passed": 351,
+        "failed": 0
+      }
+    },
+    {
+      "name": "asan-ubsan",
+      "command": "cmake --workflow --preset asan-ubsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 486.9,
+      "tests": {
+        "total": 351,
+        "passed": 351,
+        "failed": 0
+      }
+    },
+    {
+      "name": "tsan",
+      "command": "cmake --workflow --preset tsan",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1625.7,
+      "tests": {
+        "total": 351,
+        "passed": 351,
+        "failed": 0
+      }
+    },
+    {
+      "name": "node-toolchain",
+      "command": "npm run check:toolchain",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.3
+    },
+    {
+      "name": "contracts-check",
+      "command": "npm run contracts:check",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 2.0
+    },
+    {
+      "name": "contracts-test",
+      "command": "npm run contracts:test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "authoring-typecheck",
+      "command": "npm run check:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.9
+    },
+    {
+      "name": "authoring-build",
+      "command": "npm run build:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.7
+    },
+    {
+      "name": "authoring-test",
+      "command": "npm run test:authoring",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.2
+    },
+    {
+      "name": "python:tools/benchmark",
+      "command": "python3 -m unittest discover -s tools/benchmark -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 1.0
+    },
+    {
+      "name": "python:tools/dev",
+      "command": "python3 -m unittest discover -s tools/dev -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 10.6
+    },
+    {
+      "name": "python:tools/machine-profile",
+      "command": "python3 -m unittest discover -s tools/machine-profile -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "python:tools/release",
+      "command": "python3 -m unittest discover -s tools/release -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 0.3
+    },
+    {
+      "name": "python:tools/toolchain",
+      "command": "python3 -m unittest discover -s tools/toolchain -p test_*.py",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_s": 617.0
+    }
+  ],
+  "result": "passed",
+  "certified_performance": false
+}

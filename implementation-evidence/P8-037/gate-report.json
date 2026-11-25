@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "kind": "v1_release_gate_report",
+  "generated_at_utc": "2026-11-25T21:55:52Z",
+  "measurement": "none",
+  "certified_performance": false,
+  "git_tag": "v1.0.0",
+  "framework_semver": "1.0.0",
+  "accepted": true,
+  "blocking_defects": [],
+  "p8_tasks": {
+    "pass": true,
+    "incomplete": [],
+    "allow_open": [
+      ""
+    ]
+  },
+  "prior_phase_gates_pass": true,
+  "certification_dossier_accepted": true,
+  "version_manifest_errors": [],
+  "package": {
+    "version": "1.0.0",
+    "package_dir": "build/dist/macos/instantee-macos-1.0.0-arm64",
+    "package_name": "instantee-macos-1.0.0-arm64",
+    "cli_sha256": "a3c375bd94367d9e485c7119a365dbc7fe6c77fc30c3c7bae973c364913b6d0a",
+    "cli_size_bytes": 1904496,
+    "manifest_file_count": 51,
+    "manifest_sha256": "0bfb86a278605859967c188a21c263d35f1756f697c5aff2026cdfc002560fb6",
+    "archive_path": "build/dist/macos/instantee-macos-1.0.0-arm64.tar.gz",
+    "archive_sha256": "dd82bce334d4e38c7393c2aa445f4418b8a3318d75b3e19113534f93538afb9b",
+    "archive_size_bytes": 1558907
+  },
+  "install_smoke": {
+    "schema_version": 1,
+    "ok": true,
+    "certified_performance": false,
+    "compiled_renderer_on_host": false,
+    "invoked_cmake": false,
+    "package_name": "instantee-macos-1.0.0-arm64",
+    "deployment_target": "27.2",
+    "signing_mode": "ad-hoc",
+    "video_bytes": 1534
+  },
+  "known_limitations": [
+    "Annotated tag is created locally; remotes are not pushed by this gate.",
+    "Package digests certify the staged artifact, not notarization.",
+    "No new B-0x performance series is measured by this gate."
+  ]
+}

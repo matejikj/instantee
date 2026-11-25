@@ -4,10 +4,10 @@
   "release": {
     "git_tag": "v1.0.0",
     "framework_semver": "1.0.0",
-    "status": "declared",
+    "status": "released",
     "changelog_path": "CHANGELOG.md",
     "release_notes_heading": "## [1.0.0]",
-    "notes": "Creating the annotated git tag is a later release step; this manifest is the contract that tag must satisfy."
+    "notes": "Annotated git tag v1.0.0 marks the tested build; package checksums are recorded in the release gate evidence. Remotes are not pushed by the local gate."
   },
   "axes": {
     "framework_semver": {

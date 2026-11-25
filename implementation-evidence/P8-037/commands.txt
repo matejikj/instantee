@@ -1,0 +1,19 @@
+# Verification commands (repo-relative)
+
+cmake --build --preset release --target instantee
+npm run build:authoring
+
+python3 tools/release/check_version_manifest.py
+python3 tools/release/package_macos.py \
+  --build-dir build/release --out-dir build/dist/macos --version 1.0.0
+
+python3 tools/release/v1_release_gate.py --skip-package --allow-open '' \
+  --report implementation-evidence/P8-037/gate-report.json
+
+python3 tools/release/test_v1_release_gate.py -v
+
+python3 tools/dev/check.py --gate --report implementation-evidence/P8-037/checks.json
+
+# After the release commit exists (do not push):
+# python3 tools/release/v1_release_gate.py --skip-package --create-tag --allow-open '' \
+#   --report implementation-evidence/P8-037/gate-report.json

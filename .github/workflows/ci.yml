@@ -135,6 +135,7 @@ jobs:
           python3 -m unittest discover -s tools/dev -p 'test_quality_release.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_security_audit.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_architecture_docs.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_tutorial_e2e.py' -v
 
   security-audit:
     name: security-audit

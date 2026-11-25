@@ -14,7 +14,8 @@
     "contracts:generate": "node tools/contracts/generate_types.mjs",
     "contracts:check": "node tools/contracts/check_contracts.mjs",
     "contracts:test": "node tools/contracts/test_contracts.mjs",
-    "test:authoring": "npm run build:authoring && node tools/contracts/test_authoring_sdk.mjs && node tools/contracts/check_authoring_public_api.mjs && node authoring/examples/three-styles/main.mjs"
+    "test:authoring": "npm run build:authoring && node tools/contracts/test_authoring_sdk.mjs && node tools/contracts/check_authoring_public_api.mjs && node authoring/examples/three-styles/main.mjs",
+    "test:tutorials": "npm run build:authoring && python3 tools/dev/run_tutorial_e2e.py --cli build/release/instantee --work-dir build/tutorial-e2e --frames 30"
   },
   "devDependencies": {
     "ajv": "8.17.1",

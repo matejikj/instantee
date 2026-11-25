@@ -23,8 +23,10 @@ policy, and generated contract types. Import only from `@instantee/authoring`
 ignored `packages/authoring/dist/` directory. The package is private and not
 publishable.
 
-Verified multi-style usage lives in `examples/three-styles/`. The public export
-snapshot is locked under
+Verified multi-style usage lives in `examples/three-styles/`. End-to-end style
+tutorials (Editorial, Notebook, Paper Cinema) live under `examples/tutorials/`
+with guides in [`tutorials/`](../tutorials/README.md) and the API map in
+[`API.md`](API.md). The public export snapshot is locked under
 `contracts/fixtures/authoring/public-api-v1.snapshot.json`.
 
 Keep authoring packages under `packages/<name>/`, source under each package's

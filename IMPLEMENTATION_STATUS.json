@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T10:49:35Z",
+  "updated_at_utc": "2026-11-25T11:18:32Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7737,14 +7737,44 @@
       ]
     },
     "P8-031": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "A clean installation following the tutorial produces all three videos.",
-        "met": null
+        "criterion": "Čistá instalace podle tutoriálu vytvoří všechna tři videa.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Tutorial generators + CLI produce editorial, notebook, and paper-cinema MP4s",
+            "met": true,
+            "evidence": [
+              "tutorials/README.md",
+              "tools/dev/run_tutorial_e2e.py",
+              "implementation-evidence/P8-031/tutorial-artifacts/tutorial-e2e-report.json"
+            ]
+          },
+          {
+            "criterion": "API docs cover SDK and CLI compile/render path",
+            "met": true,
+            "evidence": [
+              "authoring/API.md",
+              "authoring/packages/authoring/PUBLIC_API.md",
+              "tutorials/01-editorial.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-031/",
+        "implementation-evidence/P8-031/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-031/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "Tutorial e2e report sets certified_performance=false; --frames 30 smoke only.",
+        "ASan/UBSan and TSan were not selected by path risk (docs/authoring/Python change)."
+      ]
     },
     "P8-032": {
       "status": "todo",

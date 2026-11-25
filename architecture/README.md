@@ -12,6 +12,8 @@ and in `CPP_RUNTIME_CONTRACTS.md` / `BENCHMARK_PROTOCOL.md`.
 | [Ownership and job phases](ownership-and-jobs.md) | RAII leases, bounded queues, `RenderJob` state machine |
 | [Extending a style](extending-styles.md) | Add or change a Style Bible package without touching GPU backends |
 | [ADR index](adr-index.md) | Locate architecture decision records |
+| [Tutorials](../tutorials/README.md) | Produce Editorial / Notebook / Paper Cinema MP4s |
+| [Authoring API](../authoring/API.md) | SDK + CLI command map |
 
 The dependency graph in `cmake/module_graph.json` is enforced by
 `tools/dev/check_module_boundaries.py`. Architecture doc coverage is checked by

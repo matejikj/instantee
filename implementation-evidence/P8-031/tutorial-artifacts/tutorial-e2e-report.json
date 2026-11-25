@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "certified_performance": false,
+  "work_dir": "<work-dir>",
+  "videos": [
+    {
+      "id": "editorial",
+      "path": "<work-dir>/editorial.mp4",
+      "bytes": 5571
+    },
+    {
+      "id": "notebook",
+      "path": "<work-dir>/notebook.mp4",
+      "bytes": 5946
+    },
+    {
+      "id": "paper-cinema",
+      "path": "<work-dir>/paper-cinema.mp4",
+      "bytes": 5730
+    }
+  ]
+}

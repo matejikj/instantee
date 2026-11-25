@@ -57,6 +57,7 @@ class ToolchainTests(unittest.TestCase):
             "check_quality_release.py",
             "check_security_audit.py",
             "check_architecture_docs.py",
+            "run_tutorial_e2e.py",
         ):
             shutil.copy2(ROOT / "tools/dev" / script, dev_tools)
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)

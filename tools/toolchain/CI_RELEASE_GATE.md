@@ -69,6 +69,7 @@ python3 tools/dev/check_module_boundaries.py
 python3 tools/dev/check_cpp_api_surface.py
 python3 tools/dev/check_dependency_audit.py
 python3 tools/dev/check_architecture_docs.py
+python3 tools/dev/run_tutorial_e2e.py --cli build/release/instantee --work-dir /tmp/instantee-tutorials --frames 30
 python3 tools/dev/run_gpu_integration.py -p build/dev --artifact-dir /tmp/gpu-artifacts
 python3 tools/dev/run_visual_regression.py -p build/dev --artifact-dir /tmp/visual-artifacts --enforce-platform
 python3 tools/dev/check_quality_release.py --write-report /tmp/quality-lint-report.json

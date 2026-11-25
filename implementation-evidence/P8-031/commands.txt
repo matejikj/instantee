@@ -1,0 +1,5 @@
+python3 tools/dev/sync_tracker.py
+npm run build:authoring
+python3 tools/dev/run_tutorial_e2e.py --cli build/release/instantee --work-dir /tmp/instantee-tutorials --frames 30 --write-report implementation-evidence/P8-031/tutorial-artifacts/tutorial-e2e-report.json
+python3 -m unittest discover -s tools/dev -p 'test_tutorial_e2e.py' -v
+tools/dev/check.py --keep-going --report implementation-evidence/P8-031/checks.json

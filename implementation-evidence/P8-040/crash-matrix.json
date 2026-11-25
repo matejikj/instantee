@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "subject": "output publish crash-visibility matrix",
+  "sigkill_is_power_loss_evidence": false,
+  "power_loss_claim": "SIGKILL and process-crash tests do not certify power-loss or media durability; durable-local requires F_FULLFSYNC on APFS/HFS+ and a separate storage-fault experiment.",
+  "cases": [
+    {
+      "phase": "finish",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "finish",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "file_sync",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "file_sync",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "rename",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "rename",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": false,
+      "target_unchanged_when_pre_publish": true,
+      "private_staging_only_when_pre_publish": true,
+      "valid_ftyp_when_post_publish": false
+    },
+    {
+      "phase": "metadata_sync",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    },
+    {
+      "phase": "metadata_sync",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    },
+    {
+      "phase": "report",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    },
+    {
+      "phase": "report",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    },
+    {
+      "phase": "published",
+      "signal": "SIGKILL",
+      "existing_target": false,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    },
+    {
+      "phase": "published",
+      "signal": "SIGKILL",
+      "existing_target": true,
+      "target_published": true,
+      "target_unchanged_when_pre_publish": false,
+      "private_staging_only_when_pre_publish": false,
+      "valid_ftyp_when_post_publish": true
+    }
+  ]
+}

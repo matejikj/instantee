@@ -1,0 +1,21 @@
+# Verification commands (repo-relative)
+
+cmake --build --preset release --target \
+  spike_export_core_durability_capability_test \
+  spike_crash_consistency_child \
+  spike_export_core_transaction_test
+
+./build/release/engine/tests/unit/export-core/spike_export_core_durability_capability_test \
+  implementation-evidence/P8-040/capability-report.json
+
+./build/release/engine/tests/unit/export-core/spike_export_core_transaction_test
+
+python3 engine/tests/integration/crash_consistency_matrix.py \
+  ./build/release/engine/tests/integration/spike_crash_consistency_child \
+  implementation-evidence/P8-040/crash-matrix.json
+
+ctest --preset release -R 'durability_capability|crash_consistency|export_core_transaction' \
+  --output-on-failure
+
+python3 tools/dev/check.py --asan --tsan \
+  --report implementation-evidence/P8-040/checks.json

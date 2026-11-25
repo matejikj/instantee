@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Frozen inventory of C++ public headers under engine/**/include.",
-  "header_count": 168,
+  "header_count": 169,
   "headers": [
     "engine/native/export-apple/include/instantee/export_apple/adapter_compatibility.hpp",
     "engine/native/export-apple/include/instantee/export_apple/apple_video_sink.hpp",
@@ -63,6 +63,7 @@
     "engine/src/direction/include/instantee/direction/track_precedence.hpp",
     "engine/src/direction/include/instantee/direction/transition_planner.hpp",
     "engine/src/direction/include/instantee/direction/typography_lint.hpp",
+    "engine/src/export-core/include/instantee/export_core/durability_capability.hpp",
     "engine/src/export-core/include/instantee/export_core/export_recovery.hpp",
     "engine/src/export-core/include/instantee/export_core/frame_bridge.hpp",
     "engine/src/export-core/include/instantee/export_core/output_transaction.hpp",

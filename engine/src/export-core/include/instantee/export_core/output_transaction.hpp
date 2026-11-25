@@ -34,6 +34,11 @@ enum class DurabilityState : std::uint8_t {
 struct OutputTransactionFaults {
   bool fail_file_sync_before_publish = false;
   bool fail_directory_sync_after_publish = false;
+  // Forces durable-local rejection regardless of the real mount (unit tests).
+  bool force_unsupported_filesystem = false;
+  // Optional barrier invoked with a stable phase name so crash harnesses can
+  // SIGKILL at finish/file-sync/rename/metadata-sync/report boundaries.
+  void (*phase_barrier)(const char *phase) = nullptr;
 };
 
 struct OutputTransactionConfig {

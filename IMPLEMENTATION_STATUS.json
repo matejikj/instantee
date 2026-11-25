@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T11:34:52Z",
+  "updated_at_utc": "2026-11-25T19:37:57Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -8020,14 +8020,54 @@
       ]
     },
     "P8-040": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Before publication the target is unchanged or absent; after publication only a valid MP4 exists with truthful status. SIGKILL is not presented as power-loss evidence; unsupported durable profiles are rejected.",
-        "met": null
+        "criterion": "Před publish target původní/žádný, po publish pouze validní MP4 s pravdivým stavem. SIGKILL se nevydává za power-loss důkaz; unsupported durable profil se odmítne.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Before publish target absent or unchanged; after publish complete payload with truthful durability",
+            "met": true,
+            "evidence": [
+              "engine/tests/integration/crash_consistency_matrix.py",
+              "implementation-evidence/P8-040/crash-matrix.json",
+              "engine/tests/unit/export-core/transaction_test.cpp"
+            ]
+          },
+          {
+            "criterion": "SIGKILL is not presented as power-loss evidence",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-040/crash-matrix.json",
+              "implementation-evidence/P8-040/decision.md",
+              "implementation-evidence/P8-040/capability-report.json"
+            ]
+          },
+          {
+            "criterion": "Unsupported durable profiles are rejected",
+            "met": true,
+            "evidence": [
+              "engine/src/export-core/src/durability_capability.cpp",
+              "engine/tests/unit/export-core/durability_capability_test.cpp",
+              "implementation-evidence/P8-040/capability-report.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-040/",
+        "implementation-evidence/P8-040/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-040/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier C. measurement=none — no certified M1 Air performance.",
+        "Crash matrix SIGKILL at finish/file-sync/rename/metadata-sync/report/published; sigkill_is_power_loss_evidence=false.",
+        "Durability capability probe gates durable-local to APFS/HFS+; unsupported mounts and injected profiles return durability_unsupported.",
+        "ASan/UBSan and TSan passed (351 tests each). clang-tidy via CLANG_TIDY override. PTS included due to export-core timing risk."
+      ]
     },
     "P8-041": {
       "status": "todo",

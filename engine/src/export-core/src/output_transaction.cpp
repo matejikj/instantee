@@ -1,5 +1,7 @@
 #include <instantee/export_core/output_transaction.hpp>
 
+#include <instantee/export_core/durability_capability.hpp>
+
 #include <array>
 #include <cerrno>
 #include <cstring>
@@ -14,7 +16,6 @@
 #include <utility>
 
 #if defined(__APPLE__)
-#include <sys/mount.h>
 #include <sys/stdio.h>
 #endif
 
@@ -234,25 +235,23 @@ OutputTransaction::begin(OutputTransactionConfig config) {
                                       "Cannot open output parent directory"));
   }
 
-#if defined(__APPLE__)
-  if (config.durability == DurabilityClass::durable_local) {
-    struct statfs fs_info{};
-    if (::fstatfs(parent_fd.get(), &fs_info) != 0) {
-      return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
-                                        "statfs_failed",
-                                        "Cannot inspect filesystem for "
-                                        "durable-local publish"));
-    }
-    // APFS and HFS+ expose F_FULLFSYNC; refuse exotic mounts instead of
-    // silently weakening the requested durability class.
-    const std::string_view fs_type = fs_info.f_fstypename;
-    if (fs_type != "apfs" && fs_type != "hfs") {
-      return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
-                                        "durability_unsupported",
-                                        "durable-local requires APFS/HFS+"));
-    }
+  if (config.faults.force_unsupported_filesystem &&
+      config.durability == DurabilityClass::durable_local) {
+    return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
+                                      "durability_unsupported",
+                                      "Injected unsupported durable-local "
+                                      "filesystem"));
   }
-#endif
+
+  auto capability = probe_durability_capability(canonical_parent);
+  if (!capability) {
+    return std::unexpected(capability.error());
+  }
+  if (auto supported =
+          require_durability_support(config.durability, *capability);
+      !supported) {
+    return std::unexpected(supported.error());
+  }
 
   std::string nonce;
   std::filesystem::path staging_directory;
@@ -392,6 +391,12 @@ OutputTransaction::commit(std::stop_token stop) {
                                       "Publication was cancelled"));
   }
 
+  const auto run_barrier = [this](const char *phase) {
+    if (state_->config.faults.phase_barrier != nullptr) {
+      state_->config.faults.phase_barrier(phase);
+    }
+  };
+
   std::error_code ec;
   if (!std::filesystem::is_regular_file(state_->staging_file, ec)) {
     return std::unexpected(make_error(diagnostics::ExitCode::invalid_input,
@@ -399,6 +404,7 @@ OutputTransaction::commit(std::stop_token stop) {
                                       "Staging output file is missing"));
   }
 
+  run_barrier("file_sync");
   UniqueFd file_fd{::open(state_->staging_file.c_str(), O_RDONLY | O_CLOEXEC)};
   if (!file_fd) {
     return std::unexpected(make_error(diagnostics::ExitCode::export_failure,
@@ -444,6 +450,7 @@ OutputTransaction::commit(std::stop_token stop) {
                                       "cancelled",
                                       "Publication was cancelled"));
   }
+  run_barrier("rename");
   if (::renameatx_np(staging_dir_fd.get(), kStagingFileName, parent_fd.get(),
                      to_rel.c_str(), flags) != 0) {
     if (state_->config.mode == PublishMode::no_replace && errno == EEXIST) {
@@ -469,6 +476,7 @@ OutputTransaction::commit(std::stop_token stop) {
   result.published = true;
   result.durability = DurabilityState::confirmed;
 
+  run_barrier("metadata_sync");
   if (auto dir_synced = sync_directory(
           parent_fd.get(),
           state_->config.faults.fail_directory_sync_after_publish);
@@ -485,6 +493,7 @@ OutputTransaction::commit(std::stop_token stop) {
     close_once(std::exchange(state_->marker_lock_fd, -1));
   }
   remove_tree_best_effort(state_->staging_directory);
+  run_barrier("report");
   return result;
 }
 

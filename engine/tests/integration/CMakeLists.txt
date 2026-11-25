@@ -16,6 +16,15 @@ add_test(NAME spike_cancellation_subprocess COMMAND "${Python3_EXECUTABLE}"
 set_tests_properties(spike_cancellation_subprocess PROPERTIES TIMEOUT 180
   LABELS "cpu;smoke")
 
+add_executable(spike_crash_consistency_child crash_consistency_child.cpp)
+target_link_libraries(spike_crash_consistency_child PRIVATE
+  instantee::export_core instantee_build_options)
+add_test(NAME spike_crash_consistency_matrix COMMAND "${Python3_EXECUTABLE}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/crash_consistency_matrix.py"
+  "$<TARGET_FILE:spike_crash_consistency_child>")
+set_tests_properties(spike_crash_consistency_matrix PROPERTIES TIMEOUT 180
+  LABELS "cpu;smoke")
+
 add_test(NAME spike_measurement COMMAND "${Python3_EXECUTABLE}"
   "${PROJECT_SOURCE_DIR}/tools/benchmark/test_measure.py"
   "$<TARGET_FILE:spike-export-metrics>")

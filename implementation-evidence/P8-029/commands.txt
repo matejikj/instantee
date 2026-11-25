@@ -1,0 +1,4 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_security_audit.py --write-report implementation-evidence/P8-029/security-audit-artifacts/security-audit-report.json --write-sbom implementation-evidence/P8-029/security-audit-artifacts/sbom.json
+python3 -m unittest discover -s tools/dev -p 'test_security_audit.py' -v
+tools/dev/check.py --keep-going --report implementation-evidence/P8-029/checks.json

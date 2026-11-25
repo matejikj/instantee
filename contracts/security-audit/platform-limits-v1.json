@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "description": "Known V1 platform and supply-chain limits. Not a performance certification claim.",
+  "limits": [
+    {
+      "id": "certification-os",
+      "summary": "Certification presets lock macOS 27.2 / Xcode 27.2 on Apple Silicon; older hosts are unsupported for reference evidence."
+    },
+    {
+      "id": "vcpkg-empty",
+      "summary": "vcpkg manifest dependencies stay empty; configure does not download or bootstrap vcpkg until the first package is integrated in manifest mode."
+    },
+    {
+      "id": "npm-dev-only",
+      "summary": "Root Node packages are authoring/tooling only (no runtime dependency). Integrity hashes in package-lock.json gate installs."
+    },
+    {
+      "id": "typography-pkg-config",
+      "summary": "HarfBuzz, FreeType and ICU are resolved via pkg-config (Homebrew), not content-hashed in-tree; minimum versions live in third_party/typography-deps/PIN.json."
+    },
+    {
+      "id": "stb-image-bounds",
+      "summary": "stb_image is retained with importer dimension/budget limits; upstream documents preferring Wuffs when security is the top priority."
+    },
+    {
+      "id": "apple-framework-sanitizers",
+      "summary": "Apple system frameworks are not fully instrumented under project sanitizers; green ASan/TSan does not imply complete OS encoder/Metal/driver coverage."
+    },
+    {
+      "id": "metal-cpp-archive",
+      "summary": "metal-cpp archive_sha256 pins the upstream tarball identity; the vendored header tree is gated by tag/commit/hash fields checked at CMake configure."
+    },
+    {
+      "id": "offline-asset-locks",
+      "summary": "Release and style asset locks verify offline; builds must not fetch fonts, textures or pins from the network."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "description": "Licenses permitted on distributed V1 pins, fonts, textures and tooling dependencies.",
+  "licenses": [
+    "Apache-2.0",
+    "MIT",
+    "MIT OR Unlicense",
+    "BSD-3-Clause",
+    "Zlib",
+    "SGI-B-2.0",
+    "OFL-1.1",
+    "Bitstream-Vera-Arev",
+    "Bitstream Vera + Arev (see LICENSE-DejaVu.txt)",
+    "CC0-1.0",
+    "synthetic-media",
+    "project-fixture",
+    "FTL OR GPL-2.0-or-later",
+    "MIT-old-style (see upstream COPYING)",
+    "Unicode-3.0 / ICU",
+    "Python-2.0"
+  ]
+}

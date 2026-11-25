@@ -14,6 +14,7 @@ on:
 #   gpu-integration
 #   visual-regression
 #   quality-lint
+#   security-audit
 
 jobs:
   native-dev:
@@ -129,6 +130,28 @@ jobs:
           python3 -m unittest discover -s tools/dev -p 'test_shader_layouts.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_visual_baseline.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_quality_release.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_security_audit.py' -v
+
+  security-audit:
+    name: security-audit
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Security and license audit with SBOM
+        run: |
+          mkdir -p security-audit-artifacts
+          python3 tools/dev/check_security_audit.py \
+            --write-report security-audit-artifacts/security-audit-report.json \
+            --write-sbom security-audit-artifacts/sbom.json
+
+      - name: Upload security audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit
+          path: security-audit-artifacts/
+          if-no-files-found: warn
 
   quality-lint:
     name: quality-lint

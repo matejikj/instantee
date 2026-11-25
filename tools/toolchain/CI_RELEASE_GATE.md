@@ -19,6 +19,7 @@ check names (exact `jobs.<id>.name` values from `.github/workflows/ci.yml`):
 | `gpu-integration` | Offline MSL PIN drift, CPU/GPU layout contract break, Metal golden/retirement/video-stress failure |
 | `visual-regression` | Unreviewed Style Bible golden drift, rejected/missing approval, or failed readability checklist items |
 | `quality-lint` | Unapproved lint errors on released examples, failed safe-area/mobile legibility, or unused waivers |
+| `security-audit` | Missing license/hash coverage, metal-cpp pin drift, disallowed license, or unresolved critical audit finding |
 
 Do not require certification-preset jobs (`release`, `asan-ubsan`, `tsan` with
 `INSTANTEE_TOOLCHAIN_MODE=certification`) on hosted runners: those presets
@@ -70,6 +71,7 @@ python3 tools/dev/check_dependency_audit.py
 python3 tools/dev/run_gpu_integration.py -p build/dev --artifact-dir /tmp/gpu-artifacts
 python3 tools/dev/run_visual_regression.py -p build/dev --artifact-dir /tmp/visual-artifacts --enforce-platform
 python3 tools/dev/check_quality_release.py --write-report /tmp/quality-lint-report.json
+python3 tools/dev/check_security_audit.py --write-report /tmp/security-audit-report.json --write-sbom /tmp/sbom.json
 ```
 
 A `.metal` source change must update `engine/shaders/modules/PIN.json` (via
@@ -90,6 +92,12 @@ passed.
 Released examples are gated by `contracts/quality-release/policy-v1.json`.
 Unwaived error findings, failed phone/safe-area legibility, or unused waivers
 fail `quality-lint`. The uploaded report sets `certified_performance: false`.
+
+Distributed fonts/textures, vendored pins and lock manifests are gated by
+`tools/dev/check_security_audit.py`. Drift in metal-cpp identity, missing
+license sidecars, release-asset-lock digest mismatch or a disallowed license
+fails `security-audit`. The job publishes an offline SBOM; it does not fetch
+CVE feeds and sets `certified_performance: false`.
 
 On the reference machine, prefer the certification sanitizer presets when
 collecting evidence that must match the toolchain lock.

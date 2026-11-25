@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "certified_performance": false,
+  "summary": {
+    "critical": 0,
+    "info": 1,
+    "third_party_pins": 9,
+    "release_asset_entries": 18,
+    "npm_packages": 22
+  },
+  "dependency_locks": {
+    "ok": true,
+    "errors": []
+  },
+  "metal_cpp": {
+    "ok": true,
+    "pin": "third_party/metal-cpp/PIN.json",
+    "tag": "release/metal-cpp_macOS27.0.1_iOS27.0.1",
+    "commit": "8cdde68ae36a636c84cbb48ebcbc8f3b60251ea0",
+    "archive_sha256": "3a2f456c5373748e1b8de0896d1dbe53d6e0a1d3b8b9e5235c1a8abae6f373f5",
+    "license": "Apache-2.0"
+  },
+  "release_asset_lock": {
+    "ok": true,
+    "entries": 18,
+    "lock": "contracts/release/release-asset-lock-v1.json"
+  },
+  "platform_limits": [
+    {
+      "id": "certification-os",
+      "summary": "Certification presets lock macOS 27.2 / Xcode 27.2 on Apple Silicon; older hosts are unsupported for reference evidence."
+    },
+    {
+      "id": "vcpkg-empty",
+      "summary": "vcpkg manifest dependencies stay empty; configure does not download or bootstrap vcpkg until the first package is integrated in manifest mode."
+    },
+    {
+      "id": "npm-dev-only",
+      "summary": "Root Node packages are authoring/tooling only (no runtime dependency). Integrity hashes in package-lock.json gate installs."
+    },
+    {
+      "id": "typography-pkg-config",
+      "summary": "HarfBuzz, FreeType and ICU are resolved via pkg-config (Homebrew), not content-hashed in-tree; minimum versions live in third_party/typography-deps/PIN.json."
+    },
+    {
+      "id": "stb-image-bounds",
+      "summary": "stb_image is retained with importer dimension/budget limits; upstream documents preferring Wuffs when security is the top priority."
+    },
+    {
+      "id": "apple-framework-sanitizers",
+      "summary": "Apple system frameworks are not fully instrumented under project sanitizers; green ASan/TSan does not imply complete OS encoder/Metal/driver coverage."
+    },
+    {
+      "id": "metal-cpp-archive",
+      "summary": "metal-cpp archive_sha256 pins the upstream tarball identity; the vendored header tree is gated by tag/commit/hash fields checked at CMake configure."
+    },
+    {
+      "id": "offline-asset-locks",
+      "summary": "Release and style asset locks verify offline; builds must not fetch fonts, textures or pins from the network."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "info",
+      "code": "stb_security_note",
+      "path": "third_party/stb/stb_image.h",
+      "message": "stb_image documents a security preference for Wuffs; Instantee keeps importer dimension and budget limits (offline asset path)."
+    }
+  ],
+  "unresolved_critical": []
+}

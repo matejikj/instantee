@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T10:16:27Z",
+  "updated_at_utc": "2026-11-25T10:32:48Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7655,14 +7655,45 @@
       ]
     },
     "P8-029": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "All distributed assets have appropriate permissions and no unresolved critical vulnerability remains.",
-        "met": null
+        "criterion": "Všechny distribuované assety mají oprávnění a žádná neřešená kritická zranitelnost.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Distributed assets have license coverage and matching digests; metal-cpp/Node/vcpkg pins audited",
+            "met": true,
+            "evidence": [
+              "contracts/security-audit/allowed-licenses-v1.json",
+              "tools/dev/check_security_audit.py",
+              "implementation-evidence/P8-029/security-audit-artifacts/security-audit-report.json"
+            ]
+          },
+          {
+            "criterion": "SBOM + audit report published; no unresolved critical finding",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "implementation-evidence/P8-029/required-checks.json",
+              "implementation-evidence/P8-029/security-audit-artifacts/sbom.json",
+              "implementation-evidence/P8-029/security-audit-artifacts/security-audit-report.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-029/",
+        "implementation-evidence/P8-029/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-029/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "Offline audit only; no network CVE feed. Reports set certified_performance=false.",
+        "ASan/UBSan and TSan were not selected by path risk (Python/contracts/CI-only change)."
+      ]
     },
     "P8-030": {
       "status": "todo",

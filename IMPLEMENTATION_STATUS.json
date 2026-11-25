@@ -7898,14 +7898,46 @@
       ]
     },
     "P8-035": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "All 3 MP4 files have 1080×1920/30fps, no audio track and content matching the three Style Bibles.",
-        "met": null
+        "criterion": "Všechna 3 MP4 mají 1080×1920/30fps, bez audio stopy a obsah podle tří Style Bibles.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Three silent 1080x1920/30fps reference MP4s match Style Bible pins",
+            "met": true,
+            "evidence": [
+              "contracts/release/reference-films/catalog-v1.json",
+              "implementation-evidence/P8-035/export-report.json",
+              "implementation-evidence/P8-035/reference-films-check.json"
+            ]
+          },
+          {
+            "criterion": "Creative signoff covers direction, tempo, transitions, phone readability",
+            "met": true,
+            "evidence": [
+              "contracts/release/reference-films/creative-signoff-v1.json",
+              "contracts/fixtures/b01-editorial/visual-review/review-record.json",
+              "contracts/fixtures/b02-notebook/visual-review/review-record.json",
+              "contracts/fixtures/b03-paper/visual-review/review-record.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-035/",
+        "implementation-evidence/P8-035/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-035/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. measurement=none — export wall time is not a certified performance claim.",
+        "MP4 binaries under build/dist/reference-films/ (not committed); sha256 locked in catalog-v1.json.",
+        "Creative signoff consolidates locked Style Bible pins + approved visual-review records + technical probe.",
+        "ASan/UBSan and TSan not selected (contracts/Python-only). PTS excluded (-LE pts)."
+      ]
     },
     "P8-038": {
       "status": "todo",

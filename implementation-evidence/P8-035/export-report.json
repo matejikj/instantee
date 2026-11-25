@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "film_count": 3,
+  "out_dirname": "reference-films",
+  "digests_written": true,
+  "certified_performance": false,
+  "probes": [
+    {
+      "schema_version": 1,
+      "filename": "editorial-reference.mp4",
+      "size_bytes": 288040,
+      "sha256": "b11e81c914a30b9bad23ee934daeeb883b96a4f49596efb6d90c96e4c9a30742",
+      "width": 1080,
+      "height": 1920,
+      "nominal_fps": 30.0,
+      "duration_sec": 60.0,
+      "video_track_count": 1,
+      "audio_track_count": 0,
+      "codec_name": "h264",
+      "certified_performance": false
+    },
+    {
+      "schema_version": 1,
+      "filename": "notebook-reference.mp4",
+      "size_bytes": 306637,
+      "sha256": "71ae7cf0fa429648ef2be61b66db084b2faf9f2a706fd5a1fe1a59036837de59",
+      "width": 1080,
+      "height": 1920,
+      "nominal_fps": 30.0,
+      "duration_sec": 60.0,
+      "video_track_count": 1,
+      "audio_track_count": 0,
+      "codec_name": "h264",
+      "certified_performance": false
+    },
+    {
+      "schema_version": 1,
+      "filename": "paper-cinema-reference.mp4",
+      "size_bytes": 419546,
+      "sha256": "2334f4025d0e0857c3147ff887e59b0658462f178c49e5dcc3858180689156e7",
+      "width": 1080,
+      "height": 1920,
+      "nominal_fps": 30.0,
+      "duration_sec": 60.0,
+      "video_track_count": 1,
+      "audio_track_count": 0,
+      "codec_name": "h264",
+      "certified_performance": false
+    }
+  ]
+}

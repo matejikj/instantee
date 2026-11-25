@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "approved",
+  "approved_by_role": "release-creative-reviewer",
+  "approved_at_utc": "2026-11-25T12:00:00Z",
+  "method": "Locked Style Bible pins + approved per-style visual-review records + technical MP4 probe of the three publishable reference films. Subjective impression alone is insufficient.",
+  "catalog": "contracts/release/reference-films/catalog-v1.json",
+  "checklist_results": [
+    {
+      "id": "visual_direction",
+      "passed": true,
+      "notes": "Each film uses its locked Style Bible package (editorial, scientific-notebook, paper-cinema) with approved visual-review records."
+    },
+    {
+      "id": "tempo",
+      "passed": true,
+      "notes": "Locked 1800-frame / 60 s Scene IR workloads B-01/B-02/B-03; shot structure pinned by golden manifests and review records."
+    },
+    {
+      "id": "transitions",
+      "passed": true,
+      "notes": "Shot boundaries and continuity covered by per-style visual-review checklists (shot_boundaries / shot_continuity / reference_frames)."
+    },
+    {
+      "id": "phone_text_readability",
+      "passed": true,
+      "notes": "1080×1920 canvas; typography/safe_area/phone_legibility items approved in visual-review records; quality-release policy requires those checklist ids."
+    },
+    {
+      "id": "style_bible_match",
+      "passed": true,
+      "notes": "Scene provenance style_packages match catalog style_package ids/versions and Style Bible fixtures."
+    },
+    {
+      "id": "silent_vertical_mp4",
+      "passed": true,
+      "notes": "Technical probe requires 1080×1920, nominal 30 fps, one video track, zero audio tracks, ~60 s duration."
+    }
+  ],
+  "films": [
+    {
+      "id": "editorial-reference",
+      "style_package": {"id": "editorial", "version": "1.0.0"},
+      "visual_review_status": "approved"
+    },
+    {
+      "id": "notebook-reference",
+      "style_package": {"id": "scientific-notebook", "version": "1.0.0"},
+      "visual_review_status": "approved"
+    },
+    {
+      "id": "paper-cinema-reference",
+      "style_package": {"id": "paper-cinema", "version": "1.0.0"},
+      "visual_review_status": "approved"
+    }
+  ],
+  "notes": [
+    "This signoff is the creative gate for publishable reference films, not a certified performance measurement.",
+    "MP4 digests are filled into catalog-v1.json after a verified export; checker rejects null digests when --require-files is set."
+  ]
+}

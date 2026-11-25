@@ -1,0 +1,12 @@
+# Verification commands (repo-relative)
+
+python3 -m unittest discover -s tools/release -p 'test_*.py' -v
+python3 tools/release/export_reference_films.py \
+  --cli build/release/instantee \
+  --out-dir build/dist/reference-films \
+  --write-digests \
+  --write-report implementation-evidence/P8-035/export-report.json
+python3 tools/release/check_reference_films.py \
+  --out-dir build/dist/reference-films \
+  --require-files --json
+python3 tools/dev/check.py --report implementation-evidence/P8-035/checks.json

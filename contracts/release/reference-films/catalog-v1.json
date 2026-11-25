@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "description": "Publishable V1 reference films — one silent 60 s Reel per Style Bible. Binary MP4s are produced into the configured output directory and are not stored in git; digests are recorded after a verified export.",
+  "output_dirname": "reference-films",
+  "technical_requirements": {
+    "width": 1080,
+    "height": 1920,
+    "nominal_fps": 30,
+    "audio_track_count": 0,
+    "video_track_count": 1,
+    "duration_frames": 1800,
+    "duration_sec": 60,
+    "codec_name_allowlist": [
+      "h264",
+      "avc1",
+      "avc"
+    ]
+  },
+  "films": [
+    {
+      "id": "editorial-reference",
+      "filename": "editorial-reference.mp4",
+      "workload": "B-01-editorial-news-reel-60s-v1",
+      "scene": "contracts/fixtures/b01-editorial/b01-news-reel.scene.json",
+      "style_bible": "contracts/fixtures/style-bible/positive/editorial.style.json",
+      "style_package": {
+        "id": "editorial",
+        "version": "1.0.0"
+      },
+      "visual_review_record": "contracts/fixtures/b01-editorial/visual-review/review-record.json",
+      "sha256": "b11e81c914a30b9bad23ee934daeeb883b96a4f49596efb6d90c96e4c9a30742"
+    },
+    {
+      "id": "notebook-reference",
+      "filename": "notebook-reference.mp4",
+      "workload": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "scene": "contracts/fixtures/b02-notebook/b02-pythagoras-explainer.scene.json",
+      "style_bible": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+      "style_package": {
+        "id": "scientific-notebook",
+        "version": "1.0.0"
+      },
+      "visual_review_record": "contracts/fixtures/b02-notebook/visual-review/review-record.json",
+      "sha256": "71ae7cf0fa429648ef2be61b66db084b2faf9f2a706fd5a1fe1a59036837de59"
+    },
+    {
+      "id": "paper-cinema-reference",
+      "filename": "paper-cinema-reference.mp4",
+      "workload": "B-03-paper-historical-reel-60s-v1",
+      "scene": "contracts/fixtures/b03-paper/b03-historical-reel.scene.json",
+      "style_bible": "contracts/fixtures/style-bible/positive/paper-cinema.style.json",
+      "style_package": {
+        "id": "paper-cinema",
+        "version": "1.0.0"
+      },
+      "visual_review_record": "contracts/fixtures/b03-paper/visual-review/review-record.json",
+      "sha256": "2334f4025d0e0857c3147ff887e59b0658462f178c49e5dcc3858180689156e7"
+    }
+  ]
+}

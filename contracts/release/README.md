@@ -20,6 +20,14 @@ python3 tools/release/check_version_manifest.py
 python3 -m unittest discover -s tools/release -p 'test_*.py'
 ```
 
+## Reference films
+
+`reference-films/` catalogs the three publishable silent 60 s Reels (one per
+Style Bible), the creative signoff checklist, and export/verify tooling under
+`tools/release/export_reference_films.py` and
+`tools/release/check_reference_films.py`. MP4 binaries stay out of git; digests
+are recorded in `catalog-v1.json` after a verified export.
+
 ## Release asset lock
 
 `release-asset-lock-v1.json` is the V1 repository-wide reproducibility lock.

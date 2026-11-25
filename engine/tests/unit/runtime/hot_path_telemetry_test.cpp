@@ -1,8 +1,10 @@
 #include <instantee/runtime/hot_path_telemetry.hpp>
 
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 #include <vector>
 
 namespace {
@@ -80,6 +82,9 @@ int main() {
     }
     expect(!compute_cpu_totals(1, 1, 0, 8, 1), "reject zero wall");
     expect(!compute_cpu_totals(1, 1, 100, 0, 1), "reject zero cpus");
+    expect(!compute_cpu_totals(std::numeric_limits<std::uint64_t>::max(), 1,
+                               100, 8, 1),
+           "reject cpu counter overflow");
   }
 
   // Memory peaks: null stays null; peaks track max.

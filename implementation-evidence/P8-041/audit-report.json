@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "subject": "metric reproducibility audit (p99/throughput/CPU/memory)",
+  "measurement": "none",
+  "certified_performance": false,
+  "pass": true,
+  "oracle": {
+    "pass": true,
+    "python_matches_known_oracle": true,
+    "overflow_safe_matches_known_oracle": true,
+    "large_n_python_vs_overflow_safe": true,
+    "cpu_normalization_known_counters": true,
+    "units": {
+      "latency": "ns",
+      "method": "exact_nearest_rank",
+      "interval": "request_before_admission_to_sink_accepted",
+      "cpu_scope": "renderer_process_all_threads",
+      "memory": "bytes"
+    }
+  },
+  "completeness": {
+    "pass": true,
+    "complete_oracle_ok": true,
+    "lost_samples_invalidate": true,
+    "missing_samples_invalidate": true
+  },
+  "report_pass_gates": {
+    "pass": true,
+    "schema_fixture_not_eligible": true,
+    "measured_success_eligible_uncertified": true,
+    "lost_samples_not_eligible": true,
+    "missing_metrics_not_eligible": true,
+    "mutated_fixture_not_eligible": true,
+    "units_intervals_profiles_explicit": true,
+    "semantic_negatives": [
+      {
+        "fixture": "cpu-formula-mismatch.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "frames-mismatch.json",
+        "certification_eligible": false,
+        "issue_count": 3
+      },
+      {
+        "fixture": "in-flight-peak-overflow.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "percentile-order.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "queue-peak-overflow.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "sample-count-mismatch.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "spvf-mismatch.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      },
+      {
+        "fixture": "throughput-mismatch.json",
+        "certification_eligible": false,
+        "issue_count": 1
+      }
+    ]
+  },
+  "independent_series_reproduction": {
+    "pass": true,
+    "measurement": "none",
+    "note": "Independent reproduction recomputes medians from committed run rows; it does not re-run cold/warm exports.",
+    "styles": {
+      "B-01": {
+        "pass": true,
+        "path": "implementation-evidence/P8-023/b01-baseline-summary.json",
+        "workload_id": "B-01-editorial-news-reel-60s-v1",
+        "expected_workload_id": "B-01-editorial-news-reel-60s-v1",
+        "cold_repeats": 3,
+        "warm_repeats": 3,
+        "summary_matches_independent_recompute": true,
+        "thresholds_explicit": true,
+        "series_validator_pass": true,
+        "run_reports_remain_uncertified": true,
+        "recomputed_summary": {
+          "cold_median_export_wall_ms": 166442.160667,
+          "warm_median_export_wall_ms": 168546.373791,
+          "cold_median_p99_ns": 159294083.0,
+          "warm_median_p99_ns": 160956125.0,
+          "cold_median_rss_peak_bytes": 128598016.0,
+          "warm_median_rss_peak_bytes": 128630784.0,
+          "cold_median_cpu_seconds_per_verified_frame": 0.09444809500000001,
+          "warm_median_cpu_seconds_per_verified_frame": 0.0956175938888889
+        }
+      },
+      "B-02": {
+        "pass": true,
+        "path": "implementation-evidence/P8-023/b02-baseline-summary.json",
+        "workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+        "expected_workload_id": "B-02-notebook-pythagoras-explainer-60s-v1",
+        "cold_repeats": 3,
+        "warm_repeats": 3,
+        "summary_matches_independent_recompute": true,
+        "thresholds_explicit": true,
+        "series_validator_pass": true,
+        "run_reports_remain_uncertified": true,
+        "recomputed_summary": {
+          "cold_median_export_wall_ms": 249674.9195,
+          "warm_median_export_wall_ms": 250476.919542,
+          "cold_median_p99_ns": 174245167.0,
+          "warm_median_p99_ns": 173100750.0,
+          "cold_median_rss_peak_bytes": 120061952.0,
+          "warm_median_rss_peak_bytes": 120078336.0,
+          "cold_median_cpu_seconds_per_verified_frame": 0.14061696944444443,
+          "warm_median_cpu_seconds_per_verified_frame": 0.14096762055555556
+        }
+      },
+      "B-03": {
+        "pass": true,
+        "path": "implementation-evidence/P8-023/b03-baseline-summary.json",
+        "workload_id": "B-03-paper-historical-reel-60s-v1",
+        "expected_workload_id": "B-03-paper-historical-reel-60s-v1",
+        "cold_repeats": 3,
+        "warm_repeats": 3,
+        "summary_matches_independent_recompute": true,
+        "thresholds_explicit": true,
+        "series_validator_pass": true,
+        "run_reports_remain_uncertified": true,
+        "recomputed_summary": {
+          "cold_median_export_wall_ms": 273535.980167,
+          "warm_median_export_wall_ms": 274516.5315,
+          "cold_median_p99_ns": 170944417.0,
+          "warm_median_p99_ns": 183705916.0,
+          "cold_median_rss_peak_bytes": 120455168.0,
+          "warm_median_rss_peak_bytes": 120356864.0,
+          "cold_median_cpu_seconds_per_verified_frame": 0.15368846166666666,
+          "warm_median_cpu_seconds_per_verified_frame": 0.15422426777777778
+        }
+      }
+    }
+  },
+  "telemetry_overhead": {
+    "pass": true,
+    "path": "implementation-evidence/P0-016/overhead/overhead.json",
+    "certified": false,
+    "pair_count": 3,
+    "not_performance_pass": true
+  }
+}

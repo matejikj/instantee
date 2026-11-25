@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T19:37:57Z",
+  "updated_at_utc": "2026-11-25T19:41:37Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -8070,14 +8070,52 @@
       ]
     },
     "P8-041": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "Raw evidence matches the report and all units/intervals/profiles are explicit; design fixtures, lost samples and missing metrics cannot receive PASS.",
-        "met": null
+        "criterion": "Raw evidence odpovídá reportu, všechny jednotky/intervaly/profily jsou explicitní; design fixture, ztracené samples a chybějící metriky nemohou získat PASS.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Raw evidence matches report via independent oracle and series recompute",
+            "met": true,
+            "evidence": [
+              "tools/benchmark/metric_reproducibility_audit.py",
+              "implementation-evidence/P8-041/audit-report.json"
+            ]
+          },
+          {
+            "criterion": "Units, intervals, and profiles are explicit",
+            "met": true,
+            "evidence": [
+              "implementation-evidence/P8-041/audit-report.json",
+              "contracts/fixtures/performance-report/positive/measured-success-min.json"
+            ]
+          },
+          {
+            "criterion": "Design fixture, lost samples, and missing metrics cannot receive PASS",
+            "met": true,
+            "evidence": [
+              "tools/benchmark/test_metric_reproducibility_audit.py",
+              "implementation-evidence/P8-041/audit-report.json",
+              "implementation-evidence/P8-041/decision.md"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-041/",
+        "implementation-evidence/P8-041/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-041/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier C. measurement=none — independent recompute only; no certified M1 Air performance.",
+        "Oracle + overflow-safe quantiles + CPU normalization; B-01/B-02/B-03 3x cold/warm medians recomputed from committed rows.",
+        "Schema fixtures, lost samples, missing metrics, and semantic negatives are not certification-eligible.",
+        "Telemetry overhead evidence remains certified=false and is not a performance PASS."
+      ]
     },
     "P8-036": {
       "status": "todo",

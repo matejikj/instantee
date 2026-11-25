@@ -1,0 +1,14 @@
+# Verification commands (repo-relative)
+
+python3 tools/benchmark/test_metric_reproducibility_audit.py -v
+
+python3 tools/benchmark/metric_reproducibility_audit.py \
+  --report implementation-evidence/P8-041/audit-report.json
+
+cmake --build --preset release --target spike_hot_path_telemetry_test
+./build/release/engine/tests/unit/runtime/spike_hot_path_telemetry_test
+
+ctest --preset release -R 'hot_path_telemetry|spike_measurement' --output-on-failure
+
+python3 tools/dev/check.py --asan --tsan \
+  --report implementation-evidence/P8-041/checks.json

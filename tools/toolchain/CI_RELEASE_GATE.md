@@ -17,6 +17,7 @@ check names (exact `jobs.<id>.name` values from `.github/workflows/ci.yml`):
 | `contracts-authoring` | Node/TypeScript lock drift, schema/codegen mismatch, authoring typecheck or SDK test failure |
 | `dependency-policy` | Module-boundary violation, public API/header inventory failure, unexpected vcpkg/npm dependency |
 | `gpu-integration` | Offline MSL PIN drift, CPU/GPU layout contract break, Metal golden/retirement/video-stress failure |
+| `visual-regression` | Unreviewed Style Bible golden drift, rejected/missing approval, or failed readability checklist items |
 
 Do not require certification-preset jobs (`release`, `asan-ubsan`, `tsan` with
 `INSTANTEE_TOOLCHAIN_MODE=certification`) on hosted runners: those presets
@@ -66,6 +67,7 @@ python3 tools/dev/check_module_boundaries.py
 python3 tools/dev/check_cpp_api_surface.py
 python3 tools/dev/check_dependency_audit.py
 python3 tools/dev/run_gpu_integration.py -p build/dev --artifact-dir /tmp/gpu-artifacts
+python3 tools/dev/run_visual_regression.py -p build/dev --artifact-dir /tmp/visual-artifacts --enforce-platform
 ```
 
 A `.metal` source change must update `engine/shaders/modules/PIN.json` (via
@@ -75,6 +77,13 @@ Golden PNG/hash expectations in Metal tests must be refreshed deliberately; an
 unreviewed shader output change fails `gpu-integration`. Artifact
 `summary.json` always sets `certified_performance: false` — this gate is not a
 release timing profile.
+
+Style Bible PNG/structural goldens are locked by
+`contracts/visual-baseline/registry-v1.json` to the Apple Silicon macOS Metal
+family. Updating a style golden requires a `CHANGE_RECORD.json` entry and an
+approved `visual-review/review-record.json`; otherwise `visual-regression`
+fails the pull request. Readability checklist items from the registry must stay
+passed.
 
 On the reference machine, prefer the certification sanitizer presets when
 collecting evidence that must match the toolchain lock.

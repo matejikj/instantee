@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-20T07:27:27Z",
+  "updated_at_utc": "2026-11-25T09:45:45Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7575,14 +7575,44 @@
       ]
     },
     "P8-027": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
         "criterion": "An unreviewed pixel change or loss of readability fails the release gate.",
-        "met": null
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Unreviewed golden digest drift fails the baseline/approval check",
+            "met": true,
+            "evidence": [
+              "tools/dev/check_visual_baseline.py",
+              "tools/dev/test_visual_baseline.py",
+              "contracts/visual-baseline/registry-v1.json",
+              "implementation-evidence/P8-027/visual-artifacts/summary.json"
+            ]
+          },
+          {
+            "criterion": "Failed readability checklist or missing approval fails visual-regression CI",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "implementation-evidence/P8-027/required-checks.json",
+              "implementation-evidence/P8-027/visual-artifacts/summary.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-027/",
+        "implementation-evidence/P8-027/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-027/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "Visual regression profile sets certified_performance=false; goldens locked to Apple Silicon macOS Metal family."
+      ]
     },
     "P8-028": {
       "status": "todo",

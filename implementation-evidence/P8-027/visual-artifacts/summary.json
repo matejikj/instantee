@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-25T09:24:12Z",
+  "profile": "visual-regression-correctness",
+  "certified_performance": false,
+  "notes": [
+    "Three-style golden/approval gate with readability checklist enforcement.",
+    "Do not treat durations from this profile as release certification timings."
+  ],
+  "build_dir": "build/release",
+  "styles": [
+    "spike_direction_editorial_visual_acceptance",
+    "spike_direction_notebook_visual_acceptance",
+    "spike_direction_paper_cinema_visual_acceptance"
+  ],
+  "steps": [
+    {
+      "name": "baseline-approval",
+      "command": [
+        "python3",
+        "tools/dev/check_visual_baseline.py",
+        "--registry",
+        "contracts/visual-baseline/registry-v1.json",
+        "--enforce-platform"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "log": "baseline-approval.log"
+    },
+    {
+      "name": "ctest-visual-acceptance",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build/release",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-R",
+        "^(spike_direction_editorial_visual_acceptance|spike_direction_notebook_visual_acceptance|spike_direction_paper_cinema_visual_acceptance)$"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "log": "ctest-visual-acceptance.log"
+    }
+  ],
+  "result": "passed"
+}

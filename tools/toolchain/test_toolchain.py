@@ -53,6 +53,7 @@ class ToolchainTests(unittest.TestCase):
             "check_cpp_api_surface.py",
             "check_shader_pin.py",
             "check_shader_layouts.py",
+            "check_visual_baseline.py",
         ):
             shutil.copy2(ROOT / "tools/dev" / script, dev_tools)
         (self.source / "node_modules").symlink_to(ROOT / "node_modules", target_is_directory=True)

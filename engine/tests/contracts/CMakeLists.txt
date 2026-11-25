@@ -69,3 +69,12 @@ add_test(NAME shader_layouts
           "--contract"
           "${PROJECT_SOURCE_DIR}/contracts/shaders/cpu-gpu-layouts-v1.json")
 set_tests_properties(shader_layouts PROPERTIES TIMEOUT 30 LABELS "cpu;gpu;shader")
+
+add_test(NAME visual_baseline
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/dev/check_visual_baseline.py"
+          "--repo" "${PROJECT_SOURCE_DIR}"
+          "--registry"
+          "${PROJECT_SOURCE_DIR}/contracts/visual-baseline/registry-v1.json")
+set_tests_properties(visual_baseline PROPERTIES TIMEOUT 30
+  LABELS "cpu;visual-regression")

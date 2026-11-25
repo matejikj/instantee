@@ -270,7 +270,7 @@ add_test(NAME spike_direction_editorial_visual_acceptance
   COMMAND spike_direction_editorial_visual_acceptance_test
           "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_editorial_visual_acceptance PROPERTIES
-  TIMEOUT 120 LABELS "cpu;smoke")
+  TIMEOUT 120 LABELS "cpu;smoke;visual-regression")
 
 add_executable(spike_direction_notebook_visual_acceptance_test
   notebook_visual_acceptance_test.cpp)
@@ -281,7 +281,7 @@ add_test(NAME spike_direction_notebook_visual_acceptance
   COMMAND spike_direction_notebook_visual_acceptance_test
           "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_notebook_visual_acceptance PROPERTIES
-  TIMEOUT 180 LABELS "cpu;smoke")
+  TIMEOUT 180 LABELS "cpu;smoke;visual-regression")
 
 add_executable(spike_direction_paper_cinema_visual_acceptance_test
   paper_cinema_visual_acceptance_test.cpp)
@@ -292,7 +292,7 @@ add_test(NAME spike_direction_paper_cinema_visual_acceptance
   COMMAND spike_direction_paper_cinema_visual_acceptance_test
           "${PROJECT_SOURCE_DIR}")
 set_tests_properties(spike_direction_paper_cinema_visual_acceptance PROPERTIES
-  TIMEOUT 180 LABELS "cpu;smoke")
+  TIMEOUT 180 LABELS "cpu;smoke;visual-regression")
 
 add_executable(spike_direction_editorial_multi_seed_test
   editorial_multi_seed_test.cpp)

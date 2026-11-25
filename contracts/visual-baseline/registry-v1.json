@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "description": "Cross-style visual regression baseline for the release gate. Goldens are locked to the Apple Silicon macOS Metal family; updates require an approved CHANGE_RECORD and review-record.",
+  "baseline_platform": {
+    "os_family": "macos",
+    "arch": "arm64",
+    "gpu_family": "apple-silicon",
+    "notes": "Approved on Apple Silicon Metal. Hosted macos-15 runners share this family. Certification toolchain pins remain separate from this correctness baseline."
+  },
+  "default_tolerances": {
+    "max_channel_delta": 0,
+    "max_mismatch_ratio": 0.0
+  },
+  "styles": [
+    {
+      "id": "editorial",
+      "workload": "B-01-editorial-news-reel-60s-v1",
+      "goldens_dir": "contracts/fixtures/b01-editorial/goldens",
+      "review_dir": "contracts/fixtures/b01-editorial/visual-review",
+      "ctest_name": "spike_direction_editorial_visual_acceptance",
+      "readability_checklist_ids": ["safe_area", "typography", "reference_frames"]
+    },
+    {
+      "id": "notebook",
+      "workload": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "goldens_dir": "contracts/fixtures/b02-notebook/goldens",
+      "review_dir": "contracts/fixtures/b02-notebook/visual-review",
+      "ctest_name": "spike_direction_notebook_visual_acceptance",
+      "readability_checklist_ids": ["phone_legibility", "reference_frames"]
+    },
+    {
+      "id": "paper-cinema",
+      "workload": "B-03-paper-historical-reel-60s-v1",
+      "goldens_dir": "contracts/fixtures/b03-paper/goldens",
+      "review_dir": "contracts/fixtures/b03-paper/visual-review",
+      "ctest_name": "spike_direction_paper_cinema_visual_acceptance",
+      "readability_checklist_ids": ["phone_legibility", "reference_frames"]
+    }
+  ]
+}

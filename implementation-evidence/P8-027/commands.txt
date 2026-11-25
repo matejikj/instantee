@@ -1,0 +1,7 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_visual_baseline.py --enforce-platform
+python3 -m unittest discover -s tools/dev -p 'test_visual_baseline.py' -v
+cmake --preset release
+cmake --build --preset release
+python3 tools/dev/run_visual_regression.py -p build/release --artifact-dir implementation-evidence/P8-027/visual-artifacts --enforce-platform
+tools/dev/check.py --keep-going --report implementation-evidence/P8-027/checks.json

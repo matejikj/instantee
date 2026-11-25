@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T09:45:45Z",
+  "updated_at_utc": "2026-11-25T10:16:27Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7615,14 +7615,44 @@
       ]
     },
     "P8-028": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "No released example contains unapproved errors.",
-        "met": null
+        "criterion": "Žádný releasovaný example neobsahuje neodsouhlasené chyby.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Released examples have no unwaived error findings under strict policy",
+            "met": true,
+            "evidence": [
+              "contracts/quality-release/policy-v1.json",
+              "tools/dev/check_quality_release.py",
+              "implementation-evidence/P8-028/quality-lint-artifacts/quality-lint-report.json"
+            ]
+          },
+          {
+            "criterion": "Safe-area/mobile legibility required on finished films; Quality lint CI report blocks unapproved errors",
+            "met": true,
+            "evidence": [
+              ".github/workflows/ci.yml",
+              "implementation-evidence/P8-028/required-checks.json",
+              "implementation-evidence/P8-028/quality-lint-artifacts/quality-lint-report.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-028/",
+        "implementation-evidence/P8-028/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-028/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. No performance measurement or certification claim.",
+        "quality-lint report sets certified_performance=false; not a release timing gate.",
+        "ASan/UBSan and TSan were not selected by path risk (Python/contracts/CI-only change)."
+      ]
     },
     "P8-029": {
       "status": "todo",

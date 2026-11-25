@@ -1,0 +1,4 @@
+python3 tools/dev/sync_tracker.py
+python3 tools/dev/check_quality_release.py --cli build/release/instantee --write-report implementation-evidence/P8-028/quality-lint-artifacts/quality-lint-report.json
+python3 -m unittest discover -s tools/dev -p 'test_quality_release.py' -v
+tools/dev/check.py --keep-going --report implementation-evidence/P8-028/checks.json

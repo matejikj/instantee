@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "policy": "contracts/quality-release/policy-v1.json",
+  "enforcement": "strict",
+  "blocking_codes": [
+    "important_outside_canvas",
+    "important_outside_safe_area",
+    "hard_overlap",
+    "min_font_size",
+    "contrast_ratio",
+    "text_mask_clip",
+    "excessive_cuts",
+    "cut_spacing",
+    "stroboscopic_motion",
+    "palette_mismatch",
+    "repeated_preset"
+  ],
+  "warning_codes": [
+    "text_overflow",
+    "excessive_cuts",
+    "palette_mismatch",
+    "repeated_preset"
+  ],
+  "ok": true,
+  "examples": [
+    {
+      "id": "b01-editorial",
+      "ok": true,
+      "errors": [],
+      "lint": {
+        "ok": true,
+        "blocking_count": 0,
+        "waived_count": 0,
+        "unused_waiver_count": 0,
+        "blocking": [],
+        "errors": []
+      },
+      "legibility": {
+        "ok": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "b02-notebook",
+      "ok": true,
+      "errors": [],
+      "lint": {
+        "ok": true,
+        "blocking_count": 0,
+        "waived_count": 0,
+        "unused_waiver_count": 0,
+        "blocking": [],
+        "errors": []
+      },
+      "legibility": {
+        "ok": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "b03-paper",
+      "ok": true,
+      "errors": [],
+      "lint": {
+        "ok": true,
+        "blocking_count": 0,
+        "waived_count": 0,
+        "unused_waiver_count": 0,
+        "blocking": [],
+        "errors": []
+      },
+      "legibility": {
+        "ok": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "three-styles-authoring",
+      "ok": true,
+      "errors": [],
+      "lint": {
+        "ok": true,
+        "blocking_count": 0,
+        "waived_count": 0,
+        "unused_waiver_count": 0,
+        "blocking": [],
+        "errors": []
+      },
+      "legibility": {
+        "ok": true,
+        "errors": []
+      }
+    }
+  ],
+  "errors": [],
+  "certified_performance": false
+}

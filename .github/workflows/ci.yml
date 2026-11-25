@@ -13,6 +13,7 @@ on:
 #   dependency-policy
 #   gpu-integration
 #   visual-regression
+#   quality-lint
 
 jobs:
   native-dev:
@@ -127,6 +128,27 @@ jobs:
           python3 -m unittest discover -s tools/dev -p 'test_shader_pin.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_shader_layouts.py' -v
           python3 -m unittest discover -s tools/dev -p 'test_visual_baseline.py' -v
+          python3 -m unittest discover -s tools/dev -p 'test_quality_release.py' -v
+
+  quality-lint:
+    name: quality-lint
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Quality lint and accessibility release policy
+        run: |
+          mkdir -p quality-lint-artifacts
+          python3 tools/dev/check_quality_release.py \
+            --write-report quality-lint-artifacts/quality-lint-report.json
+
+      - name: Upload quality lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-lint
+          path: quality-lint-artifacts/
+          if-no-files-found: warn
 
   gpu-integration:
     name: gpu-integration

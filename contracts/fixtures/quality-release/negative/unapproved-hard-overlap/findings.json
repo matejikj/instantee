@@ -1,0 +1,12 @@
+{
+  "schema_version": "lint-findings/1",
+  "findings": [
+    {
+      "code": "hard_overlap",
+      "severity": "error",
+      "path": "/shots/0/nodes/title",
+      "element_id": "title",
+      "message": "Important elements overlap without an approved waiver"
+    }
+  ]
+}

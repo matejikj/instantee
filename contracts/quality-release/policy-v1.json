@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "description": "Release gate for quality lint and accessibility on finished films. Unwaived error findings and failed mobile/safe-area legibility block release.",
+  "enforcement": "strict",
+  "blocking_codes": [
+    "important_outside_canvas",
+    "important_outside_safe_area",
+    "hard_overlap",
+    "min_font_size",
+    "contrast_ratio",
+    "text_mask_clip",
+    "excessive_cuts",
+    "cut_spacing",
+    "stroboscopic_motion",
+    "palette_mismatch",
+    "repeated_preset"
+  ],
+  "warning_codes": [
+    "text_overflow",
+    "excessive_cuts",
+    "palette_mismatch",
+    "repeated_preset"
+  ],
+  "released_examples": [
+    {
+      "id": "b01-editorial",
+      "kind": "style-film",
+      "workload": "B-01-editorial-news-reel-60s-v1",
+      "findings": "contracts/quality-release/examples/b01-editorial/findings.json",
+      "waivers": null,
+      "legibility": {
+        "kind": "visual-review",
+        "review_record": "contracts/fixtures/b01-editorial/visual-review/review-record.json",
+        "required_checklist_ids": ["safe_area", "typography", "reference_frames"]
+      }
+    },
+    {
+      "id": "b02-notebook",
+      "kind": "style-film",
+      "workload": "B-02-notebook-pythagoras-explainer-60s-v1",
+      "findings": "contracts/quality-release/examples/b02-notebook/findings.json",
+      "waivers": null,
+      "legibility": {
+        "kind": "visual-review",
+        "review_record": "contracts/fixtures/b02-notebook/visual-review/review-record.json",
+        "required_checklist_ids": ["phone_legibility", "reference_frames"]
+      }
+    },
+    {
+      "id": "b03-paper",
+      "kind": "style-film",
+      "workload": "B-03-paper-historical-reel-60s-v1",
+      "findings": "contracts/quality-release/examples/b03-paper/findings.json",
+      "waivers": null,
+      "legibility": {
+        "kind": "visual-review",
+        "review_record": "contracts/fixtures/b03-paper/visual-review/review-record.json",
+        "required_checklist_ids": ["phone_legibility", "reference_frames"]
+      }
+    },
+    {
+      "id": "three-styles-authoring",
+      "kind": "authoring-example",
+      "example_entry": "authoring/examples/three-styles/main.mjs",
+      "findings": "contracts/quality-release/examples/three-styles/findings.json",
+      "waivers": null,
+      "legibility": {
+        "kind": "style-bible-safe-area",
+        "style_packages": [
+          "contracts/fixtures/style-bible/positive/editorial.style.json",
+          "contracts/fixtures/style-bible/positive/scientific-notebook.style.json",
+          "contracts/fixtures/style-bible/positive/paper-cinema.style.json"
+        ]
+      }
+    }
+  ]
+}

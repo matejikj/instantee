@@ -295,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--build-dir", type=Path, default=REPO_ROOT / "build" / "release")
     parser.add_argument("--out-dir", type=Path, default=REPO_ROOT / "build" / "dist" / "macos")
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
-    parser.add_argument("--version", default="0.1.0")
+    parser.add_argument("--version", default="1.0.0")
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
     args = parser.parse_args(argv)
 

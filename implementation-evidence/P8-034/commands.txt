@@ -1,0 +1,5 @@
+# Verification commands (repo-relative)
+
+python3 tools/release/check_version_manifest.py --json
+python3 -m unittest discover -s tools/release -p 'test_*.py' -v
+python3 tools/dev/check.py --report implementation-evidence/P8-034/checks.json

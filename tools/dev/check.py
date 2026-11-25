@@ -36,7 +36,13 @@ TIMING_PREFIXES = (
 )
 AUTHORING_PREFIXES = ("authoring/", "contracts/")
 AUTHORING_FILES = {"package.json", "package-lock.json", "tsconfig.json", "tsconfig.base.json"}
-PYTHON_SUITES = ("tools/benchmark", "tools/dev", "tools/machine-profile", "tools/toolchain")
+PYTHON_SUITES = (
+    "tools/benchmark",
+    "tools/dev",
+    "tools/machine-profile",
+    "tools/release",
+    "tools/toolchain",
+)
 CTEST_SUMMARY = re.compile(r"(\d+)% tests passed, (\d+) tests failed out of (\d+)")
 
 

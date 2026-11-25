@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.3)
-project(Instantee VERSION 0.0.0 LANGUAGES C CXX OBJCXX)
+project(Instantee VERSION 1.0.0 LANGUAGES C CXX OBJCXX)
 
 foreach(language IN ITEMS CXX OBJCXX)
   set(CMAKE_${language}_STANDARD 23)

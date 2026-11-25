@@ -32,7 +32,8 @@ cmake --build --preset release --target instantee
 npm run build:authoring
 python3 tools/release/package_macos.py \
   --build-dir build/release \
-  --out-dir build/dist/macos
+  --out-dir build/dist/macos \
+  --version 1.0.0
 ```
 
 ## Install smoke (no renderer compile)

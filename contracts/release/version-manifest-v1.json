@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "description": "Normative release versioning contract. Separates product semver from Scene IR schema and Style Bible package versions. The v1.0.0 git tag must embed this manifest's declared axes and migrations.",
+  "release": {
+    "git_tag": "v1.0.0",
+    "framework_semver": "1.0.0",
+    "status": "declared",
+    "changelog_path": "CHANGELOG.md",
+    "release_notes_heading": "## [1.0.0]",
+    "notes": "Creating the annotated git tag is a later release step; this manifest is the contract that tag must satisfy."
+  },
+  "axes": {
+    "framework_semver": {
+      "value": "1.0.0",
+      "role": "Product identity for CLI, public TS SDK, and git tags (vMAJOR.MINOR.PATCH).",
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "kind": "cmake_project_version"
+        },
+        {
+          "path": "authoring/packages/authoring/package.json",
+          "kind": "npm_package_version"
+        }
+      ]
+    },
+    "scene_ir_schema_version": {
+      "value": "1.0.0",
+      "role": "On-disk Scene IR document schema_version. Independent of framework_semver.",
+      "matrix_family": "scene-ir",
+      "matrix_path": "contracts/compatibility/schema-version-matrix-v1.json"
+    },
+    "style_package_version": {
+      "role": "Per Style Bible package semver (package_id + version). Independent of framework_semver and Scene IR schema.",
+      "packages": [
+        {
+          "id": "editorial",
+          "version": "1.0.0",
+          "fixture": "contracts/fixtures/style-bible/positive/editorial.style.json"
+        },
+        {
+          "id": "scientific-notebook",
+          "version": "1.0.0",
+          "fixture": "contracts/fixtures/style-bible/positive/scientific-notebook.style.json"
+        },
+        {
+          "id": "paper-cinema",
+          "version": "1.0.0",
+          "fixture": "contracts/fixtures/style-bible/positive/paper-cinema.style.json"
+        }
+      ]
+    },
+    "authoring_schema_version": {
+      "value": "1.0.0",
+      "role": "Authoring document schema_version (may migrate into Scene IR).",
+      "matrix_family": "authoring",
+      "matrix_path": "contracts/compatibility/schema-version-matrix-v1.json"
+    },
+    "benchmark_report_protocol_version": {
+      "value": "1",
+      "role": "Benchmark/report protocol identity from BENCHMARK_PROTOCOL.md. Not a data IR version.",
+      "source_doc": "motion_framework_sas/BENCHMARK_PROTOCOL.md"
+    }
+  },
+  "compatibility_matrix": {
+    "framework_semver": "1.0.0",
+    "supports": {
+      "scene_ir_schema_version": [
+        "1.0.0"
+      ],
+      "authoring_schema_version": [
+        "1.0.0",
+        "0.9.0"
+      ],
+      "style_bible_schema_version": [
+        "1.0.0"
+      ],
+      "style_package_ids": [
+        "editorial@1.0.0",
+        "scientific-notebook@1.0.0",
+        "paper-cinema@1.0.0"
+      ]
+    },
+    "migrations": [
+      {
+        "family": "authoring",
+        "from": "0.9.0",
+        "to": "1.0.0",
+        "migrator": "migrate_authoring_json",
+        "fixture": "contracts/fixtures/authoring/migrations/from-0.9.0",
+        "status": "migratable"
+      }
+    ],
+    "rejected_without_migration": {
+      "authoring": [
+        "0.8.0",
+        "1.1.0",
+        "2.0.0",
+        "99.0.0"
+      ],
+      "scene-ir": [
+        "0.9.0",
+        "1.1.0",
+        "2.0.0"
+      ],
+      "style-bible": [
+        "0.9.0",
+        "1.1.0",
+        "2.0.0"
+      ]
+    },
+    "schema_matrix_path": "contracts/compatibility/schema-version-matrix-v1.json"
+  },
+  "process": {
+    "changelog_required_heading": "## [1.0.0]",
+    "changelog_required_sections": [
+      "### Breaking Changes",
+      "### Added",
+      "### Changed"
+    ],
+    "bump_rules": [
+      "Bump framework_semver for product/CLI/SDK releases; language of design docs alone does not bump it.",
+      "Bump scene_ir_schema_version only when Scene IR on-disk shape or required interpretation changes; ship migrators or reject unsupported versions.",
+      "Bump style_package_version per package when tokens/defaults that change pixels change; pin consumers to package_id@version.",
+      "Breaking Changes in CHANGELOG.md are mandatory whenever any public axis MAJOR increases or a supported version is dropped."
+    ]
+  }
+}

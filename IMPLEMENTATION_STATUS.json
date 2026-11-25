@@ -7858,14 +7858,44 @@
       ]
     },
     "P8-034": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "The v1.0 tag states compatible versions and migrations; release notes describe breaking changes.",
-        "met": null
+        "criterion": "Tag v1.0 uvádí kompatibilní verze a migrace; release notes popisují breaking changes.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "v1.0.0 release identity declares compatible versions and migrations",
+            "met": true,
+            "evidence": [
+              "contracts/release/version-manifest-v1.json",
+              "implementation-evidence/P8-034/version-manifest-check.json"
+            ]
+          },
+          {
+            "criterion": "Release notes describe breaking changes",
+            "met": true,
+            "evidence": [
+              "CHANGELOG.md",
+              "tools/release/check_version_manifest.py"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-034/",
+        "implementation-evidence/P8-034/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-034/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. measurement=none — no performance certification.",
+        "Axes separated: framework_semver, scene_ir_schema_version, style_package_version (+ authoring schema, benchmark protocol).",
+        "Checker cross-validates CMake/npm versions, Style Bible fixtures, schema-version-matrix migrations/rejects, and CHANGELOG Breaking Changes.",
+        "Git tag creation remains a later release step; manifest status=declared.",
+        "TSan not selected. PTS excluded (-LE pts). ASan/UBSan selected via CMakeLists change and passed."
+      ]
     },
     "P8-035": {
       "status": "todo",

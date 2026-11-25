@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "certified_performance": false,
+  "compiled_renderer_on_host": false,
+  "invoked_cmake": false,
+  "package_name": "instantee-macos-0.1.0-arm64",
+  "deployment_target": "27.2",
+  "signing_mode": "ad-hoc",
+  "video_bytes": 1534
+}

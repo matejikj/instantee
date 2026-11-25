@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "description": "macOS binary distribution policy for the Instantee CLI package.",
+  "platform": {
+    "os_family": "macos",
+    "arch": "arm64",
+    "deployment_target": "27.2",
+    "stdlib": "libc++"
+  },
+  "rpath": {
+    "install_rpath": "@loader_path/../lib",
+    "notes": "CLI is currently linked only to Apple system frameworks. INSTALL_RPATH reserves @loader_path/../lib for future private dylibs; no third-party .dylib is shipped in V1."
+  },
+  "signing": {
+    "mode": "ad-hoc",
+    "identity": "-",
+    "notarization": "not-required-for-local-binary-dist",
+    "notes": "Local/CI binary distributions are ad-hoc signed (codesign -s -). Developer ID + notarization is a later distribution channel, not required for the install-smoke acceptance of a relocatable prefix."
+  },
+  "payload": {
+    "cli": "bin/instantee",
+    "includes_embedded_metallibs": true,
+    "contracts": "share/instantee/contracts",
+    "fonts": "share/instantee/fonts",
+    "authoring_sdk": "share/instantee/authoring",
+    "examples": "share/instantee/examples",
+    "smoke_scene": "share/instantee/smoke/smoke.scene.json"
+  }
+}

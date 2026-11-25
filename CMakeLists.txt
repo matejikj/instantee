@@ -37,3 +37,4 @@ endforeach()
 
 add_subdirectory(engine)
 add_subdirectory(benchmarks)
+include(cmake/InstallRelease.cmake)

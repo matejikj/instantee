@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-25T11:34:01Z",
+  "updated_at_utc": "2026-11-25T11:34:52Z",
   "assignment_source": {
     "path": "motion_framework_sas/implementation_tasks.json",
     "sha256": "f89ef8577827a8b4ff7e9b3181341b9bba190ec992d928f961f8044c441393d9",
@@ -7817,14 +7817,45 @@
       ]
     },
     "P8-033": {
-      "status": "todo",
+      "status": "done",
       "acceptance": {
-        "criterion": "On a clean supported Mac, a binary distribution can be installed without locally compiling the renderer.",
-        "met": null
+        "criterion": "Na čistém podporovaném Macu jde nainstalovat balíček bez lokální kompilace rendereru, pokud se distribuuje binary.",
+        "met": true,
+        "criteria_evidence": [
+          {
+            "criterion": "Relocatable macOS package installs without compiling the Metal renderer",
+            "met": true,
+            "evidence": [
+              "cmake/InstallRelease.cmake",
+              "tools/release/package_macos.py",
+              "packaging/macos/policy-v1.json",
+              "implementation-evidence/P8-033/package-policy.json"
+            ]
+          },
+          {
+            "criterion": "Install smoke renders bundled Scene IR without cmake",
+            "met": true,
+            "evidence": [
+              "tools/release/smoke_install_macos.py",
+              "implementation-evidence/P8-033/install-smoke.json"
+            ]
+          }
+        ]
       },
-      "evidence": [],
-      "checks": [],
-      "blockers": []
+      "evidence": [
+        "implementation-evidence/P8-033/",
+        "implementation-evidence/P8-033/checks.json"
+      ],
+      "checks": [
+        "implementation-evidence/P8-033/checks.json"
+      ],
+      "blockers": [],
+      "notes": [
+        "Evidence tier A. measurement=none — no performance certification.",
+        "Package embeds metallibs; CLI links only Apple system libraries; INSTALL_RPATH=@loader_path/../lib; ad-hoc codesign.",
+        "Install smoke: help + render bundled smoke.scene.json; invoked_cmake=false.",
+        "ASan/UBSan selected by cmake/build-file risk and passed. TSan not selected (no runtime/thread path changes). PTS excluded (-LE pts). tools/release unit tests run manually (suite not yet in check.py PYTHON_SUITES)."
+      ]
     },
     "P8-034": {
       "status": "todo",

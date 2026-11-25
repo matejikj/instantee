@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "package_name": "instantee-macos-0.1.0-arm64",
+  "version": "0.1.0",
+  "certified_performance": false,
+  "platform": {
+    "os_family": "macos",
+    "arch": "arm64",
+    "deployment_target": "27.2",
+    "stdlib": "libc++"
+  },
+  "rpath": {
+    "install_rpath": "@loader_path/../lib",
+    "notes": "CLI is currently linked only to Apple system frameworks. INSTALL_RPATH reserves @loader_path/../lib for future private dylibs; no third-party .dylib is shipped in V1."
+  },
+  "signing": {
+    "mode": "ad-hoc",
+    "identity": "-",
+    "notarization": "not-required-for-local-binary-dist"
+  },
+  "payload": {
+    "cli": "bin/instantee",
+    "includes_embedded_metallibs": true,
+    "contracts": "share/instantee/contracts",
+    "fonts": "share/instantee/fonts",
+    "authoring_sdk": "share/instantee/authoring",
+    "examples": "share/instantee/examples",
+    "smoke_scene": "share/instantee/smoke/smoke.scene.json"
+  },
+  "binary": {
+    "path": "bin/instantee",
+    "size_bytes": 1914392,
+    "sha256": "b5225d45f0c7f0f2dee30841af6564b3d8fcb9615f6f46aa9b532a4b8120fda4",
+    "minos": "27.2",
+    "sdk": "27.2",
+    "rpaths": [
+      "@loader_path/../lib"
+    ],
+    "non_system_libraries": [],
+    "linked_libraries": [
+      "/System/Library/Frameworks/Security.framework/Versions/A/Security",
+      "/usr/lib/libcompression.dylib",
+      "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+      "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+      "/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+      "/System/Library/Frameworks/AVFoundation.framework/Versions/A/AVFoundation",
+      "/System/Library/Frameworks/CoreMedia.framework/Versions/A/CoreMedia",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libSystem.B.dylib"
+    ],
+    "signing": {
+      "mode": "ad-hoc",
+      "codesign_ok": true,
+      "identity": "ad-hoc"
+    }
+  }
+}

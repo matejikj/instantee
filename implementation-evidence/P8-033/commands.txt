@@ -1,0 +1,11 @@
+# Verification commands (repo-relative; no personal paths)
+
+cmake -S . -B build/release
+cmake --build build/release --target instantee
+python3 tools/release/test_package_macos.py -v
+python3 tools/release/package_macos.py --build-dir build/release --out-dir build/dist/macos --version 0.1.0
+python3 tools/release/smoke_install_macos.py \
+  --package-dir build/dist/macos/instantee-macos-0.1.0-arm64 \
+  --work-dir build/tmp/instantee-install-smoke \
+  --write-report build/tmp/install-smoke-report.json
+python3 tools/dev/check.py --report implementation-evidence/P8-033/checks.json
